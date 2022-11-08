@@ -20,6 +20,7 @@ public class TsetskolTest extends BaseTest{
         String cityName = "Paris";
         String expectedResult = "Paris, FR";
 
+
         getDriver().get(url);
         Thread.sleep(5000);
 
