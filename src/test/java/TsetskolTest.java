@@ -50,8 +50,5 @@ public class TsetskolTest extends BaseTest{
         String actualResult = h2CityCountryHeader.getText();
 
         Assert.assertEquals(actualResult, expectedResult);
-
-
-
     }
 }
