@@ -5,7 +5,6 @@ import org.testng.annotations.Test;
 import runner.BaseTest;
 
 public class TsetskolTest extends BaseTest{
-    @Test
 
     //    TC_1_1  - Тест кейс:
     //    //1. Открыть страницу https://openweathermap.org/
@@ -13,7 +12,7 @@ public class TsetskolTest extends BaseTest{
     //    //3. Нажать пункт меню Search
     //    //4. Из выпадающего списка выбрать Paris, FR
     //    //5. Подтвердить, что заголовок изменился на "Paris, FR"
-
+    @Test
     public void testH2TagText_WhenSearchingCityCountry() throws InterruptedException {
 
         String url = "https://openweathermap.org/";
