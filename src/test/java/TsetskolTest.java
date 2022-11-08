@@ -25,8 +25,8 @@ public class TsetskolTest extends BaseTest{
 
         WebElement searchCityField = getDriver().findElement(
                 By.xpath("//div[@id = 'weather-widget']//input[@placeholder = 'Search city']")
-
         );
+
         searchCityField.click();
         searchCityField.sendKeys(cityName);
 
