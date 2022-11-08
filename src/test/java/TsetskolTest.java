@@ -36,7 +36,7 @@ public class TsetskolTest extends BaseTest{
         );
 
         searchButton.click();
-        Thread.sleep(1000);
+        Thread.sleep(5000);
 
 
         WebElement parisFRChoiceInDropdownMenu = getDriver().findElement(
