@@ -92,7 +92,49 @@ public class AnzhelikaBaaTest extends BaseTest {
 
         Assert.assertEquals(actualResult, expectedResult);
     }
+    @Test
+    public void testSubMenu_WhenUsingDDownSupportMenu() throws InterruptedException {
+        String url = "https://openweathermap.org/";
+        String expectedResult1 = "FAQ";
+        String expectedResult2 = "How to start";
+        String expectedResult3 = "Ask a question";
 
+        getDriver().manage().window().maximize();
+        getDriver().get(url);
+        Thread.sleep(7000);
+
+        WebElement dDownSupport = getDriver().findElement(
+                By.xpath("//div[@id='support-dropdown']")
+        );
+        dDownSupport.click();
+        Thread.sleep(7000);
+
+        WebElement faqButton = getDriver().findElement(
+                By.xpath("//ul[@id='support-dropdown-menu']//a[@href='/faq']")
+        );
+        Thread.sleep(7000);
+
+        WebElement howToStartButton = getDriver().findElement(
+                By.xpath("//ul[@id='support-dropdown-menu']//a[@href='/appid']")
+        );
+        Thread.sleep(7000);
+
+        WebElement askQuestionButton = getDriver().findElement(
+                By.xpath("//ul[@id='support-dropdown-menu']/li[3]/a[@href='https://home.openweathermap.org/questions']")
+        );
+        Thread.sleep(7000);
+
+        String actualResult1 =  faqButton.getText();
+        String actualResult2 = howToStartButton.getText();
+        String actualResult3 = askQuestionButton.getText();;
+
+        Assert.assertEquals(actualResult1, expectedResult1);
+        Assert.assertEquals(actualResult2, expectedResult2);
+        Assert.assertEquals(actualResult3, expectedResult3);
+        Assert.assertTrue(faqButton.isDisplayed());
+        Assert.assertTrue(howToStartButton.isDisplayed());
+        Assert.assertTrue(askQuestionButton.isDisplayed());
+    }
     @Test
     public void testTwoCookiesButtonsAndText_WhenOpenBaseURL() throws InterruptedException {
         String url = "https://openweathermap.org/";
