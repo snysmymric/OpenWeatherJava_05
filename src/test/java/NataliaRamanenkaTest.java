@@ -140,11 +140,9 @@ public class NataliaRamanenkaTest extends BaseTest {
 
         getDriver().get(url);
         Thread.sleep(7000);
-
         WebElement searchImperialF = getDriver().findElement(By.xpath("//div[text() = 'Imperial: °F, mph']"));
         searchImperialF.click();
         Thread.sleep(3000);
-
         WebElement searchF = getDriver().findElement(By.xpath("//span[@class = 'heading']"));
         boolean actualResult1 = searchF.getText().contains(measure1);
         WebElement searchImperialC = getDriver().findElement(By.xpath("//div[text() = 'Metric: °C, m/s']"));
@@ -155,5 +153,20 @@ public class NataliaRamanenkaTest extends BaseTest {
 
         Assert.assertEquals(actualResult1, expectedResult1);
         Assert.assertEquals(actualResult2, expectedResult2);
+    }
+
+    @Test
+    public void testLink_WhenLogoClick() throws InterruptedException {
+        String url = "https://openweathermap.org/";
+        String expectedResult = "https://openweathermap.org/";
+
+        getDriver().get(url);
+        Thread.sleep(7000);
+        WebElement searchLogo = getDriver().findElement(By.xpath("//li[@class = 'logo']"));
+        searchLogo.click();
+        Thread.sleep(7000);
+        String actualResult = getDriver().getCurrentUrl();
+
+        Assert.assertEquals(actualResult, expectedResult);
     }
 }
