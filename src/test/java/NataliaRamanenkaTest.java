@@ -16,7 +16,7 @@ public class NataliaRamanenkaTest extends BaseTest {
         String expectedResult = "Paris, FR";
 
         getDriver().get(url);
-        Thread.sleep(7000);
+        Thread.sleep(10000);
 
         WebElement searchCityField = getDriver().findElement(
                 By.xpath("//div[@id = 'weather-widget']//input[@placeholder = 'Search city']")
@@ -51,7 +51,7 @@ public class NataliaRamanenkaTest extends BaseTest {
         String expectedResult2 = "OpenWeatherMap API guide - OpenWeatherMap";
 
         getDriver().get(url);
-        Thread.sleep(7000);
+        Thread.sleep(10000);
         WebElement searchGuide =  getDriver().findElement(
                 By.xpath("//div[@id = 'desktop-menu']/ul/li/a[@href = '/guide']"));
         searchGuide.click();
@@ -69,7 +69,7 @@ public class NataliaRamanenkaTest extends BaseTest {
         boolean expectedResult = true;
 
         getDriver().get(url);
-        Thread.sleep(7000);
+        Thread.sleep(10000);
         WebElement searchImperialF = getDriver().findElement(By.xpath("//div[text() = 'Imperial: °F, mph']"));
         searchImperialF.click();
         Thread.sleep(2000);
@@ -87,7 +87,7 @@ public class NataliaRamanenkaTest extends BaseTest {
         String expectedResult3 = "Manage cookies";
 
         getDriver().get(url);
-        Thread.sleep(7000);
+        Thread.sleep(10000);
         WebElement searchCookiesPanel = getDriver().findElement(
                 By.xpath("//p[@class ='stick-footer-panel__description']"));
         String actualResult1 = searchCookiesPanel.getText();
@@ -111,7 +111,7 @@ public class NataliaRamanenkaTest extends BaseTest {
         String expectedResult3 = "Ask a question";
 
         getDriver().get(url);
-        Thread.sleep(7000);
+        Thread.sleep(10000);
         WebElement searchSupport = getDriver().findElement(By.xpath("//div[@id= 'support-dropdown']"));
         searchSupport.click();
         Thread.sleep(3000);
@@ -139,7 +139,7 @@ public class NataliaRamanenkaTest extends BaseTest {
         boolean expectedResult2 = true;
 
         getDriver().get(url);
-        Thread.sleep(7000);
+        Thread.sleep(10000);
         WebElement searchImperialF = getDriver().findElement(By.xpath("//div[text() = 'Imperial: °F, mph']"));
         searchImperialF.click();
         Thread.sleep(3000);
@@ -161,7 +161,7 @@ public class NataliaRamanenkaTest extends BaseTest {
         String expectedResult = "https://openweathermap.org/";
 
         getDriver().get(url);
-        Thread.sleep(7000);
+        Thread.sleep(10000);
         WebElement searchLogo = getDriver().findElement(By.xpath("//li[@class = 'logo']"));
         searchLogo.click();
         Thread.sleep(7000);

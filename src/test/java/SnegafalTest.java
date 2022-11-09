@@ -14,7 +14,7 @@ public class SnegafalTest extends BaseTest {
         String expectedResult = "Paris, FR";
 
         getDriver().get(url);
-        Thread.sleep(7000);
+        Thread.sleep(10000);
         WebElement searchCityField = getDriver().findElement(
                 By.xpath("//div[@id = 'weather-widget']//input[@placeholder = 'Search city']")
         );
@@ -51,7 +51,7 @@ public class SnegafalTest extends BaseTest {
 
         getDriver().get(url);
 
-        Thread.sleep(7000);
+        Thread.sleep(10000);
         WebElement guideInMenu = getDriver().findElement(
                 By.xpath("//ul[@id='first-level-nav']//a[@href='/guide']"));
         guideInMenu.click();

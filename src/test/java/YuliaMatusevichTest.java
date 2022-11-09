@@ -16,7 +16,7 @@ public class YuliaMatusevichTest extends BaseTest {
 
         getDriver().get(url);
         getDriver().manage().window().maximize();
-        Thread.sleep(6000);
+        Thread.sleep(10000);
         WebElement searchCityField = getDriver().findElement(
                 By.xpath("//div[@id = 'weather-widget']//input[@placeholder = 'Search city']"));
         searchCityField.click();

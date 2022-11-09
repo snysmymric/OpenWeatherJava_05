@@ -16,7 +16,7 @@ public class ElviraKh1Test extends BaseTest {
         final String[] expectedSupportSubMenus = {"FAQ", "How to start", "Ask a question"};
 
         getDriver().get(BASE_URL);
-        Thread.sleep(7000);
+        Thread.sleep(10000);
 
         WebElement supportMenu = getDriver().findElement(By.xpath("//div[@id='support-dropdown']"));
         supportMenu.click();

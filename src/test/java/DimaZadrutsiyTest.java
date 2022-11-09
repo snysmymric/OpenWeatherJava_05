@@ -14,7 +14,7 @@ public class DimaZadrutsiyTest extends BaseTest {
         String expectedResult = "Paris, FR";
 
         getDriver().get(url);
-        Thread.sleep(7000);
+        Thread.sleep(10000);
         WebElement searchCityField = getDriver().findElement(
                 By.xpath("//div[@id = 'weather-widget']//input[@placeholder = 'Search city']"));
         searchCityField.click();
@@ -49,7 +49,7 @@ public class DimaZadrutsiyTest extends BaseTest {
 
         getDriver().get(url);
 
-        Thread.sleep(7000);
+        Thread.sleep(10000);
         WebElement clickOnTheLogo = getDriver().findElement(By.xpath("//li[@class='logo']"));
         clickOnTheLogo.click();
 
@@ -70,7 +70,7 @@ public class DimaZadrutsiyTest extends BaseTest {
 
         getDriver().get(url);
 
-        Thread.sleep(7000);
+        Thread.sleep(10000);
         WebElement findCity = getDriver().findElement(By.xpath("//div//input[@placeholder='Search city']"));
         findCity.click();
         findCity.sendKeys(cityName);

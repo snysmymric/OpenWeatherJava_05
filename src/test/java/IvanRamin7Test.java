@@ -14,7 +14,7 @@ public class IvanRamin7Test extends BaseTest {
         String expectedResult = "Paris, FR";
 
         getDriver().get(url);
-        Thread.sleep(7000);
+        Thread.sleep(10000);
         WebElement searchCity = getDriver().findElement(
                 By.xpath("//div[@id = 'weather-widget']//input[@placeholder = 'Search city']")
         );
@@ -46,7 +46,7 @@ public class IvanRamin7Test extends BaseTest {
         String fahrenheitExpectedResult = "°F";
 
         getDriver().get(url);
-        Thread.sleep(7000);
+        Thread.sleep(10000);
         WebElement fahrenheitButton = getDriver().findElement(
                 By.xpath("//div[@class='page-container']//div[text() = 'Imperial: °F, mph']")
         );

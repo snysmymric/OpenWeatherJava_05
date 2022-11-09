@@ -16,7 +16,7 @@ public class IrynaHryhorivTest extends BaseTest {
         WebElement searchCityField = getDriver().findElement(
                 By.xpath("//div[@id ='weather-widget']//input[@placeholder = 'Search city']" )
         );
-        Thread.sleep(7000);
+        Thread.sleep(10000);
 
         searchCityField.click();
         searchCityField.sendKeys(cityName);

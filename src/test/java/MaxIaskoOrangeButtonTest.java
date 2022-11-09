@@ -13,7 +13,7 @@ public class MaxIaskoOrangeButtonTest extends BaseTest {
         getDriver().get(url);
         int expectedResult = 30;
 
-        Thread.sleep(7000);
+        Thread.sleep(10000);
         WebElement searchApiPage = getDriver().findElement(
                 By.xpath("//div[@id = 'desktop-menu']//a[text()= 'API']"));
         searchApiPage.click();

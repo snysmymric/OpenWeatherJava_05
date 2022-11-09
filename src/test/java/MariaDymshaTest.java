@@ -14,7 +14,7 @@ public class MariaDymshaTest extends BaseTest {
         String expectedResult = "Paris, FR";
 
         getDriver().get(url);
-        Thread.sleep(7000);
+        Thread.sleep(10000);
 
         WebElement searchCityField = getDriver().findElement(
                 By.xpath("//div[@id = \"weather-widget\"]//input[@placeholder=\"Search city\"]")
@@ -54,7 +54,7 @@ public class MariaDymshaTest extends BaseTest {
 
         getDriver().get(url);
         getDriver().manage().window().maximize();
-        Thread.sleep(7000);
+        Thread.sleep(10000);
 
         WebElement menuImperial =  getDriver().findElement(
                 By.xpath("//div[@class = 'option']/following-sibling::div")
@@ -82,7 +82,7 @@ public class MariaDymshaTest extends BaseTest {
         String expectedResult2 = "OpenWeatherMap API guide - OpenWeatherMap";
 
         getDriver().get(url);
-        Thread.sleep(7000);
+        Thread.sleep(10000);
 
         WebElement searchButtonInMenu = getDriver().findElement(
                 By.xpath("//li//a[text() = 'Guide']")

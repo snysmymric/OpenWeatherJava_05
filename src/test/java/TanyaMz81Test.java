@@ -16,7 +16,7 @@ public class TanyaMz81Test extends BaseTest {
 
         getDriver().get(url);
 
-        Thread.sleep(8000);
+        Thread.sleep(10000);
 
         WebElement searchCityField = getDriver().findElement(By.xpath
                 ("//div[@id = 'weather-widget']//input[@placeholder = 'Search city']"));

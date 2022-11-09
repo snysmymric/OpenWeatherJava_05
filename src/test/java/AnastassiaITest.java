@@ -13,7 +13,7 @@ public class AnastassiaITest extends BaseTest {
         String expectedResult = "Paris, FR";
 
         getDriver().get(url);
-        Thread.sleep(7000);
+        Thread.sleep(10000);
 
         WebElement searchCityField = getDriver().findElement(
                 By.xpath("//div[@id = 'weather-widget']/div/div/div//div/div/input[@placeholder = 'Search city' ]")

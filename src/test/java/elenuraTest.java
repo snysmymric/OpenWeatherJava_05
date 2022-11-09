@@ -12,7 +12,7 @@ public class elenuraTest extends BaseTest {
         String expectedResult = "Paris, FR";
 
         getDriver().get(url);
-        Thread.sleep(7000);
+        Thread.sleep(10000);
 
         WebElement searchCityField = getDriver().findElement(
                 By.xpath("//div[@id = 'weather-widget']//input[@ placeholder =  'Search city']")
@@ -51,7 +51,7 @@ public class elenuraTest extends BaseTest {
         String expectedResultTitle = "OpenWeatherMap API guide - OpenWeatherMap";
 
         getDriver().get(url);
-        Thread.sleep(5000);
+        Thread.sleep(10000);
 
         WebElement Title = getDriver().findElement(
                 By.xpath("//div/ul/li/a[@href='/guide']")

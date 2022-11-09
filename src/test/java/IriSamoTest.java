@@ -13,7 +13,7 @@ public class IriSamoTest extends BaseTest {
         String expectedResult = "Paris, FR";
 
         getDriver().get(url);
-        Thread.sleep(8000);
+        Thread.sleep(10000);
 
         WebElement searchCity = getDriver().findElement(
                 By.xpath("//input[@placeholder='Search city']")

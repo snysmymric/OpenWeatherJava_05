@@ -13,7 +13,7 @@ public class MurzinovaTest extends BaseTest {
         String expectedResult = "Paris, FR";
 
         getDriver().get(url);
-        Thread.sleep(7000);
+        Thread.sleep(10000);
 
         WebElement searchCityField = getDriver().findElement(
                 By.xpath("//div[@id='weather-widget']//input[@placeholder='Search city']")
@@ -53,7 +53,7 @@ public class MurzinovaTest extends BaseTest {
 
         getDriver().get(urlBasic);
         getDriver().manage().window().maximize();
-        Thread.sleep(7000);
+        Thread.sleep(10000);
 
         WebElement guideLink = getDriver().findElement(
                 By.xpath("//div[@id='desktop-menu']//a[@href='/guide']"));
@@ -73,7 +73,7 @@ public class MurzinovaTest extends BaseTest {
         String expectedResult = "F";
 
         getDriver().get(urlBasic);
-        Thread.sleep(7000);
+        Thread.sleep(10000);
 
         WebElement measureUnitLink = getDriver().findElement(
                 By.xpath("//div[@class='option'][text()='Imperial: °F, mph']"));

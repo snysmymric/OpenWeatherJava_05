@@ -18,7 +18,7 @@ public class IrynaOkunTest extends BaseTest {
         String expectedResult = "Paris, FR";
 
         getDriver().get(URL);
-        Thread.sleep(7000);
+        Thread.sleep(10000);
 
         WebElement searchCityField = getDriver().findElement(
                 By.xpath("//input[@placeholder = 'Search city']")
@@ -52,7 +52,7 @@ public class IrynaOkunTest extends BaseTest {
         String expectedResult = "30";
 
         getDriver().get(URL);
-        Thread.sleep(7000);
+        Thread.sleep(10000);
         getDriver().findElement(By.xpath("//div/ul/li/a[@href='/api']")).click();
 
         String actualResult = String.valueOf(getDriver().findElements(

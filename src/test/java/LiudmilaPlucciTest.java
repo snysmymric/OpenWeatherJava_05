@@ -15,7 +15,7 @@ public class LiudmilaPlucciTest extends BaseTest {
         String expectedResult = "Paris, FR";
 
         getDriver().get(url);
-        Thread.sleep(8000);
+        Thread.sleep(10000);
 
         WebElement searchCityField = getDriver().findElement(
                 By.xpath("//div[@id='weather-widget']//input[@placeholder='Search city']")
@@ -52,7 +52,7 @@ public class LiudmilaPlucciTest extends BaseTest {
         String expectedResult2 = "OpenWeatherMap API guide - OpenWeatherMap";
 
         getDriver().get(url);
-        Thread.sleep(7000);
+        Thread.sleep(10000);
 
         WebElement ButtonGuide = getDriver().findElement(
                 By.xpath("//a[@href='/guide']"));
@@ -71,7 +71,7 @@ public class LiudmilaPlucciTest extends BaseTest {
         String expectedResult = "We use cookies which are essential for the site to work. We also use non-essential cookies to help us improve our services. Any data collected is anonymised. You can allow all cookies or manage them individually.";
         getDriver().get(url);
 
-        Thread.sleep(7000);
+        Thread.sleep(10000);
         WebElement textElement = getDriver().findElement(
                 By.className("stick-footer-panel__description"));
 

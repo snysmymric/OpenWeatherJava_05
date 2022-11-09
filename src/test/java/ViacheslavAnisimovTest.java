@@ -16,7 +16,7 @@ public class ViacheslavAnisimovTest extends BaseTest {
         String expectedResult = "Paris, FR";
 
         getDriver().get(url);
-        Thread.sleep(7000);
+        Thread.sleep(10000);
 
         WebElement searchCityField = getDriver().findElement(
                 By.xpath("//div[@id='weather-widget']"
@@ -56,7 +56,7 @@ public class ViacheslavAnisimovTest extends BaseTest {
 
         getDriver().manage().window().setSize(new Dimension(1024, 970));
         getDriver().get(url);
-        Thread.sleep(7000);
+        Thread.sleep(10000);
 
         WebElement HamburgerMenu = getDriver().findElement(
                 By.id("hamburger")

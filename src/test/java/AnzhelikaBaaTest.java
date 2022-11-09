@@ -14,7 +14,7 @@ public class AnzhelikaBaaTest extends BaseTest {
         String expectedResult = "Paris, FR";
 
         getDriver().get(url);
-        Thread.sleep(7000);
+        Thread.sleep(10000);
 
         WebElement searchCityField = getDriver().findElement(
                 By.xpath("//div[@id = 'weather-widget']//input[@placeholder = 'Search city']")
@@ -52,7 +52,7 @@ public class AnzhelikaBaaTest extends BaseTest {
         String expectedResult2 = "OpenWeatherMap API guide - OpenWeatherMap";
 
         getDriver().get(url);
-        Thread.sleep(7000);
+        Thread.sleep(10000);
 
         WebElement guideButton = getDriver().findElement(
                 By.xpath("//div[@id= 'desktop-menu']//a[@href='/guide']")
@@ -75,7 +75,7 @@ public class AnzhelikaBaaTest extends BaseTest {
         
         getDriver().get(url);
         getDriver().manage().window().maximize();
-        Thread.sleep(7000);
+        Thread.sleep(10000);
 
         WebElement fUnitsButton = getDriver().findElement(
                 By.xpath("//div[@class='switch-container']//div[text()='Imperial: °F, mph']")
@@ -103,7 +103,7 @@ public class AnzhelikaBaaTest extends BaseTest {
                 " or manage them individually.";
 
         getDriver().get(url);
-        Thread.sleep(7000);
+        Thread.sleep(10000);
         Assert.assertTrue(getDriver().findElement(By.className("stick-footer-panel__container")).isDisplayed());
 
         WebElement textPanel = getDriver().findElement(
