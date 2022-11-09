@@ -32,7 +32,6 @@ public class OlgaKhliupinaTest extends BaseTest {
       String cityName = "Paris";
       String expectedResult = "Paris, FR";
 
-      getDriver().manage().window().maximize();
       getDriver().get(url);
       Thread.sleep(7000);
 
@@ -95,6 +94,39 @@ public class OlgaKhliupinaTest extends BaseTest {
       String actualResult_ManageCookies = buttonManageCookies.getText();
 
       Assert.assertEquals(actualResult_ManageCookies, expectedResult_ButtonManageCookies);
+   }
+
+   @Test
+   public void testExistFAQHowToStartAskAQuestion_InSupportDropdownMenu() throws InterruptedException {
+
+      String url = "https://openweathermap.org/";
+      int expectedResult = 3;
+      String expectedResultFaq = "FAQ";
+      String expectedResultHowToStart = "How to start";
+      String expectedResultAskAQuestion = "Ask a question";
+
+      getDriver().get(url);
+      Thread.sleep(8000);
+
+      WebElement menuSupport = getDriver().findElement(By.xpath("//div[@id='support-dropdown']"));
+      menuSupport.click();
+      Thread.sleep(1000);
+
+      Assert.assertTrue(getDriver().findElement(By.id("support-dropdown-menu")).isDisplayed());
+
+      int actualResult = getDriver().findElements(By.xpath("//ul[@id='support-dropdown-menu']/li")).size();
+
+      Assert.assertEquals(actualResult, expectedResult);
+
+      WebElement dropdownFAQ = getDriver().findElement(By.xpath("//nav/ul/div/ul//li/a[@href='/faq']"));
+      WebElement dropdownHowToStart = getDriver().findElement(
+              By.xpath("//ul[@id='support-dropdown-menu']/li/a[@href='/appid']"));
+      WebElement dropdownAskAQuestion = getDriver().findElement(
+              By.xpath("//ul[@id='support-dropdown-menu']/li/a[@href='https://home.openweathermap.org/questions']"));
+
+      Assert.assertEquals(dropdownFAQ.getText(), expectedResultFaq);
+      Assert.assertEquals(dropdownHowToStart.getText(), expectedResultHowToStart);
+      Assert.assertEquals(dropdownAskAQuestion.getText(), expectedResultAskAQuestion);
    }
 
    @Test
