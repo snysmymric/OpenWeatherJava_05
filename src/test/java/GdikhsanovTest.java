@@ -14,10 +14,15 @@ public class GdikhsanovTest extends BaseTest {
 
         String url = "https://openweathermap.org/";
 
+
         getDriver().manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
 
+
+
         getDriver().get(url);
+
         getDriver().manage().window().maximize();
+
 
         new WebDriverWait(getDriver(), Duration.ofSeconds(10))
                 .until(ExpectedConditions.invisibilityOfElementLocated(
@@ -28,9 +33,11 @@ public class GdikhsanovTest extends BaseTest {
         getDriver().findElement(By.xpath("//div[@id='desktop-menu']//a[@href='/guide']")).click();
 
         String currentUrl = getDriver().getCurrentUrl();
+
         String currentTitle = getDriver().getTitle();
 
         Assert.assertEquals(currentUrl, "https://openweathermap.org/guide");
+
         Assert.assertEquals(currentTitle, "OpenWeatherMap API guide - OpenWeatherMap");
     }
 }

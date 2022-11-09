@@ -1,5 +1,7 @@
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import runner.BaseTest;
@@ -101,4 +103,57 @@ public class NataliaRamanenkaTest extends BaseTest {
         Assert.assertEquals(actualResult3, expectedResult3);
     }
 
+    @Test
+    public void testSupportWithSubmenuIs() throws InterruptedException {
+        String url = "https://openweathermap.org/";
+        String expectedResult1 = "FAQ";
+        String expectedResult2 = "How to start";
+        String expectedResult3 = "Ask a question";
+
+        getDriver().get(url);
+        Thread.sleep(7000);
+        WebElement searchSupport = getDriver().findElement(By.xpath("//div[@id= 'support-dropdown']"));
+        searchSupport.click();
+        Thread.sleep(3000);
+        WebElement searchSupportFAQ = getDriver().findElement(
+                By.xpath("//ul[@id= 'support-dropdown-menu'] /li/a[@href = '/faq']"));
+        String actualResult1 = searchSupportFAQ.getText();
+        WebElement searchSupportHowToStart = getDriver().findElement(
+                By.xpath("//ul[@id= 'support-dropdown-menu']/li/a[@href = '/appid']"));
+        String actualResult2 = searchSupportHowToStart.getText();
+        WebElement searchSupportAskAQuestion = getDriver().findElement(
+                By.xpath("//ul[@id= 'support-dropdown-menu']/li/a[@href = 'https://home.openweathermap.org/questions']")
+        );
+        String actualResult3 = searchSupportAskAQuestion.getText();
+
+        Assert.assertEquals(actualResult1, expectedResult1);
+        Assert.assertEquals(actualResult2, expectedResult2);
+        Assert.assertEquals(actualResult3, expectedResult3);
+    }
+    @Test
+    public void testUnitsOfMeasurementIsCelsius() throws InterruptedException {
+        String url = "https://openweathermap.org/";
+        String measure1 = "F";
+        String measure2 = "C";
+        boolean expectedResult1 = true;
+        boolean expectedResult2 = true;
+
+        getDriver().get(url);
+        Thread.sleep(7000);
+
+        WebElement searchImperialF = getDriver().findElement(By.xpath("//div[text() = 'Imperial: °F, mph']"));
+        searchImperialF.click();
+        Thread.sleep(3000);
+
+        WebElement searchF = getDriver().findElement(By.xpath("//span[@class = 'heading']"));
+        boolean actualResult1 = searchF.getText().contains(measure1);
+        WebElement searchImperialC = getDriver().findElement(By.xpath("//div[text() = 'Metric: °C, m/s']"));
+        searchImperialC.click();
+        Thread.sleep(3000);
+        WebElement searchC = getDriver().findElement(By.xpath("//span[@class = 'heading']"));
+        boolean actualResult2 = searchF.getText().contains(measure2);
+
+        Assert.assertEquals(actualResult1, expectedResult1);
+        Assert.assertEquals(actualResult2, expectedResult2);
+    }
 }
