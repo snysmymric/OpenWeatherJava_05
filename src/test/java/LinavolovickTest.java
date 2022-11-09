@@ -1,5 +1,7 @@
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import runner.BaseTest;
@@ -64,5 +66,31 @@ public class LinavolovickTest extends BaseTest {
 
         Assert.assertEquals(actualResultUrl, expectedResultUrl);
         Assert.assertEquals(actualResultTitle, expectedResultTitle);
+    }
+
+    @Test
+    public void testCheckImperialForFahrenheit() throws InterruptedException {
+
+        String url = "https://openweathermap.org/";
+        String expectedResult = "°F";
+
+        getDriver().get(url);
+        getDriver().manage().window().maximize();
+        Thread.sleep(5000);
+
+        WebElement menuImperial = getDriver().findElement(
+                By.xpath("//div[@class='switch-container']/div[3]")
+        );
+        menuImperial.click();
+
+        WebElement tempF = getDriver().findElement(
+                By.xpath("//span[@class='heading']")
+        );
+        Thread.sleep(2000);
+
+        String tempInF = tempF.getText();
+        String actualResult = tempInF.substring((tempInF.length()-2));
+
+        Assert.assertEquals(actualResult, expectedResult);
     }
 }
