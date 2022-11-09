@@ -47,4 +47,26 @@ public class ekaterinalizinaTest extends BaseTest {
 
         Assert.assertEquals(actualResult, expectedResult);
     }
+
+    @Test
+    public void testTemperatureChangedInToF() throws InterruptedException {
+
+        String url = "https://openweathermap.org/";
+        getDriver().manage().window().maximize();
+        String fTempSymbol = "°F";
+
+        getDriver().get(url);
+        Thread.sleep(8000);
+
+        WebElement ButtonTemperatureFarenheit = getDriver().findElement(
+                By.xpath("//div[@id = 'weather-widget']//div[text() = 'Imperial: °F, mph']"));
+        ButtonTemperatureFarenheit.click();
+
+        Thread.sleep(5000);
+
+        WebElement tempF = getDriver().findElement(
+                By.xpath("//div[@id = 'weather-widget']//span[@class ='heading']"));
+
+        Assert.assertTrue(tempF.getText().contains(fTempSymbol));
+    }
 }
