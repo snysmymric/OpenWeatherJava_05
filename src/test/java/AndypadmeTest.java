@@ -43,4 +43,25 @@ public class AndypadmeTest extends BaseTest {
         String actualResult = h2CityCountryHeader.getText();
         Assert.assertEquals(actualResult, expectedResult);
     }
+
+    @Test
+    public void testAPIGuideTitle_WhenNavigatingToGuidePage() throws InterruptedException {
+
+        String url = "https://openweathermap.org/";
+        String expectedUrl = "https://openweathermap.org/guide";
+        String expectedTitle = "OpenWeatherMap API guide - OpenWeatherMap";
+
+        getDriver().get(url);
+        Thread.sleep(8000);
+
+        getDriver().findElement(By.xpath("//div[@id = 'desktop-menu']//li/a[@href = '/guide']")).click();
+        Thread.sleep(500);
+
+        String actualResult = getDriver().getTitle();
+        String actualUrl = getDriver().getCurrentUrl();
+
+        Assert.assertEquals(actualResult, expectedTitle);
+        Assert.assertEquals(actualUrl, expectedUrl);
+
+    }
 }
