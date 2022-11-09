@@ -1,7 +1,5 @@
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import runner.BaseTest;
@@ -51,7 +49,7 @@ public class NataliaRamanenkaTest extends BaseTest {
         String expectedResult2 = "OpenWeatherMap API guide - OpenWeatherMap";
 
         getDriver().get(url);
-        Thread.sleep(5000);
+        Thread.sleep(7000);
         WebElement searchGuide =  getDriver().findElement(
                 By.xpath("//div[@id = 'desktop-menu']/ul/li/a[@href = '/guide']"));
         searchGuide.click();
@@ -61,6 +59,23 @@ public class NataliaRamanenkaTest extends BaseTest {
 
         Assert.assertEquals(actualResult1, expectedResult1);
         Assert.assertEquals(actualResult2, expectedResult2);
+    }
+    @Test
+    public void testUnitsOfMeasurementIsFaringates() throws InterruptedException {
+        String url = "https://openweathermap.org/";
+        String measure = "F";
+        boolean expectedResult = true;
+
+        getDriver().get(url);
+        Thread.sleep(7000);
+        WebElement searchImperialF = getDriver().findElement(By.xpath("//div[text() = 'Imperial: °F, mph']"));
+        searchImperialF.click();
+        Thread.sleep(2000);
+        WebElement searchF = getDriver().findElement(By.xpath("//span[@class = 'heading']"));
+        boolean actualResult = searchF.getText().contains(measure);
+
+        Assert.assertEquals(actualResult, expectedResult);
+
     }
 
 }
