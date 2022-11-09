@@ -75,7 +75,30 @@ public class NataliaRamanenkaTest extends BaseTest {
         boolean actualResult = searchF.getText().contains(measure);
 
         Assert.assertEquals(actualResult, expectedResult);
+    }
 
+    @Test
+    public void testCookiesPanelWithButtonsIs() throws InterruptedException {
+        String url = "https://openweathermap.org/";
+        String expectedResult1 = "We use cookies which are essential for the site to work. We also use non-essential cookies to help us improve our services. Any data collected is anonymised. You can allow all cookies or manage them individually.";
+        String expectedResult2 = "Allow all";
+        String expectedResult3 = "Manage cookies";
+
+        getDriver().get(url);
+        Thread.sleep(7000);
+        WebElement searchCookiesPanel = getDriver().findElement(
+                By.xpath("//p[@class ='stick-footer-panel__description']"));
+        String actualResult1 = searchCookiesPanel.getText();
+        WebElement searchButtonAllowAll = getDriver().findElement(
+                By.xpath("//button[@class ='stick-footer-panel__link']"));
+        String actualResult2 = searchButtonAllowAll.getText();
+        WebElement searchButtonManageCookies = getDriver().findElement(
+                By.xpath("//a[@href ='/cookies-settings']"));
+        String actualResult3 = searchButtonManageCookies.getText();
+
+        Assert.assertEquals(actualResult1, expectedResult1);
+        Assert.assertEquals(actualResult2, expectedResult2);
+        Assert.assertEquals(actualResult3, expectedResult3);
     }
 
 }
