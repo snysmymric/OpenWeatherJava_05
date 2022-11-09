@@ -83,4 +83,29 @@ public class LiudmilaPlucciTest extends BaseTest {
         Assert.assertEquals(buttonManageCookies.getText(),"Manage cookies");
         Assert.assertEquals(textElement.getText(),expectedResult);
     }
+
+    @Test
+    public void testApproveMenuSupportWithThreeSubMenu() throws InterruptedException {
+        String url = "https://openweathermap.org/";
+        String expectedResultFAQ = "FAQ";
+        String expectedResultHowToStart = "How to start";
+        String expectedResultAskAQuestion = "Ask a question";
+
+        getDriver().get(url);
+        Thread.sleep(7000);
+        WebElement supportDropdown = getDriver().findElement(By.xpath("//div[@id='support-dropdown']"));
+        supportDropdown.click();
+        Thread.sleep(3000);
+
+        WebElement checkIfTextFAQIsPresent = getDriver().findElement(
+                By.xpath("//ul[@id='support-dropdown-menu']//a[@href='/faq']"));
+        WebElement checkIfTextHowToStartIsPresent = getDriver().findElement(
+                By.xpath("//ul[@id='support-dropdown-menu']//a[@href='/appid']"));
+        WebElement checkIfTextAskAQuestionIsPresent = getDriver().findElement(By.xpath(
+                "//ul[@id='support-dropdown-menu']//a[@href='https://home.openweathermap.org/questions']"));
+
+        Assert.assertEquals(checkIfTextFAQIsPresent.getText(), expectedResultFAQ);
+        Assert.assertEquals(checkIfTextHowToStartIsPresent.getText(), expectedResultHowToStart);
+        Assert.assertEquals(checkIfTextAskAQuestionIsPresent.getText(), expectedResultAskAQuestion);
+    }
 }
