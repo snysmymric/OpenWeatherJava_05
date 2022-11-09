@@ -3,6 +3,7 @@ import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import runner.BaseTest;
+import java.util.ArrayList;
 
 public class Elena_STest extends BaseTest {
     @Test
@@ -47,7 +48,6 @@ public class Elena_STest extends BaseTest {
         WebElement switchToFahrenheit = getDriver().findElement(
                 By.xpath("//div[@class='option'][text()='Imperial: °F, mph']")
         );
-
         switchToFahrenheit.click();
         char expectedResult = 'F';
         WebElement findFahrenheit = getDriver().findElement(
@@ -70,7 +70,6 @@ public class Elena_STest extends BaseTest {
         WebElement searchButtonGUid = getDriver().findElement(
                 By.xpath("//div[@id='desktop-menu']/ul/li/a[@href='/guide']")
         );
-
         searchButtonGUid.click();
         String actualResultURL = getDriver().getCurrentUrl();
         String actualResult = getDriver().getTitle();
@@ -109,7 +108,6 @@ public class Elena_STest extends BaseTest {
     @Test
     public void textSupportSubmenu() throws InterruptedException {
         String url = "https://openweathermap.org/";
-        getDriver().manage().window().maximize();
         getDriver().get(url);
         String expectedResultLink1 = "FAQ";
         String expectedResultLink2 = "How to start";
@@ -117,7 +115,7 @@ public class Elena_STest extends BaseTest {
         WebElement upperPanelMenuSupport = getDriver().findElement(
                 By.xpath("//div[@id='support-dropdown']")
         );
-        Thread.sleep(5000);
+        Thread.sleep(7000);
         upperPanelMenuSupport.click();
         WebElement link1 = getDriver().findElement(
                 By.xpath("//ul[@id='support-dropdown-menu']//a[@href=\"/faq\"][text()='FAQ']")
@@ -136,10 +134,60 @@ public class Elena_STest extends BaseTest {
         Assert.assertEquals(actualResultLink1,expectedResultLink1);
         Assert.assertEquals(actualResultLink2,expectedResultLink2);
         Assert.assertEquals(actualResultLink3,expectedResultLink3);
-
     }
 
+    @Test
+    public void textDisplayCaptureError() throws InterruptedException {
+        String url = "https://openweathermap.org/";
+        getDriver().get(url);
+        String expectedResultErrorText = "reCAPTCHA verification failed, please try again.";
 
+        WebElement upperPanelMenuSupport = getDriver().findElement(
+                By.xpath("//div[@id='support-dropdown']")
+        );
+        Thread.sleep(7000);
+        upperPanelMenuSupport.click();
+
+        WebElement askQuestion = getDriver().findElement(
+                By.xpath("//ul[@id='support-dropdown-menu']//a[@href='https://home.openweathermap.org/questions']" +
+                        "[text()='Ask a question']")
+        );
+        askQuestion.click();
+        Thread.sleep(1000);
+        ArrayList tabs = new ArrayList(getDriver().getWindowHandles());
+        getDriver().switchTo().window((String) tabs.get(1));
+
+        String email = "email@gmai.com";
+        String message = "Message for support test";
+
+        WebElement fieldEmail = getDriver().findElement(
+                By.xpath("//input[@id='question_form_email']")
+        );
+        Thread.sleep(1000);
+        fieldEmail.click();
+        fieldEmail.sendKeys(email);
+        Thread.sleep(1000);
+        WebElement valueOfFieldSubject = getDriver().findElement(
+                By.xpath("//select[@id='question_form_subject']/option[@value='Other']")
+        );
+        valueOfFieldSubject.click();
+        Thread.sleep(1000);
+        WebElement fieldMessage = getDriver().findElement(
+                By.xpath("//textarea[@id='question_form_message']")
+        );
+        fieldMessage.click();
+        fieldMessage.sendKeys(message);
+         WebElement buttonSubmit = getDriver().findElement(
+                By.xpath("//input[@value='Submit']")
+        );
+        buttonSubmit.click();
+        WebElement errorMessageResult = getDriver().findElement(
+                By.xpath("//div[@class='help-block']")
+        );
+        String actualResultErrorText = errorMessageResult.getText();
+
+        Assert.assertEquals(actualResultErrorText,expectedResultErrorText);
+    }
 
 }
 
