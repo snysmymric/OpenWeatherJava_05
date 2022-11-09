@@ -194,6 +194,25 @@ public class ViktoriyaEDTest extends BaseTest {
 
         Assert.assertEquals(displayCurrentWeather.getText().contains("°C"), expectedResult);
     }
+
+    @Test
+    public void test_FindRome() throws InterruptedException {
+
+        String url = "https://openweathermap.org/";
+        String city = "Rome";
+        boolean expectedResult = true;
+
+        getDriver().get(url);
+        Thread.sleep(8000);
+
+        getDriver().findElement(
+                By.xpath("//div[@id='desktop-menu']//input[@placeholder='Weather in your city']")
+        ).sendKeys(city + "\n");
+
+        boolean actualResult = getDriver().getCurrentUrl().contains("find") && getDriver().getCurrentUrl().contains(city);
+
+        Assert.assertEquals(actualResult, expectedResult);
+    }
 }
 
 
