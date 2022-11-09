@@ -1,7 +1,5 @@
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import runner.BaseTest;
@@ -67,5 +65,24 @@ public class MurzinovaTest extends BaseTest {
         expectedResult = "https://openweathermap.org/guide";
         actualResult = getDriver().getCurrentUrl();
         Assert.assertEquals(actualResult,expectedResult);
+    }
+
+    @Test
+    public void testTemperatureInF() throws InterruptedException {
+        String urlBasic = "https://openweathermap.org/";
+        String expectedResult = "F";
+
+        getDriver().get(urlBasic);
+        Thread.sleep(7000);
+
+        WebElement measureUnitLink = getDriver().findElement(
+                By.xpath("//div[@class='option'][text()='Imperial: °F, mph']"));
+        measureUnitLink.click();
+
+        WebElement cityTemperatureInF = getDriver().findElement(
+                By.xpath("//span[@class='heading'][contains(text(),'F')]"));
+        Thread.sleep(2000);
+
+        Assert.assertTrue(cityTemperatureInF.getText().endsWith(expectedResult));
     }
 }
