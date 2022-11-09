@@ -63,4 +63,28 @@ public class VadimKachanovichTest extends BaseTest {
         Assert.assertEquals(actualGuideLink, expectedGuideLink);
         Assert.assertEquals(actualTitle, expectedTitle);
     }
+
+    @Test
+    public void testFooterCookie() throws InterruptedException {
+        String url = "https://openweathermap.org/";
+        String expectedResultFooterCookie = "We use cookies which are essential for the site to work. We also use non-essential cookies to help us improve our services. Any data collected is anonymised. You can allow all cookies or manage them individually.";
+        String expectedAllowAllButton = "Allow all";
+        String expectedManageCookiesButton = "Manage cookies";
+
+        getDriver().get(url);
+        Thread.sleep(8000);
+        WebElement footerCookie = getDriver().findElement(
+                By.xpath("//div[@id= 'stick-footer-panel']//p[@class = 'stick-footer-panel__description']")
+        );
+        WebElement buttonAllowAll = getDriver().findElement(By.xpath("//div[@id= 'stick-footer-panel']//div/button"));
+        WebElement buttonManageCookies = getDriver().findElement(By.xpath("//div[@id= 'stick-footer-panel']//div/a"));
+
+        String аctualAllowAllButton = buttonAllowAll.getText();
+        String аctualManageCookiesButton = buttonManageCookies.getText();
+        String actualResultFooterCookie = footerCookie.getText();
+
+        Assert.assertEquals(actualResultFooterCookie, expectedResultFooterCookie);
+        Assert.assertEquals(аctualAllowAllButton, expectedAllowAllButton);
+        Assert.assertEquals(аctualManageCookiesButton, expectedManageCookiesButton);
+    }
 }
