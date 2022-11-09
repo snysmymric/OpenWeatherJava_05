@@ -27,7 +27,7 @@ public class MariaDymshaTest extends BaseTest {
         );
         searchButton.click();
 
-        Thread.sleep(1000);
+        Thread.sleep(7000);
 
         WebElement parisFRChoiceInDropdownMenu = getDriver().findElement(
                 By.xpath("//ul[@class = 'search-dropdown-menu']/li/span[text() = 'Paris, FR ']")
@@ -38,9 +38,39 @@ public class MariaDymshaTest extends BaseTest {
                 By.xpath("//div[@id = 'weather-widget']//h2")
         );
 
-        Thread.sleep(2000);
+        Thread.sleep(7000);
+
         String actualResult = h2CityCountryHeader.getText();
 
         Assert.assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    public void testImperial() throws InterruptedException {
+
+        String url = "https://openweathermap.org/";
+        String expectedResult = "°F";
+        String fTempSymbol = "°F";
+
+        getDriver().get(url);
+        getDriver().manage().window().maximize();
+        Thread.sleep(7000);
+
+        WebElement menuImperial =  getDriver().findElement(
+                By.xpath("//div[@class = 'option']/following-sibling::div")
+        );
+        menuImperial.click();
+        Thread.sleep(7000);
+
+        WebElement tempF =  getDriver().findElement(
+                By.xpath("//div[@class = 'current-temp']/span")
+        );
+
+        String tempInF = tempF.getText();
+        String actualResult = tempInF.substring((tempInF.length() - 2));
+
+        Assert.assertTrue(tempF.getText().contains(fTempSymbol));
+
+        Assert.assertEquals(actualResult, expectedResult);
     }
 }
