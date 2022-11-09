@@ -2,7 +2,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
-import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import runner.BaseTest;
 
@@ -42,7 +41,6 @@ public class DimaZadrutsiyTest extends BaseTest {
         Assert.assertEquals(actualResult, expectedResult);
     }
 
-    @Ignore
     @Test
     public void testPageReload() throws InterruptedException {
 
@@ -50,10 +48,9 @@ public class DimaZadrutsiyTest extends BaseTest {
         String expectedResult = "Loading";
 
         getDriver().get(url);
-        Thread.sleep(7000);
 
-        WebElement clickOnTheLogo = getDriver().findElement(By.xpath(
-                "//a[@href='/']/img[@src='/themes/openweathermap/assets/img/logo_white_cropped.png']"));
+        Thread.sleep(7000);
+        WebElement clickOnTheLogo = getDriver().findElement(By.xpath("//li[@class='logo']"));
         clickOnTheLogo.click();
 
         WebElement loading = getDriver().findElement(By.xpath("//div[@aria-label='Loading']"));
