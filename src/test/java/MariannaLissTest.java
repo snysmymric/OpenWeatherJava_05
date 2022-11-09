@@ -65,4 +65,24 @@ public class MariannaLissTest extends BaseTest {
         Assert.assertEquals(actualResult1, expectedResult1);
         Assert.assertEquals(actualResult2, expectedResult2);
     }
+
+    @Test
+    public void testOpenAndCheckTheTemperatureInFahrenheit() throws InterruptedException {
+        String url = "https://openweathermap.org/";
+        String fTempSymbol = "°F";
+
+        getDriver().get(url);
+        Thread.sleep(7000);
+        WebElement menuImperial = getDriver().findElement(
+                By.xpath("//div[@class = 'switch-container']/div[@class='option']/following-sibling::div")
+        );
+        menuImperial.click();
+        Thread.sleep(7000);
+        WebElement tempF = getDriver().findElement(
+                By.xpath("//div[@class='current-temp']/span")
+        );
+        String tempInF = tempF.getText();
+
+        Assert.assertTrue(tempInF.contains(fTempSymbol));
+    }
 }
