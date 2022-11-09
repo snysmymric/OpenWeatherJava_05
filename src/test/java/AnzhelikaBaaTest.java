@@ -5,6 +5,7 @@ import org.testng.annotations.Test;
 import runner.BaseTest;
 
 public class AnzhelikaBaaTest extends BaseTest {
+
     @Test
     public void testH2TagText_WhenSearchingCityCountry() throws InterruptedException {
 
@@ -71,7 +72,7 @@ public class AnzhelikaBaaTest extends BaseTest {
         String url = "https://openweathermap.org/";
         String fTempSymbol = "°F";
         boolean expectedResult = true;
-
+        
         getDriver().get(url);
         getDriver().manage().window().maximize();
         Thread.sleep(7000);
@@ -90,5 +91,44 @@ public class AnzhelikaBaaTest extends BaseTest {
         boolean actualResult = tempForCityInF.getText().contains(fTempSymbol);
 
         Assert.assertEquals(actualResult, expectedResult);
+    }
+
+    @Test
+    public void testTwoCookiesButtonsAndText_WhenOpenBaseURL() throws InterruptedException {
+        String url = "https://openweathermap.org/";
+        String expectedResult1 = "Allow all";
+        String expectedResult2 = "Manage cookies";
+        String expectedResult = "We use cookies which are essential for the site to work. We also use non-essential " +
+                "cookies to help us improve our services. Any data collected is anonymised. You can allow all cookies" +
+                " or manage them individually.";
+
+        getDriver().get(url);
+        Thread.sleep(7000);
+        Assert.assertTrue(getDriver().findElement(By.className("stick-footer-panel__container")).isDisplayed());
+
+        WebElement textPanel = getDriver().findElement(
+                By.className("stick-footer-panel__description")
+        );
+        Thread.sleep(7000);
+
+        WebElement allowAllButton = getDriver().findElement(
+                By.xpath("//button[text()='Allow all']")
+        );
+        Thread.sleep(7000);
+
+        WebElement manageCookiesButton = getDriver().findElement(
+                By.xpath("//a[@href='/cookies-settings']")
+        );
+        Thread.sleep(7000);
+
+        String actualResult1 = allowAllButton.getText();
+        String actualResult2 = manageCookiesButton.getText();
+        String actualResult = textPanel.getText();
+
+        Assert.assertEquals(actualResult1, expectedResult1);
+        Assert.assertEquals(actualResult2, expectedResult2);
+        Assert.assertEquals(actualResult, expectedResult);
+        Assert.assertTrue(allowAllButton.isDisplayed());
+        Assert.assertTrue(manageCookiesButton.isDisplayed());
     }
 }
