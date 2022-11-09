@@ -1,5 +1,7 @@
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import runner.BaseTest;
@@ -95,6 +97,34 @@ public class NataliaRamanenkaTest extends BaseTest {
         WebElement searchButtonManageCookies = getDriver().findElement(
                 By.xpath("//a[@href ='/cookies-settings']"));
         String actualResult3 = searchButtonManageCookies.getText();
+
+        Assert.assertEquals(actualResult1, expectedResult1);
+        Assert.assertEquals(actualResult2, expectedResult2);
+        Assert.assertEquals(actualResult3, expectedResult3);
+    }
+
+    @Test
+    public void testSupportWithSubmenuIs() throws InterruptedException {
+        String url = "https://openweathermap.org/";
+        String expectedResult1 = "FAQ";
+        String expectedResult2 = "How to start";
+        String expectedResult3 = "Ask a question";
+
+        getDriver().get(url);
+        Thread.sleep(7000);
+        WebElement searchSupport = getDriver().findElement(By.xpath("//div[@id= 'support-dropdown']"));
+        searchSupport.click();
+        Thread.sleep(3000);
+        WebElement searchSupportFAQ = getDriver().findElement(
+                By.xpath("//ul[@id= 'support-dropdown-menu'] /li/a[@href = '/faq']"));
+        String actualResult1 = searchSupportFAQ.getText();
+        WebElement searchSupportHowToStart = getDriver().findElement(
+                By.xpath("//ul[@id= 'support-dropdown-menu']/li/a[@href = '/appid']"));
+        String actualResult2 = searchSupportHowToStart.getText();
+        WebElement searchSupportAskAQuestion = getDriver().findElement(
+                By.xpath("//ul[@id= 'support-dropdown-menu']/li/a[@href = 'https://home.openweathermap.org/questions']")
+        );
+        String actualResult3 = searchSupportAskAQuestion.getText();
 
         Assert.assertEquals(actualResult1, expectedResult1);
         Assert.assertEquals(actualResult2, expectedResult2);
