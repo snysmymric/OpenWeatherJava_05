@@ -1,5 +1,7 @@
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import runner.BaseTest;
@@ -179,5 +181,21 @@ public class OlgaKhliupinaTest extends BaseTest {
       WebElement errorText = getDriver().findElement(By.xpath("//div[@class = 'help-block']"));
 
       Assert.assertEquals(errorText.getText(), expectedResult);
+   }
+
+   @Test
+   public  void testCheckUrlAfterRefreshMainPage() throws InterruptedException {
+      String url = "https://openweathermap.org/";
+      String expectedResult = url;
+
+      getDriver().get(url);
+      Thread.sleep(8000);
+
+      WebElement logo = getDriver().findElement(
+              By.xpath("//img[@src='/themes/openweathermap/assets/img/logo_white_cropped.png']"));
+      logo.click();
+      Thread.sleep(8000);
+
+      Assert.assertEquals(getDriver().getCurrentUrl(), expectedResult);
    }
 }
