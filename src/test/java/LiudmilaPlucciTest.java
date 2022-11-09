@@ -1,5 +1,7 @@
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import runner.BaseTest;
@@ -62,5 +64,23 @@ public class LiudmilaPlucciTest extends BaseTest {
 
         Assert.assertEquals(actualResult1,expectedResult1);
         Assert.assertEquals(actualResult2,expectedResult2);
+    }
+    @Test
+    public void testApproveTwoButtonsInPanel() throws InterruptedException {
+        String url = "https://openweathermap.org/";
+        String expectedResult = "We use cookies which are essential for the site to work. We also use non-essential cookies to help us improve our services. Any data collected is anonymised. You can allow all cookies or manage them individually.";
+        getDriver().get(url);
+
+        Thread.sleep(7000);
+        WebElement textElement = getDriver().findElement(
+                By.className("stick-footer-panel__description"));
+
+        WebElement buttonAllowAll = getDriver().findElement(By.xpath("//button[text()='Allow all']"));
+        WebElement buttonManageCookies = getDriver().findElement(
+                By.xpath("//a[@href='/cookies-settings']"));
+
+        Assert.assertEquals(buttonAllowAll.getText(),"Allow all");
+        Assert.assertEquals(buttonManageCookies.getText(),"Manage cookies");
+        Assert.assertEquals(textElement.getText(),expectedResult);
     }
 }

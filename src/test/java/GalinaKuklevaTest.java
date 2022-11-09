@@ -1,7 +1,5 @@
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
@@ -32,17 +30,16 @@ public class GalinaKuklevaTest extends BaseTest {
                 By.xpath("//ul[@class = 'search-dropdown-menu']/li/span[text()='Paris, FR ']")
         );
         firstChoiceInDropdownMenu.click();
+        Thread.sleep(3000);
         WebElement h2CityCountryHeader = getDriver().findElement(
                 By.xpath("//div[@id = 'weather-widget']//h2")
         );
-        Thread.sleep(3000);
+
         String actualResult = h2CityCountryHeader.getText();
 
         Assert.assertEquals(actualResult, expectedResult);
     }
 
-
-    @Ignore
     @Test
     public void testOpenWeatherMapGuidePageTitle() throws InterruptedException {
 
@@ -51,10 +48,10 @@ public class GalinaKuklevaTest extends BaseTest {
         String expectedResult_2 = "OpenWeatherMap API guide - OpenWeatherMap";
 
         getDriver().get(baseUrl);
+        Thread.sleep(7000);
         WebElement guideButton = getDriver().findElement(
                 By.xpath("//div[@id = 'desktop-menu']//li/a [@href='/guide']")
         );
-        Thread.sleep(7000);
         guideButton.click();
 
         String actualResult_1 = getDriver().getCurrentUrl();
@@ -72,11 +69,9 @@ public class GalinaKuklevaTest extends BaseTest {
 
         getDriver().get(baseUrl);
         Thread.sleep(7000);
-
         WebElement imperialData = getDriver().findElement(
                 By.xpath("//div[@id = 'weather-widget']//div[text() = 'Imperial: °F, mph']")
         );
-
         imperialData.click();
         WebElement tempInTheCity = getDriver().findElement(
                 By.xpath("//div[@id = 'weather-widget']//span[@class = 'heading']")
@@ -131,7 +126,6 @@ public class GalinaKuklevaTest extends BaseTest {
         );
         optionTech.click();
         Thread.sleep(5000);
-
         WebElement messageField = getDriver().findElement(
                 By.id("question_form_message")
         );
