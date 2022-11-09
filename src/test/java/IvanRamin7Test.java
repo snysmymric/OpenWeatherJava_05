@@ -1,5 +1,7 @@
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import runner.BaseTest;
@@ -38,5 +40,25 @@ public class IvanRamin7Test extends BaseTest {
 
 
         Assert.assertEquals(actualResult, expectedResult);
+    }
+
+    @Test
+    public void testConfirmFarenheits() throws InterruptedException {
+        String url = "https://openweathermap.org/";
+        String fahrenheitExpectedResult = "°F";
+
+        getDriver().get(url);
+        Thread.sleep(7000);
+        WebElement fahrenheitButton = getDriver().findElement(
+                By.xpath("//div[@class='page-container']//div[text() = 'Imperial: °F, mph']")
+        );
+        fahrenheitButton.click();
+        Thread.sleep(2000);
+        WebElement celciusFahrenheits = getDriver().findElement(
+                By.xpath("//div[@class='section-content']//span[@class = 'heading']")
+        );
+        boolean actualResult = celciusFahrenheits.getText().contains(fahrenheitExpectedResult);
+
+        Assert.assertTrue(actualResult);
     }
 }
