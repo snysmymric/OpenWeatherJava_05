@@ -1,7 +1,5 @@
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import runner.BaseTest;
@@ -19,7 +17,7 @@ public class DmswlpkTest extends BaseTest {
         getDriver().get(url);
         String expectedResult = "FAQ".concat("How to start".concat("Ask a question"));
 
-        sleep(5000);
+        sleep(7000);
         getDriver().manage().window().maximize();
 
         WebElement menuSupport = getDriver().findElement(By.xpath("//div[@id='support-dropdown']"));
@@ -43,7 +41,7 @@ public class DmswlpkTest extends BaseTest {
 
         getDriver().get(url);
 
-        sleep(4000);
+        sleep(7000);
 
         getDriver().findElement(
                 By.name("q")).sendKeys("Rome", ENTER);
@@ -52,5 +50,36 @@ public class DmswlpkTest extends BaseTest {
         Assert.assertTrue(getDriver().getCurrentUrl().contains("find"));
         Assert.assertTrue(getDriver().findElement(By.xpath("//input[@id='search_str']")).getText()
                 .equals(getDriver().findElement(By.xpath("//input[@value='Rome']")).getText()));
+    }
+
+    @Test
+    public void testTC_11_03() throws InterruptedException {
+
+        String url = "https://openweathermap.org/";
+
+        getDriver().get(url);
+
+        sleep(7000);
+
+        String expectedResult = "We use cookies which are essential for the site to work. " +
+                "We also use non-essential cookies to help us improve our services. Any data collected is anonymised." +
+                " You can allow all cookies or manage them individually.";
+
+        WebElement textAtBottom = getDriver().findElement(By.xpath("//div[@class='stick-footer-panel__container']/p"));
+
+        WebElement allAllowButton = getDriver().findElement(By.xpath("//div[@class='container']//button"));
+
+        WebElement manageCookiesButton = getDriver().findElement(By.xpath("//a[@href='/cookies-settings']"));
+
+        Assert.assertEquals(textAtBottom.getText(), expectedResult);
+        Assert.assertTrue(allAllowButton.isDisplayed());
+        Assert.assertEquals(allAllowButton.getText(), "Allow all");
+        Assert.assertTrue(manageCookiesButton.isEnabled());
+
+        manageCookiesButton.click();
+
+        sleep(7000);
+
+        Assert.assertNotEquals(getDriver().getCurrentUrl(), url);
     }
 }

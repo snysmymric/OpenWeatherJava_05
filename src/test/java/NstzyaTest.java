@@ -4,15 +4,17 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import runner.BaseTest;
 
-public class RadasIvanTest extends BaseTest {
+public class NstzyaTest extends BaseTest {
 
     @Test
     public void testH2TagText_WhenSearchingCityCountry() throws InterruptedException {
+
         String url = "https://openweathermap.org/";
         String cityName = "Paris";
         String expectedResult = "Paris, FR";
 
         getDriver().get(url);
+        getDriver().manage().window().maximize();
         Thread.sleep(7000);
 
         WebElement searchCityField = getDriver().findElement(
@@ -22,45 +24,28 @@ public class RadasIvanTest extends BaseTest {
         searchCityField.sendKeys(cityName);
 
         WebElement searchButton = getDriver().findElement(
-                By.xpath("//div[@id = 'weather-widget']//button[@type='submit']")
+                By.xpath("//div[@id = 'weather-widget']//button[@type = 'submit']")
         );
         searchButton.click();
 
         Thread.sleep(1000);
 
-        WebElement parisFRChoiceInDropdownMenu = getDriver().findElement(
+        WebElement parisFRChoiceInDropdownMenu = getDriver().findElement(//ищем элемент страницы по заранее построенному XPath
                 By.xpath("//ul[@class = 'search-dropdown-menu']/li/span[text() = 'Paris, FR ']")
         );
         parisFRChoiceInDropdownMenu.click();
+
+        Thread.sleep(2000);
 
         WebElement h2CityCountryHeader = getDriver().findElement(
                 By.xpath("//div[@id = 'weather-widget']//h2")
         );
 
-        Thread.sleep(2000);
         String actualResult = h2CityCountryHeader.getText();
 
         Assert.assertEquals(actualResult, expectedResult);
+
     }
 
-    @Test
-    public void testTitleOfPage() throws InterruptedException {
-        String url = "https://openweathermap.org/";
-        String expectedResult1 = "https://openweathermap.org/guide";
-        String expectedResult2 = "OpenWeatherMap API guide - OpenWeatherMap";
 
-        getDriver().get(url);
-        Thread.sleep(7000);
-
-        WebElement buttonGuide = getDriver().findElement(
-                By.xpath("//a[@href = '/guide']")
-        );
-        buttonGuide.click();
-
-        String actualResult1 = getDriver().getCurrentUrl();
-        String actualResult2 = getDriver().getTitle();
-
-        Assert.assertEquals(actualResult1, expectedResult1);
-        Assert.assertEquals(actualResult2, expectedResult2);
-    }
 }
