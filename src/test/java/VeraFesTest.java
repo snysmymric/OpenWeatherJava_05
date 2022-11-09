@@ -51,7 +51,7 @@ public class VeraFesTest extends BaseTest {
         String expectedResult2 = "OpenWeatherMap API guide - OpenWeatherMap";
 
         getDriver().get(url);
-        Thread.sleep(5000);
+        Thread.sleep(7000);
 
         WebElement guideMenu = getDriver().findElement(By.linkText(guideMenuText));
         guideMenu.click();
