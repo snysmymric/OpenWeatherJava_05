@@ -106,6 +106,39 @@ public class Elena_STest extends BaseTest {
         Assert.assertEquals(actualResultManageCookies,expectedResultManageCookies);
          }
 
+    @Test
+    public void textSupportSubmenu() throws InterruptedException {
+        String url = "https://openweathermap.org/";
+        getDriver().manage().window().maximize();
+        getDriver().get(url);
+        String expectedResultLink1 = "FAQ";
+        String expectedResultLink2 = "How to start";
+        String expectedResultLink3 = "Ask a question";
+        WebElement upperPanelMenuSupport = getDriver().findElement(
+                By.xpath("//div[@id='support-dropdown']")
+        );
+        Thread.sleep(5000);
+        upperPanelMenuSupport.click();
+        WebElement link1 = getDriver().findElement(
+                By.xpath("//ul[@id='support-dropdown-menu']//a[@href=\"/faq\"][text()='FAQ']")
+        );
+        WebElement link2 = getDriver().findElement(
+                By.xpath("//ul[@id='support-dropdown-menu']//a[@href=\"/appid\"][text()='How to start']")
+        );
+        WebElement link3 = getDriver().findElement(
+                By.xpath("//ul[@id='support-dropdown-menu']//a[@href='https://home.openweathermap.org/questions']" +
+                        "[text()='Ask a question']")
+        );
+        String actualResultLink1 = link1.getText();
+        String actualResultLink2 = link2.getText();
+        String actualResultLink3 = link3.getText();
+
+        Assert.assertEquals(actualResultLink1,expectedResultLink1);
+        Assert.assertEquals(actualResultLink2,expectedResultLink2);
+        Assert.assertEquals(actualResultLink3,expectedResultLink3);
+
+    }
+
 
 
 }
