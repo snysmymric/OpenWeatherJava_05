@@ -39,7 +39,7 @@ public class MariaDymshaTest extends BaseTest {
         );
 
         Thread.sleep(7000);
-
+        
         String actualResult = h2CityCountryHeader.getText();
 
         Assert.assertEquals(expectedResult, actualResult);
@@ -72,5 +72,29 @@ public class MariaDymshaTest extends BaseTest {
         Assert.assertTrue(tempF.getText().contains(fTempSymbol));
 
         Assert.assertEquals(actualResult, expectedResult);
+    }
+    
+    @Test
+    public void testOpenAndClickToGuide() throws InterruptedException {
+
+        String url = "https://openweathermap.org/";
+        String expectedResult1 = "https://openweathermap.org/guide";
+        String expectedResult2 = "OpenWeatherMap API guide - OpenWeatherMap";
+
+        getDriver().get(url);
+        Thread.sleep(7000);
+
+        WebElement searchButtonInMenu = getDriver().findElement(
+                By.xpath("//li//a[text() = 'Guide']")
+        );
+
+        searchButtonInMenu.click();
+        Thread.sleep(7000);
+
+        String actualResult1 = getDriver().getCurrentUrl();
+        String actualResult2 = getDriver().getTitle();
+
+        Assert.assertEquals(actualResult1, expectedResult1);
+        Assert.assertEquals(actualResult2, expectedResult2);
     }
 }
