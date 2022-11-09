@@ -41,5 +41,26 @@ public class SnegafalTest extends BaseTest {
 
         Assert.assertEquals(actualResult, expectedResult);
     }
+
+    @Test
+    public void testTitleAndUrlPage_WhenClickingGuideMenu () throws InterruptedException {
+
+        String url = "https://openweathermap.org/";
+        String expectedResultTitle = "OpenWeatherMap API guide - OpenWeatherMap";
+        String expectedResultLink = "https://openweathermap.org/guide";
+
+        getDriver().get(url);
+
+        Thread.sleep(7000);
+        WebElement guideInMenu = getDriver().findElement(
+                By.xpath("//ul[@id='first-level-nav']//a[@href='/guide']"));
+        guideInMenu.click();
+        Thread.sleep(3000);
+        String guidePageTitle = getDriver().getTitle();
+        String guidePageLink = getDriver().getCurrentUrl();
+
+        Assert.assertEquals(expectedResultTitle, guidePageTitle);
+        Assert.assertEquals(expectedResultLink, guidePageLink);
+    }
 }
 
