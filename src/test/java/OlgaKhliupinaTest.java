@@ -5,6 +5,8 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import runner.BaseTest;
 
+import java.util.List;
+
 public class OlgaKhliupinaTest extends BaseTest {
 
    @Test
@@ -219,5 +221,24 @@ public class OlgaKhliupinaTest extends BaseTest {
       WebElement searchField = getDriver().findElement(By.xpath("//input[@id='search_str']"));
 
       Assert.assertEquals(searchField.getAttribute("value"), expectedResult);
+   }
+
+   @Test
+   public void testFindQuantityOfOrangeButtons() throws InterruptedException {
+      String url = "https://openweathermap.org/";
+      int expectedResult = 30;
+
+      getDriver().get(url);
+      Thread.sleep(10000);
+
+      WebElement apiMenu = getDriver().findElement(
+              By.xpath("//div[@id='desktop-menu']/ul/li/a[@href='/api']"));
+      apiMenu.click();
+      Thread.sleep(1000);
+
+      List<WebElement> buttons = getDriver().findElements(
+              By.xpath("//a[@type='button' and contains(@class,'orange') or contains(@class, 'btn-orange')]"));
+
+      Assert.assertEquals(buttons.size(), expectedResult);
    }
 }
