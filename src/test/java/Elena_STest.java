@@ -212,5 +212,20 @@ public class Elena_STest extends BaseTest {
         Assert.assertEquals(actualResult,expectedResult);
     }
 
+    @Test
+    public void testPageRefresh() throws InterruptedException {
+        String url = "https://openweathermap.org/";
+        getDriver().manage().window().maximize();
+        getDriver().get(url);
+        Thread.sleep(7000);
+        WebElement logoImage = getDriver().findElement(
+                By.className("logo")
+        );
+        logoImage.click();
+        String actualResult = getDriver().getCurrentUrl();
+
+        Assert.assertEquals(actualResult,url);
+    }
+
 }
 
