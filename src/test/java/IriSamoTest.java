@@ -42,14 +42,13 @@ public class IriSamoTest extends BaseTest {
         Assert.assertEquals(actualResult, expectedResult);
     }
 
-    @Test(priority = 2)
+    @Test
     public void testTabGuideUrlTitle() throws InterruptedException {
         String url = "https://openweathermap.org/";
         String expectedTitle = "OpenWeatherMap API guide - OpenWeatherMap";
         String expectedUrl = "https://openweathermap.org/guide";
 
         getDriver().get(url);
-
         Thread.sleep(10000);
 
         WebElement tabGuide = getDriver().findElement(
@@ -63,5 +62,28 @@ public class IriSamoTest extends BaseTest {
 
         Assert.assertEquals(actualTitle, expectedTitle);
         Assert.assertEquals(actualUrl, expectedUrl);
+    }
+
+    @Test
+    public void testUnitOfMeasurementFahrenheit() throws InterruptedException {
+        String url = "https://openweathermap.org/";
+        String expectedMeasurement = "°F";
+
+        getDriver().get(url);
+        Thread.sleep(10000);
+
+        WebElement areaMeasurementImperial = getDriver().findElement(
+                By.xpath("//div[@class='switch-container']"
+                        + "/div[text()='Imperial: °F, mph']")
+        );
+        areaMeasurementImperial.click();
+        Thread.sleep(2000);
+
+        String  currentTemp = getDriver().findElement(
+                By.xpath("//div[@class='current-temp']//span")
+        ).getText();
+        String actualMeasurement = currentTemp.substring(currentTemp.length()-2);
+
+        Assert.assertEquals(actualMeasurement, expectedMeasurement);
     }
 }
