@@ -22,7 +22,7 @@ public class CordedWareTest extends BaseTest {
         Thread.sleep(10000);
 
         WebElement selectButtonMenu = getDriver().findElement( // 2.  Нажать на пункт меню Guide
-                By.xpath("//nav[@id = 'nav-website']//a[@href = '/guide']")
+                By.xpath("//a[@href = '/guide']")
         );
         selectButtonMenu.click();
         Thread.sleep(10000);
