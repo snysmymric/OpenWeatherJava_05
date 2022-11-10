@@ -1,7 +1,6 @@
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import runner.BaseTest;
@@ -197,5 +196,28 @@ public class OlgaKhliupinaTest extends BaseTest {
       Thread.sleep(8000);
 
       Assert.assertEquals(getDriver().getCurrentUrl(), expectedResult);
+   }
+
+   @Test
+   public void testContentInLinkAndInSearchField_WhenGoToCityNavigation() throws InterruptedException {
+      String url = "https://openweathermap.org/";
+      String cityName = "Rome";
+      String expectedResult = "Rome";
+
+      getDriver().get(url);
+      Thread.sleep(   10000);
+
+      WebElement searchFieldWheatherInYourCity = getDriver().findElement(
+              By.xpath("//div[@id='desktop-menu']/form/input[@placeholder='Weather in your city']"));
+      searchFieldWheatherInYourCity.click();
+      searchFieldWheatherInYourCity.sendKeys(cityName + Keys.ENTER);
+      Thread.sleep(2000);
+
+      Assert.assertTrue(getDriver().getCurrentUrl().contains("find"));
+      Assert.assertTrue(getDriver().getCurrentUrl().contains(cityName));
+
+      WebElement searchField = getDriver().findElement(By.xpath("//input[@id='search_str']"));
+
+      Assert.assertEquals(searchField.getAttribute("value"), expectedResult);
    }
 }
