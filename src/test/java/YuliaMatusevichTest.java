@@ -40,6 +40,24 @@ public class YuliaMatusevichTest extends BaseTest {
 
         Assert.assertEquals(actualResult, expectedResult);
     }
+
+    @Test
+    public void testFahrenheitUnits_WhehChooseF() throws InterruptedException {
+        String url = "https://openweathermap.org/";
+
+        getDriver().get(url);
+        Thread.sleep(10000);
+
+        WebElement findFahrenheitSwitcher = getDriver().findElement(
+                By.xpath("//div[@class = 'switch-container']//div[text() = 'Imperial: °F, mph']"));
+        findFahrenheitSwitcher.click();
+
+        WebElement findTempIndicator = getDriver().findElement(
+                By.xpath("//div[@id = 'weather-widget']//span[@class = 'heading']"));
+
+        Assert.assertTrue(findTempIndicator.getText().contains("F"));
+    }
+
 }
 
 
