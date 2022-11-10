@@ -119,4 +119,21 @@ public class IrynaKolyadaTest extends BaseTest {
         Assert.assertEquals(supportMenuAskQuestion.getText(),"Ask a question");
     }
 
+    @Test
+    public void testisTemperatureConvertFromFtoC() throws InterruptedException {
+        getDriver().get("https://openweathermap.org/");
+        Thread.sleep(10000);
+
+        WebElement tempF = getDriver().findElement(By.xpath("//div[text()='Imperial: °F, mph']"));
+        Thread.sleep(2000);
+        tempF.click();
+        WebElement tempC = getDriver().findElement(By.xpath("//div[text()='Metric: °C, m/s']"));
+        Thread.sleep(2000);
+        tempC.click();
+        boolean iconC = getDriver().findElement(By.xpath("//span[@class='heading']")).getText().contains("°C");
+        Thread.sleep(2000);
+
+        Assert.assertTrue(iconC);
+    }
+
 }
