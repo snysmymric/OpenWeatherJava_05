@@ -7,6 +7,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import runner.BaseTest;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class NataliaRamanenkaTest extends BaseTest {
@@ -199,4 +200,23 @@ public class NataliaRamanenkaTest extends BaseTest {
 
         Assert.assertEquals(actualResult2, expectedResult2);
     }
+
+    @Test
+    public void testFindOrangeButtons() throws InterruptedException {
+        String url = "https://openweathermap.org/";
+        int expectedResult = 30;
+
+        getDriver().get(url);
+        Thread.sleep(10000);
+        WebElement searchAPI = getDriver().findElement(
+                By.xpath("//div[@id ='desktop-menu']//a[@href = '/api']"));
+        searchAPI.click();
+        Thread.sleep(5000);
+        List<WebElement> searchBtnOrange = getDriver().findElements(
+                By.xpath("//a[contains(@class, 'orange')]"));
+        int actualResult = searchBtnOrange.size();
+
+        Assert.assertEquals(actualResult, expectedResult);
+    }
+
 }
