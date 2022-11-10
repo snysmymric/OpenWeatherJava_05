@@ -5,46 +5,44 @@ import org.testng.annotations.Test;
 import runner.BaseTest;
 
 public class KathyGuTest extends BaseTest {
-
     @Test
 
-    public void testH2TagText_WhenSearchingCityCountry() throws InterruptedException {
-        // Arrange:
+    public void testFaqHowToStartAskQuestion_InSupportMenu_first () throws InterruptedException {
 
         String url = "https://openweathermap.org";
-        String cityName = "Paris";
-        String expectedResult = "Paris, FR";
-
-        // Act:
+        String textFaq = "FAQ";
+        String textHowToStart = "How to start";
+        String textAskQuestion = "Ask a question";
 
         getDriver().get(url);
         Thread.sleep(10000);
 
-        WebElement searchCityField = getDriver().findElement(
-                By.xpath("//div[@id = 'weather-widget']//input[@placeholder = 'Search city']")
+        WebElement menuSupport = getDriver().findElement(By.id("support-dropdown"));
+        menuSupport.click();
+
+        Assert.assertEquals(
+                getDriver().findElements(By.xpath("//ul[@id = 'support-dropdown-menu']/li"))
+                        .size(), 3);
+
+        Assert.assertTrue(
+                getDriver().findElement(
+                        By.xpath("//ul[@id = 'support-dropdown-menu']/li/a[text() = '" + textFaq + "']"
+                        )
+                ).isDisplayed()
         );
-        searchCityField.click();
-        searchCityField.sendKeys(cityName);
 
-        WebElement searchButton = getDriver().findElement(By.xpath("//button[@type = 'submit']"));
-        searchButton.click();
-
-        Thread.sleep(1000);
-        WebElement parisFRChoiceInDropDownMenu = getDriver().findElement(
-                By.xpath("//ul[@class = 'search-dropdown-menu']/li/span[text() = 'Paris, FR ']")
+        Assert.assertTrue(
+                getDriver().findElement(
+                        By.xpath("//ul[@id = 'support-dropdown-menu']/li/a[text() = '" + textHowToStart + "']"
+                        )
+                ).isDisplayed()
         );
-        parisFRChoiceInDropDownMenu.click();
 
-        WebElement h2CityCountryHeader = getDriver().findElement(
-                By.xpath("//div[@id = 'weather-widget']//h2"));
-
-        Thread.sleep(2000);
-
-        String actualResult = h2CityCountryHeader.getText();
-
-        // Assert
-
-        Assert.assertEquals(actualResult, expectedResult);
-
+        Assert.assertTrue(
+                getDriver().findElement(
+                        By.xpath("//ul[@id = 'support-dropdown-menu']/li/a[text() = '" + textAskQuestion + "']"
+                        )
+                ).isDisplayed()
+        );
     }
 }
