@@ -1,13 +1,10 @@
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import runner.BaseTest;
 
 public class YanDadaelovTest extends BaseTest {
-
 
     @Test
     public void testH2TagText_WhenSearchingCityCountry() throws InterruptedException {
@@ -73,5 +70,36 @@ public class YanDadaelovTest extends BaseTest {
 
         Assert.assertEquals(actualResult_guideUrl, expectedResult_guideUrl);
         Assert.assertEquals(actualResult_guideUrlTitle, expectedResult_guideUrlTitle);
+    }
+
+
+    @Test
+    public void test_TC_11_02_fahrenheitSwitcher() throws InterruptedException {
+
+        String url = "https://openweathermap.org/";
+        String expectedResult = "F";
+
+        getDriver().get(url);
+        Thread.sleep(10000);
+
+        WebElement fahrenheitSwitcher = getDriver().findElement(
+                By.xpath("//div[@class='switch-container']/div[text()='Imperial: °F, mph']")
+        );
+        fahrenheitSwitcher.click();
+        Thread.sleep(1000);
+
+        String temperature = getDriver().findElement(
+                        By.xpath("//div[@class='section-content']//span[@class='heading']"))
+                .getText();
+
+        String actualResult;
+
+        if (temperature.isBlank()) {
+            actualResult = temperature;
+        } else {
+            actualResult = temperature.substring(temperature.length() - 1);
+        }
+
+        Assert.assertEquals(actualResult, expectedResult);
     }
 }
