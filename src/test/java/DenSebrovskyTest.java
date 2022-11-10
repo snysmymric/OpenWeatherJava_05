@@ -21,4 +21,32 @@ public class DenSebrovskyTest extends BaseTest {
 
         Assert.assertEquals(expectedresult, orangeButtonsList.size());
     }
+
+    @Test
+    public void testButtonsInSupportMenuWhenOpening() throws InterruptedException {
+        int expectedSubmenuButtonsAmount = 3;
+        String expectedResultButton1 = "FAQ";
+        String expectedResultButton2 = "How to start";
+        String expectedResultButton3 = "Ask a question";
+
+        getDriver().get("https://openweathermap.org/");
+        Thread.sleep(10000);
+        getDriver().findElement(By.xpath("//div[@id = 'support-dropdown']")).click();
+        Thread.sleep(3000);
+
+        int actualSubmenuButtonsAmount = getDriver().findElements(By.xpath(
+                "//ul[@id = 'support-dropdown-menu']/*")).size();
+        WebElement FAQButton = getDriver().findElement(By.xpath(
+                "//ul[@id = 'support-dropdown-menu']//a[@href = '/faq']"));
+        WebElement HowToStartButton = getDriver().findElement(By.xpath(
+                "//ul[@id = 'support-dropdown-menu']//a[@href = '/appid']"));
+        WebElement AskAQuestionButton = getDriver().findElement(By.xpath(
+                "//ul[@id = 'support-dropdown-menu']//a[@href = 'https://home.openweathermap.org/questions']"));
+
+        Assert.assertEquals(actualSubmenuButtonsAmount, expectedSubmenuButtonsAmount);
+        Assert.assertEquals(FAQButton.getText(), expectedResultButton1);
+        Assert.assertEquals(HowToStartButton.getText(), expectedResultButton2);
+        Assert.assertEquals(AskAQuestionButton.getText(), expectedResultButton3);
+    }
+
 }
