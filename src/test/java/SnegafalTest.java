@@ -1,5 +1,7 @@
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import runner.BaseTest;
@@ -63,7 +65,7 @@ public class SnegafalTest extends BaseTest {
         String expectedResult = "F";
 
         getDriver().get(url);
-        Thread.sleep(7000);
+        Thread.sleep(10000);
         WebElement farenheitMeasure = getDriver().findElement(
                 By.xpath("//div[@id='weather-widget']//div[text()='Imperial: °F, mph']"));
         farenheitMeasure.click();
@@ -73,6 +75,28 @@ public class SnegafalTest extends BaseTest {
         Thread.sleep(1000);
 
         Assert.assertEquals(farenheitText[farenheitText.length - 1], expectedResult);
+    }
+
+    @Test
+    public void testCookiePanelWithTwoButtonsInFooter () throws InterruptedException {
+        String url = "https://openweathermap.org/";
+        String expectedResultCookieText = "We use cookies which are essential for the site to work. " +
+                "We also use non-essential cookies to help us improve our services. Any data " +
+                "collected is anonymised. You can allow all cookies or manage them individually.";
+
+        getDriver().get(url);
+        Thread.sleep(10000);
+        WebElement cookieTextPanel = getDriver().findElement(
+                By.xpath("//div[@id='stick-footer-panel']//p"));
+        String actualResultCookiePanelText = cookieTextPanel.getText();
+        WebElement allowAllButton = getDriver().findElement(
+                By.xpath("//div[@id='stick-footer-panel']//button[text()='Allow all']"));
+        WebElement manageCookiesButton = getDriver().findElement(
+                By.xpath("//div[@id='stick-footer-panel']//a[@href='/cookies-settings']"));
+
+        Assert.assertEquals(expectedResultCookieText, actualResultCookiePanelText);
+        Assert.assertTrue(allowAllButton.isDisplayed());
+        Assert.assertTrue(manageCookiesButton.isDisplayed());
     }
 }
 
