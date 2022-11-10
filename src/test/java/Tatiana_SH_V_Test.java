@@ -63,4 +63,28 @@ public class Tatiana_SH_V_Test extends BaseTest {
         String actualResult2 = getDriver().getTitle();
         Assert.assertEquals(actualResult2, expectedResult2);
     }
+
+    @Test
+    public void testSearchImperialF() throws InterruptedException {
+        String url = "https://openweathermap.org/";
+        Boolean expectedResult = true;
+
+        getDriver().get(url);
+        Thread.sleep(10000);
+
+        WebElement searchImperial = getDriver().findElement(
+                By.xpath("//div[text ()= 'Imperial: °F, mph']")
+        );
+        searchImperial.click();
+        Thread.sleep(2000);
+
+        WebElement searchF = getDriver().findElement(
+                By.xpath("//span[@class='heading']")
+        );
+        Thread.sleep(3000);
+
+        Boolean actualResult = searchF.getText().contains("°F");
+        Assert.assertEquals(actualResult, expectedResult);
+    }
+
 }
