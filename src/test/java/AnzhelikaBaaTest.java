@@ -50,4 +50,27 @@ public class AnzhelikaBaaTest extends BaseTest {
 
         Assert.assertEquals(actualResult, expectedResult);
     }
+       @Test
+    public void testSwitchTempUnits_WhenPressOnTempFields() throws InterruptedException {
+        String url = "https://openweathermap.org/";
+        String cTempSymbol = "°C";
+        Boolean expectedResult = true;
+
+        getDriver().get(url);
+        Thread.sleep(10000);
+
+        WebElement fUnitsButton = getDriver().findElement(
+                By.xpath("//div[@class='switch-container']//div[text()='Imperial: °F, mph']"));
+        fUnitsButton.click();
+
+        WebElement cUnitsButton = getDriver().findElement(
+                By.xpath("//div[@class='switch-container']//div[text()='Metric: °C, m/s']"));
+        cUnitsButton.click();
+
+        WebElement temperatureC = getDriver().findElement(
+                By.xpath("//span[@class='heading'][contains(text(),'°C')]"));
+        boolean actualResult = temperatureC.getText().contains(cTempSymbol);
+
+        Assert.assertTrue(actualResult);
+    }
 }
