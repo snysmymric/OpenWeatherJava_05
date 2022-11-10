@@ -8,10 +8,9 @@ public class MaxIaskoOrangeButtonTest extends BaseTest {
 
     @Test
     public void testSearch30OrangeButtons() throws InterruptedException {
-        String url = "http://openweathermap.org/";
-
+        final String url = "http://openweathermap.org/";
+        final int expectedResult = 30;
         getDriver().get(url);
-        int expectedResult = 30;
 
         Thread.sleep(10000);
         WebElement searchApiPage = getDriver().findElement(
