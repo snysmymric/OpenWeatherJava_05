@@ -1,4 +1,5 @@
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -158,7 +159,7 @@ public class NataliaRamanenkaTest extends BaseTest {
     @Test
     public void testLink_WhenLogoClick() throws InterruptedException {
         String url = "https://openweathermap.org/";
-        String expectedResult = "https://openweathermap.org/";
+        String expectedResult = url;
 
         getDriver().get(url);
         Thread.sleep(10000);
@@ -168,5 +169,34 @@ public class NataliaRamanenkaTest extends BaseTest {
         String actualResult = getDriver().getCurrentUrl();
 
         Assert.assertEquals(actualResult, expectedResult);
+    }
+
+    @Test
+    public void testLinkHasFindAndCity() throws InterruptedException {
+        String url = "https://openweathermap.org/";
+        String cityName = "Rome";
+        String action = "find";
+        boolean expectedResult1 = true;
+        String expectedResult2 = cityName;
+
+        getDriver().get(url);
+        Thread.sleep(10000);
+        WebElement searchCityWeather = getDriver().findElement(
+                By.xpath("//div//input[@placeholder = 'Weather in your city']"));
+        searchCityWeather.click();
+        searchCityWeather.sendKeys(cityName);
+        searchCityWeather.sendKeys(Keys.ENTER);
+        Thread.sleep(3000);
+        if (getDriver().getCurrentUrl().contains(cityName) && getDriver().getCurrentUrl().contains(action)){
+            boolean actualResult1 = true;
+            Assert.assertEquals(actualResult1, expectedResult1);
+        } else {
+            boolean actualResult1 = false;
+            Assert.assertEquals(actualResult1, expectedResult1);
+        }
+        WebElement searchRome = getDriver().findElement(By.xpath("//input[@id = 'search_str']"));
+        String actualResult2 = searchRome.getAttribute("value");
+
+        Assert.assertEquals(actualResult2, expectedResult2);
     }
 }
