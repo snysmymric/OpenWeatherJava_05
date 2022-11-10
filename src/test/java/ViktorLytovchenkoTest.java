@@ -1,7 +1,5 @@
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import runner.BaseTest;
@@ -73,23 +71,6 @@ import runner.BaseTest;
             Assert.assertEquals(actualResult1, expectedResult1);
         }
 
-        @Test
-        public void checkSitereload() throws InterruptedException {
-            String url = "https://openweathermap.org/";
-            getDriver().get(url);
-            Thread.sleep(7000);
-
-            WebElement imageLogoSite = getDriver().findElement(
-                    By.xpath("//body[@class = 'body-orange']//ul[@id = 'first-level-nav']//a/img")
-            );
-            imageLogoSite.click();
-            Thread.sleep(7000);
-
-            String expectedResult = "https://openweathermap.org/";
-            String actualResult = getDriver().getCurrentUrl();
-
-            Assert.assertEquals(actualResult, expectedResult);
-        }
     }
 
 
