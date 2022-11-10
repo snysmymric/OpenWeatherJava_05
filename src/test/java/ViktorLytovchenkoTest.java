@@ -44,6 +44,33 @@ import runner.BaseTest;
 
             Assert.assertEquals(actualResult, expectedResult);
         }
+
+        @Test
+        public void testTypeInSearchBarRome() throws InterruptedException {
+            String url = "https://openweathermap.org/";
+            getDriver().get(url);
+            Thread.sleep(10000);
+            String cityName = "Rome";
+            String expectedResult = "https://openweathermap.org/find?q=Rome";
+            String expectedResult1 = "Rome";
+
+            WebElement weatherInYourcity = getDriver().findElement(
+                    By.xpath("//div[@id = 'desktop-menu']/form/input[1]")
+            );
+            weatherInYourcity.click();
+            weatherInYourcity.sendKeys(cityName);
+            weatherInYourcity.submit();
+            String actualResult = getDriver().getCurrentUrl();
+
+            WebElement theWordIsWritten = getDriver().findElement(
+                    By.id("search_str")
+            );
+            String actualResult1 = theWordIsWritten.getAttribute("value");
+
+            Assert.assertEquals(actualResult, expectedResult);
+            Assert.assertEquals(actualResult1, expectedResult1);
+        }
+
     }
 
 
