@@ -66,4 +66,30 @@ public class MarinarokhmanovaTest extends BaseTest {
         Assert.assertEquals(actualResult1, expectedResult1);
         Assert.assertEquals(actualResult2, expectedResult2);
     }
+
+    @Test
+    public void testUnitsImperialCtoF() throws InterruptedException {
+        String url = "https://openweathermap.org/";
+        String expectedResult = "°F";
+
+        getDriver().get(url);
+        getDriver().manage().window().maximize();
+        Thread.sleep(7000);
+
+        WebElement unitsImperialF = getDriver().findElement(
+                By.xpath("//div[@class ='option'][text()='Imperial: °F, mph']")
+        );
+        unitsImperialF.click();
+        Thread.sleep(2000);
+
+        WebElement unitsImperialFCity = getDriver().findElement(
+                By.xpath("//div[@class ='current-temp']/span")
+        );
+        unitsImperialFCity.click();
+        Thread.sleep(2000);
+
+        boolean actualResult = unitsImperialFCity.getText().contains("F");
+
+        Assert.assertTrue(actualResult, expectedResult);
+    }
 }
