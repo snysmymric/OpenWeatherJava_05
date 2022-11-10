@@ -63,4 +63,25 @@ public class elenuraTest extends BaseTest {
         Assert.assertEquals(getDriver().getTitle(),expectedResultTitle);
     }
 
+    @Test
+
+    public void testUnitOfMeasureFahrenheit () throws InterruptedException {
+        String url = "https://openweathermap.org/";
+        boolean expectedResultFahrenheit = true;
+
+        getDriver().get(url);
+        Thread.sleep(10000);
+
+        WebElement tempUnit = getDriver().findElement(
+                By.xpath("//div[text()='Imperial: °F, mph']")
+        );
+        tempUnit.click();
+        Thread.sleep(5000);
+
+        WebElement tempUnitHeading = getDriver().findElement(
+                By.xpath("//div[@class='current-temp']/span")
+        );
+        Assert.assertEquals(tempUnitHeading.getText().contains("°F"),expectedResultFahrenheit);
+    }
+
 }
