@@ -175,24 +175,22 @@ public class ViktoriyaEDTest extends BaseTest {
         Assert.assertEquals(actualResult, expectedResult);
     }
 
-    @Ignore
     @Test
     public void test_SwitchFahrenheitToCelsius() throws InterruptedException {
 
         String url = "https://openweathermap.org/";
-        Boolean expectedResult = true;
 
         getDriver().get(url);
         Thread.sleep(10000);
 
-        getDriver().findElement(By.xpath("//div[text()='Imperial: °F, mph']")).click();
+        getDriver().findElement(By.xpath("//div[@id='weather-widget']//div[text()='Imperial: °F, mph']")).click();
         WebElement displayCurrentWeather = getDriver().findElement(By.xpath("//div[@class='current-temp']/span"));
 
-        Assert.assertEquals(displayCurrentWeather.getText().contains("°F"), expectedResult);
+        Assert.assertTrue(displayCurrentWeather.getText().contains("°F"));
 
-        getDriver().findElement(By.xpath("//div[text()='Metric: °C, m/s']")).click();
+        getDriver().findElement(By.xpath("//div[@id='weather-widget']//div[text()='Metric: °C, m/s']")).click();
 
-        Assert.assertEquals(displayCurrentWeather.getText().contains("°C"), expectedResult);
+        Assert.assertTrue(displayCurrentWeather.getText().contains("°C"));
     }
 
     @Test
