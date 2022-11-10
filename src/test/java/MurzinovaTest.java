@@ -1,5 +1,7 @@
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import runner.BaseTest;
@@ -83,5 +85,40 @@ public class MurzinovaTest extends BaseTest {
         Thread.sleep(2000);
 
         Assert.assertTrue(cityTemperatureInF.getText().endsWith(expectedResult));
+    }
+
+    @Test
+    public void testCookiesPanelAndButtons() throws InterruptedException {
+        String urlBasic = "https://openweathermap.org/";
+        String expectedResultPanelText = "We use cookies which are essential for the site to work. We also use " +
+                "non-essential cookies to help us improve our services. Any data collected is anonymised. " +
+                "You can allow all cookies or manage them individually.";
+        String expectedResultAllowAllButton = "Allow all";
+        String expectedResultManageCookiesButton = "Manage cookies";
+
+        getDriver().get(urlBasic);
+        Thread.sleep(10000);
+
+        WebElement cookiesTextPanel = getDriver().findElement(By.className("stick-footer-panel__description"));
+        Assert.assertTrue(cookiesTextPanel.isDisplayed());
+
+        String actualResultPanelText = cookiesTextPanel.getText();
+        Assert.assertEquals(actualResultPanelText,expectedResultPanelText);
+
+        Assert.assertEquals(
+                getDriver().findElements(By.xpath("//div[@class='stick-footer-panel__btn-container']/*"))
+                        .size(),2);
+
+        WebElement cookiesAllowAllButton = getDriver().findElement(
+                By.xpath("//button[@class='stick-footer-panel__link']"));
+
+        String actualResultAllowAllButton = cookiesAllowAllButton.getText();
+        Assert.assertEquals(actualResultAllowAllButton,expectedResultAllowAllButton);
+
+        WebElement cookiesManageCookiesButton = getDriver().findElement(
+                By.xpath("//a[@class='stick-footer-panel__link']"));
+
+        String actualResultManageCookiesButton = cookiesManageCookiesButton.getText();
+        Assert.assertEquals(actualResultManageCookiesButton,expectedResultManageCookiesButton);
     }
 }
