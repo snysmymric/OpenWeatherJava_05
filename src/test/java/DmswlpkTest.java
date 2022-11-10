@@ -10,15 +10,16 @@ import static java.lang.Thread.sleep;
 import static org.openqa.selenium.Keys.ENTER;
 
 public class DmswlpkTest extends BaseTest {
+
+    private final String BASE_URL = "https://openweathermap.org/";
+
     @Test
     public void testTC_11_04() throws InterruptedException {
-        String url = "https://openweathermap.org/";
+        getDriver().get(BASE_URL);
 
-        getDriver().get(url);
         String expectedResult = "FAQ".concat("How to start".concat("Ask a question"));
 
         sleep(10000);
-        getDriver().manage().window().maximize();
 
         WebElement menuSupport = getDriver().findElement(By.xpath("//div[@id='support-dropdown']"));
 
@@ -37,9 +38,7 @@ public class DmswlpkTest extends BaseTest {
 
     @Test
     public void testTC_11_09() throws InterruptedException {
-        String url = "https://openweathermap.org/";
-
-        getDriver().get(url);
+        getDriver().get(BASE_URL);
 
         sleep(10000);
 
@@ -54,10 +53,7 @@ public class DmswlpkTest extends BaseTest {
 
     @Test
     public void testTC_11_03() throws InterruptedException {
-
-        String url = "https://openweathermap.org/";
-
-        getDriver().get(url);
+        getDriver().get(BASE_URL);
 
         sleep(10000);
 
@@ -80,6 +76,6 @@ public class DmswlpkTest extends BaseTest {
 
         sleep(10000);
 
-        Assert.assertNotEquals(getDriver().getCurrentUrl(), url);
+        Assert.assertNotEquals(getDriver().getCurrentUrl(), BASE_URL);
     }
 }
