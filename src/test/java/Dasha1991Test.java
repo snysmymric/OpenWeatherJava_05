@@ -82,4 +82,31 @@ public class Dasha1991Test extends BaseTest {
         String actualResult3 = buttonAskAQuestion.getText();
         Assert.assertEquals(actualResult3, expectedResult3);
     }
+    @Test
+    public void testCheckUseCookies() throws InterruptedException {
+
+        String url = "https://openweathermap.org/";
+        String expectedResult = "We use cookies which are essential for the site to work. " +
+                "We also use non-essential cookies to help us improve our services. Any data collected " +
+                "is anonymised. You can allow all cookies or manage them individually.";
+        String expectedResult2 = "Allow all";
+        String expectedResult3 = "Manage cookies";
+
+        getDriver().get(url);
+        Thread.sleep(7000);
+
+        WebElement textUseCookies = getDriver().findElement(By.className("stick-footer-panel__description"));
+        WebElement buttonAllowAll = getDriver().findElement(By.xpath("//button[@type = 'button']"));
+        WebElement buttonManageCookies = getDriver().findElement(By.xpath
+                ("//a[@class='stick-footer-panel__link']"));
+
+        String actualResult = textUseCookies.getText();
+        Assert.assertEquals(actualResult, expectedResult);
+
+        String actualResult2 = buttonAllowAll.getText();
+        Assert.assertEquals(actualResult2, expectedResult2);
+
+        String actualResult3 = buttonManageCookies.getText();
+        Assert.assertEquals(actualResult3, expectedResult3);
+    }
 }
