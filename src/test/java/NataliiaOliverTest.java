@@ -42,4 +42,25 @@ public class NataliiaOliverTest extends BaseTest {
 
         Assert.assertEquals(actualResult, expectedResult);
     }
+
+    @Test
+    public void testPressImperialButtonF_TempIsdIsDisplayedInF() throws InterruptedException {
+        String url = "https://openweathermap.org/";
+        String expectedResult = "°F";
+
+        getDriver().get(url);
+        Thread.sleep(10000);
+
+        WebElement searchImperial = getDriver().findElement(
+                By.xpath("//div[@id='weather-widget']//div[text()='Imperial: °F, mph']")
+        );
+        searchImperial.click();
+
+        Thread.sleep(2000);
+
+        WebElement tempF = getDriver().findElement(By.xpath("//div[@class='current-temp']/span[@class='heading']"));
+        String tempInF = tempF.getText();
+
+        Assert.assertTrue(tempInF.contains(expectedResult));
+    }
 }
