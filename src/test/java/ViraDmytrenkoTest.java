@@ -9,7 +9,7 @@ public class ViraDmytrenkoTest extends BaseTest {
     @Test
     public void testTitleTextAndURLText() throws InterruptedException {
         getDriver().get(url);
-        Thread.sleep(6000);
+        Thread.sleep(10000);
         String expectedResult1 = "https://openweathermap.org/guide";
         String expectedResult2 = "OpenWeatherMap API guide - OpenWeatherMap";
 
