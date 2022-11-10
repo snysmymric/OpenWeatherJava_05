@@ -1,5 +1,7 @@
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import runner.BaseTest;
@@ -46,5 +48,30 @@ public class YanDadaelovTest extends BaseTest {
         String actualResult = h2CityCountryHeader.getText();
 
         Assert.assertEquals(actualResult, expectedResult);
+    }
+
+
+    @Test
+    public void guidePageUrlTitleCheck() throws InterruptedException {
+
+        String url = "https://openweathermap.org/";
+        String expectedResult_guideUrl = "https://openweathermap.org/guide";
+        String expectedResult_guideUrlTitle = "OpenWeatherMap API guide - OpenWeatherMap";
+
+        getDriver().get(url);
+        Thread.sleep(10000);
+
+        WebElement guideLink = getDriver().findElement(
+                By.xpath("//div[@id='desktop-menu']//a[@href='/guide']")
+        );
+
+        guideLink.click();
+        Thread.sleep(2000);
+
+        String actualResult_guideUrl = getDriver().getCurrentUrl();
+        String actualResult_guideUrlTitle = getDriver().getTitle();
+
+        Assert.assertEquals(actualResult_guideUrl, expectedResult_guideUrl);
+        Assert.assertEquals(actualResult_guideUrlTitle, expectedResult_guideUrlTitle);
     }
 }
