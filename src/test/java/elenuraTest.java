@@ -3,6 +3,9 @@ import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import runner.BaseTest;
+
+import java.util.List;
+
 public class elenuraTest extends BaseTest {
     @Test
     public void testH2TagTextWhenSearchingCityCountry() throws InterruptedException {
@@ -82,6 +85,25 @@ public class elenuraTest extends BaseTest {
                 By.xpath("//div[@class='current-temp']/span")
         );
         Assert.assertEquals(tempUnitHeading.getText().contains("°F"),expectedResultFahrenheit);
+    }
+
+    @Test
+    public void testNumberOfOrangeButtons() throws InterruptedException {
+        String url = "https://openweathermap.org/";
+        getDriver().get(url);
+        Thread.sleep(10000);
+
+        WebElement menuAPI = getDriver().findElement(
+                By.xpath("//li/a[@href='/api']")
+        );
+        menuAPI.click();
+        Thread.sleep(2000);
+
+        List<WebElement> orangeButtons = getDriver().findElements(
+                By.xpath("//a[@type='button' and contains(@class,'orange') or contains(@class, 'btn-orange')]")
+        );
+
+        Assert.assertEquals(orangeButtons.size(),30);
     }
 
 }
