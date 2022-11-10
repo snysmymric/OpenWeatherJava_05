@@ -15,8 +15,8 @@ public class TellenqaTest extends BaseTest {
         String cityName = "Paris";
         String expectedResult = "Paris, FR";
 
-            getDriver().get(url);
-            Thread.sleep(10000);
+        getDriver().get(url);
+        Thread.sleep(10000);
 
 
         WebElement searchCityField = getDriver().findElement(
@@ -65,6 +65,43 @@ public class TellenqaTest extends BaseTest {
         Assert.assertEquals(actualResult1, expectedResult1);
         Assert.assertEquals(actualResult2, expectedResult2);
 
-        getDriver().quit();
+    }
+
+    @Test
+    public void testCookiesConfirmation() throws InterruptedException {
+        String url = "https://openweathermap.org/";
+        String expectedCookiesText = "We use cookies which are essential for the site to work. " +
+                "We also use non-essential cookies to help us improve our services. " +
+                "Any data collected is anonymised. You can allow all cookies or manage them individually.";
+
+        String textButton1 = "Allow all";
+        String textButton2 = " Manage cookies ";
+
+        getDriver().get(url);
+        Thread.sleep(10000);
+        getDriver().manage().window().maximize();
+
+        WebElement cookiesFooterText = getDriver().findElement(By.className("stick-footer-panel__description"));
+        String actualCookiesText = cookiesFooterText.getText();
+
+        Assert.assertEquals(expectedCookiesText, actualCookiesText);
+
+        Assert.assertEquals(
+                getDriver().findElements(By.xpath("//div[@class = 'stick-footer-panel__btn-container']/*")).
+                        size(), 2);
+
+        Assert.assertTrue(
+                getDriver().findElement(
+                        By.xpath("//div[@class = 'stick-footer-panel__btn-container']/*[text() = '"
+                                + textButton1 + "']")
+                ).isDisplayed()
+        );
+
+        Assert.assertTrue(
+                getDriver().findElement(
+                        By.xpath("//div[@class = 'stick-footer-panel__btn-container']/*[text() = '"
+                                + textButton2 + "']")
+                ).isDisplayed()
+        );
     }
 }
