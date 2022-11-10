@@ -19,4 +19,22 @@ private static final String URL = "https://openweathermap.org/";
 
         Assert.assertEquals(buttonList.size(), expectedResult);
     }
+
+    @Test
+    public void testCheckTopInputFieldSearch() throws InterruptedException {
+        String city = "Rome";
+
+        getDriver().get(URL);
+        Thread.sleep(10000);
+
+        getDriver().findElement(By.xpath("//div//input[@name='q']")).sendKeys(city + "\n");
+        String path = getDriver().getCurrentUrl();
+        boolean actualQueryPath = path.contains("find") && path.contains(city);
+        WebElement searchField = getDriver().findElement(By.id("search_str"));
+        String actualResult = searchField.getAttribute("value");
+
+        Assert.assertTrue(actualQueryPath);
+        Assert.assertEquals(actualResult, city);
+
+    }
 }
