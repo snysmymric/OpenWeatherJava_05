@@ -71,8 +71,7 @@ public class AndypadmeTest extends BaseTest {
         char expectedResult = 'F';
 
         getDriver().get(url);
-        getDriver().manage().window().maximize();
-        Thread.sleep(7000);
+        Thread.sleep(10000);
 
         getDriver().findElement(By.xpath("//div[@id = 'weather-widget']//div[text() = 'Imperial: °F, mph']")).click();
         Thread.sleep(1000);
@@ -84,5 +83,38 @@ public class AndypadmeTest extends BaseTest {
         char actualResult = currentTemp.getText().charAt(currentTemp.getText().length()-1);
 
         Assert.assertEquals(actualResult, expectedResult);
+    }
+
+    @Test
+    public void testCookiesInfoPanel() throws InterruptedException {
+
+        String url = "https://openweathermap.org/";
+        String panelExpectedText = "We use cookies which are essential for the site to work. We also use " +
+                "non-essential cookies to help us improve our services. Any data collected is anonymised. You can allow all cookies or manage them individually.";
+        String allowButtonExpectedText = "Allow all";
+        String manageButtonExpectedText = "Manage cookies";
+
+        getDriver().get(url);
+        Thread.sleep(10000);
+
+        WebElement panelText = getDriver().findElement(
+                By.xpath("//div[@class = 'stick-footer-panel']//p[@class = 'stick-footer-panel__description']")
+        );
+
+        WebElement allowButton = getDriver().findElement(
+                By.xpath("//div[@class = 'stick-footer-panel']//div[@class = 'stick-footer-panel__btn-container']/button[@class = 'stick-footer-panel__link']")
+        );
+
+        WebElement manageButton = getDriver().findElement(
+                By.xpath("//div[@class = 'stick-footer-panel']//div[@class = 'stick-footer-panel__btn-container']/a[@class = 'stick-footer-panel__link']")
+        );
+
+        String actualPanelText = panelText.getText();
+        String actualAllowButton = allowButton.getText();
+        String actualManageButton = manageButton.getText();
+
+        Assert.assertEquals(actualPanelText, panelExpectedText);
+        Assert.assertEquals(actualAllowButton, allowButtonExpectedText);
+        Assert.assertEquals(actualManageButton, manageButtonExpectedText);
     }
 }
