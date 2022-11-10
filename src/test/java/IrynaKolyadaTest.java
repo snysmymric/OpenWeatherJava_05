@@ -2,9 +2,12 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import runner.BaseTest;
+
+import java.util.Set;
 
 public class IrynaKolyadaTest extends BaseTest {
     @Test
@@ -135,5 +138,52 @@ public class IrynaKolyadaTest extends BaseTest {
 
         Assert.assertTrue(iconC);
     }
+    @Test
+
+    public void testBoxAskQuestionVerifyCaptchaMessage() throws InterruptedException {
+        String expectedResult = "reCAPTCHA verification failed, please try again.";
+        getDriver().get("https://openweathermap.org/");
+        Thread.sleep(10000);
+
+        WebElement headerButtonSuppot = getDriver().findElement(By.id("support-dropdown"));
+        Thread.sleep(3000);
+        headerButtonSuppot.click();
+
+        String parent_window = getDriver().getWindowHandle();
+
+        WebElement supportMenuAskQuestion = getDriver().findElement
+                (By.xpath("//ul[@id='support-dropdown-menu']//a[@target='_blank']"));
+        supportMenuAskQuestion.click();
+        Thread.sleep(5000);
+
+        Set<String> windows = getDriver().getWindowHandles();
+        for (String child_window : windows) {
+            if (!parent_window.equals(child_window)) {
+                getDriver().switchTo().window(child_window);
+            }
+        }
+
+        WebElement fieldEmail = getDriver().findElement
+                (By.xpath("//input[@id='question_form_email']"));
+        fieldEmail.click();
+        fieldEmail.sendKeys("iryna@gmail.com");
+
+        WebElement fieldSubject = getDriver().findElement(By.id("question_form_subject"));
+        fieldSubject.click();
+        fieldSubject.sendKeys("Other");
+        Thread.sleep(2000);
+
+        WebElement message = getDriver().findElement(By.id("question_form_message"));
+        message.click();
+        message.sendKeys("Hello world!");
+
+        WebElement buttonSubmit = getDriver().findElement(By.xpath("//input[@class='btn btn-default']"));
+        buttonSubmit.click();
+
+        WebElement capchamessage = getDriver().findElement(By.xpath("//div[@class='help-block']"));
+
+        Assert.assertEquals(capchamessage.getText(), expectedResult);
+    }
+
 
 }
