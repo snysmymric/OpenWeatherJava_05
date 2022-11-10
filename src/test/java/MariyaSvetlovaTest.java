@@ -40,4 +40,21 @@ public class MariyaSvetlovaTest extends BaseTest {
         Assert.assertEquals(actualResult, expectedResult);
     }
 
+    @Test
+    public void testLogo() throws InterruptedException {
+        String url = "https://openweathermap.org/";
+        String expectedResult = "https://openweathermap.org/";
+
+        getDriver().get(url);
+        Thread.sleep(10000);
+
+        WebElement logo = getDriver().findElement(
+                By.xpath("//ul[@id='first-level-nav']//img[@src='/themes/openweathermap/assets/img/logo_white_cropped.png']")
+        );
+        logo.click();
+
+        String actualResult = getDriver().getCurrentUrl();
+
+        Assert.assertEquals(actualResult,expectedResult);
+    }
 }
