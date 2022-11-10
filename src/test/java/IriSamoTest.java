@@ -28,7 +28,8 @@ public class IriSamoTest extends BaseTest {
         buttonSearch.click();
         Thread.sleep(1000);
         WebElement parisFRChoiceInDropdownMenu = getDriver().findElement(
-                By.xpath("//ul[@class='search-dropdown-menu']//span[text()='Paris, FR ']")
+                By.xpath("//ul[@class='search-dropdown-menu']"
+                        + "//span[text()='Paris, FR ']")
         );
         parisFRChoiceInDropdownMenu.click();
         WebElement h2CityCountryHeader = getDriver().findElement(
@@ -39,5 +40,28 @@ public class IriSamoTest extends BaseTest {
         String actualResult = h2CityCountryHeader.getText();
 
         Assert.assertEquals(actualResult, expectedResult);
+    }
+
+    @Test(priority = 2)
+    public void testTabGuideUrlTitle() throws InterruptedException {
+        String url = "https://openweathermap.org/";
+        String expectedTitle = "OpenWeatherMap API guide - OpenWeatherMap";
+        String expectedUrl = "https://openweathermap.org/guide";
+
+        getDriver().get(url);
+
+        Thread.sleep(10000);
+
+        WebElement tabGuide = getDriver().findElement(
+                By.xpath("//a[@href='/guide']")
+        );
+        tabGuide.click();
+        Thread.sleep(1000);
+
+        String actualTitle = getDriver().getTitle();
+        String actualUrl = getDriver().getCurrentUrl();
+
+        Assert.assertEquals(actualTitle, expectedTitle);
+        Assert.assertEquals(actualUrl, expectedUrl);
     }
 }
