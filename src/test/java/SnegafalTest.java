@@ -25,32 +25,26 @@ public class SnegafalTest extends BaseTest {
         );
         searchButton.click();
         Thread.sleep(1000);
-
         WebElement parisFRChoiceInDropdownMenu = getDriver().findElement(
                 By.xpath("//ul[@class = 'search-dropdown-menu']/li/span[text() = 'Paris, FR ']")
         );
         parisFRChoiceInDropdownMenu.click();
-
         Thread.sleep(2000);
-
         WebElement h2CityCountryHeader = getDriver().findElement(
                 By.xpath("//div[@id = 'weather-widget']//h2")
         );
         Thread.sleep(2000);
-        String actualResult = h2CityCountryHeader.getText();
 
-        Assert.assertEquals(actualResult, expectedResult);
+        Assert.assertEquals(h2CityCountryHeader.getText(), expectedResult);
     }
 
     @Test
     public void testTitleAndUrlPage_WhenClickingGuideMenu () throws InterruptedException {
-
         String url = "https://openweathermap.org/";
         String expectedResultTitle = "OpenWeatherMap API guide - OpenWeatherMap";
         String expectedResultLink = "https://openweathermap.org/guide";
 
         getDriver().get(url);
-
         Thread.sleep(10000);
         WebElement guideInMenu = getDriver().findElement(
                 By.xpath("//ul[@id='first-level-nav']//a[@href='/guide']"));
@@ -61,6 +55,24 @@ public class SnegafalTest extends BaseTest {
 
         Assert.assertEquals(expectedResultTitle, guidePageTitle);
         Assert.assertEquals(expectedResultLink, guidePageLink);
+    }
+
+    @Test
+    public void testTemperatureInCityInFarenheit () throws InterruptedException {
+        String url = "https://openweathermap.org/";
+        String expectedResult = "F";
+
+        getDriver().get(url);
+        Thread.sleep(7000);
+        WebElement farenheitMeasure = getDriver().findElement(
+                By.xpath("//div[@id='weather-widget']//div[text()='Imperial: °F, mph']"));
+        farenheitMeasure.click();
+        WebElement farenheitTemperatureTextInCity = getDriver().findElement(
+                By.xpath("//div[@class='current-temp']/span[@class='heading']"));
+        String[] farenheitText = farenheitTemperatureTextInCity.getText().split("");
+        Thread.sleep(1000);
+
+        Assert.assertEquals(farenheitText[farenheitText.length - 1], expectedResult);
     }
 }
 
