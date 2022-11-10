@@ -19,13 +19,13 @@ public class CordedWareTest extends BaseTest {
 
         // Act
         getDriver().get(url); // 1. открыть ссылку по url
-        Thread.sleep(2000);
+        Thread.sleep(10000);
 
         WebElement selectButtonMenu = getDriver().findElement( // 2.  Нажать на пункт меню Guide
                 By.xpath("//nav[@id = 'nav-website']//a[@href = '/guide']")
         );
         selectButtonMenu.click();
-        Thread.sleep(2000);
+        Thread.sleep(10000);
 
         String actualResultUrl = getDriver().getCurrentUrl(); // 3.1 Подтвердить, что перешли по ссылке
         String actualResultTitle = getDriver().getTitle(); // 3.2 Подтвердить, что заголовок изменился
