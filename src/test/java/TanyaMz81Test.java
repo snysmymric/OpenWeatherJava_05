@@ -44,7 +44,7 @@ public class TanyaMz81Test extends BaseTest {
         String titleExpectedResult = "OpenWeatherMap API guide - OpenWeatherMap";
 
         getDriver().get(url);
-        Thread.sleep(7000);
+        Thread.sleep(10000);
 
         WebElement searchGuideButton = getDriver().findElement(By.xpath(
                 "//div[@id='desktop-menu']//ul/li/a[@href='/guide']"));
@@ -57,5 +57,25 @@ public class TanyaMz81Test extends BaseTest {
         String linkActualResult = getDriver().getCurrentUrl();
         String linkExpectedResult = "https://openweathermap.org/guide";
         Assert.assertEquals(linkActualResult, linkExpectedResult);
+    }
+    @Test
+    public void testTheTemperatureFarenheit() throws InterruptedException {
+        String url = "https://openweathermap.org/";
+
+        getDriver().get(url);
+        Thread.sleep(10000);
+
+        WebElement imperialButton = getDriver().findElement(By.xpath(
+                "//div[@class = 'switch-container']/div[3]"));
+        imperialButton.click();
+        Thread.sleep(2000);
+
+        WebElement farSign = getDriver().findElement(By.xpath(
+                "//div[@class='current-temp']/span"));
+        Thread.sleep(2000);
+
+        String actualResult = farSign.getText();
+        boolean bool1 = actualResult.endsWith("F");
+        Assert.assertTrue(bool1);
     }
 }
