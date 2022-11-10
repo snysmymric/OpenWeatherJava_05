@@ -91,4 +91,21 @@ public class DimaZadrutsiyTest extends BaseTest {
 
         Assert.assertEquals(actualResult, expectedResult);
     }
+
+    @Test
+    public void testOrangeBatton() throws InterruptedException {
+
+        String url = "https://openweathermap.org/";
+        int expectedResult = 30;
+
+        getDriver().get(url);
+
+        Thread.sleep(10000);
+        WebElement linkAPI = getDriver().findElement(By.xpath("//a[@href='/api']"));
+        linkAPI.click();
+
+        int actualResult = getDriver().findElements(By.xpath("//a[contains(@class, 'orange')]")).size();
+
+        Assert.assertEquals(actualResult, expectedResult);
+    }
 }
