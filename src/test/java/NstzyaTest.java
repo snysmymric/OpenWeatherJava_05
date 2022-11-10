@@ -1,6 +1,9 @@
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import runner.BaseTest;
 
@@ -45,6 +48,31 @@ public class NstzyaTest extends BaseTest {
 
         Assert.assertEquals(actualResult, expectedResult);
 
+    }
+
+    @Ignore
+    @Test
+    public void testUrlAndMetaTitle_WhenOpenGuidePage() throws InterruptedException {
+
+        String url = "https://openweathermap.org/";
+        String expectedResult = "https://openweathermap.org/guide";
+
+        getDriver().get(url);
+        Thread.sleep(10000);
+
+        WebElement barButtonGuide = getDriver().findElement(
+                By.xpath("//div[@id = 'desktop-menu']//ul/li/a[@href='/guide']")
+        );
+        barButtonGuide.click();
+
+        String actualResult = getDriver().getCurrentUrl();
+
+        Assert.assertEquals(actualResult, expectedResult);
+
+        expectedResult = "OpenWeatherMap API guide - OpenWeatherMap";
+        actualResult = getDriver().getTitle();
+
+        Assert.assertEquals(actualResult, expectedResult);
     }
 
 
