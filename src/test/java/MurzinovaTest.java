@@ -49,22 +49,21 @@ public class MurzinovaTest extends BaseTest {
     @Test
     public void testRedirectingToAPIGuidePage() throws InterruptedException {
         String urlBasic = "https://openweathermap.org/";
-        String expectedResult = "OpenWeatherMap API guide - OpenWeatherMap";
+        String expectedResultTitle = "OpenWeatherMap API guide - OpenWeatherMap";
+        String expectedResultURL = "https://openweathermap.org/guide";
 
         getDriver().get(urlBasic);
-        getDriver().manage().window().maximize();
         Thread.sleep(10000);
 
         WebElement guideLink = getDriver().findElement(
                 By.xpath("//div[@id='desktop-menu']//a[@href='/guide']"));
         guideLink.click();
 
-        String actualResult = getDriver().getTitle();
-        Assert.assertEquals(actualResult,expectedResult);
+        String actualResultTitle = getDriver().getTitle();
+        String actualResultURL = getDriver().getCurrentUrl();
 
-        expectedResult = "https://openweathermap.org/guide";
-        actualResult = getDriver().getCurrentUrl();
-        Assert.assertEquals(actualResult,expectedResult);
+        Assert.assertEquals(actualResultTitle,expectedResultTitle);
+        Assert.assertEquals(actualResultURL,expectedResultURL);
     }
 
     @Test
