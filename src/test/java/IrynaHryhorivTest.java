@@ -42,5 +42,26 @@ public class IrynaHryhorivTest extends BaseTest {
         String actualResult = h2CityContryHeader.getText();
         Assert.assertEquals(actualResult, expectedResult);
     }
+    @Test
+    public void testOpenAndClickToGuide() throws InterruptedException {
 
+        String url = "https://openweathermap.org/";
+        String expectedResult = "https://openweathermap.org/guide";
+        String expectedResult1 ="OpenWeatherMap API guide - OpenWeatherMap" ;
+
+        getDriver().get(url);
+        Thread.sleep(10000);
+
+        WebElement GuideButton = getDriver().findElement(
+                By.xpath("//a[@href='/guide']")
+        );
+        GuideButton.click();
+        Thread.sleep(2000);
+
+        String actualResult1 = getDriver().getTitle();
+        String actualResult = getDriver().getCurrentUrl();
+
+        Assert.assertEquals(actualResult1, expectedResult1);
+        Assert.assertEquals(actualResult, expectedResult);
+    }
 }
