@@ -189,5 +189,28 @@ public class Elena_STest extends BaseTest {
         Assert.assertEquals(actualResultErrorText,expectedResultErrorText);
     }
 
+    @Test
+    public void testTemperatureFormatSelectionInCelsius() throws InterruptedException {
+        String url = "https://openweathermap.org/";
+        getDriver().get(url);
+        WebElement switchToFahrenheit = getDriver().findElement(
+                By.xpath("//div[@class='option'][text()='Imperial: °F, mph']")
+        );
+        Thread.sleep(7000);
+        switchToFahrenheit.click();
+        WebElement switchToCelsius = getDriver().findElement(
+                By.xpath("//div[@class='option'][text()='Metric: °C, m/s']")
+        );
+        switchToCelsius.click();
+        char expectedResult = 'C';
+        WebElement findCelsius = getDriver().findElement(
+                By.xpath("//span[@class='heading'][contains(text(),'C')]")
+        );
+        String result = findCelsius.getText();
+        char actualResult = result.charAt(result.length()-1);
+
+        Assert.assertEquals(actualResult,expectedResult);
+    }
+
 }
 
