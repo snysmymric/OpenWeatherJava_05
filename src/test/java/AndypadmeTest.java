@@ -62,6 +62,27 @@ public class AndypadmeTest extends BaseTest {
 
         Assert.assertEquals(actualResult, expectedTitle);
         Assert.assertEquals(actualUrl, expectedUrl);
+    }
 
+    @Test
+    public void testTemperatureMeasurementUnit() throws InterruptedException {
+
+        String url = "https://openweathermap.org/";
+        char expectedResult = 'F';
+
+        getDriver().get(url);
+        getDriver().manage().window().maximize();
+        Thread.sleep(7000);
+
+        getDriver().findElement(By.xpath("//div[@id = 'weather-widget']//div[text() = 'Imperial: °F, mph']")).click();
+        Thread.sleep(1000);
+
+        WebElement currentTemp = getDriver().findElement(
+                By.xpath("//div[@id = 'weather-widget']//div[@class = 'section-content']//span[@class = 'heading']")
+        );
+
+        char actualResult = currentTemp.getText().charAt(currentTemp.getText().length()-1);
+
+        Assert.assertEquals(actualResult, expectedResult);
     }
 }
