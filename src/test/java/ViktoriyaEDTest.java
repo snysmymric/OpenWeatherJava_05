@@ -211,6 +211,26 @@ public class ViktoriyaEDTest extends BaseTest {
 
         Assert.assertEquals(actualResult, expectedResult);
     }
+
+    @Test
+    public void test_APICheck30Buttons() throws InterruptedException {
+
+        String url = "https://openweathermap.org/";
+        int expectedResult = 30;
+
+        getDriver().get(url);
+        Thread.sleep(10000);
+
+        WebElement aPIButton = getDriver().findElement(By.xpath("//div[@id='desktop-menu']//a[@href='/api']"));
+        aPIButton.click();
+
+        List<WebElement> orangeButtons29 = getDriver().findElements(By.xpath("//a[@class='btn_block orange round']"));
+        List<WebElement> orangeButton1 = getDriver().findElements(By.xpath("//a[@class='ow-btn round btn-orange']"));
+
+        int actualResult = orangeButtons29.size() + orangeButton1.size();
+
+        Assert.assertEquals(actualResult, expectedResult);
+    }
 }
 
 
