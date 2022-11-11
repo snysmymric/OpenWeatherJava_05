@@ -4,7 +4,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import runner.BaseTest;
 
-public class YuriiOrmson extends BaseTest {
+public class YuriiOrmsonTest extends BaseTest {
         @Test
         public void testH1TagText_WhenOpenGuidPage() throws InterruptedException {
             String url = "https://openweathermap.org/";
@@ -23,4 +23,23 @@ public class YuriiOrmson extends BaseTest {
             String actualResult1 = getDriver().getCurrentUrl();
             Assert.assertEquals(actualResult1,expectedResult1);
         }
+    @Test
+    public void testSpanHeading_CurrentTempFahrenheit() throws InterruptedException {
+        String url = "https://openweathermap.org/";
+        String expectedResult = "F";
+        getDriver().get(url);
+        Thread.sleep(10000);
+
+        WebElement changeMeasureToFahrenheit = getDriver().findElement(
+                By.xpath("//div[@class = 'switch-container']/div[3]"));
+        changeMeasureToFahrenheit.click();
+        Thread.sleep(10000);
+
+        WebElement spanHeading = getDriver().findElement(
+                By.xpath("//div[contains(@class, 'current-temp')]"));
+
+        String spanHeadingText = spanHeading.getText();
+        String actualResult = spanHeadingText.substring(spanHeadingText.length() - 1);
+        Assert.assertEquals(actualResult, expectedResult);
+    }
 }
