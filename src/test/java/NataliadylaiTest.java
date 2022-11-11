@@ -155,4 +155,20 @@ public class NataliadylaiTest extends BaseTest {
         boolean actualResult = metric.getText().contains("°C");
         Assert.assertEquals(actualResult,expectedResult);
     }
+    @Test
+    public void test_CorrectPageUpdatedAfterClickOnLogo() throws InterruptedException {
+
+        String url = "https://openweathermap.org/";
+        String expectedResult = "https://openweathermap.org/";
+        getDriver().get(url);
+        getDriver().manage().window().maximize();
+        Thread.sleep(10000);
+        WebElement logo = getDriver().findElement(
+                By.xpath("//a[@href]//img[@src = '/themes/openweathermap/assets/img/logo_white_cropped.png']"));
+        logo.click();
+        Thread.sleep(2000);
+        String actualResult = getDriver().getCurrentUrl();
+        Assert.assertEquals(actualResult,expectedResult);
+        Thread.sleep(2000);
+    }
 }
