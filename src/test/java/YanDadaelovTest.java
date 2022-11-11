@@ -49,7 +49,7 @@ public class YanDadaelovTest extends BaseTest {
 
 
     @Test
-    public void guidePageUrlTitleCheck() throws InterruptedException {
+    public void testUrlAndTitleOnGuidePage() throws InterruptedException {
 
         String url = "https://openweathermap.org/";
         String expectedResult_guideUrl = "https://openweathermap.org/guide";
@@ -74,7 +74,7 @@ public class YanDadaelovTest extends BaseTest {
 
 
     @Test
-    public void test_TC_11_02_fahrenheitSwitcher() throws InterruptedException {
+    public void testTemperatureFahrenheitSwitcherOnMainPage() throws InterruptedException {
 
         String url = "https://openweathermap.org/";
         String expectedResult = "F";
@@ -101,5 +101,36 @@ public class YanDadaelovTest extends BaseTest {
         }
 
         Assert.assertEquals(actualResult, expectedResult);
+    }
+
+
+    @Test
+    public void testCookiesPanelTextAndButtonsOnMainPage() throws InterruptedException {
+
+        String url = "https://openweathermap.org/";
+        String expectedResult_allowAllButtonText = "Allow all";
+        String expectedResult_manageCookiesLinkText = "Manage cookies";
+        String expectedResult_warningText = "We use cookies which are essential for the site to work."
+                + " We also use non-essential cookies to help us improve our services."
+                + " Any data collected is anonymised. You can allow all cookies or manage them individually.";
+
+        getDriver().get(url);
+        Thread.sleep(10000);
+
+        String actualResult_warningText = getDriver().findElement(
+                        By.xpath("//p[@class='stick-footer-panel__description']"))
+                .getText();
+
+        String actualResult_allowAllButtonText = getDriver().findElement(
+                        By.xpath("//div[@class='stick-footer-panel__btn-container']/button"))
+                .getText();
+
+        String actualResult_manageCookiesLinkText = getDriver().findElement(
+                        By.xpath("//div[@class='stick-footer-panel__btn-container']/a"))
+                .getText();
+
+        Assert.assertEquals(actualResult_manageCookiesLinkText, expectedResult_manageCookiesLinkText);
+        Assert.assertEquals(actualResult_allowAllButtonText, expectedResult_allowAllButtonText);
+        Assert.assertEquals(actualResult_warningText, expectedResult_warningText);
     }
 }
