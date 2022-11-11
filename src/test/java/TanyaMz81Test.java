@@ -78,4 +78,34 @@ public class TanyaMz81Test extends BaseTest {
         boolean bool1 = actualResult.endsWith("F");
         Assert.assertTrue(bool1);
     }
+
+    @Test
+    public void testCookiesMessage() throws InterruptedException {
+        String url = "https://openweathermap.org/";
+        String expectedResult = "We use cookies which are essential for the site to work. We also "
+                + "use non-essential cookies to help us improve our services. Any data collected is "
+                + "anonymised. You can allow all cookies or manage them individually.";
+        String allowAllExpectedResult = "Allow all";
+        String manageCookiesExpectedResult = "Manage cookies";
+
+        getDriver().get(url);
+        Thread.sleep(10000);
+
+        WebElement cookiesField = getDriver().findElement(By.xpath(
+                "//div[@class='stick-footer-panel']/div/div/div/p")
+        );
+        String actualResult = cookiesField.getText();
+        Assert.assertEquals(actualResult, expectedResult);
+
+        WebElement allowAllButton = getDriver().findElement(By.xpath("//button[@type = 'button']")
+        );
+        String allowAllActualResult = allowAllButton.getText();
+        Assert.assertEquals(allowAllActualResult, allowAllExpectedResult);
+        Thread.sleep(2000);
+
+        WebElement manageCookiesButton = getDriver().findElement(By.xpath("//a[@href='/cookies-settings']")
+        );
+        String manageCookiesActualResult = manageCookiesButton.getText();
+        Assert.assertEquals(manageCookiesExpectedResult, manageCookiesActualResult);
+    }
 }
