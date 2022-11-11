@@ -6,13 +6,14 @@ import runner.BaseTest;
 
 public class NataliiaOliverTest extends BaseTest {
 
+    private static final String URL = "https://openweathermap.org/";
+
     @Test
     public void testH2TagText_WhenSearchingCityCountry() throws InterruptedException {
-        String url = "https://openweathermap.org/";
         String cityName = "Paris";
         String expectedResult = "Paris, FR";
 
-        getDriver().get(url);
+        getDriver().get(URL);
         Thread.sleep(10000);
 
         WebElement searchCityField = getDriver().findElement(
@@ -45,10 +46,9 @@ public class NataliiaOliverTest extends BaseTest {
 
     @Test
     public void testPressImperialButtonF_TempIsdIsDisplayedInF() throws InterruptedException {
-        String url = "https://openweathermap.org/";
         String expectedResult = "°F";
 
-        getDriver().get(url);
+        getDriver().get(URL);
         Thread.sleep(10000);
 
         WebElement searchImperial = getDriver().findElement(
@@ -62,5 +62,33 @@ public class NataliiaOliverTest extends BaseTest {
         String tempInF = tempF.getText();
 
         Assert.assertTrue(tempInF.contains(expectedResult));
+    }
+
+    @Test
+    public void testFindingCookiePanelAndTwoButtons() throws InterruptedException {
+        String expectedResult1 = "We use cookies which are essential for the site to work. We also use non-essential "
+                + "cookies to help us improve our services. Any data collected is anonymised. You can allow all cookies "
+                + "or manage them individually.";
+        String expectedResult2 = "Allow all";
+        String expectedResult3 = "Manage cookies";
+
+        getDriver().get(URL);
+        Thread.sleep(10000);
+
+        WebElement footerCookiePanel = getDriver().findElement(
+                By.className("stick-footer-panel__description"));
+        String actualResult1 = footerCookiePanel.getText();
+
+        WebElement footerButtonAllow = getDriver().findElement(
+                By.xpath("//div[@id='stick-footer-panel']//button[text()='Allow all']"));
+        String actualResult2 = footerButtonAllow.getText();
+
+        WebElement footerButtonManage = getDriver().findElement(
+                By.xpath("//div[@id='stick-footer-panel']//a[@href='/cookies-settings']"));
+        String actualResult3 = footerButtonManage.getText();
+
+        Assert.assertEquals(actualResult1, expectedResult1);
+        Assert.assertEquals(actualResult2, expectedResult2);
+        Assert.assertEquals(actualResult3, expectedResult3);
     }
 }
