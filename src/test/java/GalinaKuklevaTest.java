@@ -1,7 +1,6 @@
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
-import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import runner.BaseTest;
 
@@ -48,12 +47,11 @@ public class GalinaKuklevaTest extends BaseTest {
         String expectedResult_2 = "OpenWeatherMap API guide - OpenWeatherMap";
 
         getDriver().get(baseUrl);
-        Thread.sleep(10000);
+        Thread.sleep(7000);
         WebElement guideButton = getDriver().findElement(
                 By.xpath("//div[@id = 'desktop-menu']//li/a [@href='/guide']")
         );
         guideButton.click();
-
         String actualResult_1 = getDriver().getCurrentUrl();
         String actualResult_2 = getDriver().getTitle();
 
@@ -68,7 +66,7 @@ public class GalinaKuklevaTest extends BaseTest {
         String expectedResult = "°F";
 
         getDriver().get(baseUrl);
-        Thread.sleep(10000);
+        Thread.sleep(7000);
         WebElement imperialData = getDriver().findElement(
                 By.xpath("//div[@id = 'weather-widget']//div[text() = 'Imperial: °F, mph']")
         );
@@ -95,7 +93,6 @@ public class GalinaKuklevaTest extends BaseTest {
         WebElement supportButton = getDriver().findElement(
                 By.xpath("//div[@id='support-dropdown']")
         );
-
         supportButton.click();
         Thread.sleep(5000);
         WebElement subMenuAskAQuestion = getDriver().findElement(
@@ -121,6 +118,7 @@ public class GalinaKuklevaTest extends BaseTest {
                 By.id("question_form_subject")
         );
         subjectField.click();
+        Thread.sleep(5000);
         WebElement optionTech = getDriver().findElement(
                 By.xpath("//select[@id = 'question_form_subject']/option[@value = 'Tech Issue']")
         );
@@ -135,6 +133,7 @@ public class GalinaKuklevaTest extends BaseTest {
                 By.xpath("//form[@id = 'new_question_form']//input[@value = 'Submit']")
         );
         submitField.click();
+        Thread.sleep(5000);
         WebElement submitVerification = getDriver().findElement(
                 By.xpath("//div[text() = 'reCAPTCHA verification failed, please try again.']")
         );
