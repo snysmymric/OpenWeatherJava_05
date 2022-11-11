@@ -184,6 +184,17 @@ public class IrynaKolyadaTest extends BaseTest {
 
         Assert.assertEquals(capchamessage.getText(), expectedResult);
     }
+    @Test
+    public void testWebpageAfterReloadHasTheSameURl() throws InterruptedException {
+        getDriver().get("https://openweathermap.org/");
+        Thread.sleep(10000);
 
+        WebElement logo = getDriver().findElement(By.xpath("//li[@class='logo']"));
+        Thread.sleep(2000);
+        logo.click();
+        boolean linkPage = getDriver().getCurrentUrl().equals("https://openweathermap.org/");
+
+        Assert.assertTrue(linkPage);
+    }
 
 }
