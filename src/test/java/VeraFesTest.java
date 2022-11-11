@@ -23,12 +23,12 @@ public class VeraFesTest extends BaseTest {
         );
         searchCityField.click();
         searchCityField.sendKeys(cityName);
-        Thread.sleep(10000);
+        Thread.sleep(7000);
 
         WebElement searchButton = getDriver().findElement(By.xpath("//button[@type='submit']"));
         searchButton.click();
 
-        Thread.sleep(10000);
+        Thread.sleep(7000);
 
         WebElement parisFRChoiceInDropdownMenu = getDriver().findElement(
                 By.xpath("//ul[@class='search-dropdown-menu']/li/span[text()='Paris, FR ']"));
@@ -36,7 +36,7 @@ public class VeraFesTest extends BaseTest {
 
         WebElement h2CityCountryHeader  = getDriver().findElement(By.xpath("//div[@id='weather-widget']//h2"));
 
-        Thread.sleep(10000);
+        Thread.sleep(7000);
 
         String actualResult = h2CityCountryHeader.getText();
 
@@ -45,8 +45,6 @@ public class VeraFesTest extends BaseTest {
 
     @Test
     public void test_FahrenheitUnits_IfChooseF_11_02() throws InterruptedException {
-        WebDriver driver = new ChromeDriver();
-
         String url = "https://openweathermap.org/";
         String menuOption = "Imperial: °F, mph";
         boolean expectedResult = true;
@@ -55,19 +53,19 @@ public class VeraFesTest extends BaseTest {
         getDriver().get(url);
         Thread.sleep(10000);
 
-        WebElement findTempFSwitcher = driver.findElement(By.xpath(
-                "//div[@class='switch-container']//div[contains(text(), '" +menuOption+ "')]"));
+        WebElement findTempFSwitcher = getDriver().findElement(By.xpath(
+                "//div[contains(text(),'"+menuOption+"')]"));
         findTempFSwitcher.click();
 
-        WebElement findTempIndicator = driver.findElement(By.xpath(
+        Thread.sleep(5000);
+        WebElement findTempIndicator = getDriver().findElement(By.xpath(
                 "//div[@class='current-temp']/span"));
 
+        Thread.sleep(3000);
         String tempIndidcatorF = findTempIndicator.getText();
         String actualResult = tempIndidcatorF.substring(tempIndidcatorF.length() - 2);
 
         Assert.assertTrue(findTempIndicator.getText().contains(fTempSymbol));
         Assert.assertTrue(expectedResult, actualResult);
-
-        driver.quit();
     }
 }
