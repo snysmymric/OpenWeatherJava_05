@@ -106,6 +106,36 @@ public class TanyaMz81Test extends BaseTest {
         WebElement manageCookiesButton = getDriver().findElement(By.xpath("//a[@href='/cookies-settings']")
         );
         String manageCookiesActualResult = manageCookiesButton.getText();
-        Assert.assertEquals(manageCookiesExpectedResult, manageCookiesActualResult);
+        Assert.assertEquals(manageCookiesActualResult,manageCookiesExpectedResult);
+    }
+
+    @Test
+    public void testSubMenuLinks() throws InterruptedException {
+        String url = "https://openweathermap.org/";
+        String supportMenuItem1ExpectedResult = "FAQ";
+        String supportMenuItem2ExpectedResult = "How to start";
+        String supportMenuItem3ExpectedResult = "Ask a question";
+
+        getDriver().get(url);
+        Thread.sleep(10000);
+        WebElement supportButton = getDriver().findElement(By.xpath("//div[@id='support-dropdown']")
+        );
+        supportButton.click();
+        Thread.sleep(2000);
+
+        WebElement supportMenuItem1 = getDriver().findElement(By.xpath("//ul[@id='support-dropdown-menu']/li")
+        );
+        String supportMenuItem1ActualResult = supportMenuItem1.getText();
+        Assert.assertEquals(supportMenuItem1ActualResult, supportMenuItem1ExpectedResult);
+
+        WebElement supportMenuItem2 = getDriver().findElement(By.xpath("//ul[@id='support-dropdown-menu']/li[2]")
+        );
+        String supportMenuItem2ActualResult = supportMenuItem2.getText();
+        Assert.assertEquals(supportMenuItem2ActualResult, supportMenuItem2ExpectedResult);
+
+        WebElement supportMenuItem3 = getDriver().findElement(By.xpath("//ul[@id='support-dropdown-menu']/li[3]")
+        );
+        String supportMenuItem3ActualResult = supportMenuItem3.getText();
+        Assert.assertEquals(supportMenuItem3ActualResult, supportMenuItem3ExpectedResult);
     }
 }
