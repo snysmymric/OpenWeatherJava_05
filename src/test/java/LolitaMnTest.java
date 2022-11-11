@@ -52,4 +52,33 @@ public class LolitaMnTest extends BaseTest {
 
     }
 
+    @Test(priority = 1)
+    public void testCheckPageTitle_WhenClickOnGuide() throws InterruptedException {
+
+        String url = "https://openweathermap.org/";
+        String expectedResultTitle = "OpenWeatherMap API guide - OpenWeatherMap";
+        String expectedResultURL = "https://openweathermap.org/guide";
+
+        getDriver().get(url);
+        Thread.sleep(10000);
+
+        WebElement guideButton = getDriver().findElement(
+                By.xpath("//div[@id='desktop-menu']//a[@href = '/guide']")
+        );
+
+        guideButton.click();
+
+        Thread.sleep(5000);
+
+        String actualResultURL = getDriver().getCurrentUrl();
+        String actualResultTitle = getDriver().getTitle();
+
+        Assert.assertEquals(actualResultURL, expectedResultURL);
+        Assert.assertEquals(actualResultTitle, expectedResultTitle);
+
+
+    }
+
+
+
 }
