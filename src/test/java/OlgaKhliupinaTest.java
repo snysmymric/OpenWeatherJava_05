@@ -1,5 +1,6 @@
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -240,5 +241,27 @@ public class OlgaKhliupinaTest extends BaseTest {
               By.xpath("//a[@type='button' and contains(@class,'orange') or contains(@class, 'btn-orange')]"));
 
       Assert.assertEquals(buttons.size(), expectedResult);
+   }
+
+   static boolean isTempInSymbol(WebDriver driver, String temp, String symbolTemp) throws InterruptedException {
+      WebElement tempUnit = driver.findElement(By.xpath(String.format("//div[text()='%s']", temp)));
+      tempUnit.click();
+      Thread.sleep(1000);
+
+      WebElement tempUnitHeading = driver.findElement(By.xpath("//div[@class='current-temp']/span"));
+
+      return tempUnitHeading.getText().contains(symbolTemp);
+   }
+
+   @Test
+   public void testChangingTempUnitInHeading_WhenSwitchTempUnitButton() throws InterruptedException {
+      String url = "https://openweathermap.org/";
+      String temp = "Imperial: °F, mph";
+      String symbolTemp = "°F";
+
+      getDriver().get(url);
+      Thread.sleep(10000);
+
+      Assert.assertTrue(isTempInSymbol(getDriver(), temp, symbolTemp));
    }
 }
