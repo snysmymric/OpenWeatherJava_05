@@ -1,5 +1,7 @@
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import runner.BaseTest;
@@ -14,8 +16,7 @@ public class ElenaKudTest extends BaseTest {
         String expectedResult = "Paris, FR";
 
         getDriver().get(url);
-        getDriver().manage().window().maximize();
-        Thread.sleep(7000);
+        Thread.sleep(10000);
 
         WebElement searchCityField = getDriver().findElement(
                 By.xpath("//div[@id = 'weather-widget']//input[@placeholder = 'Search city']"));
@@ -43,4 +44,30 @@ public class ElenaKudTest extends BaseTest {
 
         Assert.assertEquals(actualResult, expectedResult);
     }
+
+        @Test
+    public void testShowingTempInFahrenheitAfterSwitchFromCelsius() throws InterruptedException {
+        String url = "https://openweathermap.org/";
+        String expectedResultCurrentWeatherInFahrenheit = "F";
+        String tempInFahrenheit = "F";
+
+        getDriver().get(url);
+        Thread.sleep(10000);
+
+        WebElement showTempInFahrenheit = getDriver().findElement(
+                By.xpath("//div[@class = 'option'][contains(text(), 'Imperial')]")
+        );
+        showTempInFahrenheit.click();
+
+        WebElement currentTempInFahrenheit = getDriver().findElement(
+                By.xpath("//span[@class = 'heading']")
+        );
+
+        String actualResultCurrentWeatherInFahrenheit =
+                currentTempInFahrenheit.getText().substring(currentTempInFahrenheit.getText().length() - 1);
+
+        Assert.assertEquals(actualResultCurrentWeatherInFahrenheit, expectedResultCurrentWeatherInFahrenheit);
+        Assert.assertTrue(currentTempInFahrenheit.getText().contains(tempInFahrenheit));
+    }
+
 }
