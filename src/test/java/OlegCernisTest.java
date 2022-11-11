@@ -1,5 +1,7 @@
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import runner.BaseTest;
@@ -39,6 +41,30 @@ public class OlegCernisTest extends BaseTest {
         Thread.sleep(2000);
         String actualResult = h2CityCountryHeader.getText();
         Assert.assertEquals(actualResult, expectedResult);
+
+    }
+
+    @Test
+    public void testButtonGuideAndConfirmThatWeAreAtOpenWeather() throws InterruptedException {
+
+        String url = "https://openweathermap.org/";
+        String button = "guide";
+        String expectedResult = "OpenWeatherMap API guide - OpenWeatherMap";
+        String expectedResult2 = "https://openweathermap.org/guide";
+
+        getDriver().get(url);
+        Thread.sleep(10000);
+        WebElement title = getDriver().findElement(By.
+                xpath("//div[@id='desktop-menu']//a[@ href='/guide']"));
+
+        title.click();
+        Thread.sleep(10000);
+
+        String actualResult = getDriver().getTitle();
+        String actualResult2 = getDriver().getCurrentUrl();
+        Thread.sleep(2000);
+        Assert.assertEquals(actualResult, expectedResult);
+        Assert.assertEquals(actualResult2, expectedResult2);
 
     }
 
