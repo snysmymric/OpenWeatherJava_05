@@ -3,7 +3,6 @@ import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import runner.BaseTest;
-
 import java.util.List;
 
 public class elenuraTest extends BaseTest {
@@ -121,6 +120,35 @@ public class elenuraTest extends BaseTest {
 
         Assert.assertEquals(getDriver().getCurrentUrl(),expectedResult);
     }
+
+    @Test
+    public void testCookiesPanel_Footer_WhenOpenWebsite() throws InterruptedException {
+        String url = "https://openweathermap.org/";
+        String expectedResultPanelText = "We use cookies which are essential for the site to work. " +
+                "We also use non-essential cookies to help us improve our services. Any data collected " +
+                "is anonymised. You can allow all cookies or manage them individually.";
+        String expectedResultAllowAll = "Allow all";
+        String expectedResultManageCookies = "Manage cookies";
+
+        getDriver().get(url);
+        Thread.sleep(10000);
+
+        WebElement cookies = getDriver().findElement(
+                By.xpath("//div/p[@class='stick-footer-panel__description']")
+        );
+        Assert.assertEquals(cookies.getText(), expectedResultPanelText);
+
+        WebElement allowAllButton = getDriver().findElement(
+                By.xpath("//div/button[@type='button']")
+        );
+        Assert.assertEquals(allowAllButton.getText(), expectedResultAllowAll);
+
+        WebElement manageCookies = getDriver().findElement(
+                By.xpath("//div/a[@href='/cookies-settings']")
+        );
+        Assert.assertEquals(manageCookies.getText(), expectedResultManageCookies);
+    }
+
 
 
 }
