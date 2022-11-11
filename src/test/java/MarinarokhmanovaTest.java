@@ -1,5 +1,7 @@
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import runner.BaseTest;
@@ -89,6 +91,34 @@ public class MarinarokhmanovaTest extends BaseTest {
         Thread.sleep(2000);
 
         boolean actualResult = unitsImperialFCity.getText().contains("F");
+
+        Assert.assertTrue(actualResult, expectedResult);
+    }
+    @Test
+    public void testImperialMetric_FtoC() throws InterruptedException {
+        String url = "https://openweathermap.org/";
+        String expectedResult = "°C";
+
+        getDriver().get(url);
+        Thread.sleep(10000);
+
+        WebElement panelImperial = getDriver().findElement(
+                By.xpath("//div[@class ='option'][text()='Imperial: °F, mph']")
+        );
+        panelImperial.click();
+        Thread.sleep(1000);
+
+        WebElement panelMetric = getDriver().findElement(
+                By.xpath("//div[@class ='option'][text()='Metric: °C, m/s']")
+        );
+        panelMetric.click();
+        Thread.sleep(1000);
+
+        WebElement panelTemperatureC = getDriver().findElement(
+                By.xpath("//div[@class = 'controls']//div[@class ='option']")
+        );
+
+        boolean actualResult = panelTemperatureC.getText().contains("°C");
 
         Assert.assertTrue(actualResult, expectedResult);
     }
