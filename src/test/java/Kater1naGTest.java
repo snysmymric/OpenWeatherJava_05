@@ -41,4 +41,28 @@ public class Kater1naGTest extends BaseTest {
 
         Assert.assertEquals(actualResult, expectedResult);
     }
+
+    @Test
+    public void testRedirectToGuide() throws InterruptedException {
+
+        String url = "https://openweathermap.org/";
+        String reUrl = "https://openweathermap.org/guide";
+        String expectedResult = "OpenWeatherMap API guide - OpenWeatherMap";
+
+        getDriver().get(url);
+
+        WebElement searchGuide = getDriver().findElement(
+                By.xpath("//a[@href='/guide']")
+        );
+        Thread.sleep(10000);
+        searchGuide.click();
+
+        String currentUrl = getDriver().getCurrentUrl();
+
+        Assert.assertEquals(currentUrl, reUrl);
+
+        String actualResult = getDriver().getTitle();
+
+        Assert.assertEquals(actualResult, expectedResult);
+    }
 }
