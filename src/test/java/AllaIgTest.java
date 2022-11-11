@@ -71,4 +71,38 @@ public class AllaIgTest extends BaseTest {
 
         Assert.assertEquals(actualResult, expectedResult);
     }
+    @Test
+    public void testCookiesPanelOpens_WhenOpenWebsite() throws InterruptedException {
+
+        String url = "https://openweathermap.org/";
+
+        getDriver().get(url);
+
+        Thread.sleep(10000);
+
+        WebElement cookiesPanel = getDriver().findElement(
+                By.xpath("//div[@id = 'stick-footer-panel']/div/div/div/div/p")
+        );
+        String actualResult = cookiesPanel.getText();
+        String expectedResult = ("We use cookies which are essential for the site to work. We also use non-essential" +
+                " cookies" +
+                " to help us improve our services. Any data collected is anonymised. You can allow all cookies or " +
+                "manage them individually.");
+        Assert.assertEquals(actualResult, expectedResult);
+
+        WebElement cookiesButtonsAll = getDriver().findElement(
+                By.xpath("//*[@id= 'stick-footer-panel']/div/div/div/div/div/button")
+        );
+        String actualNameButton = cookiesButtonsAll.getText();
+        String expectedNameButton = ("Allow all");
+        Assert.assertEquals(actualNameButton, expectedNameButton);
+
+        WebElement cookiesButtonsManage = getDriver().findElement(
+                By.xpath("//*[@id='stick-footer-panel']/div/div/div/div/div/a")
+        );
+
+        String actualNameButton1 = cookiesButtonsManage.getText();
+        String expectedNameButton1 = ("Manage cookies");
+        Assert.assertEquals(actualNameButton1, expectedNameButton1);
+    }
 }
