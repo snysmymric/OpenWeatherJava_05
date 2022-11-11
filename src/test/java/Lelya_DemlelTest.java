@@ -41,4 +41,27 @@ public class Lelya_DemlelTest extends BaseTest {
 
         Assert.assertEquals(actualResult, expectedResult);
     }
+
+    @Test
+    public void temperatureFahrenheit_WhenClickButtonImperial() throws InterruptedException {
+        String url = "https://openweathermap.org/";
+        String expectedResultstr = "°F";
+        String fTempSymbol = "°F";
+
+        getDriver().get(url);
+        getDriver().manage().window().maximize();
+        Thread.sleep(10000);
+        WebElement buttonImperial = getDriver().findElement(
+                By.xpath("//div[@class='switch-container']/div[3]"));
+        buttonImperial.click();
+        Thread.sleep(10000);
+        WebElement cityTemperatureInFahrenheit = getDriver().findElement(
+                By.className("heading")
+        );
+        String temperatureFahrenheit = cityTemperatureInFahrenheit.getText();
+
+        Assert.assertEquals(temperatureFahrenheit
+                .substring(temperatureFahrenheit.length() - 2), expectedResultstr);
+        Assert.assertTrue(cityTemperatureInFahrenheit.getText().contains(fTempSymbol));
+    }
 }
