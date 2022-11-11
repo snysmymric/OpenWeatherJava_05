@@ -1,4 +1,5 @@
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -195,6 +196,29 @@ public class IrynaKolyadaTest extends BaseTest {
         boolean linkPage = getDriver().getCurrentUrl().equals("https://openweathermap.org/");
 
         Assert.assertTrue(linkPage);
+    }
+    @Test
+    public void testVerifyWordFindAndRome() throws InterruptedException {
+        getDriver().get("https://openweathermap.org/");
+        Thread.sleep(10000);
+
+        getDriver().findElement
+                (By.xpath("//input[@placeholder='Weather in your city']")).sendKeys
+                ("Rome" + Keys.ENTER);
+        boolean wordFindInLink = getDriver().getCurrentUrl().contains("find");
+
+        Assert.assertTrue(wordFindInLink);
+
+        boolean wordRomeInLink = getDriver().getCurrentUrl().contains("Rome");
+
+        Assert.assertTrue(wordRomeInLink);
+
+        Thread.sleep(2000);
+        WebElement searchRome = getDriver().findElement
+                (By.xpath("//div//input[@value = 'Rome']"));
+        boolean actualResult = searchRome.toString().contains("Rome");
+
+        Assert.assertTrue(actualResult);
     }
 
 }
