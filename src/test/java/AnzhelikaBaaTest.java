@@ -73,4 +73,21 @@ public class AnzhelikaBaaTest extends BaseTest {
 
         Assert.assertTrue(actualResult);
     }
+    @Test
+    public void testSiteReload_WhenPressOnLogo() throws InterruptedException {
+        String url = "https://openweathermap.org/";
+        String expectedResult = "https://openweathermap.org/";
+
+        getDriver().manage().window().maximize();
+        getDriver().get(url);
+        Thread.sleep(10000);
+
+        WebElement companyLogo = getDriver().findElement(
+                By.xpath("//a[@href='/']/img[@src='/themes/openweathermap/assets/img/logo_white_cropped.png']"));
+        companyLogo.click();
+
+        String actualResult = getDriver().getCurrentUrl();
+
+        Assert.assertEquals(actualResult, expectedResult);
+    }
 }
