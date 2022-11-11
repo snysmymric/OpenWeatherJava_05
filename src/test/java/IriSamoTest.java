@@ -86,4 +86,29 @@ public class IriSamoTest extends BaseTest {
 
         Assert.assertEquals(actualMeasurement, expectedMeasurement);
     }
+
+    @Test
+    public void testCookiesMessage() throws InterruptedException {
+        String url = "https://openweathermap.org/";
+        String expectedMessage = "We use cookies which are essential for the site to work. "
+                + "We also use non-essential cookies to help us improve our services. "
+                + "Any data collected is anonymised. You can allow all cookies or manage "
+                + "them individually.";
+        int expectedQuantityButtons = 2;
+
+        getDriver().get(url);
+        Thread.sleep(10000);
+
+        WebElement panelMessage = getDriver().findElement(
+                By.xpath("//div[@id='stick-footer-panel']//p")
+        );
+        String actualText = panelMessage.getText();
+
+        int btn = getDriver().findElements(
+                By.xpath("//div/*[@class='stick-footer-panel__link']")
+        ).size();
+
+        Assert.assertEquals(btn, expectedQuantityButtons);
+        Assert.assertEquals(actualText, expectedMessage);
+    }
 }
