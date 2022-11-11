@@ -1,6 +1,7 @@
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import runner.BaseTest;
 import java.util.ArrayList;
@@ -145,7 +146,7 @@ public class Elena_STest extends BaseTest {
         WebElement upperPanelMenuSupport = getDriver().findElement(
                 By.xpath("//div[@id='support-dropdown']")
         );
-        Thread.sleep(7000);
+        Thread.sleep(10000);
         upperPanelMenuSupport.click();
 
         WebElement askQuestion = getDriver().findElement(
@@ -189,6 +190,7 @@ public class Elena_STest extends BaseTest {
         Assert.assertEquals(actualResultErrorText,expectedResultErrorText);
     }
 
+    @Ignore
     @Test
     public void testTemperatureFormatSelectionInCelsius() throws InterruptedException {
         String url = "https://openweathermap.org/";
@@ -215,9 +217,8 @@ public class Elena_STest extends BaseTest {
     @Test
     public void testPageRefresh() throws InterruptedException {
         String url = "https://openweathermap.org/";
-        getDriver().manage().window().maximize();
         getDriver().get(url);
-        Thread.sleep(7000);
+        Thread.sleep(10000);
         WebElement logoImage = getDriver().findElement(
                 By.className("logo")
         );
@@ -225,6 +226,30 @@ public class Elena_STest extends BaseTest {
         String actualResult = getDriver().getCurrentUrl();
 
         Assert.assertEquals(actualResult,url);
+    }
+
+    @Test
+    public void testSearchCityPage() throws InterruptedException {
+        String url = "https://openweathermap.org/";
+        getDriver().get(url);
+        Thread.sleep(10000);
+        String cityName = "Rome";
+        String expectedResultCityURL = "https://openweathermap.org/find?q=Rome";
+        String expectedResultCityName = "Rome";
+        WebElement fieldSearch = getDriver().findElement(
+                By.name("q")
+        );
+        fieldSearch.click();
+        fieldSearch.sendKeys(cityName);
+        fieldSearch.submit();
+        String actualResultCityURL = getDriver().getCurrentUrl();
+        WebElement cityNameIntheField = getDriver().findElement(
+                By.id("search_str")
+        );
+        String actualResultCityName = cityNameIntheField.getAttribute("value");
+
+        Assert.assertEquals(actualResultCityURL,expectedResultCityURL);
+        Assert.assertEquals(actualResultCityName,expectedResultCityName);
     }
 
 }
