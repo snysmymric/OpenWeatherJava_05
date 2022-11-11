@@ -2,6 +2,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import runner.BaseTest;
@@ -263,5 +264,16 @@ public class OlgaKhliupinaTest extends BaseTest {
       Thread.sleep(10000);
 
       Assert.assertTrue(isTempInSymbol(getDriver(), temp, symbolTemp));
+   }
+
+   @Test
+   public void testChangeFromFToC() throws InterruptedException {
+      String url = "https://openweathermap.org/";
+
+      getDriver().get(url);
+      Thread.sleep(10000);
+
+      Assert.assertTrue(isTempInSymbol(getDriver(), "Imperial: °F, mph", "°F"));
+      Assert.assertTrue(isTempInSymbol(getDriver(), "Metric: °C, m/s", "°C"));
    }
 }
