@@ -28,7 +28,7 @@ import runner.BaseTest;
             );
 
             searchButton.click();
-            Thread.sleep(2000);
+            Thread.sleep(3000);
 
             WebElement parisFranceChoiceInDropDownMenu = getDriver().findElement(
                     By.xpath("//ul[@class = 'search-dropdown-menu']/li/span[text() = 'Paris, FR ']")
@@ -69,6 +69,24 @@ import runner.BaseTest;
 
             Assert.assertEquals(actualResult, expectedResult);
             Assert.assertEquals(actualResult1, expectedResult1);
+        }
+
+        @Test
+        public void checkSiteReload() throws InterruptedException {
+            String url = "https://openweathermap.org/";
+            getDriver().get(url);
+            Thread.sleep(10000);
+
+            WebElement imageLogoSite = getDriver().findElement(
+                    By.xpath("//body[@class = 'body-orange']//ul[@id = 'first-level-nav']//a/img")
+            );
+            imageLogoSite.click();
+            Thread.sleep(10000);
+
+            String expectedResult = "https://openweathermap.org/";
+            String actualResult = getDriver().getCurrentUrl();
+
+            Assert.assertEquals(actualResult, expectedResult);
         }
 
     }

@@ -1,8 +1,12 @@
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import runner.BaseTest;
+
+import static org.testng.Assert.assertEquals;
 
 public class YuliaZhukoTest extends BaseTest {
     @Test
@@ -36,4 +40,25 @@ public class YuliaZhukoTest extends BaseTest {
         String actualResult = h2CityCountryHeader.getText();
         Assert.assertEquals(actualResult, expectedResult);
     }
+    @Test
+    public void testOpenGuideCheckTitle() throws InterruptedException {
+
+        String url = "https://openweathermap.org/";
+        String expectTitle = "OpenWeatherMap API guide - OpenWeatherMap";
+        getDriver().get(url);
+        Thread.sleep(10000);
+        String actualUrl = "https://openweathermap.org/guide";
+
+        WebElement searchGuideField = getDriver().findElement(
+                By.xpath("//div[@id= 'desktop-menu']//a[@href='/guide']")
+        );
+        searchGuideField.click();
+        Thread.sleep(5000);
+
+        String expectedUrl = getDriver().getCurrentUrl();
+        assertEquals(actualUrl,expectedUrl);
+        String actualTitle = getDriver().getTitle();
+        Assert.assertEquals(actualTitle,expectTitle);
+    }
+
 }
