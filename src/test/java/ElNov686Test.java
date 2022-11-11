@@ -12,7 +12,7 @@ public class ElNov686Test extends BaseTest {
         String expectedResult = "Paris, FR";
 
         getDriver().get(url);
-        Thread.sleep(7000);
+        Thread.sleep(10000);
 
         WebElement searchCityField = getDriver().findElement(
                 By.xpath("//div[@id='weather-widget']//input[@placeholder = 'Search city']")
@@ -41,13 +41,12 @@ public class ElNov686Test extends BaseTest {
 
         Assert.assertEquals(actualResult, expectedResult);
     }
-
     @Test
     public void testTemperatureImperialFahrenheitVerify() throws InterruptedException {
         String url = "https://openweathermap.org/";
 
         getDriver().get(url);
-        Thread.sleep(7000);
+        Thread.sleep(10000);
         WebElement imperialF = getDriver().findElement(By
                 .xpath("//div[@class='switch-container']//div[text()='Imperial: °F, mph']"));
 
@@ -63,4 +62,29 @@ public class ElNov686Test extends BaseTest {
 
         Assert.assertEquals(actualResult, expectedResult);
     }
-}
+    @Test
+    public void testVerifyCookiesTextAndTwoButtons() throws InterruptedException {
+        String url = "https://openweathermap.org/";
+        String expectedResult1 = "We use cookies which are essential for the site to work. We also use non-essential cookies to help us improve our services. Any data collected is anonymised. You can allow all cookies or manage them individually.";
+
+        getDriver().get(url);
+        Thread.sleep(10000);
+
+        WebElement cookiesText = getDriver().findElement(By
+                .xpath("//p[@class='stick-footer-panel__description']"));
+        String actualResult1 = cookiesText.getText();
+
+        WebElement allowAll = getDriver().findElement(By.xpath("//button[text()='Allow all']"));
+        Boolean actualResult2 = allowAll.isDisplayed();
+
+        WebElement manageCookies = getDriver().findElement(By
+                .xpath("//a[@class='stick-footer-panel__link']"));
+        Boolean actualResult3 = manageCookies.isDisplayed();
+
+        Assert.assertEquals(actualResult1, expectedResult1);
+        Assert.assertTrue(actualResult2);
+        Assert.assertTrue(actualResult3);
+
+        }
+    }
+

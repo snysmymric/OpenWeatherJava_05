@@ -3,6 +3,9 @@ import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import runner.BaseTest;
+
+import java.util.List;
+
 public class elenuraTest extends BaseTest {
     @Test
     public void testH2TagTextWhenSearchingCityCountry() throws InterruptedException {
@@ -12,7 +15,7 @@ public class elenuraTest extends BaseTest {
         String expectedResult = "Paris, FR";
 
         getDriver().get(url);
-        Thread.sleep(7000);
+        Thread.sleep(10000);
 
         WebElement searchCityField = getDriver().findElement(
                 By.xpath("//div[@id = 'weather-widget']//input[@ placeholder =  'Search city']")
@@ -51,7 +54,7 @@ public class elenuraTest extends BaseTest {
         String expectedResultTitle = "OpenWeatherMap API guide - OpenWeatherMap";
 
         getDriver().get(url);
-        Thread.sleep(5000);
+        Thread.sleep(10000);
 
         WebElement Title = getDriver().findElement(
                 By.xpath("//div/ul/li/a[@href='/guide']")
@@ -61,6 +64,46 @@ public class elenuraTest extends BaseTest {
 
         Assert.assertEquals(getDriver().getCurrentUrl(),expectedResultOpenPage);
         Assert.assertEquals(getDriver().getTitle(),expectedResultTitle);
+    }
+
+    @Test
+
+    public void testUnitOfMeasureFahrenheit () throws InterruptedException {
+        String url = "https://openweathermap.org/";
+        boolean expectedResultFahrenheit = true;
+
+        getDriver().get(url);
+        Thread.sleep(10000);
+
+        WebElement tempUnit = getDriver().findElement(
+                By.xpath("//div[text()='Imperial: °F, mph']")
+        );
+        tempUnit.click();
+        Thread.sleep(5000);
+
+        WebElement tempUnitHeading = getDriver().findElement(
+                By.xpath("//div[@class='current-temp']/span")
+        );
+        Assert.assertEquals(tempUnitHeading.getText().contains("°F"),expectedResultFahrenheit);
+    }
+
+    @Test
+    public void testNumberOfOrangeButtons() throws InterruptedException {
+        String url = "https://openweathermap.org/";
+        getDriver().get(url);
+        Thread.sleep(10000);
+
+        WebElement menuAPI = getDriver().findElement(
+                By.xpath("//li/a[@href='/api']")
+        );
+        menuAPI.click();
+        Thread.sleep(2000);
+
+        List<WebElement> orangeButtons = getDriver().findElements(
+                By.xpath("//a[@type='button' and contains(@class,'orange') or contains(@class, 'btn-orange')]")
+        );
+
+        Assert.assertEquals(orangeButtons.size(),30);
     }
 
 }

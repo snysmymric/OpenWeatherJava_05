@@ -19,7 +19,7 @@ public class IreneSnitkoTest extends BaseTest {
 
         getDriver().get(BASE_URL);
         getDriver().manage().window().maximize();
-        Thread.sleep(8000);
+        Thread.sleep(10000);
 
         WebElement guideMenu = getDriver().findElement(By.linkText(guideMenuText));
         guideMenu.click();

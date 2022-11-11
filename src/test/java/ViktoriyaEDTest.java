@@ -5,6 +5,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import runner.BaseTest;
 
@@ -22,7 +23,7 @@ public class ViktoriyaEDTest extends BaseTest {
         String expectedResult = "Paris, FR";
 
         getDriver().get(url);
-        Thread.sleep(7000);
+        Thread.sleep(10000);
 
         WebElement searchCityField = getDriver().findElement(
                 By.xpath("//div[@id = 'weather-widget']//input[@placeholder = 'Search city']")
@@ -60,7 +61,7 @@ public class ViktoriyaEDTest extends BaseTest {
 
         getDriver().get(url);
         getDriver().manage().window().maximize();
-        Thread.sleep(7000);
+        Thread.sleep(10000);
         getDriver().findElement(By.xpath("//a[@href = '/guide']")).click();
 
         Assert.assertEquals(getDriver().getCurrentUrl(), expectedResult);
@@ -74,7 +75,7 @@ public class ViktoriyaEDTest extends BaseTest {
         String expectedResult = "°F";
 
         getDriver().get(url);
-        Thread.sleep(7000);
+        Thread.sleep(10000);
 
         getDriver().findElement(By.xpath("//div[@class='switch-container']/div[3]")).click();
         WebElement weatherInF = getDriver().findElement(By.xpath("//span[@class='heading']"));
@@ -94,7 +95,7 @@ public class ViktoriyaEDTest extends BaseTest {
         String expectedResult3 = "Manage cookies";
 
         getDriver().get(url);
-        Thread.sleep(7000);
+        Thread.sleep(10000);
 
         Assert.assertTrue(getDriver().findElement(By.className("stick-footer-panel__container")).isDisplayed());
 
@@ -122,7 +123,7 @@ public class ViktoriyaEDTest extends BaseTest {
 
         getDriver().get(url);
         getDriver().manage().window().maximize();
-        Thread.sleep(7000);
+        Thread.sleep(10000);
 
         WebElement menuSupportDropDown = getDriver().findElement(By.xpath("//div[@id='support-dropdown']"));
         menuSupportDropDown.click();
@@ -153,7 +154,7 @@ public class ViktoriyaEDTest extends BaseTest {
 
         getDriver().get(url);
         getDriver().manage().window().maximize();
-        Thread.sleep(7000);
+        Thread.sleep(10000);
 
         getDriver().findElement(By.xpath("//div[@id='support-dropdown']")).click();
         getDriver().findElement(By.linkText("Ask a question")).click();
@@ -178,19 +179,57 @@ public class ViktoriyaEDTest extends BaseTest {
     public void test_SwitchFahrenheitToCelsius() throws InterruptedException {
 
         String url = "https://openweathermap.org/";
-        Boolean expectedResult = true;
 
         getDriver().get(url);
-        Thread.sleep(7000);
+        Thread.sleep(10000);
 
-        getDriver().findElement(By.xpath("//div[text()='Imperial: °F, mph']")).click();
+        getDriver().findElement(By.xpath("//div[@id='weather-widget']//div[text()='Imperial: °F, mph']")).click();
         WebElement displayCurrentWeather = getDriver().findElement(By.xpath("//div[@class='current-temp']/span"));
 
-        Assert.assertEquals(displayCurrentWeather.getText().contains("°F"), expectedResult);
+        Assert.assertTrue(displayCurrentWeather.getText().contains("°F"));
 
-        getDriver().findElement(By.xpath("//div[text()='Metric: °C, m/s']")).click();
+        getDriver().findElement(By.xpath("//div[@id='weather-widget']//div[text()='Metric: °C, m/s']")).click();
 
-        Assert.assertEquals(displayCurrentWeather.getText().contains("°C"), expectedResult);
+        Assert.assertTrue(displayCurrentWeather.getText().contains("°C"));
+    }
+
+    @Test
+    public void test_FindRome() throws InterruptedException {
+
+        String url = "https://openweathermap.org/";
+        String city = "Rome";
+        boolean expectedResult = true;
+
+        getDriver().get(url);
+        Thread.sleep(10000);
+
+        getDriver().findElement(
+                By.xpath("//div[@id='desktop-menu']//input[@placeholder='Weather in your city']")
+        ).sendKeys(city + "\n");
+
+        boolean actualResult = getDriver().getCurrentUrl().contains("find") && getDriver().getCurrentUrl().contains(city);
+
+        Assert.assertEquals(actualResult, expectedResult);
+    }
+
+    @Test
+    public void test_APICheck30Buttons() throws InterruptedException {
+
+        String url = "https://openweathermap.org/";
+        int expectedResult = 30;
+
+        getDriver().get(url);
+        Thread.sleep(10000);
+
+        WebElement aPIButton = getDriver().findElement(By.xpath("//div[@id='desktop-menu']//a[@href='/api']"));
+        aPIButton.click();
+
+        List<WebElement> orangeButtons29 = getDriver().findElements(By.xpath("//a[@class='btn_block orange round']"));
+        List<WebElement> orangeButton1 = getDriver().findElements(By.xpath("//a[@class='ow-btn round btn-orange']"));
+
+        int actualResult = orangeButtons29.size() + orangeButton1.size();
+
+        Assert.assertEquals(actualResult, expectedResult);
     }
 }
 

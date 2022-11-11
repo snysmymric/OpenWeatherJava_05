@@ -15,7 +15,7 @@ public class Bond4562Test extends BaseTest {
 
         getDriver().get(urlBase);
 
-        Thread.sleep(7000);
+        Thread.sleep(10000);
 
 
         getDriver().findElement(

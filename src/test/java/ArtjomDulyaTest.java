@@ -15,7 +15,7 @@ public class ArtjomDulyaTest extends BaseTest {
 
 
       getDriver().get(url);
-        Thread.sleep(7000);
+        Thread.sleep(10000);
 
         WebElement SearchCityField = getDriver().findElement(
                 By.xpath("//div[@id='weather-widget']"

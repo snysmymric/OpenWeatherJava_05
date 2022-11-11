@@ -1,16 +1,12 @@
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import runner.BaseTest;
 
 public class BugorDmitriyTest extends BaseTest {
-
     @Test
     public void testH2TextWhenSearchingCityCountry() throws InterruptedException {
-
         String url = "https://openweathermap.org/";
         String cityName = "Paris";
         String expectedResult = "Paris, FR";
@@ -19,7 +15,7 @@ public class BugorDmitriyTest extends BaseTest {
         getDriver().manage().deleteAllCookies();
         getDriver().manage().window().maximize();
 
-        Thread.sleep(7000);
+        Thread.sleep(10000);
 
         WebElement searchCityField = getDriver().findElement(
                 By.xpath("//div[@id='weather-widget']//input[@placeholder='Search city']")
@@ -45,6 +41,5 @@ public class BugorDmitriyTest extends BaseTest {
         String actualResult = h2CityCountryHeader.getText();
 
         Assert.assertEquals(actualResult, expectedResult);
-
     }
 }

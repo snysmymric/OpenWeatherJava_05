@@ -14,7 +14,7 @@ public class ElenaHoustonTest extends BaseTest {
         String expectedResult = "Paris, FR";
 
         getDriver().get(url);
-        Thread.sleep(7000);
+        Thread.sleep(10000);
 
         WebElement searchCityField = getDriver().findElement(
                 By.xpath("//div[@id='weather-widget']//input[@placeholder='Search city']")
@@ -53,7 +53,7 @@ public class ElenaHoustonTest extends BaseTest {
         String expectedResult2 = "OpenWeatherMap API guide - OpenWeatherMap";
 
         getDriver().get(url);
-        Thread.sleep(7000);
+        Thread.sleep(10000);
 
         WebElement guideMenu = getDriver().findElement(By.linkText(guideMenuText));
         guideMenu.click();
@@ -74,7 +74,7 @@ public class ElenaHoustonTest extends BaseTest {
 
         getDriver().get(url);
         getDriver().manage().window().maximize();
-        Thread.sleep(7000);
+        Thread.sleep(10000);
 
         WebElement pushImperialFahrenheit = getDriver().findElement(By.xpath("//div[@class = 'switch-container']//div"
                 + "[text()= 'Imperial: °F, mph']")

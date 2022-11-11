@@ -14,7 +14,7 @@ public class GalinaKuklevaTest extends BaseTest {
         String expectedResult = "Paris, FR";
 
         getDriver().get(baseUrl);
-        Thread.sleep(7000);
+        Thread.sleep(10000);
         WebElement searchCityField = getDriver().findElement(
                 By.xpath("//div[@id = 'weather-widget']//input[@placeholder = 'Search city']")
         );
@@ -48,7 +48,7 @@ public class GalinaKuklevaTest extends BaseTest {
         String expectedResult_2 = "OpenWeatherMap API guide - OpenWeatherMap";
 
         getDriver().get(baseUrl);
-        Thread.sleep(7000);
+        Thread.sleep(10000);
         WebElement guideButton = getDriver().findElement(
                 By.xpath("//div[@id = 'desktop-menu']//li/a [@href='/guide']")
         );
@@ -68,7 +68,7 @@ public class GalinaKuklevaTest extends BaseTest {
         String expectedResult = "°F";
 
         getDriver().get(baseUrl);
-        Thread.sleep(7000);
+        Thread.sleep(10000);
         WebElement imperialData = getDriver().findElement(
                 By.xpath("//div[@id = 'weather-widget']//div[text() = 'Imperial: °F, mph']")
         );
@@ -91,7 +91,7 @@ public class GalinaKuklevaTest extends BaseTest {
 
         getDriver().get(baseUrl);
         getDriver().manage().window().maximize();
-        Thread.sleep(7000);
+        Thread.sleep(10000);
         WebElement supportButton = getDriver().findElement(
                 By.xpath("//div[@id='support-dropdown']")
         );
@@ -150,7 +150,7 @@ public class GalinaKuklevaTest extends BaseTest {
         getDriver().get(baseUrl);
         getDriver().manage().window().maximize();
         int expectedResult = 30;
-        Thread.sleep(7000);
+        Thread.sleep(10000);
         WebElement element = getDriver().findElement(
                 By.xpath("//div[@id = 'desktop-menu']//a[text()= 'API']"));
         element.click();

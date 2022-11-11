@@ -12,7 +12,7 @@ public class SyniaginaTest extends BaseTest {
         String expectedResult2 = "https://openweathermap.org/guide";
 
         getDriver().get(url);
-        Thread.sleep(6000);
+        Thread.sleep(10000);
         WebElement buttonGuide = getDriver().findElement(
                 By.xpath("//div[@id='desktop-menu']//a[@href='/guide']")
         );

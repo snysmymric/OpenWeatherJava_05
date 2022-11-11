@@ -15,7 +15,7 @@ public class WeraStremedlowskaTest extends BaseTest {
         String expectedResult = "Paris, FR";
 
         getDriver().get(url);
-        Thread.sleep(7000);
+        Thread.sleep(10000);
 
         WebElement searchCityField = getDriver().findElement(
                 By.xpath("//div[@id='weather-widget']//input[@placeholder='Search city']")
@@ -53,12 +53,39 @@ public class WeraStremedlowskaTest extends BaseTest {
         String expectedResult = "https://openweathermap.org/";
 
         getDriver().get(url);
-        Thread.sleep(7000);
+        Thread.sleep(10000);
 
         getDriver().findElement(
                 By.xpath("//ul/li/a/img[@src='/themes/openweathermap/assets/img/logo_white_cropped.png']")).click();
 
         Assert.assertEquals(getDriver().getCurrentUrl(), expectedResult);
+
+    }
+
+    @Test
+    public void testTempFahrenheitChangesToCelsius() throws InterruptedException {
+        String url = "https://openweathermap.org/";
+        String expectedResult = "°C";
+
+        getDriver().get(url);
+        Thread.sleep(10000);
+
+        getDriver().findElement(
+                        By.xpath("//div[@id='weather-widget']/div[1]/div/div/div[1]/div[2]/div[text()='Imperial: °F, mph']"))
+                .click();
+        Thread.sleep(5000);
+        getDriver().findElement(By.xpath("//div[@id='weather-widget']/div/div/div/div/div/div[2]")).click();
+
+        WebElement fahrenheit = getDriver().findElement(
+                By.xpath("//div[@id='weather-widget']//div[2]/div/div/div/div/span")
+        );
+
+        Thread.sleep(3000);
+
+        String actualResult = fahrenheit.getText();
+        actualResult = actualResult.substring(actualResult.length() - 2);
+
+        Assert.assertEquals(actualResult, expectedResult);
 
     }
 }

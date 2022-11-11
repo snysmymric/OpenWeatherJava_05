@@ -13,7 +13,7 @@ public class MarinarokhmanovaTest extends BaseTest {
         String expectedResult = "Paris, FR";
 
         getDriver().get(url);
-        Thread.sleep(7000);
+        Thread.sleep(10000);
 
         WebElement searchCityField = getDriver().findElement(
                 By.xpath("//div[@id= 'weather-widget']//input[@ placeholder='Search city']")
@@ -50,7 +50,7 @@ public class MarinarokhmanovaTest extends BaseTest {
 
         getDriver().get(url);
         getDriver().manage().window().maximize();
-        Thread.sleep(7000);
+        Thread.sleep(10000);
 
         WebElement guideSearchField = getDriver().findElement(
                 By.xpath("//a[@href][text()='Guide']")
@@ -65,5 +65,31 @@ public class MarinarokhmanovaTest extends BaseTest {
 
         Assert.assertEquals(actualResult1, expectedResult1);
         Assert.assertEquals(actualResult2, expectedResult2);
+    }
+
+    @Test
+    public void testUnitsImperialCtoF() throws InterruptedException {
+        String url = "https://openweathermap.org/";
+        String expectedResult = "°F";
+
+        getDriver().get(url);
+        getDriver().manage().window().maximize();
+        Thread.sleep(7000);
+
+        WebElement unitsImperialF = getDriver().findElement(
+                By.xpath("//div[@class ='option'][text()='Imperial: °F, mph']")
+        );
+        unitsImperialF.click();
+        Thread.sleep(2000);
+
+        WebElement unitsImperialFCity = getDriver().findElement(
+                By.xpath("//div[@class ='current-temp']/span")
+        );
+        unitsImperialFCity.click();
+        Thread.sleep(2000);
+
+        boolean actualResult = unitsImperialFCity.getText().contains("F");
+
+        Assert.assertTrue(actualResult, expectedResult);
     }
 }

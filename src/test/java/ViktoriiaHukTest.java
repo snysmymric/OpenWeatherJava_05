@@ -11,7 +11,7 @@ public class ViktoriiaHukTest extends BaseTest {
         int expectedResult = 30;
 
         getDriver().get(URL);
-        Thread.sleep(7000);
+        Thread.sleep(10000);
         getDriver().findElement(By.xpath("//div[@id = 'desktop-menu']/ul/li[2]/a")).click();
 
         int actualResult = getDriver().findElements(By.xpath("//a[contains(@class, 'orange')]")).size();

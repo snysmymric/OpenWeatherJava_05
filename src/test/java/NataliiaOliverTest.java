@@ -13,7 +13,7 @@ public class NataliiaOliverTest extends BaseTest {
         String expectedResult = "Paris, FR";
 
         getDriver().get(url);
-        Thread.sleep(7000);
+        Thread.sleep(10000);
 
         WebElement searchCityField = getDriver().findElement(
                 By.xpath("//div[@id='weather-widget']//input[@placeholder='Search city']")
@@ -41,5 +41,26 @@ public class NataliiaOliverTest extends BaseTest {
         String actualResult = h2CityCountryHeader.getText();
 
         Assert.assertEquals(actualResult, expectedResult);
+    }
+
+    @Test
+    public void testPressImperialButtonF_TempIsdIsDisplayedInF() throws InterruptedException {
+        String url = "https://openweathermap.org/";
+        String expectedResult = "°F";
+
+        getDriver().get(url);
+        Thread.sleep(10000);
+
+        WebElement searchImperial = getDriver().findElement(
+                By.xpath("//div[@id='weather-widget']//div[text()='Imperial: °F, mph']")
+        );
+        searchImperial.click();
+
+        Thread.sleep(2000);
+
+        WebElement tempF = getDriver().findElement(By.xpath("//div[@class='current-temp']/span[@class='heading']"));
+        String tempInF = tempF.getText();
+
+        Assert.assertTrue(tempInF.contains(expectedResult));
     }
 }

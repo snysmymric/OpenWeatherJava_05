@@ -13,10 +13,28 @@ private static final String URL = "https://openweathermap.org/";
     public void testCheckThirtyOrangeButtons() throws InterruptedException {
         int expectedResult = 30;
         getDriver().get(URL);
-        Thread.sleep(7000);
+        Thread.sleep(10000);
         getDriver().findElement(By.xpath("//ul[@id='first-level-nav']//a[@href='/api']")).click();
         List<WebElement> buttonList = getDriver().findElements(By.xpath("//a[contains(@class,'orange')]"));
 
         Assert.assertEquals(buttonList.size(), expectedResult);
+    }
+
+    @Test
+    public void testCheckTopInputFieldSearch() throws InterruptedException {
+        String city = "Rome";
+
+        getDriver().get(URL);
+        Thread.sleep(10000);
+
+        getDriver().findElement(By.xpath("//div//input[@name='q']")).sendKeys(city + "\n");
+        String path = getDriver().getCurrentUrl();
+        boolean actualQueryPath = path.contains("find") && path.contains(city);
+        WebElement searchField = getDriver().findElement(By.id("search_str"));
+        String actualResult = searchField.getAttribute("value");
+
+        Assert.assertTrue(actualQueryPath);
+        Assert.assertEquals(actualResult, city);
+
     }
 }

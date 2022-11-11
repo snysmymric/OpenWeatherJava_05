@@ -12,7 +12,7 @@ public class Maksim2404Test extends BaseTest {
         String expectedResult = "Paris, FR";
 
         getDriver().get(url);
-        Thread.sleep(7000);
+        Thread.sleep(10000);
 
         WebElement searchCityField = getDriver().findElement(
                 By.xpath("//div[@id = 'weather-widget']//input[@placeholder = 'Search city']"));
@@ -51,7 +51,7 @@ public class Maksim2404Test extends BaseTest {
         String expectedResult3 = "Ask a question";
 
         getDriver().get(url);
-        Thread.sleep(7000);
+        Thread.sleep(10000);
 
         WebElement searchButton = getDriver().findElement(
                 By.id("support-dropdown")
@@ -82,5 +82,24 @@ public class Maksim2404Test extends BaseTest {
         Assert.assertEquals(actualResult1, expectedResult1);
         Assert.assertEquals(actualResult2, expectedResult2);
         Assert.assertEquals(actualResult3, expectedResult3);
+    }
+
+    @Test
+    public void testconfirmSite() throws InterruptedException {
+
+        String url = "https://openweathermap.org/";
+        String expectedResult = "https://openweathermap.org/";
+
+        getDriver().get(url);
+        Thread.sleep(10000);
+
+        WebElement getLogo = getDriver().findElement(
+                By.xpath("//li[@class='logo']"));
+        getLogo.click();
+        Thread.sleep(5000);
+
+        String actualResult = getDriver().getCurrentUrl();
+
+        Assert.assertEquals(actualResult,expectedResult);
     }
 }

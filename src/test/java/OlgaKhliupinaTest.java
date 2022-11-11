@@ -1,8 +1,12 @@
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import runner.BaseTest;
+
+import java.util.List;
 
 public class OlgaKhliupinaTest extends BaseTest {
 
@@ -15,7 +19,7 @@ public class OlgaKhliupinaTest extends BaseTest {
 
       getDriver().manage().window().maximize();
       getDriver().get(url);
-      Thread.sleep(5000);
+      Thread.sleep(10000);
 
       WebElement menuGuide = getDriver().findElement(By.xpath("//div/ul//li/a[@href='/guide']"));
       menuGuide.click();
@@ -33,7 +37,7 @@ public class OlgaKhliupinaTest extends BaseTest {
       String expectedResult = "Paris, FR";
 
       getDriver().get(url);
-      Thread.sleep(7000);
+      Thread.sleep(10000);
 
       WebElement searchCityField = getDriver().findElement(
               By.xpath("//div[@id='weather-widget']//input[@placeholder='Search city']"));
@@ -69,7 +73,7 @@ public class OlgaKhliupinaTest extends BaseTest {
 
       getDriver().manage().window().maximize();
       getDriver().get(url);
-      Thread.sleep(7000);
+      Thread.sleep(10000);
 
       Assert.assertTrue(getDriver().findElement(By.className("stick-footer-panel__container")).isDisplayed());
 
@@ -106,7 +110,7 @@ public class OlgaKhliupinaTest extends BaseTest {
       String expectedResultAskAQuestion = "Ask a question";
 
       getDriver().get(url);
-      Thread.sleep(8000);
+      Thread.sleep(10000);
 
       WebElement menuSupport = getDriver().findElement(By.xpath("//div[@id='support-dropdown']"));
       menuSupport.click();
@@ -140,7 +144,7 @@ public class OlgaKhliupinaTest extends BaseTest {
 
       getDriver().manage().window().maximize();
       getDriver().get(url);
-      Thread.sleep(7000);
+      Thread.sleep(10000);
 
       WebElement menuSupport = getDriver().findElement(By.xpath("//div[@id='support-dropdown']"));
       menuSupport.click();
@@ -179,5 +183,85 @@ public class OlgaKhliupinaTest extends BaseTest {
       WebElement errorText = getDriver().findElement(By.xpath("//div[@class = 'help-block']"));
 
       Assert.assertEquals(errorText.getText(), expectedResult);
+   }
+
+   @Test
+   public  void testCheckUrlAfterRefreshMainPage() throws InterruptedException {
+      String url = "https://openweathermap.org/";
+      String expectedResult = url;
+
+      getDriver().get(url);
+      Thread.sleep(10000);
+
+      WebElement logo = getDriver().findElement(
+              By.xpath("//img[@src='/themes/openweathermap/assets/img/logo_white_cropped.png']"));
+      logo.click();
+      Thread.sleep(8000);
+
+      Assert.assertEquals(getDriver().getCurrentUrl(), expectedResult);
+   }
+
+   @Test
+   public void testContentInLinkAndInSearchField_WhenGoToCityNavigation() throws InterruptedException {
+      String url = "https://openweathermap.org/";
+      String cityName = "Rome";
+      String expectedResult = "Rome";
+
+      getDriver().get(url);
+      Thread.sleep(   10000);
+
+      WebElement searchFieldWheatherInYourCity = getDriver().findElement(
+              By.xpath("//div[@id='desktop-menu']/form/input[@placeholder='Weather in your city']"));
+      searchFieldWheatherInYourCity.click();
+      searchFieldWheatherInYourCity.sendKeys(cityName + Keys.ENTER);
+      Thread.sleep(2000);
+
+      Assert.assertTrue(getDriver().getCurrentUrl().contains("find"));
+      Assert.assertTrue(getDriver().getCurrentUrl().contains(cityName));
+
+      WebElement searchField = getDriver().findElement(By.xpath("//input[@id='search_str']"));
+
+      Assert.assertEquals(searchField.getAttribute("value"), expectedResult);
+   }
+
+   @Test
+   public void testFindQuantityOfOrangeButtons() throws InterruptedException {
+      String url = "https://openweathermap.org/";
+      int expectedResult = 30;
+
+      getDriver().get(url);
+      Thread.sleep(10000);
+
+      WebElement apiMenu = getDriver().findElement(
+              By.xpath("//div[@id='desktop-menu']/ul/li/a[@href='/api']"));
+      apiMenu.click();
+      Thread.sleep(1000);
+
+      List<WebElement> buttons = getDriver().findElements(
+              By.xpath("//a[@type='button' and contains(@class,'orange') or contains(@class, 'btn-orange')]"));
+
+      Assert.assertEquals(buttons.size(), expectedResult);
+   }
+
+   static boolean isTempInSymbol(WebDriver driver, String temp, String symbolTemp) throws InterruptedException {
+      WebElement tempUnit = driver.findElement(By.xpath(String.format("//div[text()='%s']", temp)));
+      tempUnit.click();
+      Thread.sleep(1000);
+
+      WebElement tempUnitHeading = driver.findElement(By.xpath("//div[@class='current-temp']/span"));
+
+      return tempUnitHeading.getText().contains(symbolTemp);
+   }
+
+   @Test
+   public void testChangingTempUnitInHeading_WhenSwitchTempUnitButton() throws InterruptedException {
+      String url = "https://openweathermap.org/";
+      String temp = "Imperial: °F, mph";
+      String symbolTemp = "°F";
+
+      getDriver().get(url);
+      Thread.sleep(10000);
+
+      Assert.assertTrue(isTempInSymbol(getDriver(), temp, symbolTemp));
    }
 }

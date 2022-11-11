@@ -14,7 +14,7 @@ public class VadimKachanovichTest extends BaseTest {
 
         getDriver().get(url);
         getDriver().manage().window().maximize();
-        Thread.sleep(7000);
+        Thread.sleep(10000);
 
         WebElement searchCityField = getDriver().findElement(
                 By.xpath("//div[@id = 'weather-widget']//input[@placeholder = 'Search city']")
@@ -50,7 +50,7 @@ public class VadimKachanovichTest extends BaseTest {
         String expectedTitle = "OpenWeatherMap API guide - OpenWeatherMap";
 
         getDriver().get(url);
-        Thread.sleep(7000);
+        Thread.sleep(10000);
         WebElement guideTab = getDriver().findElement(
                 By.xpath("//div[@id='desktop-menu']//li/a[@href='/guide']")
         );
@@ -62,5 +62,48 @@ public class VadimKachanovichTest extends BaseTest {
         String actualTitle = getDriver().getTitle();
         Assert.assertEquals(actualGuideLink, expectedGuideLink);
         Assert.assertEquals(actualTitle, expectedTitle);
+    }
+
+    @Test
+    public void testFooterCookie() throws InterruptedException {
+        String url = "https://openweathermap.org/";
+        String expectedResultFooterCookie = "We use cookies which are essential for the site to work. We also use non-essential cookies to help us improve our services. Any data collected is anonymised. You can allow all cookies or manage them individually.";
+        String expectedAllowAllButton = "Allow all";
+        String expectedManageCookiesButton = "Manage cookies";
+
+        getDriver().get(url);
+        Thread.sleep(8000);
+        WebElement footerCookie = getDriver().findElement(
+                By.xpath("//div[@id= 'stick-footer-panel']//p[@class = 'stick-footer-panel__description']")
+        );
+        WebElement buttonAllowAll = getDriver().findElement(By.xpath("//div[@id= 'stick-footer-panel']//div/button"));
+        WebElement buttonManageCookies = getDriver().findElement(By.xpath("//div[@id= 'stick-footer-panel']//div/a"));
+
+        String аctualAllowAllButton = buttonAllowAll.getText();
+        String аctualManageCookiesButton = buttonManageCookies.getText();
+        String actualResultFooterCookie = footerCookie.getText();
+
+        Assert.assertEquals(actualResultFooterCookie, expectedResultFooterCookie);
+        Assert.assertEquals(аctualAllowAllButton, expectedAllowAllButton);
+        Assert.assertEquals(аctualManageCookiesButton, expectedManageCookiesButton);
+    }
+
+    @Test
+    public void testClickAPIfind30Buttons() throws InterruptedException {
+
+        String url = "https://openweathermap.org/";
+        int expectedResult = 30;
+        getDriver().get(url);
+        Thread.sleep(10000);
+
+        WebElement element = getDriver().findElement(
+                By.xpath("//div[@id = 'desktop-menu']//a[text()= 'API']"));
+        element.click();
+
+        int actualResult = getDriver().findElements(
+                By.xpath("//a[contains(@class, 'btn_block orange round') " +
+                        "or contains(@class, 'ow-btn round btn-orange') ]")).size();
+
+        Assert.assertEquals(actualResult, expectedResult);
     }
 }

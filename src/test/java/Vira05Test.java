@@ -16,7 +16,7 @@ public class Vira05Test extends BaseTest {
 
         getDriver().get(url);
 
-        Thread.sleep(7000);
+        Thread.sleep(10000);
 
         WebElement searchCityFild = getDriver().findElement(
                 By.xpath("//div[@id = 'weather-widget']//input[@placeholder='Search city']")

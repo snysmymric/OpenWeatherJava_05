@@ -14,7 +14,7 @@ public class AndreyGolovTest extends BaseTest {
         String expectedResult = "Paris, FR";
 
         getDriver().get(url);
-        Thread.sleep(7000);
+        Thread.sleep(10000);
 
         WebElement searchCityField = getDriver().findElement(
                 By.xpath("//div[@id = 'weather-widget']//input[@placeholder = 'Search city']")
@@ -51,7 +51,7 @@ public class AndreyGolovTest extends BaseTest {
         String tempInFarenheit = "F";
 
         getDriver().get(url);
-        Thread.sleep(7000);
+        Thread.sleep(10000);
 
         WebElement showTempInFahrenheit = getDriver().findElement(
                 By.xpath("//div[@class = 'option'][contains(text(), 'Imperial')]")
@@ -80,7 +80,7 @@ public class AndreyGolovTest extends BaseTest {
         String textOfButton2 = "Manage cookies";
 
         getDriver().get(url);
-        Thread.sleep(7000);
+        Thread.sleep(10000);
 
         WebElement textCookieWarning = getDriver().findElement(
                 By.className("stick-footer-panel__description")

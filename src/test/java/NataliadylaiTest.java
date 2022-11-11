@@ -17,7 +17,7 @@ public class NataliadylaiTest extends BaseTest {
 
 
         getDriver().get(url);
-        Thread.sleep(7000);
+        Thread.sleep(10000);
 
         WebElement searchCityField =
                 getDriver().findElement(
@@ -51,7 +51,7 @@ public class NataliadylaiTest extends BaseTest {
         String expectedResult1 = "https://openweathermap.org/guide";
         String expectedResult2 = "OpenWeatherMap API guide - OpenWeatherMap";
         getDriver().get(url);
-        Thread.sleep(7000);
+        Thread.sleep(10000);
 
         WebElement guideHeader = getDriver().findElement(
                 By.xpath("//div/ul/li/a[@href = '/guide']"));
@@ -67,7 +67,7 @@ public class NataliadylaiTest extends BaseTest {
     public void testChangingTempUnitInHeading_WhenSwitchTempUnitButton() throws InterruptedException {
         String url = "https://openweathermap.org/";
         getDriver().get(url);
-        Thread.sleep(7000);
+        Thread.sleep(10000);
         WebElement tempUnit = getDriver().findElement(
                 By.xpath("//div[text()='Imperial: °F, mph']"));
         tempUnit.click();
@@ -87,7 +87,7 @@ public class NataliadylaiTest extends BaseTest {
         String button2 = "Manage cookies";
         getDriver().get(url);
         getDriver().manage().window().maximize();
-        Thread.sleep(7000);
+        Thread.sleep(10000);
         Assert.assertTrue(getDriver().findElement(By.className("stick-footer-panel__container")).isDisplayed());
         Assert.assertEquals(getDriver().findElements(
                 By.xpath("//div[@class = 'stick-footer-panel__btn-container']/*")).size(), 2);
@@ -102,4 +102,36 @@ public class NataliadylaiTest extends BaseTest {
         Assert.assertTrue(getDriver().findElement(
                 By.xpath("//div[@class = 'stick-footer-panel__btn-container']/*[text() = ' Manage cookies ']")).isDisplayed());
     }
+
+    @Test
+    public void test_checkSupportDropdownOnPAgeHeader() throws InterruptedException {
+        String url = "https://openweathermap.org/";
+        String expectedResult1 = "FAQ";
+        String expectedResult2 = "How to start";
+        String expectedResult3 = "Ask a question";
+
+        getDriver().get(url);
+        Thread.sleep(10000);
+
+        WebElement support = getDriver().findElement(
+                By.xpath("//div[@id = 'support-dropdown']"));
+        support.click();
+        Assert.assertEquals(getDriver().findElements(By.xpath("//ul[@id = 'support-dropdown-menu']/li")).size(), 3);
+        WebElement faq = getDriver().findElement(
+                By.xpath("//ul[@id = 'support-dropdown-menu']//a[@href ='/faq']")
+        );
+        String actualResult1 = faq.getText();
+        Assert.assertEquals(actualResult1,expectedResult1);
+        WebElement start = getDriver().findElement(
+                By.xpath("//ul[@id ='support-dropdown-menu']//a[@href ='/appid']")
+        );
+        String actualResult2 = start.getText();
+        Assert.assertEquals(actualResult2,expectedResult2);
+        WebElement question = getDriver().findElement(
+                By.xpath("//ul[@id ='support-dropdown-menu']//a[@href = 'https://home.openweathermap.org/questions']")
+        );
+        String actualResult3 = question.getText();
+        Assert.assertEquals(actualResult3,expectedResult3);
+    }
+
 }

@@ -4,8 +4,14 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import runner.BaseTest;
 
-public class ekaterinalizinaTest extends BaseTest {
+public class TsetskolTest extends BaseTest{
 
+    //    TC_1_1  - Тест кейс:
+    //    //1. Открыть страницу https://openweathermap.org/
+    //    //2. Набрать в строке поиска город Paris
+    //    //3. Нажать пункт меню Search
+    //    //4. Из выпадающего списка выбрать Paris, FR
+    //    //5. Подтвердить, что заголовок изменился на "Paris, FR"
     @Test
     public void testH2TagText_WhenSearchingCityCountry() throws InterruptedException {
 
@@ -13,8 +19,9 @@ public class ekaterinalizinaTest extends BaseTest {
         String cityName = "Paris";
         String expectedResult = "Paris, FR";
 
+
         getDriver().get(url);
-        Thread.sleep(8000);
+        Thread.sleep(5000);
 
         WebElement searchCityField = getDriver().findElement(
                 By.xpath("//div[@id = 'weather-widget']//input[@placeholder = 'Search city']")
@@ -28,22 +35,19 @@ public class ekaterinalizinaTest extends BaseTest {
         );
 
         searchButton.click();
-
         Thread.sleep(1000);
 
-        WebElement parisFrhoiseInDropDownMenu = getDriver().findElement(
-                By.xpath("//ul[@class ='search-dropdown-menu']/li/span[text() = 'Paris, FR ']")
+
+        WebElement parisFRChoiceInDropdownMenu = getDriver().findElement(
+                By.xpath("//ul[@class = 'search-dropdown-menu']/li/span[text() = 'Paris, FR ']")
         );
+        parisFRChoiceInDropdownMenu.click();
 
-        parisFrhoiseInDropDownMenu.click();
-
-        WebElement h2CityCountHeader = getDriver().findElement(
+        WebElement h2CityCountryHeader = getDriver().findElement(
                 By.xpath("//div[@id = 'weather-widget']//h2")
         );
-
         Thread.sleep(2000);
-
-        String actualResult = h2CityCountHeader.getText();
+        String actualResult = h2CityCountryHeader.getText();
 
         Assert.assertEquals(actualResult, expectedResult);
     }
