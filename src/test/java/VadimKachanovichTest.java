@@ -87,4 +87,23 @@ public class VadimKachanovichTest extends BaseTest {
         Assert.assertEquals(аctualAllowAllButton, expectedAllowAllButton);
         Assert.assertEquals(аctualManageCookiesButton, expectedManageCookiesButton);
     }
+
+    @Test
+    public void testClickAPIfind30Buttons() throws InterruptedException {
+
+        String url = "https://openweathermap.org/";
+        int expectedResult = 30;
+        getDriver().get(url);
+        Thread.sleep(10000);
+
+        WebElement element = getDriver().findElement(
+                By.xpath("//div[@id = 'desktop-menu']//a[text()= 'API']"));
+        element.click();
+
+        int actualResult = getDriver().findElements(
+                By.xpath("//a[contains(@class, 'btn_block orange round') " +
+                        "or contains(@class, 'ow-btn round btn-orange') ]")).size();
+
+        Assert.assertEquals(actualResult, expectedResult);
+    }
 }
