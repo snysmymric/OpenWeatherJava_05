@@ -1,7 +1,5 @@
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import runner.BaseTest;
@@ -58,6 +56,28 @@ public class YuliaMatusevichTest extends BaseTest {
         Assert.assertTrue(findTempIndicator.getText().contains("F"));
     }
 
+    @Test
+    public void testDownpageBannerTextAndButtons_WhenBasicURLLoaded() throws InterruptedException {
+        String url = "https://openweathermap.org/";
+        final String expectedBannerText = "We use cookies which are essential for the site to work. "
+                + "We also use non-essential cookies to help us improve our services. "
+                + "Any data collected is anonymised. You can allow all cookies or manage them individually.";
+        final int expectedQuantityOfButtons = 2;
+        final String expectedTextAllowButton = "Allow all";
+        final String expectedTextCookiesButton = "Manage cookies";
+
+        getDriver().get(url);
+        Thread.sleep(10000);
+
+        Assert.assertEquals(getDriver().findElement(
+                By.xpath("//p[@class = 'stick-footer-panel__description']")).getText(), expectedBannerText);
+        Assert.assertEquals(getDriver().findElements(
+                By.xpath("//div[@class = 'stick-footer-panel__btn-container']/*")).size(), expectedQuantityOfButtons);
+        Assert.assertEquals(getDriver().findElement(
+                By.xpath("//div[@id = 'stick-footer-panel']//button")).getText(), expectedTextAllowButton);
+        Assert.assertEquals(getDriver().findElement(
+                By.xpath("//a[@href = '/cookies-settings']")).getText(), expectedTextCookiesButton);
+    }
 }
 
 
