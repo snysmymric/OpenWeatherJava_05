@@ -106,5 +106,49 @@ public class AndreyGolovTest extends BaseTest {
         );
     }
 
+    @Test
+    public void testDropDownSupportMenu() throws InterruptedException {
+
+        String url = "https://openweathermap.org/";
+        String firstDropDownSupportMenuElementText = "FAQ";
+        String secondDropDownSupportMenuElementText = "How to start";
+        String thirdDropDownSupportMenuElementText = "Ask a question";
+
+        getDriver().get(url);
+        Thread.sleep(10000);
+
+        WebElement supportMenu = getDriver().findElement(
+                By.id("support-dropdown")
+        );
+
+        supportMenu.click();
+        Thread.sleep(10000);
+
+        WebElement dropDownSupportMenu = getDriver().findElement(
+                By.id("support-dropdown-menu")
+        );
+
+        Assert.assertEquals(
+                getDriver().findElements(By.xpath("//ul[@id = 'support-dropdown-menu']/*"))
+                        .size(), 3
+        );
+
+        Assert.assertEquals(
+                getDriver().findElement(By.xpath("//li[@class = 'with-dropdown']//a[@href = '/faq']")).getText()
+                , firstDropDownSupportMenuElementText
+        );
+
+        Assert.assertEquals(
+                getDriver().findElement(By.xpath("//li[@class = 'with-dropdown']//a[@href = '/appid']")).getText()
+                , secondDropDownSupportMenuElementText
+        );
+
+        Assert.assertEquals(
+                getDriver().findElement(By.xpath("//li[@class = 'with-dropdown']//a[@href = 'https://home.openweathermap.org/questions']")).getText()
+                , thirdDropDownSupportMenuElementText
+        );
+
+    }
+
 
 }
