@@ -87,4 +87,44 @@ public class Tatiana_SH_V_Test extends BaseTest {
         Assert.assertEquals(actualResult, expectedResult);
     }
 
+    @Test
+
+    public void testTextAllowManageCookies() throws InterruptedException {
+        String url = "https://openweathermap.org/";
+        String expectedResult1 = "We use cookies which are essential for the site to work. " +
+                "We also use non-essential cookies to help us improve our services. " +
+                "Any data collected is anonymised. You can allow all cookies or manage them individually.";
+        String button1Text = "Allow all";
+        String button2Text = " Manage cookies ";
+
+        getDriver().get(url);
+        Thread.sleep(10000);
+
+        Assert.assertTrue(getDriver().findElement(By.className("stick-footer-panel__container")).isDisplayed());
+
+        WebElement textCookies = getDriver().findElement(
+                By.className("stick-footer-panel__description")
+        );
+        String actualResult1 = textCookies.getText();
+
+        Assert.assertEquals(actualResult1, expectedResult1);
+
+        Assert.assertEquals(
+                getDriver().findElements(By.xpath("//div[@class = 'stick-footer-panel__btn-container']/*")).
+                        size(), 2
+        );
+
+        Assert.assertTrue(
+                getDriver().findElement(
+                        By.xpath("//div[@class = 'stick-footer-panel__btn-container']/*[text() = '"
+                                + button1Text + "']")
+                ).isDisplayed());
+
+        Assert.assertTrue(
+                getDriver().findElement(
+                        By.xpath("//div[@class = 'stick-footer-panel__btn-container']/*[text() = '"
+                                + button2Text + "']")
+                ).isDisplayed());
+    }
+
 }
