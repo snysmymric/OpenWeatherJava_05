@@ -106,4 +106,21 @@ public class elenuraTest extends BaseTest {
         Assert.assertEquals(orangeButtons.size(),30);
     }
 
+    @Test
+    public void  testLogoNotChangeURL() throws InterruptedException {
+        String url = "https://openweathermap.org/";
+        String expectedResult = "https://openweathermap.org/";
+        getDriver().get(url);
+        Thread.sleep(10000);
+
+        WebElement logo = getDriver().findElement(
+                By.xpath("//img[@src = '/themes/openweathermap/assets/img/logo_white_cropped.png']")
+        );
+        logo.click();
+        Thread.sleep(5000);
+
+        Assert.assertEquals(getDriver().getCurrentUrl(),expectedResult);
+    }
+
+
 }
