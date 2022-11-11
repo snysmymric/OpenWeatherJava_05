@@ -1,7 +1,5 @@
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import runner.BaseTest;
@@ -59,5 +57,28 @@ public class Btv35Test extends BaseTest {
         String actualResult = getDriver().getTitle();
 
         Assert.assertEquals(actualResult, expectedResult);
+    }
+    @Test
+    public void testSwitchingTemperatureToFahrenheit() throws InterruptedException {
+        String url = "https://openweathermap.org/";
+        String expectedResult = "F";
+
+        getDriver().get(url);
+        Thread.sleep(10000);
+
+        WebElement switchToFahrenheit = getDriver().findElement(
+                By.xpath("//div[@id ='weather-widget']//div[text() = 'Imperial: °F, mph']"));
+        switchToFahrenheit.click();
+        Thread.sleep(7000);
+
+        WebElement temperatureInFahrenheit = getDriver().findElement(
+                By.xpath("//div[@id='weather-widget']//span[contains (text(),'F')]"));
+
+        String temperatureInFahrenheitText = temperatureInFahrenheit.getText();
+        String actualResult = temperatureInFahrenheitText.substring(temperatureInFahrenheitText.length() - 1);
+
+        Assert.assertEquals(actualResult,expectedResult);
+
+        Assert.assertTrue(temperatureInFahrenheit.getText().contains(expectedResult));
     }
 }
