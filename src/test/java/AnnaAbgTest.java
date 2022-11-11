@@ -11,7 +11,6 @@ public class AnnaAbgTest extends BaseTest {
     @Test
     public void testH2TagText_WhenSearchingCityCountry() throws InterruptedException {
 
-        String url = "https://openweathermap.org/";
         String cityName = "Paris";
         String expectedResult = "Paris, FR";
 
@@ -43,5 +42,23 @@ public class AnnaAbgTest extends BaseTest {
         String actualResult = h2CityCountryHeader.getText();
 
         Assert.assertEquals(actualResult, expectedResult);
+    }
+
+    @Test
+    public void testThirtyOrangeButtons() throws InterruptedException {
+
+        int expectedResult = 30;
+
+        getDriver().get(BASE_URL);
+        Thread.sleep(10000);
+
+        getDriver().findElement(By.xpath("//a[@href='/api']")).click();
+        Thread.sleep(5000);
+
+        int countButtons = getDriver().findElements(
+                By.xpath("//a[contains(@class, 'btn_block orange round') " +
+                        "or contains(@class, 'ow-btn round btn-orange') ]")).size();
+
+        Assert.assertEquals(countButtons, expectedResult);
     }
 }
