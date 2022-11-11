@@ -134,4 +134,25 @@ public class NataliadylaiTest extends BaseTest {
         Assert.assertEquals(actualResult3,expectedResult3);
     }
 
+    @Test
+    public void test_SwitchingMeasurementsBetweenFandC() throws InterruptedException {
+        String url = "https://openweathermap.org/";
+        boolean expectedResult = true;
+
+        getDriver().get(url);
+        getDriver().manage().window().maximize();
+        Thread.sleep(10000);
+        WebElement imperial = getDriver().findElement(
+                By.xpath("//div[@class= 'option'][2]")
+        );
+        imperial.click();
+        Thread.sleep(3000);
+        WebElement metric = getDriver().findElement(
+                By.xpath("//div[@class= 'option'][1]")
+        );
+        metric.click();
+        Thread.sleep(3000);
+        boolean actualResult = metric.getText().contains("°C");
+        Assert.assertEquals(actualResult,expectedResult);
+    }
 }
