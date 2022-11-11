@@ -111,4 +111,42 @@ public class IriSamoTest extends BaseTest {
         Assert.assertEquals(btn, expectedQuantityButtons);
         Assert.assertEquals(actualText, expectedMessage);
     }
+
+    @Test
+    public void testMenuTabSupport() throws InterruptedException {
+        String url = "https://openweathermap.org/";
+        int expectedQuantityLines = 3;
+        String expectedDropMenuFirstLine = "FAQ";
+        String expectedDropMenuSecondLine = "How to start";
+        String expectedDropMenuLastLine = "Ask a question";
+
+        getDriver().get(url);
+        Thread.sleep(10000);
+
+        WebElement tabSupport = getDriver().findElement(By.id("support-dropdown"));
+        tabSupport.click();
+
+        int lines = getDriver().findElements(
+                By.xpath("//*[@id=\"support-dropdown-menu\"]/li/a")
+        ).size();
+
+        WebElement dropMenuFirstLine = getDriver().findElement(
+                By.xpath("//div/ul/li/ul//li/a[@href='/faq']")
+        );
+        String actualDropMenuFirstLine = dropMenuFirstLine.getText();
+        WebElement dropMenuSecondLine = getDriver().findElement(
+                By.xpath("//div/ul/li/ul//li/a[@href='/appid']")
+        );
+        String actualDropMenuSecondLine = dropMenuSecondLine.getText();
+        WebElement dropMenuLastLine = getDriver().findElement(
+                By.xpath("//div/ul/li/ul//li/a"
+                        + "[@href='https://home.openweathermap.org/questions']")
+        );
+        String actualDropMenuLastLine = dropMenuLastLine.getText();
+
+        Assert.assertEquals(lines, expectedQuantityLines);
+        Assert.assertEquals(actualDropMenuFirstLine, expectedDropMenuFirstLine);
+        Assert.assertEquals(actualDropMenuSecondLine, expectedDropMenuSecondLine);
+        Assert.assertEquals(actualDropMenuLastLine, expectedDropMenuLastLine);
+    }
 }
