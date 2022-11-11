@@ -42,4 +42,30 @@ public class BugorDmitriyTest extends BaseTest {
 
         Assert.assertEquals(actualResult, expectedResult);
     }
-}
+            @Test
+        public void testConfirmText() throws InterruptedException {
+            String url = "https://openweathermap.org/";
+            String expectedResult1 = "We use cookies which are essential for the site to work. We also use non-essential"
+                    + " cookies to help us improve our services. Any data collected is anonymised. You can allow all "
+                    + "cookies or manage them individually.";
+            String expectedResult2 = "Allow all";
+            String expectedResult3 = "Manage cookies";
+
+            getDriver().get(url);
+            Thread.sleep(10000);
+
+            String actualResult1 = getDriver().findElement(
+                    By.xpath("//div[@class='stick-footer-panel__container']//p[text()='We use cookies which are essential for the site to work. We also use non-essential cookies to help us improve our services. Any data collected is anonymised. You can allow all cookies or manage them individually.']")
+            ).getText();
+
+            String actualResultAllowAll = getDriver().findElement(
+                    By.xpath("//button[@class='stick-footer-panel__link']")).getText();
+
+            String actualResultManageCookies = getDriver().findElement(
+                    By.xpath("//div[@class='stick-footer-panel__btn-container']//a")).getText();
+
+            Assert.assertEquals(actualResult1, expectedResult1);
+            Assert.assertEquals(actualResultAllowAll, expectedResult2);
+            Assert.assertEquals(actualResultManageCookies, expectedResult3);
+    }
+   }
