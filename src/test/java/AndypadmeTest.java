@@ -117,4 +117,34 @@ public class AndypadmeTest extends BaseTest {
         Assert.assertEquals(actualAllowButton, allowButtonExpectedText);
         Assert.assertEquals(actualManageButton, manageButtonExpectedText);
     }
+
+    @Test
+    public void testSupportMenu() throws InterruptedException {
+
+        String url = "https://openweathermap.org/";
+        String expectedFAQMenuItem = "FAQ";
+        String expectedHowToStartMenuItem = "How to start";
+        String expectedAskAQuestionMenuItem = "Ask a question";
+
+        getDriver().get(url);
+        Thread.sleep(10000);
+
+        getDriver().findElement(By.xpath("//div[@id = 'desktop-menu']//div[@id = 'support-dropdown' and text() = 'Support']")).click();
+
+        WebElement faqItem = getDriver().findElement(
+                By.xpath("//div[@id = 'desktop-menu']//ul[@id = 'support-dropdown-menu']//a[@href = '/faq']")
+        );
+
+        WebElement howToStartItem = getDriver().findElement(
+                By.xpath("//div[@id = 'desktop-menu']//ul[@id = 'support-dropdown-menu']//a[@href = '/appid']")
+        );
+
+        WebElement askQuestionItem = getDriver().findElement(
+                By.xpath("//div[@id = 'desktop-menu']//ul[@id = 'support-dropdown-menu']//a[@href = 'https://home.openweathermap.org/questions']")
+        );
+
+        Assert.assertEquals(faqItem.getText(), expectedFAQMenuItem);
+        Assert.assertEquals(howToStartItem.getText(), expectedHowToStartMenuItem);
+        Assert.assertEquals(askQuestionItem.getText(), expectedAskAQuestionMenuItem);
+    }
 }
