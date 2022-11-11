@@ -108,4 +108,30 @@ public class DimaZadrutsiyTest extends BaseTest {
 
         Assert.assertEquals(actualResult, expectedResult);
     }
+
+    @Test
+    public void testSearchLineCityRome() throws InterruptedException {
+        String url = "https://openweathermap.org/";
+        String cityName = "Rome";
+        String find = "find";
+
+        String expectedResult = "Rome";
+
+        getDriver().get(url);
+
+        Thread.sleep(10000);
+        WebElement searchLine = getDriver().findElement(By.name("q"));
+        searchLine.click();
+        searchLine.sendKeys(cityName);
+        searchLine.sendKeys(Keys.ENTER);
+
+        boolean actualResult = getDriver().getCurrentUrl().contains(find) && getDriver().getCurrentUrl().contains(cityName);
+
+        WebElement cityInTheSearchBar = getDriver().findElement(By.id("search_str"));
+
+        String actualResult2 = cityInTheSearchBar.getAttribute("value");
+
+        Assert.assertTrue(actualResult);
+        Assert.assertEquals(actualResult2, expectedResult);
+    }
 }
