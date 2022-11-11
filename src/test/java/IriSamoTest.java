@@ -149,4 +149,60 @@ public class IriSamoTest extends BaseTest {
         Assert.assertEquals(actualDropMenuSecondLine, expectedDropMenuSecondLine);
         Assert.assertEquals(actualDropMenuLastLine, expectedDropMenuLastLine);
     }
+
+    @Test
+    public void testAskAQuestionWithoutCAPTCHA() throws InterruptedException {
+        String originalWindow = getDriver().getWindowHandle();
+        String url = "https://openweathermap.org/";
+        String expectedTextHelpBlock = "reCAPTCHA verification failed, please try again.";
+
+        getDriver().get(url);
+        Thread.sleep(10000);
+
+        WebElement tabSupport = getDriver().findElement(By.id("support-dropdown"));
+        tabSupport.click();
+        WebElement dropMenuLastLine = getDriver().findElement(
+                By.xpath("//div/ul/li/ul//li/a"
+                        + "[@href='https://home.openweathermap.org/questions']")
+        );
+        dropMenuLastLine.click();
+        Thread.sleep(10000);
+
+        for (String windowHandle : getDriver().getWindowHandles()) {
+            if(!originalWindow.contentEquals(windowHandle)) {
+                getDriver().switchTo().window(windowHandle);
+                break;
+            }
+        }
+
+        WebElement boxMail = getDriver().findElement(By.id("question_form_email"));
+        boxMail.click();
+        boxMail.clear();
+        boxMail.sendKeys("test369852147IS@gmail.com");
+
+        WebElement boxSubject = getDriver().findElement(By.id("question_form_subject"));
+        boxSubject.click();
+
+        WebElement subjectOptionOther = getDriver().findElement(
+                By.xpath("//*[@id=\"question_form_subject\"]"
+                        + "//option[@value='Other']")
+        );
+        subjectOptionOther.click();
+
+        WebElement boxMessage = getDriver().findElement(By.id("question_form_message"));
+        boxMessage.click();
+        boxMessage.clear();
+        boxMessage.sendKeys("question message");
+
+        WebElement buttonSubmit = getDriver().findElement(By.name("commit"));
+        buttonSubmit.click();
+        Thread.sleep(2000);
+
+        WebElement helpBlock = getDriver().findElement(
+                By.xpath("//*[@id=\"new_question_form\"]/div[9]/div[1]/div")
+        );
+        String actualTextHelpBlock = helpBlock.getText();
+
+        Assert.assertEquals(actualTextHelpBlock, expectedTextHelpBlock);
+    }
 }
