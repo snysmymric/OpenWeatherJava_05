@@ -3,6 +3,7 @@ import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import runner.BaseTest;
+import java.util.Set;
 
 public class Tatiana_SH_V_Test extends BaseTest {
 
@@ -167,5 +168,67 @@ public class Tatiana_SH_V_Test extends BaseTest {
 
         Assert.assertEquals(actualResultQuestion, expectedResultQuestion);
     }
+
+    @Test
+    public void testSupportEmailSubMes() throws InterruptedException {
+        String url = "https://openweathermap.org/";
+
+        getDriver().get(url);
+        Thread.sleep(10000);
+
+        WebElement buttonSupport = getDriver().findElement(
+                By.xpath("//div[text()='Support']")
+        );
+        Thread.sleep(3000);
+        buttonSupport.click();
+
+        String parent_window = getDriver().getWindowHandle();
+
+        WebElement buttonAsk = getDriver().findElement(
+                By.xpath("//ul[@id='support-dropdown-menu']//a[@target='_blank']")
+        );
+        buttonAsk.click();
+        Thread.sleep(5000);
+
+        Set<String> windows = getDriver().getWindowHandles();
+        for (String child_window : windows) {
+            if (!parent_window.equals(child_window)) {
+                getDriver().switchTo().window(child_window);
+            }
+        }
+
+        WebElement emeil = getDriver().findElement(
+                By.id("question_form_email")
+        );
+        emeil.click();
+        emeil.sendKeys("renm@gmail.com");
+        Thread.sleep(3000);
+
+        WebElement subject = getDriver().findElement(
+                By.id("question_form_subject")
+        );
+        subject.click();
+        subject.sendKeys("Other");
+        Thread.sleep(3000);
+
+        WebElement message = getDriver().findElement(
+                By.id("question_form_message")
+        );
+        message.click();
+        message.sendKeys("Hi");
+
+        WebElement buttonSubmit = getDriver().findElement(
+                By.xpath("//input[@class='btn btn-default']")
+        );
+        buttonSubmit.click();
+        Thread.sleep(3000);
+
+        WebElement captcha = getDriver().findElement(
+                By.xpath("//div[@class='help-block']")
+        );
+
+        Assert.assertEquals(captcha.getText(), "reCAPTCHA verification failed, please try again.");
+    }
+
 
 }
