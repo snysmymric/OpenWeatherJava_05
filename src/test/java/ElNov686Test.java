@@ -1,8 +1,12 @@
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import runner.BaseTest;
+
+import java.util.List;
 
 public class ElNov686Test extends BaseTest {
     @Test
@@ -85,6 +89,25 @@ public class ElNov686Test extends BaseTest {
         Assert.assertTrue(actualResult2);
         Assert.assertTrue(actualResult3);
 
+        }
+    @Test
+    public void testMenuAPI_Verify30orangeButtons() throws InterruptedException {
+        String url = "https://openweathermap.org/";
+        int expectedResult = 30;
+
+        getDriver().get(url);
+        Thread.sleep(10000);
+
+        WebElement menuAPI = getDriver().findElement(By
+                .xpath("//div[@id='desktop-menu']//a[normalize-space()='API']"));
+        menuAPI.click();
+        Thread.sleep(3000);
+
+        List<WebElement> orangeButtons = getDriver().findElements(By
+                .xpath("//a[contains(@class, 'btn_block orange round') " +
+                        "or contains(@class, 'ow-btn round btn-orange')]"));
+
+        Assert.assertEquals(orangeButtons.size(), expectedResult);
         }
     }
 
