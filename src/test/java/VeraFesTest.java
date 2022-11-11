@@ -1,5 +1,7 @@
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import runner.BaseTest;
@@ -14,7 +16,7 @@ public class VeraFesTest extends BaseTest {
         String expectedResult = "Paris, FR";
 
         getDriver().get(url);
-        Thread.sleep(9000);
+        Thread.sleep(10000);
 
         WebElement searchCityField = getDriver().findElement(
                 By.xpath("//div[@id='weather-widget']//input[@placeholder='Search city']")
@@ -41,4 +43,29 @@ public class VeraFesTest extends BaseTest {
         Assert.assertEquals(actualResult,expectedResult);
     }
 
+    @Test
+    public void test_FahrenheitUnits_IfChooseF_11_02() throws InterruptedException {
+        String url = "https://openweathermap.org/";
+        String menuOption = "Imperial: °F, mph";
+        boolean expectedResult = true;
+        String fTempSymbol = "F";
+
+        getDriver().get(url);
+        Thread.sleep(10000);
+
+        WebElement findTempFSwitcher = getDriver().findElement(By.xpath(
+                "//div[contains(text(),'"+menuOption+"')]"));
+        findTempFSwitcher.click();
+
+        Thread.sleep(5000);
+        WebElement findTempIndicator = getDriver().findElement(By.xpath(
+                "//div[@class='current-temp']/span"));
+
+        Thread.sleep(3000);
+        String tempIndidcatorF = findTempIndicator.getText();
+        String actualResult = tempIndidcatorF.substring(tempIndidcatorF.length() - 2);
+
+        Assert.assertTrue(findTempIndicator.getText().contains(fTempSymbol));
+        Assert.assertTrue(expectedResult, actualResult);
+    }
 }
