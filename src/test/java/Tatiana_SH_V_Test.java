@@ -127,4 +127,45 @@ public class Tatiana_SH_V_Test extends BaseTest {
                 ).isDisplayed());
     }
 
+    @Test
+    public void testSupportFAQHowToStartAskAQuestion() throws InterruptedException {
+        String url = "https://openweathermap.org/";
+        String expectedResultFaq = "FAQ";
+        String expectedResultStart = "How to start";
+        String expectedResultQuestion = "Ask a question";
+
+        getDriver().get(url);
+        Thread.sleep(10000);
+
+        WebElement buttonSupport = getDriver().findElement(
+                By.id("support-dropdown")
+        );
+        buttonSupport.click();
+        Thread.sleep(3000);
+
+        Assert.assertEquals(getDriver().findElements(By.xpath("//ul[@id = 'support-dropdown-menu']/li")).
+                size(),3);
+
+        WebElement faq = getDriver().findElement(
+                By.xpath("//ul[@class='dropdown-menu dropdown-visible']//a[@href='/faq'][1]")
+        );
+        String actualResultFaq = faq.getText();
+
+        Assert.assertEquals(actualResultFaq, expectedResultFaq);
+
+        WebElement start = getDriver().findElement(
+                By.xpath("//ul[@class='dropdown-menu dropdown-visible']/li/a[@href='/appid']")
+        );
+        String actualResultStart = start.getText();
+
+        Assert.assertEquals(actualResultStart, expectedResultStart);
+
+        WebElement question = getDriver().findElement(
+                By.xpath("//ul[@class='dropdown-menu dropdown-visible']//a[text()='Ask a question']")
+        );
+        String actualResultQuestion = question.getText();
+
+        Assert.assertEquals(actualResultQuestion, expectedResultQuestion);
+    }
+
 }
