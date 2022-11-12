@@ -25,6 +25,7 @@ public class NatalliaOwlTest extends BaseTest {
                 By.xpath("//div[@id = 'weather-widget']//button[@type = 'submit']")
         );
         searchButton.click();
+
         Thread.sleep(2000);
 
         WebElement parisFRChoiceInDropdownMenu = getDriver().findElement(
@@ -35,31 +36,10 @@ public class NatalliaOwlTest extends BaseTest {
         WebElement h2CityCountryHeader = getDriver().findElement(
                 By.xpath("//div[@id = 'weather-widget']//h2")
         );
+
         Thread.sleep(2000);
         String actualResult = h2CityCountryHeader.getText();
 
         Assert.assertEquals(actualResult, expectedResult);
-    }
-
-
-    @Test
-    public void testPageTitle_WhenRedirectingToGuidePage() throws InterruptedException {
-        String url = "https://openweathermap.org/";
-        String expectedUrl = "https://openweathermap.org/guide";
-        String expectedTitle = "OpenWeatherMap API guide - OpenWeatherMap";
-
-        getDriver().get(url);
-        Thread.sleep(10000);
-
-        WebElement guideMenuButton = getDriver().findElement(
-                By.xpath("//div[@id  = 'desktop-menu']//a[@href = '/guide']")
-        );
-        guideMenuButton.click();
-
-        String actualUrl = getDriver().getCurrentUrl();
-        String actualTitle = getDriver().getTitle();
-
-        Assert.assertEquals(actualUrl, expectedUrl);
-        Assert.assertEquals(actualTitle, expectedTitle);
     }
 }
