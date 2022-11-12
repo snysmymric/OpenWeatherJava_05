@@ -43,4 +43,26 @@ public class MariaYanuTest extends BaseTest {
         Assert.assertEquals(actualResult,expectedResult);
 
     }
+
+    @Test
+    public void testGuideUrlAndHeader() throws InterruptedException {
+
+        String url = "https://openweathermap.org/";
+        String expectedResultTitle = "OpenWeatherMap API guide - OpenWeatherMap";
+        String expectedResultUrl = "https://openweathermap.org/guide";
+
+        getDriver().get(url);
+        Thread.sleep(10000);
+
+        WebElement guideElementInMenu = getDriver().findElement(
+                By.xpath("//div[@id='desktop-menu']//a[@href='/guide']")
+        );
+        guideElementInMenu.click();
+        Thread.sleep(10000);
+        String actualResultUrl = getDriver().getCurrentUrl();
+        String actualResultTitle = getDriver().getTitle();
+
+        Assert.assertEquals(actualResultUrl,expectedResultUrl);
+        Assert.assertEquals(actualResultTitle,expectedResultTitle);
+    }
 }
