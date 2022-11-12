@@ -43,4 +43,40 @@ public class Lenochkanik80Test extends BaseTest {
 
         Assert.assertEquals(actualResult, expectedResult);
     }
+
+    @Test
+    public void testIfThreeSupportSubmenuTextsArePresent() throws InterruptedException {
+        String url = "https://openweathermap.org/";
+        String expectedResultFAQ = "FAQ";
+        String expectedResultHowToStart = "How to start";
+        String expectedResultAskAQuestion = "Ask a question";
+
+        getDriver().get(url);
+        getDriver().manage().window().maximize();
+        Thread.sleep(10000);
+
+        WebElement SupportElementInMenu = getDriver().findElement(
+                By.xpath("//div[@id = 'support-dropdown']")
+        );
+        SupportElementInMenu.click();
+
+        WebElement checkIfFAQTextPresent = getDriver().findElement(
+                By.xpath("//ul[@class='dropdown-menu dropdown-visible']//a[@href = '/faq']")
+        );
+        WebElement checkIfHowToStartTestPresent = getDriver().findElement(
+                By.xpath("//ul[@class='dropdown-menu dropdown-visible']//a[@href='/appid']")
+        );
+
+        WebElement checkIfAskAQuestionTestPresent = getDriver().findElement(
+                By.xpath("//ul[@class='dropdown-menu dropdown-visible']//a[@href = 'https://home.openweathermap.org/questions']")
+        );
+
+        String actualResultFAQ = checkIfFAQTextPresent.getText();
+        String actualResultHowToStart = checkIfHowToStartTestPresent.getText();
+        String actualResultAskAQuestion = checkIfAskAQuestionTestPresent.getText();
+
+        Assert.assertEquals(actualResultFAQ, expectedResultFAQ);
+        Assert.assertEquals(actualResultHowToStart, expectedResultHowToStart);
+        Assert.assertEquals(actualResultAskAQuestion, expectedResultAskAQuestion);
+    }
 }
