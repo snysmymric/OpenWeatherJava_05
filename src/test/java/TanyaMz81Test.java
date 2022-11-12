@@ -5,7 +5,6 @@ import org.testng.annotations.Test;
 import runner.BaseTest;
 
 public class TanyaMz81Test extends BaseTest {
-
     @Test
     public void testH2TagText_WhenSearchingCityCountry() throws InterruptedException {
         String url = "https://openweathermap.org/";
@@ -186,5 +185,36 @@ public class TanyaMz81Test extends BaseTest {
         );
         String actualResult = captchaMessage.getText();
         Assert.assertEquals(actualResult, expectedResult);
+    }
+    @Test
+    public void testDegreesChange() throws InterruptedException{
+        String url = "https://openweathermap.org/";
+
+        getDriver().get(url);
+        Thread.sleep(10000);
+
+        WebElement imperialButton = getDriver().findElement(By.xpath(
+                "//div[@class = 'switch-container']/div[3]"));
+        imperialButton.click();
+        Thread.sleep(2000);
+
+        WebElement farSign = getDriver().findElement(By.xpath(
+                "//div[@class='current-temp']/span"));
+        Thread.sleep(2000);
+        String actualResult = farSign.getText();
+        boolean bool1 = actualResult.endsWith("F");
+        Assert.assertTrue(bool1);
+
+        WebElement metricButton = getDriver().findElement(By.xpath(
+                "//div[@class = 'switch-container']/div[2]"));
+        metricButton.click();
+        Thread.sleep(2000);
+
+        WebElement celSign = getDriver().findElement(By.xpath(
+                "//div[@class='current-temp']/span"));
+        Thread.sleep(2000);
+        String actualResult2 = celSign.getText();
+        boolean bool2 = actualResult2.endsWith("C");
+        Assert.assertTrue(bool2);
     }
 }
