@@ -5,7 +5,6 @@ import org.testng.annotations.Test;
 import runner.BaseTest;
 
 public class EkaterinaChernyshovaTest extends BaseTest {
-
     @Test
     public void testH2TagText_WhenSearchingCityCountry() throws InterruptedException {
         String url = "https://openweathermap.org/";
@@ -61,5 +60,35 @@ public class EkaterinaChernyshovaTest extends BaseTest {
 
         Assert.assertEquals(actualResult1, expectedResult1);
         Assert.assertEquals(actualResult2, expectedResult2);
+    }
+
+    @Test
+    public void testIfTemperatureShowsInCelsius() throws InterruptedException {
+
+        String url = "https://openweathermap.org/";
+        String expectedResult = "°C";
+
+        getDriver().get(url);
+        Thread.sleep(10000);
+
+        WebElement imperialFahrenheitTemperatureButton = getDriver().findElement(By.xpath(
+                "//div[@id = 'weather-widget']//div[@class = 'option'][text() = 'Imperial: °F, mph']")
+        );
+        imperialFahrenheitTemperatureButton.click();
+        Thread.sleep(5000);
+
+        WebElement imperialCelciusTemperatureButton = getDriver().findElement(By.xpath(
+                "//div[@class = 'option'][text() = 'Metric: °C, m/s']")
+        );
+        imperialCelciusTemperatureButton.click();
+        Thread.sleep(5000);
+
+        WebElement symbolC = getDriver().findElement(By.xpath(
+                "//span[@class = 'heading']")
+        );
+
+        Boolean actualResult = symbolC.isDisplayed();
+
+        Assert.assertTrue(actualResult, expectedResult);
     }
 }
