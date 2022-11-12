@@ -37,4 +37,24 @@ public class VictoriaLemaTest extends BaseTest {
         Assert.assertEquals(actualResult, expectedResult);
     }
 
+    @Test
+    public void testPageTitleAndPageURL_WhenGoingToPageTitle() throws InterruptedException {
+        String url = "https://openweathermap.org/";
+        String expectedResultURL = "https://openweathermap.org/guide";
+        String expectedResultPageTitle = "OpenWeatherMap API guide - OpenWeatherMap";
+
+        getDriver().get(url);
+        Thread.sleep(10000);
+        WebElement guideButton = getDriver().findElement(
+                By.xpath("//div[@id='desktop-menu']/ul/li/a[@href='/guide']")
+        );
+        guideButton.click();
+        Thread.sleep(5000);
+        String actualResultEndPoint = getDriver().getCurrentUrl();
+        String actualResultPageTitle = getDriver().getTitle();
+
+        Assert.assertEquals(actualResultPageTitle, expectedResultPageTitle);
+        Assert.assertEquals(actualResultEndPoint, expectedResultURL);
+    }
+
 }
