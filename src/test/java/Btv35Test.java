@@ -81,4 +81,32 @@ public class Btv35Test extends BaseTest {
 
         Assert.assertTrue(temperatureInFahrenheit.getText().contains(expectedResult));
     }
+    @Test
+    public void testTwoButtonsOnTheCookiesMessage() throws InterruptedException {
+        String url = "https://openweathermap.org/";
+        String cookies = "We use cookies which are essential for the site to work. We also use "
+                + "non-essential cookies to help us improve our services. Any data collected is "
+                + "anonymised. You can allow all cookies or manage them individually.";
+        String expectedResultAllowAll = "Allow all";
+        String expectedResultManageCookies = "Manage cookies";
+
+        getDriver().get(url);
+        Thread.sleep(10000);
+
+        WebElement cookiesPanel = getDriver().findElement(
+                By.xpath("//div[@id = 'stick-footer-panel']" +
+                        "//p[@class='stick-footer-panel__description']"));
+        Assert.assertEquals(cookies, cookiesPanel.getText());
+
+        WebElement buttonAllowAll = getDriver().findElement(
+                By.xpath("//div[@id='stick-footer-panel']//button[@class='stick-footer-panel__link']"));
+        String actualResultAllowAllButton = buttonAllowAll.getText();
+
+        WebElement buttonManageCookies = getDriver().findElement(
+                By.xpath("//div[@id='stick-footer-panel']//a[text()=' Manage cookies '] "));
+        String actualResultButtonManageCookies = buttonManageCookies.getText();
+
+        Assert.assertEquals(actualResultAllowAllButton, expectedResultAllowAll);
+        Assert.assertEquals(actualResultButtonManageCookies, expectedResultManageCookies);
+    }
 }
