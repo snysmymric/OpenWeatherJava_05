@@ -1,5 +1,7 @@
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import runner.BaseTest;
@@ -96,5 +98,39 @@ public class Kater1naGTest extends BaseTest {
         }
 
         Assert.assertEquals(actualResult, expectedResult);
+    }
+
+    @Test
+    public void testBelowButtonsAndText() throws InterruptedException {
+
+        String url = "https://openweathermap.org/";
+        int expectedButtons = 2;
+        String expectedResult = "We use cookies"
+                + " which are essential for the site to work. We also use non-essential cookies to help us"
+                + " improve our services. Any data collected is anonymised."
+                + " You can allow all cookies or manage them individually.";
+
+        getDriver().get(url);
+
+        WebElement panelOfCookies = getDriver().findElement(
+                By.xpath("//div[@id='stick-footer-panel']")
+        );
+
+        WebElement textElementOfPanel = getDriver().findElement(
+                By.xpath("//div[@id='stick-footer-panel']/div/div/div/div/p")
+        );
+
+        String actualResult = textElementOfPanel.getText();
+
+        int buttonsOfPanel  =  getDriver().findElements(
+                By.tagName("button")
+        ).size();
+
+        Assert.assertTrue(panelOfCookies.isDisplayed());
+
+        Assert.assertEquals(actualResult, expectedResult);
+
+        Assert.assertEquals(buttonsOfPanel, expectedButtons);
+
     }
 }
