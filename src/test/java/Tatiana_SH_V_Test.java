@@ -39,6 +39,7 @@ public class Tatiana_SH_V_Test extends BaseTest {
         Thread.sleep(5000);
 
         String actualResult = h2CityCountryHeader.getText();
+
         Assert.assertEquals(actualResult, expectedResult);
 
     }
@@ -62,6 +63,7 @@ public class Tatiana_SH_V_Test extends BaseTest {
         Assert.assertEquals(actualResult1, expectedResult1);
 
         String actualResult2 = getDriver().getTitle();
+
         Assert.assertEquals(actualResult2, expectedResult2);
     }
 
@@ -85,11 +87,11 @@ public class Tatiana_SH_V_Test extends BaseTest {
         Thread.sleep(3000);
 
         Boolean actualResult = searchF.getText().contains("°F");
+
         Assert.assertEquals(actualResult, expectedResult);
     }
 
     @Test
-
     public void testTextAllowManageCookies() throws InterruptedException {
         String url = "https://openweathermap.org/";
         String expectedResult1 = "We use cookies which are essential for the site to work. " +
@@ -197,11 +199,11 @@ public class Tatiana_SH_V_Test extends BaseTest {
             }
         }
 
-        WebElement emeil = getDriver().findElement(
+        WebElement email = getDriver().findElement(
                 By.id("question_form_email")
         );
-        emeil.click();
-        emeil.sendKeys("renm@gmail.com");
+        email.click();
+        email.sendKeys("renm@gmail.com");
         Thread.sleep(3000);
 
         WebElement subject = getDriver().findElement(
@@ -228,6 +230,25 @@ public class Tatiana_SH_V_Test extends BaseTest {
         );
 
         Assert.assertEquals(captcha.getText(), "reCAPTCHA verification failed, please try again.");
+    }
+
+    @Test
+    public void testSearchLogo() throws InterruptedException {
+        String url = "https://openweathermap.org/";
+        String expectedResult = "https://openweathermap.org/";
+
+        getDriver().get(url);
+        Thread.sleep(10000);
+
+        WebElement logo = getDriver().findElement(
+                By.xpath("//img[@src='/themes/openweathermap/assets/img/logo_white_cropped.png']")
+        );
+        logo.click();
+        Thread.sleep(3000);
+
+        String actualResult = getDriver().getCurrentUrl();
+
+        Assert.assertEquals(actualResult, expectedResult);
     }
 
 
