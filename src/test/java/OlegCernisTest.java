@@ -1,7 +1,5 @@
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import runner.BaseTest;
@@ -9,7 +7,6 @@ import runner.BaseTest;
 public class OlegCernisTest extends BaseTest {
 
     @Test
-
     public void testH2TagWhenSearchingCityCountry() throws InterruptedException {
 
         String url = "https://openweathermap.org/";
@@ -33,7 +30,6 @@ public class OlegCernisTest extends BaseTest {
 
         WebElement parisFRChoiseIndropdownMenu = getDriver().findElement(By.xpath(
                 "//ul[@class='search-dropdown-menu']/li/span[text()='Paris, FR ']"));
-
         parisFRChoiseIndropdownMenu.click();
 
         WebElement h2CityCountryHeader =getDriver().findElement(By.xpath("//div[@id = 'weather-widget']//h2"));
@@ -41,7 +37,6 @@ public class OlegCernisTest extends BaseTest {
         Thread.sleep(2000);
         String actualResult = h2CityCountryHeader.getText();
         Assert.assertEquals(actualResult, expectedResult);
-
     }
 
     @Test
@@ -56,7 +51,6 @@ public class OlegCernisTest extends BaseTest {
         Thread.sleep(10000);
         WebElement title = getDriver().findElement(By.
                 xpath("//div[@id='desktop-menu']//a[@ href='/guide']"));
-
         title.click();
         Thread.sleep(10000);
 
@@ -65,7 +59,28 @@ public class OlegCernisTest extends BaseTest {
         Thread.sleep(2000);
         Assert.assertEquals(actualResult, expectedResult);
         Assert.assertEquals(actualResult2, expectedResult2);
+    }
 
+    @Test
+    public void testFahrenheitInCity() throws InterruptedException {
+
+        String url = "https://openweathermap.org/";
+        String expectedResult2 = "°F";
+
+        getDriver().get(url);
+        getDriver().manage().window().maximize();
+        Thread.sleep(10000);
+        WebElement fahrenheit = getDriver().findElement(
+                By.xpath("//div[text()= 'Imperial: °F, mph']"));
+        fahrenheit.click();
+        Thread.sleep(10000);
+
+        WebElement confirmF = getDriver().findElement(
+                By.xpath("//div[@class = 'current-temp']/span"));
+
+        String fahrenheitConfirm = confirmF.getText();
+        String actualResult = fahrenheitConfirm.substring((fahrenheitConfirm.length() - 2));
+        Assert.assertEquals(actualResult, expectedResult2);
     }
 
 }
