@@ -6,14 +6,13 @@ import runner.BaseTest;
 
 public class EkaterinalizinaTest extends BaseTest {
 
+    private static final String URL ="https://openweathermap.org/";
     @Test
     public void testH2TagText_WhenSearchingCityCountry() throws InterruptedException {
-
-        String url = "https://openweathermap.org/";
         String cityName = "Paris";
         String expectedResult = "Paris, FR";
 
-        getDriver().get(url);
+        getDriver().get(URL);
         Thread.sleep(10000);
 
         WebElement searchCityField = getDriver().findElement(
@@ -50,11 +49,9 @@ public class EkaterinalizinaTest extends BaseTest {
 
     @Test
     public void testTemperatureChangedInToF() throws InterruptedException {
-
-        String url = "https://openweathermap.org/";
         String fTempSymbol = "°F";
 
-        getDriver().get(url);
+        getDriver().get(URL);
         Thread.sleep(10000);
 
         WebElement ButtonTemperatureFarenheit = getDriver().findElement(
@@ -71,8 +68,7 @@ public class EkaterinalizinaTest extends BaseTest {
 
     @Test
     public void testTwoButtonsCookies() throws InterruptedException {
-        String url = "https://openweathermap.org/";
-        getDriver().get(url);
+        getDriver().get(URL);
 
         Thread.sleep(10000);
         String expectedResult1 = "We use cookies which are essential for the site to work." +
@@ -96,5 +92,56 @@ public class EkaterinalizinaTest extends BaseTest {
         Assert.assertEquals(actualResult1, expectedResult1);
         Assert.assertEquals(actualResult2, expectedResult2);
         Assert.assertEquals(actualResult3, expectedResult3);
+    }
+
+    @Test
+    public void testSupportMenuHasThreeSubmenu() throws InterruptedException {
+        getDriver().get(URL);
+
+        Thread.sleep(10000);
+
+        String expectedResult1 = "Support";
+        String expectedResult2 = "FAQ";
+        String expectedResult3 = "How to start";
+        String expectedResult4 = "Ask a question";
+
+        WebElement supportMenu = getDriver().findElement(
+                By.xpath("//div[@id = 'support-dropdown']"));
+        String actualResult1 = supportMenu.getText();
+
+        supportMenu.click();
+
+        Thread.sleep(10000);
+
+        WebElement supportSubMenuFAQ = getDriver().findElement(
+                By.xpath("//ul[@id=\"support-dropdown-menu\"]//a[text() = 'FAQ']"));
+        String actualResult2 = supportSubMenuFAQ.getText();
+
+        WebElement supportSubMenuHowToStart = getDriver().findElement(
+                By.xpath("//ul[@id=\"support-dropdown-menu\"]//a[text() = 'How to start']"));
+        String actualResult3 = supportSubMenuHowToStart.getText();
+
+        WebElement supportSubMenuAskAQuestion = getDriver().findElement(By.xpath("//ul[@id=\"support-dropdown-menu\"]//a[text() = 'Ask a question']"));
+        String actualResult4 = supportSubMenuAskAQuestion.getText();
+
+        Assert.assertEquals(actualResult1, expectedResult1);
+        Assert.assertEquals(actualResult2, expectedResult2);
+        Assert.assertEquals(actualResult3, expectedResult3);
+        Assert.assertEquals(actualResult4, expectedResult4);
+    }
+
+    @Test
+    public void testHeadersH1andH2OnMainPage() throws InterruptedException {
+        getDriver().get(URL);
+
+        Thread.sleep(10000);
+
+        String expectedResult1 = "OpenWeather";
+        boolean actualResult1 = getDriver().findElement(
+                By.xpath("//span [text () = 'Weather forecasts, nowcasts and history in a fast and elegant way']")).isDisplayed();
+        boolean actualResult2 = getDriver().findElement(
+                By.xpath("//h1/span[text() ='OpenWeather']")).isDisplayed();
+
+        Assert.assertTrue(actualResult1 && actualResult2);
     }
 }
