@@ -37,7 +37,6 @@ public class TanyaMz81Test extends BaseTest {
 
         Assert.assertEquals(actualResult, expectedResult);
     }
-
     @Test
     public void testTheLinkOfThePageGuide() throws InterruptedException {
         String url = "https://openweathermap.org/";
@@ -78,7 +77,6 @@ public class TanyaMz81Test extends BaseTest {
         boolean bool1 = actualResult.endsWith("F");
         Assert.assertTrue(bool1);
     }
-
     @Test
     public void testCookiesMessage() throws InterruptedException {
         String url = "https://openweathermap.org/";
@@ -108,7 +106,6 @@ public class TanyaMz81Test extends BaseTest {
         String manageCookiesActualResult = manageCookiesButton.getText();
         Assert.assertEquals(manageCookiesActualResult,manageCookiesExpectedResult);
     }
-
     @Test
     public void testSubMenuLinks() throws InterruptedException {
         String url = "https://openweathermap.org/";
@@ -137,5 +134,57 @@ public class TanyaMz81Test extends BaseTest {
         );
         String supportMenuItem3ActualResult = supportMenuItem3.getText();
         Assert.assertEquals(supportMenuItem3ActualResult, supportMenuItem3ExpectedResult);
+    }
+    @Test
+    public void testAskAQuestionLink() throws InterruptedException{
+        String url = "https://openweathermap.org/";
+        String expectedResult = "reCAPTCHA verification failed, please try again.";
+
+        getDriver().get(url);
+        Thread.sleep(10000);
+
+        WebElement supportButton = getDriver().findElement(By.xpath("//div[@id='support-dropdown']")
+        );
+        supportButton.click();
+
+        WebElement askAQuestionLink = getDriver().findElement(By.xpath("//ul[@id='support-dropdown-menu']/li[3]/a")
+        );
+        askAQuestionLink.click();
+
+        String originalWindow = getDriver().getWindowHandle();
+                for (String windowHandle : getDriver().getWindowHandles()) {
+            if (!originalWindow.equals(windowHandle)) {
+                getDriver().switchTo().window(windowHandle);
+                break;
+            }
+        }
+        WebElement emailField = getDriver().findElement(By.id("question_form_email"));
+        Thread.sleep(2000);
+        emailField.click();
+        emailField.sendKeys("tester@gmail.com");
+        Thread.sleep(2000);
+
+        WebElement subjectField = getDriver().findElement(By.xpath("//div/select[@name='question_form[subject]']")
+        );
+        subjectField.click();
+        Thread.sleep(2000);
+
+        WebElement optionSelected = getDriver().findElement(By.xpath("//select[@id='question_form_subject']/option[7]")
+        );
+        optionSelected.click();
+        Thread.sleep(2000);
+
+        WebElement messageField = getDriver().findElement(By.id("question_form_message"));
+        messageField.click();
+        Thread.sleep(2000);
+        messageField.sendKeys("Test testing tested");
+
+        WebElement submitButton = getDriver().findElement(By.name("commit"));
+        submitButton.click();
+
+        WebElement captchaMessage = getDriver().findElement(By.xpath("//form[@id=\"new_question_form\"]/div[9]/div[1]/div")
+        );
+        String actualResult = captchaMessage.getText();
+        Assert.assertEquals(actualResult, expectedResult);
     }
 }
