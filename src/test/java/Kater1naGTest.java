@@ -65,4 +65,36 @@ public class Kater1naGTest extends BaseTest {
 
         Assert.assertEquals(actualResult, expectedResult);
     }
+    @Test
+    public void testImperialF() throws InterruptedException {
+
+        String url = "https://openweathermap.org/";
+        String tempButton = "Imperial: °F, mph";
+        String expectedResult = "°F";
+
+        getDriver().get(url);
+
+        WebElement imperialF = getDriver().findElement(
+                By.xpath("//*[@id='weather-widget']/div[1]/div/div/div[1]/div[2]/div[3]")
+        );
+        Thread.sleep(10000);
+        imperialF.click();
+
+        WebElement tempF = getDriver().findElement(
+                By.xpath("//*[@id='weather-widget']/div[2]/div[1]/div[1]/div[2]/div[1]/span")
+        );
+
+        String letterF = tempF.getText();
+
+        String actualResult;
+        if(letterF.length() == 4){
+            actualResult = letterF.substring(2);
+        } else if (letterF.length() > 4) {
+            actualResult = letterF.substring(3);
+        }else {
+            actualResult = letterF.substring(1);
+        }
+
+        Assert.assertEquals(actualResult, expectedResult);
+    }
 }
