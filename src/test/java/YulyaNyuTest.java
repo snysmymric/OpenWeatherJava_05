@@ -1,5 +1,7 @@
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import runner.BaseTest;
@@ -37,4 +39,30 @@ public class YulyaNyuTest extends BaseTest {
 
         Assert.assertEquals(actualResult, expectedResult);
     }
+
+    @Test
+    public void testConfirmPageUrlAndPageTitle() throws InterruptedException {
+        String url = "https://openweathermap.org";
+        String expectedResultTitle = "OpenWeatherMap API guide - OpenWeatherMap";
+        String expectedResultUrl = "https://openweathermap.org/guide";
+
+        getDriver().get(url);
+        Thread.sleep(10000);
+
+        WebElement guideElementInMenu = getDriver().findElement(
+                By.xpath("//a[@href = '/guide']")
+        );
+
+        guideElementInMenu.click();
+        Thread.sleep(2000);
+
+        String actualResultUrl = getDriver().getCurrentUrl();
+        String actualResultTitle = getDriver().getTitle();
+
+        Assert.assertEquals(actualResultTitle, expectedResultTitle);
+        Assert.assertEquals(actualResultUrl, expectedResultUrl);
+
+        getDriver().quit();
+    }
+
 }
