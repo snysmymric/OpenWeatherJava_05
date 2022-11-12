@@ -3,6 +3,7 @@ import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import runner.BaseTest;
+
 public class MariaDymshaTest extends BaseTest {
 
     @Test
@@ -24,9 +25,9 @@ public class MariaDymshaTest extends BaseTest {
                 By.xpath("//div//button[@type = \"submit\"]")
         );
         searchButton.click();
-        
+
         Thread.sleep(3000);
-        
+
         WebElement parisFRChoiceInDropdownMenu = getDriver().findElement(
                 By.xpath("//ul[@class = 'search-dropdown-menu']/li/span[text() = 'Paris, FR ']")
         );
@@ -35,29 +36,30 @@ public class MariaDymshaTest extends BaseTest {
         WebElement h2CityCountryHeader = getDriver().findElement(
                 By.xpath("//div[@id = 'weather-widget']//h2")
         );
-        
+
         Thread.sleep(3000);
-        
+
         String actualResult = h2CityCountryHeader.getText();
 
         Assert.assertEquals(expectedResult, actualResult);
     }
+    
     @Test
     public void testImperial() throws InterruptedException {
         String url = "https://openweathermap.org/";
         String expectedResult = "°F";
         String fTempSymbol = "°F";
         getDriver().get(url);
-        
+
         Thread.sleep(7000);
         
         WebElement menuImperial =  getDriver().findElement(
                 By.xpath("//div[@class = 'option']/following-sibling::div")
         );
         menuImperial.click();
-        
+
         Thread.sleep(3000);
-        
+
         WebElement tempF =  getDriver().findElement(
                 By.xpath("//div[@class = 'current-temp']/span")
         );
@@ -68,15 +70,16 @@ public class MariaDymshaTest extends BaseTest {
         Assert.assertTrue(tempF.getText().contains(fTempSymbol));
         Assert.assertEquals(actualResult, expectedResult);
     }
+    
     @Test
     public void testOpenAndClickToGuide() throws InterruptedException {
         String url = "https://openweathermap.org/";
         String expectedResult1 = "https://openweathermap.org/guide";
         String expectedResult2 = "OpenWeatherMap API guide - OpenWeatherMap";
         getDriver().get(url);
-        
+
         Thread.sleep(7000);
-        
+
         WebElement searchButtonInMenu = getDriver().findElement(
                 By.xpath("//li//a[text() = 'Guide']")
         );
@@ -90,6 +93,7 @@ public class MariaDymshaTest extends BaseTest {
         Assert.assertEquals(actualResult1, expectedResult1);
         Assert.assertEquals(actualResult2, expectedResult2);
     }
+    
     @Test
     public void testSupportHaveThreeButton() throws InterruptedException {
         String url = "https://openweathermap.org/";
@@ -97,37 +101,66 @@ public class MariaDymshaTest extends BaseTest {
         String expectedResultHowToStart = "How to start";
         String expectedResultAskAQuestion = "Ask a question";
         getDriver().get(url);
-        
+
         Thread.sleep(7000);
-        
+
         WebElement supportDropdown = getDriver().findElement(
                 By.xpath("//div[@id='support-dropdown']")
         );
         supportDropdown.click();
-        
+
         Thread.sleep(3000);
-        
+
         WebElement checkIfTextFAQIsPresent = getDriver().findElement(
                 By.xpath("//ul//li//a[@href='/faq']")
         );
-        
+
         String actualResultIfTextFAQIsPresent = checkIfTextFAQIsPresent.getText();
-        
+
         WebElement checkIfTextHowToStartIsPresent = getDriver().findElement(
                 By.xpath("//li//li//a[@href = '/appid']")
         );
-        
+
         String actualResultIfTextHowToStartIsPresent = checkIfTextHowToStartIsPresent.getText();
-        
+
         WebElement checkIfTextAskAQuestionIsPresent = getDriver().findElement(
                 By.xpath("//li//li//a[@href = 'https://home.openweathermap.org/questions']")
         );
-        
+
         String actualResultIfTextAskAQuestionIsPresent = checkIfTextAskAQuestionIsPresent.getText();
 
         Assert.assertEquals(actualResultIfTextHowToStartIsPresent, expectedResultHowToStart);
         Assert.assertEquals(actualResultIfTextFAQIsPresent, expectedResultFAQ);
         Assert.assertEquals(actualResultIfTextAskAQuestionIsPresent, expectedResultAskAQuestion);
+    }
+    
+    @Test
+    public void testChangingTemperatureValues() throws InterruptedException {
+        String url = "https://openweathermap.org/";
+        String temp = "°C";
+
+        getDriver().get(url);
+        Thread.sleep(7000);
+
+        WebElement clickOnImperial = getDriver().findElement(
+                By.xpath("//div[text()='Imperial: °F, mph']")
+        );
+        clickOnImperial.click();
+        Thread.sleep(2000);
+
+        WebElement clickOnMetric = getDriver().findElement(
+                By.xpath("//div[text()='Metric: °C, m/s']")
+        );
+        clickOnMetric.click();
+        Thread.sleep(2000);
+
+        String tempC = getDriver().findElement(
+                By.xpath("//span[@class = 'heading']")
+        ).getText();
+
+        Boolean actualResult = tempC.contains(temp);
+
+        Assert.assertTrue(actualResult);
     }
 }
 
