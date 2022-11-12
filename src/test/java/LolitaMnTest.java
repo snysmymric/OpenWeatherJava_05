@@ -79,6 +79,31 @@ public class LolitaMnTest extends BaseTest {
 
     }
 
+    @Test(priority = 2)
+    public void testCheck_F_TemperatureMeasurement() throws InterruptedException {
+        String url = "https://openweathermap.org/";
+        String fSymbol = "°F";
+        String expectedResult = "°F";
 
+        getDriver().get(url);
+        getDriver().manage().window().maximize();
+
+        Thread.sleep(10000);
+
+        WebElement fButton = getDriver().findElement(
+                By.xpath("//div[@class='option' and text()='Imperial: °F, mph']")
+        );
+
+        Thread.sleep(2000);
+        fButton.click();
+
+        WebElement fTitle = getDriver().findElement(By.xpath("//span[@class='heading']"));
+        String fTitle2 = fTitle.getText();
+        String actualResult = fTitle2.substring(fTitle2.length() - 2);
+
+        Assert.assertEquals(actualResult, expectedResult);
+        Assert.assertTrue(fTitle2.contains(fSymbol));
+
+    }
 
 }
