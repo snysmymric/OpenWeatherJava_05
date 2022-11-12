@@ -1,4 +1,5 @@
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -149,6 +150,28 @@ public class elenuraTest extends BaseTest {
         Assert.assertEquals(manageCookies.getText(), expectedResultManageCookies);
     }
 
+    @Test
+    public void testWeatherInYourCityField() throws InterruptedException {
+        String url = "https://openweathermap.org/";
+        String cityName = "Rome";
+        boolean expectedResult = true;
+        String expectedResult2 = "Rome";
 
+        getDriver().get(url);
+        Thread.sleep(10000);
 
+        WebElement weatherInYourCityField = getDriver().findElement(
+                By.xpath("//div[@id = 'desktop-menu']//input[@placeholder='Weather in your city']")
+        );
+        weatherInYourCityField.click();
+        weatherInYourCityField.sendKeys(cityName);
+        weatherInYourCityField.sendKeys(Keys.ENTER);
+
+        Assert.assertEquals(getDriver().getCurrentUrl().contains("find"), expectedResult);
+
+        WebElement searchField = getDriver().findElement(
+                By.xpath("//div[@class='form-group']/input[@class='form-control border-color col-sm-12']")
+        );
+        Assert.assertEquals(searchField.getAttribute("value"), expectedResult2);
+    }
 }
