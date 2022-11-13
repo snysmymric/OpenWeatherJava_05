@@ -1,7 +1,5 @@
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import runner.BaseTest;
@@ -68,4 +66,24 @@ public class VeraFesTest extends BaseTest {
         Assert.assertTrue(findTempIndicator.getText().contains(fTempSymbol));
         Assert.assertTrue(expectedResult, actualResult);
     }
+
+    @Test
+    public void test_CheckCurrentURLonClickLogo() throws InterruptedException {
+
+        String url = "https://openweathermap.org/";
+        String expectedResult = "https://openweathermap.org/";
+
+        getDriver().get(url);
+        getDriver().manage().window().maximize();
+        Thread.sleep(10000);
+
+        WebElement logo = getDriver().findElement(
+                By.xpath("//a[@href]//img[@src = '/themes/openweathermap/assets/img/logo_white_cropped.png']"));
+        logo.click();
+        Thread.sleep(1000);
+
+        String actualResult = getDriver().getCurrentUrl();
+        Assert.assertEquals(actualResult,expectedResult);
+    }
+
 }

@@ -1,6 +1,7 @@
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import runner.BaseTest;
 
@@ -50,7 +51,8 @@ public class AnzhelikaBaaTest extends BaseTest {
 
         Assert.assertEquals(actualResult, expectedResult);
     }
-       @Test
+    @Ignore
+    @Test
     public void testSwitchTempUnits_WhenPressOnTempFields() throws InterruptedException {
         String url = "https://openweathermap.org/";
         String cTempSymbol = "°C";
