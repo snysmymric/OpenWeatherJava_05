@@ -42,4 +42,24 @@ public class NatalliaOwlTest extends BaseTest {
 
         Assert.assertEquals(actualResult, expectedResult);
     }
+
+    @Test
+    public void testWebsiteUrl_WhenClickOnLogo() throws InterruptedException {
+        String url = "https://openweathermap.org/";
+        String expectedResult = "https://openweathermap.org/";
+
+        getDriver().get(url);
+        Thread.sleep(10000);
+
+        WebElement websiteLogo = getDriver().findElement(
+                By.xpath("//a[@href = '/']"
+                        + "//img[@src = '/themes/openweathermap/assets/img/logo_white_cropped.png']")
+        );
+        websiteLogo.click();
+
+        String actualResult = getDriver().getCurrentUrl();
+
+        Assert.assertEquals(actualResult, expectedResult);
+
+    }
 }
