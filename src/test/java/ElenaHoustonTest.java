@@ -89,4 +89,42 @@ public class ElenaHoustonTest extends BaseTest {
         Assert.assertTrue(tempInF.getText().contains(fTempSymbol));
         Assert.assertEquals(actualResult, expectedResult);
     }
+    @Test
+    public void testCheckPresenceOfTreeSubMenusInTheHead () throws InterruptedException {
+        String url = "https://openweathermap.org/";
+
+        String expectedResult1 = "FAQ";
+        String expectedResult2 = "How to start";
+        String expectedResult3 = "Ask a question";
+
+        getDriver().get(url);
+        Thread.sleep(10000);
+
+        WebElement searchSupport = getDriver().findElement(By.xpath("//div[@id = 'support-dropdown']")
+        );
+        searchSupport.click();
+        Thread.sleep(2000);
+
+        WebElement findSub1 = getDriver().findElement(By.xpath("//ul[@class ='dropdown-menu dropdown-visible']//"
+                + "a[@href = '/faq']")
+        );
+
+        WebElement findSub2 = getDriver().findElement(By.xpath("//ul[@class ='dropdown-menu dropdown-visible']//"
+                + "a[@href = '/appid']")
+        );
+
+        WebElement findSub3 = getDriver().findElement(By.xpath("//ul[@class ='dropdown-menu dropdown-visible']//"
+                + "a[text() = 'Ask a question']")
+        );
+
+        Assert.assertEquals(getDriver().findElements(By.xpath("//ul[@id = 'support-dropdown-menu']/li")).size(), 3);
+
+        String actualResult1 = findSub1.getText();
+        String actualResult2 = findSub2.getText();
+        String actualResult3 = findSub3.getText();
+
+        Assert.assertEquals(actualResult1, expectedResult1);
+        Assert.assertEquals(actualResult2, expectedResult2);
+        Assert.assertEquals(actualResult3, expectedResult3);
+    }
 }
