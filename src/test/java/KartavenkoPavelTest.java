@@ -1,19 +1,32 @@
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import runner.BaseTest;
 
+import java.time.Duration;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class KartavenkoPavelTest extends BaseTest {
 private static final String URL = "https://openweathermap.org/";
 
+    private void getWait() {
+        getDriver().manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
+        new WebDriverWait(getDriver(), Duration.ofSeconds(10))
+                .until(ExpectedConditions.invisibilityOfElementLocated(
+                        By.xpath("//div[@class='owm-loader-container']/div")));
+        getDriver().manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+    }
+
     @Test
-    public void testCheckThirtyOrangeButtons() throws InterruptedException {
-        int expectedResult = 30;
+    public void testCheckThirtyOrangeButtons() {
+        final int expectedResult = 30;
         getDriver().get(URL);
-        Thread.sleep(10000);
+        getWait();
+
         getDriver().findElement(By.xpath("//ul[@id='first-level-nav']//a[@href='/api']")).click();
         List<WebElement> buttonList = getDriver().findElements(By.xpath("//a[contains(@class,'orange')]"));
 
@@ -21,11 +34,11 @@ private static final String URL = "https://openweathermap.org/";
     }
 
     @Test
-    public void testCheckTopInputFieldSearch() throws InterruptedException {
-        String city = "Rome";
+    public void testCheckTopInputFieldSearch() {
+        final String city = "Rome";
 
         getDriver().get(URL);
-        Thread.sleep(10000);
+        getWait();
 
         getDriver().findElement(By.xpath("//div//input[@name='q']")).sendKeys(city + "\n");
         String path = getDriver().getCurrentUrl();
