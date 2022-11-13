@@ -104,4 +104,78 @@ public class TellenqaTest extends BaseTest {
                 ).isDisplayed()
         );
     }
+
+    @Test
+    public void testSupportMenuDropDownCheck() throws InterruptedException {
+        String baseURL = "https://openweathermap.org/";
+        String expectedSubmenu1 = "FAQ";
+        String expectedSubmenu2 = "How to start";
+        String expectedSubmenu3 = "Ask a question";
+
+        getDriver().get(baseURL);
+        Thread.sleep(10000);
+
+        WebElement supportDropDown = getDriver().findElement(By.id("support-dropdown"));
+        supportDropDown.click();
+
+        Assert.assertEquals(getDriver().findElements(By.xpath("//ul[@id = 'support-dropdown-menu']/li")).
+                size(), 3);
+        String actualSubmenu1 = getDriver().findElement(By.xpath("//ul[@id = 'support-dropdown-menu']/li[1]")).
+                getText();
+        String actualSubmenu2 = getDriver().findElement(By.xpath("//ul[@id = 'support-dropdown-menu']/li[2]")).
+                getText();
+        String actualSubmenu3 = getDriver().findElement(By.xpath("//ul[@id = 'support-dropdown-menu']/li[3]")).
+                getText();
+
+        Assert.assertEquals(actualSubmenu1, expectedSubmenu1);
+        Assert.assertEquals(actualSubmenu2, expectedSubmenu2);
+        Assert.assertEquals(actualSubmenu3, expectedSubmenu3);
+    }
+
+    @Test
+    public void testCaptchaVerificationFailed() throws InterruptedException {
+        String url = "https://openweathermap.org/";
+        String email = "test@test.com";
+        String message = "Hello";
+        String subject = "Other";
+        String expectedResult = "reCAPTCHA verification failed, please try again.";
+
+        getDriver().get(url);
+        getDriver().manage().window().maximize();
+        Thread.sleep(10000);
+
+        WebElement supportDropDown = getDriver().findElement(
+                By.xpath("//div[@id='support-dropdown']")
+        );
+        supportDropDown.click();
+        Thread.sleep(500);
+
+        WebElement askAQuestionMenu = getDriver().findElement(By.linkText("Ask a question"));
+        askAQuestionMenu.click();
+        Thread.sleep(1000);
+
+        getDriver().get("https://home.openweathermap.org/questions");
+
+        WebElement emailField = getDriver().findElement(By.id("question_form_email"));
+        emailField.click();
+        emailField.sendKeys(email);
+
+        WebElement subjectField = getDriver().findElement(By.id("question_form_subject"));
+        subjectField.click();
+        subjectField.sendKeys(subject);
+
+        WebElement messageField = getDriver().findElement(By.id("question_form_message"));
+        messageField.click();
+        messageField.sendKeys(message);
+
+        WebElement submitButton = getDriver().findElement(By.xpath("//div[@class]/input[@type = 'submit']"));
+        submitButton.click();
+
+        WebElement reCaptcha = getDriver().findElement(
+                By.xpath("//div[@class = 'help-block'][contains (text(),'reCAPTCHA')]")
+        );
+        String actualResult = reCaptcha.getText();
+
+        Assert.assertEquals(actualResult, expectedResult);
+    }
 }
