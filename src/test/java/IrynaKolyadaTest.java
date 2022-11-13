@@ -5,11 +5,13 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import runner.BaseTest;
 
 import java.util.Set;
 
+@Ignore
 public class IrynaKolyadaTest extends BaseTest {
     @Test
     public void testH2TagText_WhenSearchingCityCountry() throws InterruptedException {

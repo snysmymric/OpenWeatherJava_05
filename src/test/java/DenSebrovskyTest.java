@@ -1,11 +1,13 @@
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import runner.BaseTest;
 
 import java.util.List;
 
+@Ignore
 public class DenSebrovskyTest extends BaseTest {
 
     @Test

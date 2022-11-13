@@ -11,6 +11,7 @@ import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
+@Ignore
 public class ViktoriyaEDTest extends BaseTest {
 
     private final String WEATHER_URL = "https://openweathermap.org/";

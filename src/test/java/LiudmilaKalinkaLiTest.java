@@ -1,3 +1,4 @@
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import runner.BaseTest;
 import org.testng.Assert;
@@ -6,6 +7,7 @@ import org.openqa.selenium.WebElement;
 
 
 
+@Ignore
 public class LiudmilaKalinkaLiTest extends BaseTest {
 
     @Test

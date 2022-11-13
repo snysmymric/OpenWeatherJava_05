@@ -6,6 +6,7 @@ import org.testng.annotations.Test;
 import runner.BaseTest;
 import java.util.ArrayList;
 
+@Ignore
 public class Elena_STest extends BaseTest {
     @Test
     public void testH2TagText_WhenSearchingCityCountry() throws InterruptedException {

@@ -9,6 +9,7 @@ import runner.BaseTest;
 
 import static org.testng.Assert.assertEquals;
 
+@Ignore
 public class YuliaZhukoTest extends BaseTest {
 
     @Ignore

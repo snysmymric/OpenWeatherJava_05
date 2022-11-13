@@ -2,12 +2,14 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import runner.BaseTest;
 
 import java.time.Duration;
 import java.util.List;
 
+@Ignore
 public class ElviraKh1Test extends BaseTest {
     private final static String BASE_URL = "https://openweathermap.org/";
 

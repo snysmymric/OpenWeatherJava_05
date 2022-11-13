@@ -10,6 +10,7 @@ import runner.BaseTest;
 
 import java.util.List;
 
+@Ignore
 public class OlgaKhliupinaTest extends BaseTest {
 
    @Test

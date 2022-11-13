@@ -11,6 +11,7 @@ import runner.BaseTest;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+@Ignore
 public class NataliaRamanenkaTest extends BaseTest {
     @Test
     public void testH2TagText_WhenSearchingCityCountry() throws InterruptedException {

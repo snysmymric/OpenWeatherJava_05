@@ -3,6 +3,7 @@ import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import runner.BaseTest;
 
@@ -10,6 +11,7 @@ import java.time.Duration;
 
 import static org.openqa.selenium.support.ui.ExpectedConditions.numberOfWindowsToBe;
 
+@Ignore
 public class ViacheslavAnisimovTest extends BaseTest {
 
     @Test

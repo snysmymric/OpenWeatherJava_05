@@ -5,6 +5,7 @@ import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import runner.BaseTest;
 
+@Ignore
 public class AnzhelikaBaaTest extends BaseTest {
     @Test
     public void testMessageReCaptchaFailed_WhenNoCaptchaConfirmed() throws InterruptedException {

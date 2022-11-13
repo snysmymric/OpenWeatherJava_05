@@ -5,6 +5,7 @@ import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import runner.BaseTest;
 
+@Ignore
 public class YuriiOrmsonTest extends BaseTest {
     @Test
     public void testH1TagText_WhenOpenGuidPage() throws InterruptedException {

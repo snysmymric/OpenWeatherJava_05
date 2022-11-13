@@ -1,10 +1,12 @@
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import runner.BaseTest;
 import java.util.Set;
 
+@Ignore
 public class Tatiana_SH_V_Test extends BaseTest {
 
     @Test

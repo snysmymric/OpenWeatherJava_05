@@ -3,11 +3,13 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import runner.BaseTest;
 
 import static org.testng.AssertJUnit.assertEquals;
 
+@Ignore
 public class IrynaOkunTest extends BaseTest {
 
     private static final String URL = "https://openweathermap.org/";

@@ -7,6 +7,7 @@ import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import runner.BaseTest;
 
+@Ignore
 public class Dasha1991Test extends BaseTest {
     @Test
     public void testButtonGuide_OpenWeather() throws InterruptedException {

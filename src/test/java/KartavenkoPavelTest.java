@@ -3,6 +3,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import runner.BaseTest;
 
@@ -10,6 +11,7 @@ import java.time.Duration;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+@Ignore
 public class KartavenkoPavelTest extends BaseTest {
 private static final String URL = "https://openweathermap.org/";
 
