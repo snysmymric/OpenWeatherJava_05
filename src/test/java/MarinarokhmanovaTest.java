@@ -1,7 +1,5 @@
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import runner.BaseTest;
@@ -121,5 +119,23 @@ public class MarinarokhmanovaTest extends BaseTest {
         boolean actualResult = panelTemperatureC.getText().contains("°C");
 
         Assert.assertTrue(actualResult, expectedResult);
+    }
+    @Test
+    public void testLogoComp_OpenWeather() throws InterruptedException {
+        String url = "https://openweathermap.org/";
+        String expectedResult = "https://openweathermap.org/";
+
+        getDriver().get(url);
+        getDriver().manage().window().maximize();
+        Thread.sleep(10000);
+
+        WebElement logoCompOpenWeather = getDriver().findElement(
+                By.xpath("//img[@src='/themes/openweathermap/assets/img/logo_white_cropped.png']"));
+        logoCompOpenWeather.click();
+        Thread.sleep(10000);
+
+        String actualResult = getDriver().getCurrentUrl();
+
+        Assert.assertEquals(actualResult, expectedResult);
     }
 }
