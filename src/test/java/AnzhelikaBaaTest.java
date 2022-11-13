@@ -51,6 +51,7 @@ public class AnzhelikaBaaTest extends BaseTest {
 
         Assert.assertEquals(actualResult, expectedResult);
     }
+
     @Ignore
     @Test
     public void testSwitchTempUnits_WhenPressOnTempFields() throws InterruptedException {

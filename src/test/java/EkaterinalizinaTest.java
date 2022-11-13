@@ -7,6 +7,7 @@ import runner.BaseTest;
 public class EkaterinalizinaTest extends BaseTest {
 
     private static final String URL ="https://openweathermap.org/";
+
     @Test
     public void testH2TagText_WhenSearchingCityCountry() throws InterruptedException {
         String cityName = "Paris";
@@ -144,4 +145,22 @@ public class EkaterinalizinaTest extends BaseTest {
 
         Assert.assertTrue(actualResult1 && actualResult2);
     }
+
+    @Test
+    public void testATMainNavBarMenuGuideIsClickableHappyStrawberryAT_EkaterinaLizina() throws InterruptedException {
+        getDriver().get(URL);
+
+        Thread.sleep(10000);
+
+        WebElement menuGuideIsClickable = getDriver().findElement(
+                By.xpath("//div[@id ='desktop-menu']//a[text() = 'Guide']"));
+        menuGuideIsClickable.click();
+
+        WebElement menuGuideIsDisplaied = getDriver().findElement(
+                By.xpath("//h1[text() = 'Guide']"));
+
+        Assert.assertTrue(menuGuideIsDisplaied.isDisplayed());
+    }
+
+
 }

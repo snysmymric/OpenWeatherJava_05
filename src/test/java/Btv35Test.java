@@ -1,10 +1,12 @@
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import runner.BaseTest;
 
-public class Btv35Test extends BaseTest {
+public class
+Btv35Test extends BaseTest {
     @Test
     public void testH2TagText_WhenSearchingCityCountry() throws InterruptedException {
         String url = "https://openweathermap.org/";
@@ -36,6 +38,7 @@ public class Btv35Test extends BaseTest {
 
         Assert.assertEquals(actualResult, expectedResult);
     }
+    @Ignore
     @Test
     public void testGuideMenuWithTitle_OpenWeatherMapAPIGuide() throws InterruptedException {
         String url = "https://openweathermap.org/";
