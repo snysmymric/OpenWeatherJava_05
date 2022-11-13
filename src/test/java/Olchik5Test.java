@@ -21,12 +21,12 @@ public class Olchik5Test extends BaseTest {
         );
         searchCityField.click();
         searchCityField.sendKeys(cityName);
-        Thread.sleep(1000);
+        Thread.sleep(10000);
 
         WebElement searchButton = getDriver().findElement(By.xpath("//button[@type='submit']"));
         searchButton.click();
 
-        Thread.sleep(1000);
+        Thread.sleep(10000);
 
         WebElement parisFRChoiceInDropdownMenu = getDriver().findElement(
                 By.xpath("//ul[@class='search-dropdown-menu']/li/span[text()='Paris, FR ']"));
@@ -34,11 +34,36 @@ public class Olchik5Test extends BaseTest {
 
         WebElement h2CityCountryHeader  = getDriver().findElement(By.xpath("//div[@id='weather-widget']//h2"));
 
-        Thread.sleep(2000);
+        Thread.sleep(10000);
 
         String actualResult = h2CityCountryHeader.getText();
 
         Assert.assertEquals(actualResult,expectedResult);
 
+    }
+
+    //    TC_11_02
+    @Test
+    public void test2() throws InterruptedException {
+
+        String url = "https://openweathermap.org/";
+        String expectedResult = "°F";
+
+        getDriver().get(url);
+        getDriver().manage().window().maximize();
+        Thread.sleep(10000);
+
+        WebElement menuImperial = getDriver().findElement(
+                By.xpath("//div[@class='switch-container']/div[@class='option']/following-sibling::div"));
+
+        menuImperial.click();
+
+        WebElement tempF = getDriver().findElement(
+                By.xpath("//div[@class='current-temp']/span"));
+
+        Boolean isTemperatureInFahrenheit = tempF.getText().contains("°F");
+
+        Assert.assertTrue(isTemperatureInFahrenheit);
+        getDriver().quit();
     }
 }
