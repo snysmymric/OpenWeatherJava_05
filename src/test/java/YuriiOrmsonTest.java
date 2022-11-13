@@ -12,12 +12,12 @@ public class YuriiOrmsonTest extends BaseTest {
         String expectedResult = "OpenWeatherMap API guide - OpenWeatherMap";
         String expectedResult1 = "https://openweathermap.org/guide";
         getDriver().get(url);
-        Thread.sleep(5000);
+        Thread.sleep(10000);
 
         WebElement searchGuideLink = getDriver().findElement(
                 By.xpath("//div[@id = 'desktop-menu']/ul/li[1]"));
         searchGuideLink.click();
-        Thread.sleep(2000);
+        Thread.sleep(10000);
 
         String actualResult = getDriver().getTitle();
         Assert.assertEquals(actualResult, expectedResult);
@@ -70,6 +70,34 @@ public class YuriiOrmsonTest extends BaseTest {
         WebElement manageCookiesLink = getDriver().findElement(
                 By.xpath("//div[@id = 'stick-footer-panel']//a"));
         String actualResult2 = manageCookiesLink.getText();
+        Assert.assertEquals(actualResult2, expectedResult2);
+    }
+    @Test
+    public void testSupportDropdown_WhenDropdownOpens() throws InterruptedException {
+        String url = "https://openweathermap.org/";
+        String expectedResult = "FAQ";
+        String expectedResult1 = "How to start";
+        String expectedResult2 = "Ask a question";
+        getDriver().get(url);
+        getDriver().manage().window().maximize();
+        Thread.sleep(10000);
+
+        WebElement supportDropdown = getDriver().findElement(By.xpath("//div[@id = 'support-dropdown']"));
+        supportDropdown.click();
+
+        WebElement supportDropdownFaq = getDriver().findElement(
+                By.xpath("//ul[@id = 'support-dropdown-menu']//a[@href = '/faq']"));
+        String actualResult = supportDropdownFaq.getText();
+        Assert.assertEquals(actualResult, expectedResult);
+
+        WebElement supportDropdownHowToStart = getDriver().findElement(
+                By.xpath("//ul[@id = 'support-dropdown-menu']//a[@href = '/appid']"));
+        String actualResult1 = supportDropdownHowToStart.getText();
+        Assert.assertEquals(actualResult1, expectedResult1);
+
+        WebElement supportDropdownAskAQuestion = getDriver().findElement(
+                By.xpath("//ul[@id = 'support-dropdown-menu']//a[@href = 'https://home.openweathermap.org/questions']"));
+        String actualResult2 = supportDropdownAskAQuestion.getText();
         Assert.assertEquals(actualResult2, expectedResult2);
     }
 }
