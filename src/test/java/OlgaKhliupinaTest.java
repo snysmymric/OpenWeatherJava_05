@@ -4,6 +4,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import runner.BaseTest;
 
@@ -225,6 +226,7 @@ public class OlgaKhliupinaTest extends BaseTest {
       Assert.assertEquals(searchField.getAttribute("value"), expectedResult);
    }
 
+   @Ignore
    @Test
    public void testFindQuantityOfOrangeButtons() throws InterruptedException {
       String url = "https://openweathermap.org/";

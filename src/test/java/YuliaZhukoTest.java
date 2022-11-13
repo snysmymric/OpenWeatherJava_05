@@ -3,12 +3,15 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import runner.BaseTest;
 
 import static org.testng.Assert.assertEquals;
 
 public class YuliaZhukoTest extends BaseTest {
+
+    @Ignore
     @Test
     public void testH2TagText_WhenSearchingCityCountry() throws InterruptedException {
 
