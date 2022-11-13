@@ -1,9 +1,14 @@
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import runner.BaseTest;
+
+import java.time.Duration;
+
+import static org.openqa.selenium.support.ui.ExpectedConditions.numberOfWindowsToBe;
 
 public class ViacheslavAnisimovTest extends BaseTest {
 
@@ -74,5 +79,42 @@ public class ViacheslavAnisimovTest extends BaseTest {
 
         Assert.assertEquals(actualResult1, expectedResult1);
         Assert.assertEquals(actualResult2, expectedResult2);
+    }
+
+    @Test
+
+    public void testMarketplaceMenuIsClickableOpenCustomWeatherProducts() throws InterruptedException {
+
+        String url = "https://openweathermap.org/";
+        String marketplaceMenuText = "Marketplace";
+        String expectedResult1 = "https://home.openweathermap.org/marketplace";
+        String expectedResult2 = "Custom Weather Products";
+
+        getDriver().get(url);
+        Thread.sleep(10000);
+
+        String originalWindow = getDriver().getWindowHandle();
+        assert getDriver().getWindowHandles().size() == 1;
+
+        WebElement guideMenu = getDriver().findElement(By.linkText(marketplaceMenuText));
+        guideMenu.click();
+
+        WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(10));
+        wait.until(numberOfWindowsToBe(2));
+        for (String windowHandle : getDriver().getWindowHandles()) {
+            if(!originalWindow.contentEquals(windowHandle)) {
+                getDriver().switchTo().window(windowHandle);
+                break;
+            }
+        }
+
+        String actualResult1 = getDriver().getCurrentUrl();
+        String actualResult2 = getDriver().findElement(
+                By.cssSelector("h1")
+        ).getText();
+
+        Assert.assertEquals(actualResult1, expectedResult1);
+        Assert.assertEquals(actualResult2, expectedResult2);
+
     }
 }
