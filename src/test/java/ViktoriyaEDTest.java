@@ -1,4 +1,5 @@
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -11,44 +12,77 @@ import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
-@Ignore
+
 public class ViktoriyaEDTest extends BaseTest {
 
-    private final String WEATHER_URL = "https://openweathermap.org/";
+    final static String BASE_URL = "https://openweathermap.org/";
+
+    final static By H_2_CITY_COUNTRY_HEADER = By.xpath("//div[@id = 'weather-widget']//h2");
+    final static By SEARCH_CITY_FIELD = By.xpath("//div[@id = 'weather-widget']//input[@placeholder = 'Search city']");
+    final static By SEARCH_BUTTON = By.xpath("//div[@id='weather-widget']//button[@type='submit']");
+    final static By SEARCH_DROP_DOWN_MENU = By.className("search-dropdown-menu");
+    final static By PARIS_FR_CHOICE_IN_DROPDOWN_MENU = By.xpath("//ul[@class='search-dropdown-menu']//li//span[text() = 'Paris, FR ']");
+
+    private void openBaseURL() {
+        getDriver().get(BASE_URL);
+    }
+
+    private void waitForGrayWindowDisappeared() {
+        getWait20().until(ExpectedConditions.invisibilityOfElementLocated(By.className("owm-loader-container")));
+    }
+
+    private String getText(By by, WebDriver driver) {
+        return driver.findElement(by).getText();
+    }
+
+    private void click(By by, WebDriverWait wait) {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(by));
+        wait.until(ExpectedConditions.elementToBeClickable(by)).click();
+    }
+
+    private void input(String text, By by, WebDriver driver) {
+        driver.findElement(by).sendKeys(text);
+    }
+
+    private void waitElementToBeVisible(By by, WebDriverWait wait) {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(by));
+    }
+
+    private void waitTextToBeChanged(By by, String text, WebDriver driver, WebDriverWait wait) {
+        wait.until(ExpectedConditions.not(ExpectedConditions.textToBePresentInElement(driver.findElement(by), text)));
+    }
 
     @Test
-    public void testH2TagText_WhenSearchingCityCountry() throws InterruptedException {
+    public void testH2TagText_WhenSearchingCityCountry() {
 
         String cityName = "Paris";
         String expectedResult = "Paris, FR";
 
-        getDriver().get(WEATHER_URL);
-        Thread.sleep(10000);
+        openBaseURL();
+        waitForGrayWindowDisappeared();
 
-        getDriver().findElement(
-                By.xpath("//div[@id = 'weather-widget']//input[@placeholder = 'Search city']")).sendKeys(cityName);
+        String oldH2Header = getText(H_2_CITY_COUNTRY_HEADER, getDriver());
 
-        getDriver().findElement(By.xpath("//div[@id='weather-widget']//button[@type='submit']\n")).click();
+        click(SEARCH_CITY_FIELD, getWait5());
+        input(cityName, SEARCH_CITY_FIELD, getDriver());
+        click(SEARCH_BUTTON, getWait5());
+        waitElementToBeVisible(SEARCH_DROP_DOWN_MENU, getWait10());
+        click(PARIS_FR_CHOICE_IN_DROPDOWN_MENU, getWait10());
+        waitTextToBeChanged(H_2_CITY_COUNTRY_HEADER, oldH2Header, getDriver(), getWait10());
 
-        Thread.sleep(2000);
+        String actualResult = getText(H_2_CITY_COUNTRY_HEADER, getDriver());
 
-        getDriver().findElement(
-                By.xpath("//ul[@class=\"search-dropdown-menu\"]//li//span[text() = 'Paris, FR ']")).click();
-
-        WebElement h2CityNameHeader = getDriver().findElement(By.xpath("//div[@id = 'weather-widget']//h2"));
-
-        Thread.sleep(2000);
-
-        Assert.assertEquals(h2CityNameHeader.getText(), expectedResult);
+        Assert.assertEquals(actualResult, expectedResult);
     }
 
+    @Ignore
     @Test
     public void test_TitleText_WhenChooseMenuGuide() throws InterruptedException {
 
         String expectedResult = "https://openweathermap.org/guide";
         String expectedResult1 = "OpenWeatherMap API guide - OpenWeatherMap";
 
-        getDriver().get(WEATHER_URL);
+        getDriver().get(BASE_URL);
 //        getDriver().manage().window().maximize();
         Thread.sleep(10000);
         getDriver().findElement(By.xpath("//a[@href = '/guide']")).click();
@@ -57,12 +91,13 @@ public class ViktoriyaEDTest extends BaseTest {
         Assert.assertEquals(getDriver().getTitle(), expectedResult1);
     }
 
+    @Ignore
     @Test
     public void test_CheckWeather_WhenChooseFahrenheit() throws InterruptedException {
 
         String expectedResult = "°F";
 
-        getDriver().get(WEATHER_URL);
+        getDriver().get(BASE_URL);
         Thread.sleep(10000);
 
         getDriver().findElement(By.xpath("//div[@class='switch-container']/div[3]")).click();
@@ -72,6 +107,7 @@ public class ViktoriyaEDTest extends BaseTest {
         Assert.assertTrue(weatherInF.getText().contains(expectedResult));
     }
 
+    @Ignore
     @Test
     public void test_CheckCookiesText() throws InterruptedException {
 
@@ -81,7 +117,7 @@ public class ViktoriyaEDTest extends BaseTest {
         String expectedResult1 = "Allow all";
         String expectedResult3 = "Manage cookies";
 
-        getDriver().get(WEATHER_URL);
+        getDriver().get(BASE_URL);
         Thread.sleep(10000);
 
         Assert.assertTrue(getDriver().findElement(By.className("stick-footer-panel__container")).isDisplayed());
@@ -97,6 +133,7 @@ public class ViktoriyaEDTest extends BaseTest {
         Assert.assertEquals(manageCookiesButton.getText(), expectedResult3);
     }
 
+    @Ignore
     @Test
     public void testSupportDropDownMenu() throws InterruptedException {
 
@@ -104,7 +141,7 @@ public class ViktoriyaEDTest extends BaseTest {
         String expectedResult1 = "How to start";
         String expectedResult2 = "Ask a question";
 
-        getDriver().get(WEATHER_URL);
+        getDriver().get(BASE_URL);
 //        getDriver().manage().window().maximize();
         Thread.sleep(10000);
 
@@ -122,6 +159,7 @@ public class ViktoriyaEDTest extends BaseTest {
         Assert.assertEquals(AskAQuestion.getText(), expectedResult2);
     }
 
+    @Ignore
     @Test
     public void test_ClickSubmitWithoutCaptcha() throws InterruptedException {
 
@@ -129,7 +167,7 @@ public class ViktoriyaEDTest extends BaseTest {
         String message = "This is test";
         String expectedResult = "reCAPTCHA verification failed, please try again.";
 
-        getDriver().get(WEATHER_URL);
+        getDriver().get(BASE_URL);
 //        getDriver().manage().window().maximize();
         Thread.sleep(10000);
 
@@ -153,10 +191,11 @@ public class ViktoriyaEDTest extends BaseTest {
         Assert.assertEquals(actualResult, expectedResult);
     }
 
+    @Ignore
     @Test
     public void test_SwitchFahrenheitToCelsius() throws InterruptedException {
 
-        getDriver().get(WEATHER_URL);
+        getDriver().get(BASE_URL);
         Thread.sleep(10000);
 
         getDriver().findElement(By.xpath("//div[@id='weather-widget']//div[text()='Imperial: °F, mph']")).click();
@@ -169,13 +208,14 @@ public class ViktoriyaEDTest extends BaseTest {
         Assert.assertTrue(displayCurrentWeather.getText().contains("°C"));
     }
 
+    @Ignore
     @Test
     public void test_FindRome() throws InterruptedException {
 
         String city = "Rome";
         boolean expectedResult = true;
 
-        getDriver().get(WEATHER_URL);
+        getDriver().get(BASE_URL);
         Thread.sleep(10000);
 
         getDriver().findElement(
@@ -187,12 +227,13 @@ public class ViktoriyaEDTest extends BaseTest {
         Assert.assertEquals(actualResult, expectedResult);
     }
 
+    @Ignore
     @Test
     public void test_APICheck30Buttons() throws InterruptedException {
 
         int expectedResult = 30;
 
-        getDriver().get(WEATHER_URL);
+        getDriver().get(BASE_URL);
         Thread.sleep(10000);
 
         getDriver().findElement(By.xpath("//div[@id='desktop-menu']//a[@href='/api']")).click();
