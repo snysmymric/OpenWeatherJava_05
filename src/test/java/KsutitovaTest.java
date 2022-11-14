@@ -1,27 +1,39 @@
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import runner.BaseTest;
 
-@Ignore
+
 public class KsutitovaTest extends BaseTest {
 
+    final static String BASE_URL = "https://openweathermap.org/";
+
+    private void openBaseURL() {
+        getDriver().get(BASE_URL);
+    }
+
+    private void waitForGrayFrameDisappeared() {
+        getWait20().until(ExpectedConditions.invisibilityOfElementLocated(
+                By.className("owm-loader-container")));
+    }
+
+
+    @Ignore
     @Test
     public void testH2TextOpenWeatherMapInGuideLink() throws InterruptedException {
 
-        String url = "https://openweathermap.org/";
         String expectedResultTitle = "OpenWeatherMap API guide - OpenWeatherMap";
         String expectedResultUrl = "https://openweathermap.org/guide";
 
-        getDriver().get(url);
+        getDriver().get(BASE_URL);
         Thread.sleep(10000);
 
         WebElement menuGuide = getDriver().findElement(
                 By.xpath("//div[@id='desktop-menu']/ul/li/a[@href='/guide']")
         );
-
 
         menuGuide.click();
 
@@ -33,6 +45,7 @@ public class KsutitovaTest extends BaseTest {
     }
 
 
+    @Ignore
     @Test
     public void testConfirmTemperatureFaringate() throws InterruptedException {
 
