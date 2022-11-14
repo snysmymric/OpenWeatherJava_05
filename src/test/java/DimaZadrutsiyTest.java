@@ -1,6 +1,8 @@
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
@@ -9,22 +11,36 @@ import runner.BaseTest;
 
 public class DimaZadrutsiyTest extends BaseTest {
 
-    @Ignore
-    @Test
-    public void testPageReload() throws InterruptedException {
+        final static String BASE_URL = "https://openweathermap.org/";
 
-        String url = "https://openweathermap.org/";
+        private void openBaseURL() {getDriver().get(BASE_URL);}
+        private void waitForGrayFrameDisappeared() {
+            getWait20().until(ExpectedConditions.invisibilityOfElementLocated(
+                    By.className("owm-loader-container")));
+        }
+        private void click(String whereToClick,  WebDriverWait wait) {
+            wait.until(ExpectedConditions.visibilityOf(getDriver().findElement(By.xpath(whereToClick))));
+            wait.until(ExpectedConditions.elementToBeClickable(getDriver().findElement(By.xpath(whereToClick)))).click();
+        }
+        private void seeElement(String element){
+            getDriver().findElement(By.xpath(element));
+        }
+        private String getText(String seeLoading, String attribute) {
+
+            return getDriver().findElement(By.xpath(seeLoading)).getAttribute(attribute);
+        }
+    @Test
+    public void testUpdatePage() throws InterruptedException {
         String expectedResult = "Loading";
 
-        getDriver().get(url);
+        openBaseURL();
+        waitForGrayFrameDisappeared();
 
-        Thread.sleep(10000);
-        WebElement clickOnTheLogo = getDriver().findElement(By.xpath("//li[@class='logo']"));
-        clickOnTheLogo.click();
+        click("//li[@class='logo']", getWait5());
 
-        WebElement loading = getDriver().findElement(By.xpath("//div[@aria-label='Loading']"));
+        seeElement("//div[@aria-label='Loading']");
 
-        String actualResult = loading.getAttribute("aria-label");
+        String actualResult = getText("//div[@aria-label='Loading']", "aria-label");
 
         Assert.assertEquals(actualResult, expectedResult);
     }
