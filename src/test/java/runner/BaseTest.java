@@ -11,7 +11,7 @@ public abstract class BaseTest {
     private WebDriver driver;
     private WebDriverWait webDriverWait20;
     private WebDriverWait webDriverWait10;
-    WebDriverWait webDriverWait5;
+    private WebDriverWait webDriverWait5;
 
     @BeforeMethod
     protected void beforeMethod() {
