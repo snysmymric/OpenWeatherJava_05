@@ -22,6 +22,7 @@ public class ViktoriyaEDTest extends BaseTest {
     final static By SEARCH_BUTTON = By.xpath("//div[@id='weather-widget']//button[@type='submit']");
     final static By SEARCH_DROP_DOWN_MENU = By.className("search-dropdown-menu");
     final static By PARIS_FR_CHOICE_IN_DROPDOWN_MENU = By.xpath("//ul[@class='search-dropdown-menu']//li//span[text() = 'Paris, FR ']");
+    final static By GUIDE_BUTTON = By.xpath("//a[@href = '/guide']");
 
     private void openBaseURL() {
         getDriver().get(BASE_URL);
@@ -52,6 +53,11 @@ public class ViktoriyaEDTest extends BaseTest {
         wait.until(ExpectedConditions.not(ExpectedConditions.textToBePresentInElement(driver.findElement(by), text)));
     }
 
+    private void waitURLToBeChanged(String url2, WebDriver driver, WebDriverWait wait) {
+        wait.until(ExpectedConditions.urlToBe(url2));
+    }
+
+
     @Test
     public void testH2TagText_WhenSearchingCityCountry() {
 
@@ -75,17 +81,19 @@ public class ViktoriyaEDTest extends BaseTest {
         Assert.assertEquals(actualResult, expectedResult);
     }
 
-    @Ignore
+
     @Test
-    public void test_TitleText_WhenChooseMenuGuide() throws InterruptedException {
+    public void test_TitleText_WhenChooseMenuGuide() {
 
         String expectedResult = "https://openweathermap.org/guide";
         String expectedResult1 = "OpenWeatherMap API guide - OpenWeatherMap";
 
-        getDriver().get(BASE_URL);
-//        getDriver().manage().window().maximize();
-        Thread.sleep(10000);
-        getDriver().findElement(By.xpath("//a[@href = '/guide']")).click();
+        openBaseURL();
+        waitForGrayWindowDisappeared();
+
+        click(GUIDE_BUTTON, getWait5());
+
+        waitURLToBeChanged(expectedResult, getDriver(), getWait5());
 
         Assert.assertEquals(getDriver().getCurrentUrl(), expectedResult);
         Assert.assertEquals(getDriver().getTitle(), expectedResult1);
