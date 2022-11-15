@@ -11,58 +11,6 @@ import runner.BaseTest;
 @Ignore
 public class LolitaMnTest extends BaseTest {
 
-    @Test
-    public void testCheckPageTitle_WhenClickOnGuide() throws InterruptedException {
-
-        String url = "https://openweathermap.org/";
-        String expectedResultTitle = "OpenWeatherMap API guide - OpenWeatherMap";
-        String expectedResultURL = "https://openweathermap.org/guide";
-
-        getDriver().get(url);
-        Thread.sleep(10000);
-
-        WebElement guideButton = getDriver().findElement(
-                By.xpath("//div[@id='desktop-menu']//a[@href = '/guide']")
-        );
-
-        guideButton.click();
-
-        Thread.sleep(5000);
-
-        String actualResultURL = getDriver().getCurrentUrl();
-        String actualResultTitle = getDriver().getTitle();
-
-        Assert.assertEquals(actualResultURL, expectedResultURL);
-        Assert.assertEquals(actualResultTitle, expectedResultTitle);
-
-    }
-
-    @Test
-    public void testCheck_F_TemperatureMeasurement() throws InterruptedException {
-        String url = "https://openweathermap.org/";
-        String fSymbol = "°F";
-        String expectedResult = "°F";
-
-        getDriver().get(url);
-        getDriver().manage().window().maximize();
-
-        Thread.sleep(10000);
-
-        WebElement fButton = getDriver().findElement(
-                By.xpath("//div[@class='option' and text()='Imperial: °F, mph']")
-        );
-
-        Thread.sleep(2000);
-        fButton.click();
-
-        WebElement fTitle = getDriver().findElement(By.xpath("//span[@class='heading']"));
-        String fTitle2 = fTitle.getText();
-        String actualResult = fTitle2.substring(fTitle2.length() - 2);
-
-        Assert.assertEquals(actualResult, expectedResult);
-        Assert.assertTrue(fTitle2.contains(fSymbol));
-
-    }
 
     @Test
     public void testCheckTextInTheBottomOfThePage() throws InterruptedException {
