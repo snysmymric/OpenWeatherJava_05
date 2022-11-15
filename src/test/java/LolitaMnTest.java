@@ -11,49 +11,6 @@ import runner.BaseTest;
 @Ignore
 public class LolitaMnTest extends BaseTest {
 
-
-    @Test
-    public void testH2TagText_WhenSearchingCtyCountry() throws InterruptedException {
-
-        String url = "https://openweathermap.org/";
-        String cityName = "Paris";
-        String expectedResult = "Paris, FR";
-
-        getDriver().get(url);
-
-        Thread.sleep(10000);
-        WebElement searchCityField = getDriver().findElement(
-                By.xpath("//div[@id = 'weather-widget']//input[@placeholder='Search city']")
-        );
-
-        searchCityField.click();
-        searchCityField.sendKeys(cityName);
-
-        WebElement searchButton = getDriver().findElement(
-                By.xpath("//div[@id ='weather-widget']//button[@type='submit']")
-        );
-
-        searchButton.click();
-
-        Thread.sleep(2000);
-        WebElement parisChoiceInDropdownMenu = getDriver().findElement(
-                By.xpath("//ul[@class ='search-dropdown-menu']/li/span[text()='Paris, FR ']")
-        );
-
-        parisChoiceInDropdownMenu.click();
-
-        WebElement h2CityCountryHeader = getDriver().findElement(
-                By.xpath("//div[@id ='weather-widget']//h2")
-        );
-
-        Thread.sleep(2000);
-
-        String actualResult = h2CityCountryHeader.getText();
-
-        Assert.assertEquals(actualResult, expectedResult);
-
-    }
-
     @Test
     public void testCheckPageTitle_WhenClickOnGuide() throws InterruptedException {
 
@@ -77,7 +34,6 @@ public class LolitaMnTest extends BaseTest {
 
         Assert.assertEquals(actualResultURL, expectedResultURL);
         Assert.assertEquals(actualResultTitle, expectedResultTitle);
-
 
     }
 
