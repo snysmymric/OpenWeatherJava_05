@@ -1,36 +1,61 @@
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
-import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import runner.BaseTest;
 
 
 public class DimaZadrutsiyTest extends BaseTest {
 
-        final static String BASE_URL = "https://openweathermap.org/";
+    final static String BASE_URL = "https://openweathermap.org/";
 
-        private void openBaseURL() {getDriver().get(BASE_URL);}
-        private void waitForGrayFrameDisappeared() {
-            getWait20().until(ExpectedConditions.invisibilityOfElementLocated(
-                    By.className("owm-loader-container")));
-        }
-        private void click(String whereToClick,  WebDriverWait wait) {
-            wait.until(ExpectedConditions.visibilityOf(getDriver().findElement(By.xpath(whereToClick))));
-            wait.until(ExpectedConditions.elementToBeClickable(getDriver().findElement(By.xpath(whereToClick)))).click();
-        }
-        private void seeElement(String element){
-            getDriver().findElement(By.xpath(element));
-        }
-        private String getText(String seeLoading, String attribute) {
+    private void openBaseURL() {
+        getDriver().get(BASE_URL);
+    }
 
-            return getDriver().findElement(By.xpath(seeLoading)).getAttribute(attribute);
-        }
+    private void waitForGrayFrameDisappeared() {
+        getWait20().until(ExpectedConditions.invisibilityOfElementLocated(
+                By.className("owm-loader-container")));
+    }
+
+    private void click(String whereToClick, WebDriverWait wait) {
+        wait.until(ExpectedConditions.visibilityOf(getDriver().findElement(By.xpath(whereToClick))));
+        wait.until(ExpectedConditions.elementToBeClickable(getDriver().findElement(By.xpath(whereToClick)))).click();
+    }
+
+    private void seeElement(String element) {
+        getDriver().findElement(By.xpath(element));
+    }
+
+    private String getText(String where, String attribute) {
+
+        return getDriver().findElement(By.xpath(where)).getAttribute(attribute);
+    }
+
+    private String getText(String where) {
+
+        return getDriver().findElement(By.xpath(where)).getText();
+    }
+
+    private void input(String where, String what) {
+        getDriver().findElement(By.xpath(where)).sendKeys(what, Keys.ENTER);
+        getWait5();
+    }
+
+    private void chooseFromDropDownMenu(String whatChoose, WebDriverWait wait) {
+        getDriver().findElement(By.xpath(whatChoose));
+        wait.until(ExpectedConditions.elementToBeClickable(getDriver().findElement(By.xpath(whatChoose)))).click();
+    }
+
+    private void pressButton(String whichButton, WebDriverWait wait) {
+        getDriver().findElement(By.xpath(whichButton));
+        wait.until(ExpectedConditions.elementToBeClickable(getDriver().findElement(By.xpath(whichButton)))).click();
+    }
+
     @Test
-    public void testUpdatePage() throws InterruptedException {
+    public void testUpdatePage() {
         String expectedResult = "Loading";
 
         openBaseURL();
@@ -44,35 +69,22 @@ public class DimaZadrutsiyTest extends BaseTest {
 
         Assert.assertEquals(actualResult, expectedResult);
     }
-    @Ignore
+
     @Test
-    public void testIconCurrentLocation() throws InterruptedException {
-
-        String url = "https://openweathermap.org/";
-
+    public void testIconCurrentLocation() {
         String cityName = "Norway";
+
         String expectedResult = "London, GB";
 
-        getDriver().get(url);
+        openBaseURL();
+        waitForGrayFrameDisappeared();
 
-        Thread.sleep(10000);
-        WebElement findCity = getDriver().findElement(By.xpath("//div//input[@placeholder='Search city']"));
-        findCity.click();
-        findCity.sendKeys(cityName);
-        findCity.sendKeys(Keys.ENTER);
+        click("//div//input[@placeholder='Search city']", getWait5());
+        input("//div//input[@placeholder='Search city']", cityName);
+        chooseFromDropDownMenu("//ul//span[text()='45.787, -87.904']", getWait5());
+        pressButton("//div[@class='control-el']", getWait10());
 
-        Thread.sleep(4000);
-        WebElement chooseCity = getDriver().findElement(By.xpath("//ul//span[text()='45.787, -87.904']"));
-        chooseCity.click();
-
-        Thread.sleep(4000);
-        WebElement pressCurrentLocation = getDriver().findElement(By.xpath("//div[@class='control-el']"));
-        pressCurrentLocation.click();
-
-        Thread.sleep(7000);
-        WebElement actualLocation = getDriver().findElement(By.xpath("//h2[@data-v-3e6e9f12]"));
-
-        String actualResult = actualLocation.getText();
+        String actualResult = getText("//h2[@data-v-3e6e9f12]");
 
         Assert.assertEquals(actualResult, expectedResult);
     }
