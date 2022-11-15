@@ -1,4 +1,5 @@
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -50,6 +51,11 @@ public class SafOlgaTest extends BaseTest {
         wait.until(ExpectedConditions
                 .not(ExpectedConditions.textToBePresentInElement(driver.findElement(by), text)));
     }
+
+    private void inputKeys(String text, By by, WebDriver driver) {
+        driver.findElement(by).sendKeys(text + Keys.ENTER);
+    }
+
     @Test
     public void testH2TagText_WhenSearchingCityCountry()  {
 
@@ -69,6 +75,27 @@ public class SafOlgaTest extends BaseTest {
         waitTextToBeChanged(H2_CITY_COUNTRY_HEADER, oldH2Header, getDriver(), getWait10());
 
         String actualResult = getText(H2_CITY_COUNTRY_HEADER, getDriver());
+
+        Assert.assertEquals(actualResult, expectedResult);
+    }
+
+    @Test
+    public void testNoResultsMassegeInSearchBar() {
+
+        String cityName = "pome,";
+        String expectedResult = "No results for " + cityName;
+
+        openBaseURL();
+        waitForGrayFrameDisappeared();
+
+        click(SEARCH_CITY_FIELD, getWait5());
+        inputKeys(cityName, SEARCH_CITY_FIELD, getDriver());
+
+
+        WebElement messageError = getDriver().findElement(
+                By.xpath("//div[@class='widget-notification']"));
+
+        String actualResult = messageError.getText();
 
         Assert.assertEquals(actualResult, expectedResult);
     }
