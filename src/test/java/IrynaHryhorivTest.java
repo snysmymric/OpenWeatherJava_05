@@ -1,10 +1,8 @@
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
-import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import runner.BaseTest;
 
@@ -17,6 +15,9 @@ public class IrynaHryhorivTest extends BaseTest {
     final static By SEARCH_DROPDOWN_MENU = By.className("search-dropdown-menu");
     final static By PARIS_FR_CHOICE_IN_DROPDOWN_MENU = By.xpath("//ul[@class = 'search-dropdown-menu']/li/span[text() = 'Paris, FR ']");
     final static By SEARCH_GUIDE_BUTTON = By.xpath("//a[@href='/guide']");
+
+    final static By CONFIRM_API = (By.xpath("//*[@id='desktop-menu']/ul/li[2]/a"));
+
 
     private void openBaseURL() {
         getDriver().get(BASE_URL);
@@ -88,5 +89,18 @@ public class IrynaHryhorivTest extends BaseTest {
 
         Assert.assertEquals(getDriver().getCurrentUrl(), expectedResult);
         Assert.assertEquals(getDriver().getTitle(), expectedResult1);
+    }
+    @Test
+    public void testMenuAPIIsClickable(){
+        String expectedResult = "https://openweathermap.org/api";
+
+        openBaseURL();
+        waitForGrayFrameDisappeared();
+
+        click(CONFIRM_API, getWait5());
+
+        waitURLToBeChanged(expectedResult, getDriver(), getWait10());
+
+        Assert.assertEquals(getDriver().getCurrentUrl(), expectedResult);
     }
 }
