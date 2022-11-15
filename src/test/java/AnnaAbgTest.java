@@ -12,6 +12,7 @@ public class AnnaAbgTest extends BaseTest {
     private static final String BASE_URL = "https://openweathermap.org/";
     private static By API_LINK_PAGE = By.xpath("//a[@href='/api']");
     private static By BUTTONS_COUNT = By.xpath("// a[contains(@class,'orange')]");
+    private static By SEARCH_PARTNERS_MENU = By.xpath("//div[@id='desktop-menu']//a[@href='/examples']");
 
     private void OpenBaseURL() {
         getDriver().get(BASE_URL);
@@ -24,7 +25,6 @@ public class AnnaAbgTest extends BaseTest {
 
     private void click(By by, WebDriverWait wait) {
         wait.until(ExpectedConditions.visibilityOfElementLocated(by));
-        // searchCityField visible
         wait.until(ExpectedConditions.elementToBeClickable(by)).click();
     }
 
@@ -33,17 +33,38 @@ public class AnnaAbgTest extends BaseTest {
         return driver.findElements(by).size();
     }
 
+    private String getCurrentUrl() {
+
+        return getDriver().getCurrentUrl();
+    }
+
+
     @Test
-    public void testThirtyOrangeButtons(){
+    public void testThirtyOrangeButtons() {
         int expectedResult = 30;
 
         OpenBaseURL();
         waitForGrayFrameDisappeared();
 
-        click(API_LINK_PAGE,getWait5());
+        click(API_LINK_PAGE, getWait5());
 
-        int countButtons = getButtonsCount(BUTTONS_COUNT,getDriver());
+        int countButtons = getButtonsCount(BUTTONS_COUNT, getDriver());
 
         Assert.assertEquals(countButtons, expectedResult);
+    }
+
+    @Test
+    public void testPartnersAndSolutionsPage() {
+
+        String expectedResultCurrentURL = "https://openweathermap.org/examples";
+
+        OpenBaseURL();
+        waitForGrayFrameDisappeared();
+
+        click(SEARCH_PARTNERS_MENU, getWait5());
+
+        String actualResultCurrentURL = getCurrentUrl();
+
+        Assert.assertEquals(actualResultCurrentURL, expectedResultCurrentURL);
     }
 }
