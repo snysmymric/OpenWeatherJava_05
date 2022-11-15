@@ -17,6 +17,7 @@ public class ViktoriiaHukTest extends BaseTest {
             By.linkText("Java");
     private static final By BUTTON_VIEW_TO_HIT_HUB_IN_JAVA =
             By.xpath("//section [@id='java']/a");
+    private static final By HYPERLINK_HOME_IN_MENU_PARTNERS = By.linkText("Home");
 
     private void openBaseURL() {
         getDriver().get(BASE_URL);
@@ -65,5 +66,17 @@ public class ViktoriiaHukTest extends BaseTest {
         newWindow();
 
         Assert.assertEquals(getDriver().getCurrentUrl(), expectedResult);
+    }
+    @Test
+    public void testVerifyActiveHyperlinkHomeOnPartnersPage(){
+        String expectedResult = "https://openweathermap.org/";
+
+        openBaseURL();
+        waitForGrayFrameDisappeared();
+        click(DESKTOP_MENU_PARTNERS, getWait5());
+        click(HYPERLINK_HOME_IN_MENU_PARTNERS, getWait5());
+        waitForGrayFrameDisappeared();
+
+        Assert.assertEquals(getDriver().getCurrentUrl(),expectedResult);
     }
 }
