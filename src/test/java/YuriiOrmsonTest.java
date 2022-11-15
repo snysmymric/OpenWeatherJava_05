@@ -35,6 +35,20 @@ public class YuriiOrmsonTest extends BaseTest {
         waitForGrayFrameDisappeared();
 
         String actualResult = getText(H1,getDriver());
+
+        Assert.assertEquals(actualResult,expectedResult);
+    }
+    @Test
+    public void testUrl_WhenOpenPricingPage() {
+        String expectedResult = "https://openweathermap.org/price";
+
+        openBaseURL();
+        waitForGrayFrameDisappeared();
+        click(A_HREF_PRICE,getWait5());
+        waitForGrayFrameDisappeared();
+
+        String actualResult = getDriver().getCurrentUrl();
+
         Assert.assertEquals(actualResult,expectedResult);
     }
 }
