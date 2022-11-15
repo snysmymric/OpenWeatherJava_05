@@ -1,91 +1,63 @@
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
-import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import runner.BaseTest;
 
-@Ignore
 public class VeraFesTest extends BaseTest {
 
+    final static String BASE_URL = "https://openweathermap.org/";
+    final static By LOGO =
+            By.xpath("//a[@href]//img[@src='/themes/openweathermap/assets/img/logo_white_cropped.png']");
+
+    private void openBaseURL() {
+        getDriver().get(BASE_URL);
+    }
+
+    private void waitForGrayFrameDisappeared() {
+        getWait20().until(ExpectedConditions.invisibilityOfElementLocated(
+                By.className("owm-loader-container")));
+    }
+
+    private String getText(By by, WebDriver driver) {
+
+        return driver.findElement(by).getText();
+    }
+
+    private String getCurrentUrl(WebDriver driver) {
+
+        return driver.getCurrentUrl();
+    }
+
+    private void click(By by, WebDriverWait wait) {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(by));
+        wait.until(ExpectedConditions.elementToBeClickable(by)).click();
+    }
+
+    private void waitElementToBeVisible(By by, WebDriverWait wait) {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(by));
+    }
+
+    private void waitElementToBeClicable(By by, WebDriverWait wait) {
+        wait.until(ExpectedConditions.elementToBeClickable(by));
+    }
+
     @Test
-    public void testH2TagText_WhenSearchingCityCountry() throws InterruptedException {
+    public void test_LogoExistsClickableRedirects2Start() {
 
-        String url = "https://openweathermap.org/";
-        String cityName = "Paris";
-        String expectedResult = "Paris, FR";
+        String expectedResult = BASE_URL;
 
-        getDriver().get(url);
-        Thread.sleep(10000);
+        openBaseURL();
+        waitForGrayFrameDisappeared();
 
-        WebElement searchCityField = getDriver().findElement(
-                By.xpath("//div[@id='weather-widget']//input[@placeholder='Search city']")
-        );
-        searchCityField.click();
-        searchCityField.sendKeys(cityName);
-        Thread.sleep(7000);
+        waitElementToBeVisible(LOGO, getWait10());
+        waitElementToBeClicable(LOGO, getWait5());
+        click(LOGO, getWait5());
 
-        WebElement searchButton = getDriver().findElement(By.xpath("//button[@type='submit']"));
-        searchButton.click();
-
-        Thread.sleep(7000);
-
-        WebElement parisFRChoiceInDropdownMenu = getDriver().findElement(
-                By.xpath("//ul[@class='search-dropdown-menu']/li/span[text()='Paris, FR ']"));
-        parisFRChoiceInDropdownMenu.click();
-
-        WebElement h2CityCountryHeader  = getDriver().findElement(By.xpath("//div[@id='weather-widget']//h2"));
-
-        Thread.sleep(7000);
-
-        String actualResult = h2CityCountryHeader.getText();
+        String actualResult = getCurrentUrl(getDriver());
 
         Assert.assertEquals(actualResult,expectedResult);
     }
-
-    @Test
-    public void test_FahrenheitUnits_IfChooseF_11_02() throws InterruptedException {
-        String url = "https://openweathermap.org/";
-        String menuOption = "Imperial: °F, mph";
-        boolean expectedResult = true;
-        String fTempSymbol = "F";
-
-        getDriver().get(url);
-        Thread.sleep(10000);
-
-        WebElement findTempFSwitcher = getDriver().findElement(By.xpath(
-                "//div[contains(text(),'"+menuOption+"')]"));
-        findTempFSwitcher.click();
-
-        Thread.sleep(5000);
-        WebElement findTempIndicator = getDriver().findElement(By.xpath(
-                "//div[@class='current-temp']/span"));
-
-        Thread.sleep(3000);
-        String tempIndidcatorF = findTempIndicator.getText();
-        String actualResult = tempIndidcatorF.substring(tempIndidcatorF.length() - 2);
-
-        Assert.assertTrue(findTempIndicator.getText().contains(fTempSymbol));
-        Assert.assertTrue(expectedResult, actualResult);
-    }
-
-    @Test
-    public void test_CheckCurrentURLonClickLogo() throws InterruptedException {
-
-        String url = "https://openweathermap.org/";
-        String expectedResult = "https://openweathermap.org/";
-
-        getDriver().get(url);
-        getDriver().manage().window().maximize();
-        Thread.sleep(10000);
-
-        WebElement logo = getDriver().findElement(
-                By.xpath("//a[@href]//img[@src = '/themes/openweathermap/assets/img/logo_white_cropped.png']"));
-        logo.click();
-        Thread.sleep(1000);
-
-        String actualResult = getDriver().getCurrentUrl();
-        Assert.assertEquals(actualResult,expectedResult);
-    }
-
 }
