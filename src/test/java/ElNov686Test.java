@@ -7,6 +7,7 @@ import org.testng.Assert;
 import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import runner.BaseTest;
+
 import java.util.List;
 
 
@@ -16,15 +17,15 @@ public class ElNov686Test extends BaseTest {
             .xpath("//div[@id = 'weather-widget']//input[@placeholder = 'Search city']");
     final static By SEARCH_BUTTON = By.xpath("//div[@id='weather-widget']//button[@type='submit']");
     final static By SEARCH_DROPDOWN_MENU = By.className("search-dropdown-menu");
-    final static By PARIS_FR_FROM_DROPDOWN_MENU= By
+    final static By PARIS_FR_FROM_DROPDOWN_MENU = By
             .xpath("//ul[@class = 'search-dropdown-menu']/li/span[text ()= 'Paris, FR ']");
-    final static By H2_CITYNAME_HEADER= By.xpath("//div[@id = 'weather-widget']//h2");
+    final static By H2_CITYNAME_HEADER = By.xpath("//div[@id = 'weather-widget']//h2");
 
-    private void getBaseUrl(){
+    private void getBaseUrl() {
         getDriver().get(BASE_URL);
     }
 
-    private void greyFrame(){
+    private void greyFrame() {
         getWait20().until(ExpectedConditions.invisibilityOfElementLocated(By.className("own-loader-container")));
     }
 
@@ -32,26 +33,26 @@ public class ElNov686Test extends BaseTest {
         return driver.findElement(by).getText();
     }
 
-    private void click(By by,  WebDriverWait wait) {
+    private void click(By by, WebDriverWait wait) {
         wait.until(ExpectedConditions.visibilityOfElementLocated(by));
         wait.until(ExpectedConditions.elementToBeClickable(by)).click();
     }
 
-    private void input (String text, By by,WebDriver driver) {
+    private void input(String text, By by, WebDriver driver) {
         driver.findElement(by).sendKeys(text);
     }
 
-    private void waitElemantToBeVisible(By by, WebDriverWait wait) {
+    private void waitElementToBeVisible(By by, WebDriverWait wait) {
         wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(by));
     }
 
     private void waitTextTobeChanged(By by, String text, WebDriver driver, WebDriverWait wait) {
         wait.until(ExpectedConditions
-                .not(ExpectedConditions.textToBePresentInElement(driver.findElement(by), text )));
+                .not(ExpectedConditions.textToBePresentInElement(driver.findElement(by), text)));
     }
 
     @Test
-    public void testH2TagTextWhenSearchingCityCountry()  {
+    public void testH2TagTextWhenSearchingCityCountry() {
         String cityName = "Paris";
         String expectedResult = "Paris, FR";
 
@@ -61,38 +62,32 @@ public class ElNov686Test extends BaseTest {
         String oldH2Header = getText(H2_CITYNAME_HEADER, getDriver());
 
         click(SEARCH_CITY_FIELD, getWait5());
-        input(cityName, SEARCH_CITY_FIELD,getDriver());
+        input(cityName, SEARCH_CITY_FIELD, getDriver());
         click(SEARCH_BUTTON, getWait5());
-        waitElemantToBeVisible(SEARCH_DROPDOWN_MENU, getWait10());
-        click(PARIS_FR_FROM_DROPDOWN_MENU,getWait10());
+        waitElementToBeVisible(SEARCH_DROPDOWN_MENU, getWait10());
+        click(PARIS_FR_FROM_DROPDOWN_MENU, getWait10());
         waitTextTobeChanged(H2_CITYNAME_HEADER, oldH2Header, getDriver(), getWait10());
 
         String actualResult = getText(H2_CITYNAME_HEADER, getDriver());
 
         Assert.assertEquals(actualResult, expectedResult);
     }
-    @Ignore
+
     @Test
-    public void testTemperatureImperialFahrenheitVerify() throws InterruptedException {
-        String url = "https://openweathermap.org/";
-
-        getDriver().get(url);
-        Thread.sleep(10000);
-        WebElement imperialF = getDriver().findElement(By
-                .xpath("//div[@class='switch-container']//div[text()='Imperial: °F, mph']"));
-
-        imperialF.click();
-        Thread.sleep(5000);
-        WebElement temperatureF = getDriver().findElement(By
-                .xpath("//span[@class='heading']"));
-
-        String actualResult = temperatureF.getText();
-        actualResult = actualResult.substring(actualResult.length() - 1);
-
+    public void testTemperatureImperialFahrenheitVerify() {
         String expectedResult = "F";
+
+        getBaseUrl();
+        greyFrame();
+
+        click(By.xpath("//div[@class='switch-container']//div[text()='Imperial: °F, mph']"), getWait5());
+        String actualResult = getText(By.xpath("//span[@class='heading']"), getDriver());
+
+        actualResult = actualResult.substring(actualResult.length() - 1);
 
         Assert.assertEquals(actualResult, expectedResult);
     }
+
     @Ignore
     @Test
     public void testVerifyCookiesTextAndTwoButtons() throws InterruptedException {
@@ -117,7 +112,8 @@ public class ElNov686Test extends BaseTest {
         Assert.assertTrue(actualResult2);
         Assert.assertTrue(actualResult3);
 
-        }
+    }
+
     @Ignore
     @Test
     public void testMenuAPI_Verify30orangeButtons() throws InterruptedException {
@@ -137,6 +133,6 @@ public class ElNov686Test extends BaseTest {
                         "or contains(@class, 'ow-btn round btn-orange')]"));
 
         Assert.assertEquals(orangeButtons.size(), expectedResult);
-        }
     }
+}
 
