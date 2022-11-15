@@ -8,8 +8,6 @@ import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import runner.BaseTest;
 
-import java.util.List;
-
 
 public class ElNov686Test extends BaseTest {
     final static String BASE_URL = "https://openweathermap.org/";
@@ -49,6 +47,10 @@ public class ElNov686Test extends BaseTest {
     private void waitTextTobeChanged(By by, String text, WebDriver driver, WebDriverWait wait) {
         wait.until(ExpectedConditions
                 .not(ExpectedConditions.textToBePresentInElement(driver.findElement(by), text)));
+    }
+
+    private int countOrangeButtons(By by, WebDriver driver) {
+        return driver.findElements(by).size();
     }
 
     @Test
@@ -114,25 +116,18 @@ public class ElNov686Test extends BaseTest {
 
     }
 
-    @Ignore
     @Test
-    public void testMenuAPI_Verify30orangeButtons() throws InterruptedException {
-        String url = "https://openweathermap.org/";
+    public void testMenuAPI_Verify30orangeButtons() {
         int expectedResult = 30;
 
-        getDriver().get(url);
-        Thread.sleep(10000);
+        getBaseUrl();
+        greyFrame();
+        click(By.xpath("//div[@id='desktop-menu']//a[normalize-space()='API']"), getWait10());
+        int actualResult = countOrangeButtons(By.xpath("//a[contains(@class, 'btn_block orange round') " +
+                "or contains(@class, 'ow-btn round btn-orange')]"),getDriver());
 
-        WebElement menuAPI = getDriver().findElement(By
-                .xpath("//div[@id='desktop-menu']//a[normalize-space()='API']"));
-        menuAPI.click();
-        Thread.sleep(3000);
+        Assert.assertEquals(actualResult, expectedResult);
 
-        List<WebElement> orangeButtons = getDriver().findElements(By
-                .xpath("//a[contains(@class, 'btn_block orange round') " +
-                        "or contains(@class, 'ow-btn round btn-orange')]"));
-
-        Assert.assertEquals(orangeButtons.size(), expectedResult);
     }
 }
 
