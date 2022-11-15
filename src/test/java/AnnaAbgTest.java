@@ -1,65 +1,48 @@
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
-import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import runner.BaseTest;
 
-@Ignore
 public class AnnaAbgTest extends BaseTest {
 
     private static final String BASE_URL = "https://openweathermap.org/";
+    private static By API_LINK_PAGE = By.xpath("//a[@href='/api']");
+    private static By BUTTONS_COUNT = By.xpath("// a[contains(@class,'orange')]");
 
-    @Test
-    public void testH2TagText_WhenSearchingCityCountry() throws InterruptedException {
-
-        String cityName = "Paris";
-        String expectedResult = "Paris, FR";
-
+    private void OpenBaseURL() {
         getDriver().get(BASE_URL);
-        Thread.sleep(10000);
+    }
 
-        WebElement searchCityField = getDriver().findElement(
-                By.xpath("//div[@id = 'weather-widget']//input[@placeholder = 'Search city']")
-        );
-        searchCityField.click();
-        searchCityField.sendKeys(cityName);
+    private void waitForGrayFrameDisappeared() {
+        getWait20().until(ExpectedConditions.invisibilityOfElementLocated(
+                By.className("owm-loader-container")));
+    }
 
-        WebElement searchButton = getDriver().findElement(
-                By.xpath("//div[@id = 'weather-widget']//button[@type = 'submit']")
-        );
-        searchButton.click();
-        Thread.sleep(1000);
+    private void click(By by, WebDriverWait wait) {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(by));
+        // searchCityField visible
+        wait.until(ExpectedConditions.elementToBeClickable(by)).click();
+    }
 
-        WebElement parisFRChoiceInDropdownMenu = getDriver().findElement(
-                By.xpath("//ul[@class = 'search-dropdown-menu']/li/span[text() = 'Paris, FR ']")
-        );
-        parisFRChoiceInDropdownMenu.click();
-        Thread.sleep(1000);
+    private int getButtonsCount(By by, WebDriver driver) {
 
-        WebElement h2CityCountryHeader = getDriver().findElement(
-                By.xpath("//div[@id = 'weather-widget']//h2")
-        );
-        Thread.sleep(2000);
-        String actualResult = h2CityCountryHeader.getText();
-
-        Assert.assertEquals(actualResult, expectedResult);
+        return driver.findElements(by).size();
     }
 
     @Test
-    public void testThirtyOrangeButtons() throws InterruptedException {
-
+    public void testThirtyOrangeButtons(){
         int expectedResult = 30;
 
-        getDriver().get(BASE_URL);
-        Thread.sleep(10000);
+        OpenBaseURL();
+        waitForGrayFrameDisappeared();
 
-        getDriver().findElement(By.xpath("//a[@href='/api']")).click();
-        Thread.sleep(5000);
+        click(API_LINK_PAGE,getWait5());
 
-        int countButtons = getDriver().findElements(
-                By.xpath("//a[contains(@class, 'btn_block orange round') " +
-                        "or contains(@class, 'ow-btn round btn-orange') ]")).size();
+        int countButtons = getButtonsCount(BUTTONS_COUNT,getDriver());
 
         Assert.assertEquals(countButtons, expectedResult);
     }
