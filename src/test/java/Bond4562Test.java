@@ -1,36 +1,80 @@
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
-import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import runner.BaseTest;
 
-@Ignore
+
+
+
 public class Bond4562Test extends BaseTest {
 
+    final static String BASE_URL = "https://openweathermap.org/";
+
+    final static By SEARCH_GUIDE_BUTTON = By.xpath(
+            "//div[@id='desktop-menu']//a[@href='/guide']");
+    final static By SEARCH_HEADER_ROW = By.xpath(
+            "//div[@class='col-sm-7']/h1");
+
+
+
+
+    private void openBaseURL() {
+        getDriver().get(BASE_URL);
+    }
+
+    private void waitForGrayFrame() {
+        getWait20().until(ExpectedConditions.invisibilityOfElementLocated(
+                By.className("owm-loader-container")));
+    }
+
+    private void click(By by, WebDriverWait wait) {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(by));
+        wait.until(ExpectedConditions.elementToBeClickable(by)).click();
+    }
+
+    private void waitElementToBeVisible(By by, WebDriverWait wait) {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(by));
+    }
+
+    private String getText(By by, WebDriver driver) {
+
+        return driver.findElement(by).getText();
+    }
+
+    private void waitElementToBeText(By by, WebDriverWait wait) {
+        wait.until(ExpectedConditions.presenceOfElementLocated(by));
+    }
+
+    private String actualUrl() {
+
+        return getDriver().getCurrentUrl();
+    }
+
+    private String actualTitle() {
+
+        return getDriver().getTitle();
+    }
+
+
+
     @Test
-    public void testClickGuideAndVerifyTitleandUrl() throws InterruptedException {
+    public void testClickGuideAndVerifyTitleANDUrl() {
 
-        String urlBase = "https://openweathermap.org/";
-        String expectedResultUrl = "https://openweathermap.org/guide";
-        String expectedtResultTitle = "OpenWeatherMap API guide - OpenWeatherMap";
+        String expectedUrl = "https://openweathermap.org/guide";
+        String expectedTitle = "OpenWeatherMap API guide - OpenWeatherMap";
+        String expectedText = "Guide";
 
+        openBaseURL();
+        waitForGrayFrame();
+        click(SEARCH_GUIDE_BUTTON, getWait5());
+        waitElementToBeVisible(SEARCH_HEADER_ROW, getWait5());
 
-        getDriver().get(urlBase);
-
-        Thread.sleep(10000);
-
-
-        getDriver().findElement(
-                By.xpath("//nav[@id='nav-website']//div[@id='desktop-menu']//a[@href='/guide']")
-        ).click();
-        Thread.sleep(2000);
-
-        String actualResultUrl = getDriver().getCurrentUrl();
-        String actualResultTitle = getDriver().getTitle();
-
-
-        Assert.assertEquals(actualResultUrl, expectedResultUrl);
-        Assert.assertEquals(actualResultTitle, expectedtResultTitle);
+        Assert.assertEquals(getText(SEARCH_HEADER_ROW, getDriver()), expectedText);
+        Assert.assertEquals(actualUrl(), expectedUrl);
+        Assert.assertEquals(actualTitle(), expectedTitle);
     }
 
 }
