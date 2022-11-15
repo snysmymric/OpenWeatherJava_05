@@ -1,12 +1,41 @@
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import runner.BaseTest;
 
 public class OlgaKhliupinaTest extends BaseTest {
+
+   final static String BASE_URL = "https://openweathermap.org/";
+   final static String TEMP = "Imperial: °F, mph";
+   final static String SYMBOL_TEMP = "°F";
+   final static By TEMP_UNIT_HEADING = By.xpath("//div[@class='current-temp']/span");
+
+   private void openBaseURL() {
+      getDriver().get(BASE_URL);
+   }
+
+   private void waitForGrayFrameDisappeared() {
+      getWait20().until(ExpectedConditions.invisibilityOfElementLocated(
+              By.className("owm-loader-container")));
+   }
+
+   private String getText(By by, WebDriver driver) {
+
+      return driver.findElement(by).getText();
+   }
+
+   private boolean isTempInSymbol(WebDriver driver, String temp, String symbolTemp) {
+      WebElement tempUnit = driver.findElement(By.xpath(String.format("//div[text()='%s']", temp)));
+      tempUnit.click();
+      waitForGrayFrameDisappeared();
+
+      return getText(TEMP_UNIT_HEADING, getDriver()).contains(symbolTemp);
+   }
+
 
    @Ignore
    @Test
@@ -45,28 +74,12 @@ public class OlgaKhliupinaTest extends BaseTest {
       Assert.assertEquals(getDriver().getCurrentUrl(), expectedResult);
    }
 
-   @Ignore
-   static boolean isTempInSymbol(WebDriver driver, String temp, String symbolTemp) throws InterruptedException {
-      WebElement tempUnit = driver.findElement(By.xpath(String.format("//div[text()='%s']", temp)));
-      tempUnit.click();
-      Thread.sleep(1000);
-
-      WebElement tempUnitHeading = driver.findElement(By.xpath("//div[@class='current-temp']/span"));
-
-      return tempUnitHeading.getText().contains(symbolTemp);
-   }
-
-   @Ignore
    @Test
-   public void testChangingTempUnitInHeading_WhenSwitchTempUnitButton() throws InterruptedException {
-      String url = "https://openweathermap.org/";
-      String temp = "Imperial: °F, mph";
-      String symbolTemp = "°F";
+   public void testChangingTempUnitInHeading_WhenSwitchTempUnitButton() {
+      openBaseURL();
+      waitForGrayFrameDisappeared();
 
-      getDriver().get(url);
-      Thread.sleep(10000);
-
-      Assert.assertTrue(isTempInSymbol(getDriver(), temp, symbolTemp));
+      Assert.assertTrue(isTempInSymbol(getDriver(), TEMP, SYMBOL_TEMP));
    }
 
    @Ignore
