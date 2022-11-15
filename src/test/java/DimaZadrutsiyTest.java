@@ -26,7 +26,7 @@ public class DimaZadrutsiyTest extends BaseTest {
     }
 
     private void seeElement(String element) {
-        getDriver().findElement(By.xpath(element));
+        getDriver().findElement(By.xpath(element)).isDisplayed();
     }
 
     private String getText(String where, String attribute) {
@@ -62,8 +62,6 @@ public class DimaZadrutsiyTest extends BaseTest {
         waitForGrayFrameDisappeared();
 
         click("//li[@class='logo']", getWait5());
-
-        seeElement("//div[@aria-label='Loading']");
 
         String actualResult = getText("//div[@aria-label='Loading']", "aria-label");
 
