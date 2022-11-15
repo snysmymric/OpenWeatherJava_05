@@ -1,10 +1,13 @@
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import runner.BaseTest;
+
+import java.util.List;
 
 
 public class DimaZadrutsiyTest extends BaseTest {
@@ -27,6 +30,17 @@ public class DimaZadrutsiyTest extends BaseTest {
 
     private void seeElement(String element) {
         getDriver().findElement(By.xpath(element)).isDisplayed();
+    }
+
+    private int seeAllElementAndCount(String whichElement, WebDriverWait wait) {
+        wait.until(ExpectedConditions.visibilityOfAllElements(getDriver().findElement(By.xpath(whichElement))));
+        List<WebElement> allElements = getDriver().findElements(By.xpath(whichElement));
+        int count = allElements.size();
+        for (WebElement checkedElement : allElements) {
+            wait.until(ExpectedConditions.elementToBeClickable(checkedElement));
+        }
+
+        return count;
     }
 
     private String getText(String where, String attribute) {
@@ -83,6 +97,20 @@ public class DimaZadrutsiyTest extends BaseTest {
         pressButton("//div[@class='control-el']", getWait10());
 
         String actualResult = getText("//h2[@data-v-3e6e9f12]");
+
+        Assert.assertEquals(actualResult, expectedResult);
+    }
+
+    @Test
+    public void testAllIconsAreShownAndClickable() {
+        int expectedResult = 9;
+
+        openBaseURL();
+        waitForGrayFrameDisappeared();
+
+        click("//span[text()='Different Weather?']", getWait5());
+
+        int actualResult = seeAllElementAndCount("//ul[@class='icons']/li", getWait5());
 
         Assert.assertEquals(actualResult, expectedResult);
     }
