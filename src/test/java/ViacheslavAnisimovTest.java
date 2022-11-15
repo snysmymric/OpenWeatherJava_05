@@ -23,6 +23,7 @@ public class ViacheslavAnisimovTest extends BaseTest {
     final static By PARIS_FR_CHOICE_IN_DROPDOWN_MENU = By.xpath("//ul[@class = 'search-dropdown-menu']/li/span[text() = 'Paris, FR ']");
     final static By HAMBURGER_MENU = By.id("hamburger");
     final static By LINK_TO_GUIDE_IN_HAMBURGER_MENU = By.xpath("//ul[@id='mobile-menu']//a[@href='/guide']");
+    final static By LINK_TO_MARKETPLACE = By.linkText("Marketplace");
 
 
     private void openBaseURL() {
@@ -57,6 +58,24 @@ public class ViacheslavAnisimovTest extends BaseTest {
                 .not(ExpectedConditions.textToBePresentInElement(driver.findElement(by), text)));
     }
 
+    private void switchToNewTab(By by, WebDriverWait wait) {
+        String originalWindow = getDriver().getWindowHandle();
+        assert getDriver().getWindowHandles().size() == 1;
+
+        WebElement guideMenu = getDriver().findElement(by);
+        guideMenu.click();
+
+        getWait10();
+
+        wait.until(numberOfWindowsToBe(2));
+        for (String windowHandle : getDriver().getWindowHandles()) {
+            if(!originalWindow.contentEquals(windowHandle)) {
+                getDriver().switchTo().window(windowHandle);
+                break;
+            }
+        }
+    }
+
     @Test
     public void testH2TagText_WhenSearchingCityCountry() {
         String cityName = "Paris";
@@ -80,7 +99,7 @@ public class ViacheslavAnisimovTest extends BaseTest {
     }
 
     @Test
-    public void testHamburgerMenuAndGuidePageTitle() throws InterruptedException {
+    public void testHamburgerMenuAndGuidePageTitle() {
         String expectedResult1 = "https://openweathermap.org/guide";
         String expectedResult2 = "OpenWeatherMap API guide - OpenWeatherMap";
 
@@ -98,41 +117,21 @@ public class ViacheslavAnisimovTest extends BaseTest {
         Assert.assertEquals(actualResult2, expectedResult2);
     }
 
-    @Ignore
     @Test
 
-    public void testMarketplaceMenuIsClickableOpenCustomWeatherProducts() throws InterruptedException {
-
-        String url = "https://openweathermap.org/";
-        String marketplaceMenuText = "Marketplace";
+    public void testMarketplaceMenuIsClickableOpenCustomWeatherProducts() {
         String expectedResult1 = "https://home.openweathermap.org/marketplace";
         String expectedResult2 = "Custom Weather Products";
 
-        getDriver().get(url);
-        Thread.sleep(10000);
+        openBaseURL();
+        waitForGrayFrameDisappeared();
 
-        String originalWindow = getDriver().getWindowHandle();
-        assert getDriver().getWindowHandles().size() == 1;
-
-        WebElement guideMenu = getDriver().findElement(By.linkText(marketplaceMenuText));
-        guideMenu.click();
-
-        WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(10));
-        wait.until(numberOfWindowsToBe(2));
-        for (String windowHandle : getDriver().getWindowHandles()) {
-            if(!originalWindow.contentEquals(windowHandle)) {
-                getDriver().switchTo().window(windowHandle);
-                break;
-            }
-        }
+        switchToNewTab(LINK_TO_MARKETPLACE, getWait10());
 
         String actualResult1 = getDriver().getCurrentUrl();
-        String actualResult2 = getDriver().findElement(
-                By.cssSelector("h1")
-        ).getText();
+        String actualResult2 = getDriver().findElement(By.cssSelector("h1")).getText();
 
         Assert.assertEquals(actualResult1, expectedResult1);
         Assert.assertEquals(actualResult2, expectedResult2);
-
     }
 }
