@@ -10,8 +10,8 @@ import runner.BaseTest;
 public class OlgaKhliupinaTest extends BaseTest {
 
    final static String BASE_URL = "https://openweathermap.org/";
-   final static String TEMP = "Imperial: °F, mph";
-   final static String SYMBOL_TEMP = "°F";
+   final static String TEMP_F = "Imperial: °F, mph";
+   final static String SYMBOL_TEMP_F = "°F";
    final static By TEMP_UNIT_HEADING = By.xpath("//div[@class='current-temp']/span");
 
    private void openBaseURL() {
@@ -75,11 +75,11 @@ public class OlgaKhliupinaTest extends BaseTest {
    }
 
    @Test
-   public void testChangingTempUnitInHeading_WhenSwitchTempUnitButton() {
+   public void testChangingTempUnitInHeadingToF_WhenSwitchTempUnitButtonToF() {
       openBaseURL();
       waitForGrayFrameDisappeared();
 
-      Assert.assertTrue(isTempInSymbol(getDriver(), TEMP, SYMBOL_TEMP));
+      Assert.assertTrue(isTempInSymbol(getDriver(), TEMP_F, SYMBOL_TEMP_F));
    }
 
    @Ignore
