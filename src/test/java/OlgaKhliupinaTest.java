@@ -2,6 +2,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
@@ -13,6 +14,8 @@ public class OlgaKhliupinaTest extends BaseTest {
    final static String TEMP_F = "Imperial: °F, mph";
    final static String SYMBOL_TEMP_F = "°F";
    final static By TEMP_UNIT_HEADING = By.xpath("//div[@class='current-temp']/span");
+   final static By MENU_GUIDE = By.xpath("//div/ul//li/a[@href='/guide']");
+   final static By GUIDE_TITLE = By.className("breadcrumb-title");
 
    private void openBaseURL() {
       getDriver().get(BASE_URL);
@@ -36,25 +39,25 @@ public class OlgaKhliupinaTest extends BaseTest {
       return getText(TEMP_UNIT_HEADING, getDriver()).contains(symbolTemp);
    }
 
+   private void click(By by,  WebDriverWait wait) {
+      wait.until(ExpectedConditions.visibilityOfElementLocated(by));
+      wait.until(ExpectedConditions.elementToBeClickable(by)).click();
+   }
 
-   @Ignore
    @Test
-   public void testLinkAndTitle_WhenGoingToGuideMenu() throws InterruptedException {
+   public void testLinkAndTitle_WhenGoingToGuideMenu() {
 
-      String url = "https://openweathermap.org/";
       String expectedResultUrl = "https://openweathermap.org/guide";
-      String expectedResultTitle = "OpenWeatherMap API guide - OpenWeatherMap";
+      String expectedResultTitle = "Guide";
 
-      getDriver().manage().window().maximize();
-      getDriver().get(url);
-      Thread.sleep(10000);
+      openBaseURL();
+      waitForGrayFrameDisappeared();
+      click(MENU_GUIDE, getWait10());
 
-      WebElement menuGuide = getDriver().findElement(By.xpath("//div/ul//li/a[@href='/guide']"));
-      menuGuide.click();
-      Thread.sleep(1000);
+      String actualResultTitle = getText(GUIDE_TITLE, getDriver());
 
       Assert.assertEquals(getDriver().getCurrentUrl(), expectedResultUrl);
-      Assert.assertEquals(getDriver().getTitle(), expectedResultTitle);
+      Assert.assertEquals(actualResultTitle, expectedResultTitle);
    }
 
    @Ignore
