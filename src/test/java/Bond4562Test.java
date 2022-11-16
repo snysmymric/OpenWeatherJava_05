@@ -17,16 +17,21 @@ public class Bond4562Test extends BaseTest {
             "//div[@id='desktop-menu']//a[@href='/guide']");
     final static By SEARCH_HEADER_ROW = By.xpath(
             "//div[@class='col-sm-7']/h1");
-
-
+    final static By SEARCH_LOGO = By.xpath(
+            "//img[@src='/themes/openweathermap/assets/img/logo_white_cropped.png']");
 
 
     private void openBaseURL() {
         getDriver().get(BASE_URL);
     }
 
-    private void waitForGrayFrame() {
+    private void waitCloseForGrayFrame() {
         getWait20().until(ExpectedConditions.invisibilityOfElementLocated(
+                By.className("owm-loader-container")));
+    }
+
+    private void waitOpenGrayFrame() {
+        getWait20().until(ExpectedConditions.visibilityOfElementLocated(
                 By.className("owm-loader-container")));
     }
 
@@ -48,6 +53,8 @@ public class Bond4562Test extends BaseTest {
         wait.until(ExpectedConditions.presenceOfElementLocated(by));
     }
 
+
+
     private String actualUrl() {
 
         return getDriver().getCurrentUrl();
@@ -59,7 +66,6 @@ public class Bond4562Test extends BaseTest {
     }
 
 
-
     @Test
     public void testClickGuideAndVerifyTitleANDUrl() {
 
@@ -68,7 +74,7 @@ public class Bond4562Test extends BaseTest {
         String expectedText = "Guide";
 
         openBaseURL();
-        waitForGrayFrame();
+        waitCloseForGrayFrame();
         click(SEARCH_GUIDE_BUTTON, getWait5());
         waitElementToBeVisible(SEARCH_HEADER_ROW, getWait5());
 
@@ -76,5 +82,19 @@ public class Bond4562Test extends BaseTest {
         Assert.assertEquals(actualUrl(), expectedUrl);
         Assert.assertEquals(actualTitle(), expectedTitle);
     }
+
+    @Test
+    public void testVerifyWebsiteLogoClickableRedirectsStartPage() {
+
+        openBaseURL();
+        waitCloseForGrayFrame();
+        click(SEARCH_LOGO, getWait5());
+        waitOpenGrayFrame();
+    }
+
+
+
+
+
 
 }
