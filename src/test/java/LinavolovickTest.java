@@ -1,6 +1,7 @@
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
@@ -15,8 +16,9 @@ public class LinavolovickTest extends BaseTest {
     final static By SEARCH_BUTTON = By.xpath("//div[@id = 'weather-widget']//button[@type = 'submit']");
     final static By SEARCH_DROPDOWN_MENU = By.className("search-dropdown-menu");
     final static By PARIS_FR_CHOICE_IN_DROPDOWN_MENU = By.xpath("//ul[@class = 'search-dropdown-menu']/li/span[text() = 'Paris, FR ']");
+    final static By LOGO = By.xpath("//li[@class='logo']/descendant::img");
 
-    private void openBaseURL () {
+    private void openBaseURL() {
         getDriver().get(BASE_URL);
     }
 
@@ -29,6 +31,11 @@ public class LinavolovickTest extends BaseTest {
     private String getText(By by, WebDriver driver) {
 
         return driver.findElement(by).getText();
+    }
+
+    private String getCurrentUrl() {
+
+        return getDriver().getCurrentUrl();
     }
 
     private void click(By by, WebDriverWait wait) {
@@ -44,16 +51,21 @@ public class LinavolovickTest extends BaseTest {
         wait.until(ExpectedConditions.visibilityOfElementLocated(by));
     }
 
+    private void waitElementToBeClickable(By by, WebDriverWait wait) {
+        wait.until(ExpectedConditions.elementToBeClickable(by));
+        }
+
     private void waitTextChanged(By by, String text, WebDriver driver, WebDriverWait wait) {
         wait.until(ExpectedConditions
                 .not(ExpectedConditions.textToBePresentInElement(driver.findElement(by), text)));
     }
+
     @Test
     public void testH2TagText_WhenSearchingCityCountry() {
         String cityName = "Paris";
         String expectedResult = "Paris, FR";
 
-        openBaseURL ();
+        openBaseURL();
         waitForGreyFrameDisapearred();
 
         String oldH2Header = getText(H_2_CITY_COUNTRY_HEADER, getDriver());
@@ -68,5 +80,16 @@ public class LinavolovickTest extends BaseTest {
         String actualResult = getText(H_2_CITY_COUNTRY_HEADER, getDriver());
 
         Assert.assertEquals(actualResult, expectedResult);
+    }
+
+    @Test
+    public void testVerifyLogoExistsAndRedirectsToStartPage() {
+        String expectedResult = BASE_URL;
+
+        openBaseURL();
+        waitForGreyFrameDisapearred();
+        click(LOGO, getWait5());
+
+        Assert.assertEquals(getCurrentUrl(), expectedResult);
     }
 }
