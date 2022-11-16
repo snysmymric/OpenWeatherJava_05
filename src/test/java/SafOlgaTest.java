@@ -55,7 +55,7 @@ public class SafOlgaTest extends BaseTest {
     private void inputKeys(String text, By by, WebDriver driver) {
         driver.findElement(by).sendKeys(text + Keys.ENTER);
     }
-
+    @Ignore
     @Test
     public void testH2TagText_WhenSearchingCityCountry()  {
 
