@@ -1,6 +1,5 @@
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
@@ -13,6 +12,8 @@ public class AnnaAbgTest extends BaseTest {
     private static By API_LINK_PAGE = By.xpath("//a[@href='/api']");
     private static By BUTTONS_COUNT = By.xpath("// a[contains(@class,'orange')]");
     private static By SEARCH_PARTNERS_MENU = By.xpath("//div[@id='desktop-menu']//a[@href='/examples']");
+    private static By SEARCH_BREADCRUMB_TITLE = By.xpath("//div[@class='col-sm-7']/h1");
+
 
     private void OpenBaseURL() {
         getDriver().get(BASE_URL);
@@ -28,6 +29,10 @@ public class AnnaAbgTest extends BaseTest {
         wait.until(ExpectedConditions.elementToBeClickable(by)).click();
     }
 
+    private void waitElementToBeVisible(By by, WebDriverWait wait) {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(by));
+    }
+
     private int getButtonsCount(By by, WebDriver driver) {
 
         return driver.findElements(by).size();
@@ -36,6 +41,16 @@ public class AnnaAbgTest extends BaseTest {
     private String getCurrentUrl() {
 
         return getDriver().getCurrentUrl();
+    }
+
+    private String getTitle() {
+
+        return getDriver().getTitle();
+    }
+
+    private String getText(By by, WebDriver driver) {
+
+        return driver.findElement(by).getText();
     }
 
 
@@ -54,7 +69,7 @@ public class AnnaAbgTest extends BaseTest {
     }
 
     @Test
-    public void testPartnersAndSolutionsPage() {
+    public void testPartnersAndSolutionsLinkPage() {
 
         String expectedResultCurrentURL = "https://openweathermap.org/examples";
 
@@ -67,4 +82,37 @@ public class AnnaAbgTest extends BaseTest {
 
         Assert.assertEquals(actualResultCurrentURL, expectedResultCurrentURL);
     }
+
+    @Test
+    public void testBreadcrumbTitle() {
+
+        String expectedResultTitle = "Partners and solutions - OpenWeatherMap";
+
+        OpenBaseURL();
+        waitForGrayFrameDisappeared();
+
+        click(SEARCH_PARTNERS_MENU, getWait5());
+
+        String actualResultTitle = getTitle();
+
+        Assert.assertEquals(actualResultTitle, expectedResultTitle);
+    }
+
+    @Test
+    public void testBreadcrumbTitle2() {
+
+        String expectedResultTitle = "Partners and solutions";
+
+        OpenBaseURL();
+        waitForGrayFrameDisappeared();
+
+        click(SEARCH_PARTNERS_MENU, getWait5());
+
+        String actualResultTitle2 = getText(SEARCH_BREADCRUMB_TITLE,getDriver());
+        waitElementToBeVisible(SEARCH_BREADCRUMB_TITLE,getWait5());
+
+        Assert.assertEquals(actualResultTitle2, expectedResultTitle);
+    }
 }
+
+
