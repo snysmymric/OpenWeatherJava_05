@@ -1,4 +1,5 @@
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
@@ -13,12 +14,14 @@ public class ValentinKuprinTest extends BaseTest {
 
     final static String BASE_URL = "https://openweathermap.org/";
     final static By GRID_CONTAINER_API_ICONS = By.xpath("//div[@class='grid-container api-icons']//a");
+    final static By H2_OUR_NEW_PROJECT_HEADER = By.xpath("//div[@class='section-content no-mobile-padding']//h2");
 
     private void openBaseUrl() {
         getDriver().get(BASE_URL);
     }
 
     private void waitForGrayFrameDisappeared() {
+
         getWait20().until(ExpectedConditions.invisibilityOfElementLocated(
                 By.className("owm-loader-container")));
     }
@@ -30,6 +33,11 @@ public class ValentinKuprinTest extends BaseTest {
             h3AndSpanElements.add(temp.getText());
         }
         return h3AndSpanElements;
+    }
+
+    private String getText(By by, WebDriver driver) {
+
+        return driver.findElement(by).getText();
     }
 
     @Test
@@ -50,6 +58,17 @@ public class ValentinKuprinTest extends BaseTest {
         waitForGrayFrameDisappeared();
 
         List<String> actualResult = apiIconsElements_h3AndSpan(GRID_CONTAINER_API_ICONS);
+
+        Assert.assertEquals(actualResult, expectedResult);
+    }
+
+    @Test
+    public void testH2TagTextOurNewProjects() {
+        final String expectedResult = "Our new products";
+
+        openBaseUrl();
+        waitForGrayFrameDisappeared();
+        String actualResult = getText(H2_OUR_NEW_PROJECT_HEADER, getDriver());
 
         Assert.assertEquals(actualResult, expectedResult);
     }
