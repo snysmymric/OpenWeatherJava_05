@@ -90,32 +90,6 @@ public class ElNov686Test extends BaseTest {
         Assert.assertEquals(actualResult, expectedResult);
     }
 
-    @Ignore
-    @Test
-    public void testVerifyCookiesTextAndTwoButtons() throws InterruptedException {
-        String url = "https://openweathermap.org/";
-        String expectedResult1 = "We use cookies which are essential for the site to work. We also use non-essential cookies to help us improve our services. Any data collected is anonymised. You can allow all cookies or manage them individually.";
-
-        getDriver().get(url);
-        Thread.sleep(10000);
-
-        WebElement cookiesText = getDriver().findElement(By
-                .xpath("//p[@class='stick-footer-panel__description']"));
-        String actualResult1 = cookiesText.getText();
-
-        WebElement allowAll = getDriver().findElement(By.xpath("//button[text()='Allow all']"));
-        Boolean actualResult2 = allowAll.isDisplayed();
-
-        WebElement manageCookies = getDriver().findElement(By
-                .xpath("//a[@class='stick-footer-panel__link']"));
-        Boolean actualResult3 = manageCookies.isDisplayed();
-
-        Assert.assertEquals(actualResult1, expectedResult1);
-        Assert.assertTrue(actualResult2);
-        Assert.assertTrue(actualResult3);
-
-    }
-
     @Test
     public void testMenuAPI_Verify30orangeButtons() {
         int expectedResult = 30;
@@ -124,10 +98,21 @@ public class ElNov686Test extends BaseTest {
         greyFrame();
         click(By.xpath("//div[@id='desktop-menu']//a[normalize-space()='API']"), getWait10());
         int actualResult = countOrangeButtons(By.xpath("//a[contains(@class, 'btn_block orange round') " +
-                "or contains(@class, 'ow-btn round btn-orange')]"),getDriver());
+                "or contains(@class, 'ow-btn round btn-orange')]"), getDriver());
 
         Assert.assertEquals(actualResult, expectedResult);
+    }
 
+    @Test
+    public void testMainNavBarMenuPartnersMenuisclickable() {
+        String expectedResult = "https://openweathermap.org/examples";
+
+        getBaseUrl();
+        greyFrame();
+        click(By.xpath("//div[@id='desktop-menu']//a[normalize-space()='Partners']"), getWait10());
+        String actualResult = getDriver().getCurrentUrl();
+
+        Assert.assertEquals(actualResult, expectedResult);
     }
 }
 
