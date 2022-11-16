@@ -55,29 +55,6 @@ public class SafOlgaTest extends BaseTest {
     private void inputKeys(String text, By by, WebDriver driver) {
         driver.findElement(by).sendKeys(text + Keys.ENTER);
     }
-    @Ignore
-    @Test
-    public void testH2TagText_WhenSearchingCityCountry()  {
-
-        String cityName = "Paris";
-        String expectedResult = "Paris, FR";
-
-        openBaseURL();
-        waitForGrayFrameDisappeared();
-
-        String oldH2Header = getText(H2_CITY_COUNTRY_HEADER, getDriver());
-
-        click(SEARCH_CITY_FIELD, getWait5());
-        input(cityName, SEARCH_CITY_FIELD, getDriver());
-        click(SEARCH_BUTTON, getWait5());
-        waitElementToBeVisible(SEARCH_DROPDOWN_MENU, getWait10());
-        click(PARIS_FR_CHOICE_IN_DROPDOWN_MENU, getWait10());
-        waitTextToBeChanged(H2_CITY_COUNTRY_HEADER, oldH2Header, getDriver(), getWait10());
-
-        String actualResult = getText(H2_CITY_COUNTRY_HEADER, getDriver());
-
-        Assert.assertEquals(actualResult, expectedResult);
-    }
 
     @Test
     public void testNoResultsMassegeInSearchBar() {
