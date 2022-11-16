@@ -32,8 +32,7 @@ public class OlgaKhliupinaTest extends BaseTest {
    }
 
    private boolean isTempInSymbol(WebDriver driver, String temp, String symbolTemp) {
-      WebElement tempUnit = driver.findElement(By.xpath(String.format("//div[text()='%s']", temp)));
-      tempUnit.click();
+      click(By.xpath(String.format("//div[text()='%s']", temp)), getWait5());
       waitForGrayFrameDisappeared();
 
       return getText(TEMP_UNIT_HEADING, getDriver()).contains(symbolTemp);
