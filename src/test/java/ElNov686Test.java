@@ -114,5 +114,23 @@ public class ElNov686Test extends BaseTest {
 
         Assert.assertEquals(actualResult, expectedResult);
     }
+
+    @Test
+    public void testStartWeatherLocationVerifyLocationButtonShowingDefaultLocation() {
+        String expectedResult1 = "Location unavailable. Displaying default location: London";
+        String expectedResult2 = "London, GB";
+
+        getBaseUrl();
+        greyFrame();
+        click(By.xpath("//div[@class='control-el']//*[name()='svg']"), getWait5());
+
+        String actualResult1 = getText(By
+                .xpath("//span[contains(text(),'Location unavailable. Displaying default location:')]"), getDriver());
+        String actualResult2 = getText(By
+                .xpath("//h2[normalize-space()='London, GB']"), getDriver());
+
+        Assert.assertEquals(actualResult1, expectedResult1);
+        Assert.assertEquals(actualResult2, expectedResult2);
+    }
 }
 
