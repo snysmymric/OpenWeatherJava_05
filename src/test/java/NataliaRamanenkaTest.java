@@ -1,71 +1,63 @@
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import runner.BaseTest;
-
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
-@Ignore
 public class NataliaRamanenkaTest extends BaseTest {
-    @Test
-    public void testH2TagText_WhenSearchingCityCountry() throws InterruptedException {
-        String url = "https://openweathermap.org/";
-        String cityName = "Paris";
-        String expectedResult = "Paris, FR";
+    final static String BASE_URL = "https://openweathermap.org/";
+    final static By SEARCH_GUIDE_BUTTON = By.xpath(
+            "//div[@id = 'desktop-menu']/ul/li/a[@href = '/guide']");
+    final static By SEARCH_HEAD_OF_PAGE_GUIDE = By.xpath(
+            "//div[@class='col-sm-7']/h1");
 
-        getDriver().get(url);
-        Thread.sleep(10000);
-
-        WebElement searchCityField = getDriver().findElement(
-                By.xpath("//div[@id = 'weather-widget']//input[@placeholder = 'Search city']")
-        );
-        searchCityField.click();
-        searchCityField.sendKeys(cityName);
-
-        WebElement searchButton = getDriver().findElement(
-                By.xpath("//div[@id = 'weather-widget']//button[@type = 'submit']")
-        );
-        searchButton.click();
-        Thread.sleep(2000);
-
-        WebElement parisFRChoiceInDropdownMenu = getDriver().findElement(
-                By.xpath("//ul[@class = 'search-dropdown-menu']/li/span[text() = 'Paris, FR ']")
-        );
-        parisFRChoiceInDropdownMenu.click();
-
-        WebElement h2CityCountryHeader = getDriver().findElement(
-                By.xpath("//div[@id = 'weather-widget']//h2")
-        );
-        Thread.sleep(2000);
-        String actualResult = h2CityCountryHeader.getText();
-
-        Assert.assertEquals(actualResult, expectedResult);
+    private void openBaseURL() {
+        getDriver().get(BASE_URL);
     }
-    @Ignore
+
+    private void waitForGrayFrameDisappeared() {
+        getWait20().until(ExpectedConditions.invisibilityOfElementLocated(
+                By.className("owm-loader-container")));
+    }
+    private void click(By by, WebDriverWait wait) {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(by));
+        wait.until(ExpectedConditions.elementToBeClickable(by)).click();
+    }
+
+    private void waitElementToBeVisible(By by, WebDriverWait wait) {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(by));
+    }
+
+    private String actualUrl() {
+
+        return getDriver().getCurrentUrl();
+    }
+
+    private String actualTitle() {
+
+        return getDriver().getTitle();
+    }
+
     @Test
     public void testGuideLinkAndTitle() throws InterruptedException {
-        String url = "https://openweathermap.org/";
-        String expectedResult1 = "https://openweathermap.org/guide";
-        String expectedResult2 = "OpenWeatherMap API guide - OpenWeatherMap";
+        String expectedResultUrl = "https://openweathermap.org/guide";
+        String expectedResultTitle = "OpenWeatherMap API guide - OpenWeatherMap";
 
-        getDriver().get(url);
-        Thread.sleep(10000);
-        WebElement searchGuide =  getDriver().findElement(
-                By.xpath("//div[@id = 'desktop-menu']/ul/li/a[@href = '/guide']"));
-        searchGuide.click();
-        Thread.sleep(2000);
-        String actualResult1 =  getDriver().getCurrentUrl();
-        String actualResult2 =  getDriver().getTitle();
+        openBaseURL();
+        waitForGrayFrameDisappeared();
 
-        Assert.assertEquals(actualResult1, expectedResult1);
-        Assert.assertEquals(actualResult2, expectedResult2);
+        click(SEARCH_GUIDE_BUTTON, getWait5());
+        waitElementToBeVisible(SEARCH_HEAD_OF_PAGE_GUIDE, getWait5());
+
+        Assert.assertEquals(actualUrl(), expectedResultUrl);
+        Assert.assertEquals(actualTitle(), expectedResultTitle);
     }
+    @Ignore
     @Test
     public void testUnitsOfMeasurementIsFaringates() throws InterruptedException {
         String url = "https://openweathermap.org/";
@@ -83,6 +75,7 @@ public class NataliaRamanenkaTest extends BaseTest {
         Assert.assertEquals(actualResult, expectedResult);
     }
 
+    @Ignore
     @Test
     public void testCookiesPanelWithButtonsIs() throws InterruptedException {
         String url = "https://openweathermap.org/";
@@ -107,6 +100,7 @@ public class NataliaRamanenkaTest extends BaseTest {
         Assert.assertEquals(actualResult3, expectedResult3);
     }
 
+    @Ignore
     @Test
     public void testSupportWithSubmenuIs() throws InterruptedException {
         String url = "https://openweathermap.org/";
@@ -134,6 +128,7 @@ public class NataliaRamanenkaTest extends BaseTest {
         Assert.assertEquals(actualResult2, expectedResult2);
         Assert.assertEquals(actualResult3, expectedResult3);
     }
+    @Ignore
     @Test
     public void testUnitsOfMeasurementIsCelsius() throws InterruptedException {
         String url = "https://openweathermap.org/";
@@ -159,6 +154,7 @@ public class NataliaRamanenkaTest extends BaseTest {
         Assert.assertEquals(actualResult2, expectedResult2);
     }
 
+    @Ignore
     @Test
     public void testLink_WhenLogoClick() throws InterruptedException {
         String url = "https://openweathermap.org/";
@@ -174,6 +170,7 @@ public class NataliaRamanenkaTest extends BaseTest {
         Assert.assertEquals(actualResult, expectedResult);
     }
 
+    @Ignore
     @Test
     public void testLinkHasFindAndCity() throws InterruptedException {
         String url = "https://openweathermap.org/";
@@ -203,6 +200,7 @@ public class NataliaRamanenkaTest extends BaseTest {
         Assert.assertEquals(actualResult2, expectedResult2);
     }
 
+    @Ignore
     @Test
     public void testFindOrangeButtons() throws InterruptedException {
         String url = "https://openweathermap.org/";
