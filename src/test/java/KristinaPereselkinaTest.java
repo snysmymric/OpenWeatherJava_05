@@ -13,15 +13,15 @@ public class KristinaPereselkinaTest extends BaseTest {
 
     final static By A_HREF_PRICE = By.xpath("//div[@id = 'desktop-menu']//a[@href = '/price']");
     final static By H2 = By.xpath("//h2[text()='Professional collections']");
-
+    final static By PROFFESSIONAL_COLLECTION_TABLE_HEAD = By.xpath("//h3/b");
+    final static By H2_HEADER_NAME_PROFESSIONAL_COLLECTION = By.xpath("//h2[text()= 'Current weather and forecasts collection']");
 
     private void openBaseURL() {
         getDriver().get(BASE_URL);
     }
 
     private void waitForGrayFrameDisappeared() {
-        getWait20().until(ExpectedConditions.invisibilityOfElementLocated(
-                By.className("owm-loader-container")));
+        getWait20().until(ExpectedConditions.invisibilityOfElementLocated(By.className("owm-loader-container")));
     }
 
     private void click(By by, WebDriverWait wait) {
@@ -33,7 +33,6 @@ public class KristinaPereselkinaTest extends BaseTest {
 
         return driver.findElement(by).getText();
     }
-
 
     @Test
     public void testH2HeadlineProfessionalcollections() {
@@ -50,5 +49,17 @@ public class KristinaPereselkinaTest extends BaseTest {
 
     }
 
+    @Test
+    public void testH2ForecastsCollectionHeaderText() {
 
+        final String expectedResult = "Current weather and forecasts collection";
+
+        openBaseURL();
+        waitForGrayFrameDisappeared();
+        click(A_HREF_PRICE, getWait5());
+
+        String actualResult = getText(H2_HEADER_NAME_PROFESSIONAL_COLLECTION, getDriver());
+
+        Assert.assertEquals(actualResult, expectedResult);
+    }
 }
