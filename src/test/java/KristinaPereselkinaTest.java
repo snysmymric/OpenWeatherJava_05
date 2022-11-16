@@ -1,10 +1,14 @@
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import runner.BaseTest;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class KristinaPereselkinaTest extends BaseTest {
@@ -34,6 +38,28 @@ public class KristinaPereselkinaTest extends BaseTest {
         return driver.findElement(by).getText();
     }
 
+    private List<String> getExpectedListProfessionalCollectionTableHead() {
+        List<String> expectedList = new ArrayList<>();
+        expectedList.add("Free");
+        expectedList.add("Startup");
+        expectedList.add("Developer");
+        expectedList.add("Professional");
+        expectedList.add("Enterprise");
+
+        return expectedList;
+    }
+
+    private List<String> getActualListProfessionalCollectionTableHead(By locator) {
+        List<String> actualListItems = new ArrayList<>();
+        List<WebElement> listItemsInMenu = getDriver().findElements(locator);
+        for (WebElement items : listItemsInMenu) {
+            actualListItems.add(items.getText());
+        }
+
+        return actualListItems;
+    }
+
+
     @Test
     public void testH2HeadlineProfessionalcollections() {
 
@@ -46,7 +72,6 @@ public class KristinaPereselkinaTest extends BaseTest {
         String actualResult = getText(H2, getDriver());
 
         Assert.assertEquals(actualResult, expectedResult);
-
     }
 
     @Test
@@ -61,5 +86,19 @@ public class KristinaPereselkinaTest extends BaseTest {
         String actualResult = getText(H2_HEADER_NAME_PROFESSIONAL_COLLECTION, getDriver());
 
         Assert.assertEquals(actualResult, expectedResult);
+    }
+
+    @Test
+    public void testH2CurrentWeatherAndForecastsCollectionHeader() {
+
+        List<String> expectedList = getExpectedListProfessionalCollectionTableHead();
+
+        openBaseURL();
+        waitForGrayFrameDisappeared();
+        click(A_HREF_PRICE, getWait5());
+
+        List<String> actualList = getActualListProfessionalCollectionTableHead(PROFFESSIONAL_COLLECTION_TABLE_HEAD);
+
+        Assert.assertEquals(actualList, expectedList);
     }
 }
