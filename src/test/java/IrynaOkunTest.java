@@ -8,6 +8,8 @@ import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import runner.BaseTest;
 
+import java.util.List;
+
 import static org.testng.AssertJUnit.assertEquals;
 
 
@@ -18,9 +20,12 @@ public class IrynaOkunTest extends BaseTest {
     final static By H_2_CITY_COUNTRY_NAME_HEADER = By.xpath("//div[@id='weather-widget']//h2");
     final static By SEARCH_CITY_FIELD = By.xpath
             ("//div[@id = 'weather-widget']//input[@placeholder = 'Search city']");
-    final static By SEARCH_BUTTON =  By.xpath("//div[@id='weather-widget']//button[@type='submit']");
+    final static By SEARCH_BUTTON = By.xpath("//div[@id='weather-widget']//button[@type='submit']");
     final static By SEARCH_DROPDOWN_MENU = By.className("search-dropdown-menu");
-    final static By SEARCH_PARIS_FR_CHOICE_DROPDOWN_MENU =   By.xpath("//ul[@class='search-dropdown-menu']/li/span[text() = 'Paris, FR ']");
+    final static By SEARCH_PARIS_FR_CHOICE_DROPDOWN_MENU = By.xpath("//ul[@class='search-dropdown-menu']/li/span[text() = 'Paris, FR ']");
+
+    final static By API_NAVIGATION_BUTTON = By.xpath("//div/ul/li/a[@href='/api']");
+    final static By ORANGE_BUTTONS = By.xpath("//a[contains(@class, 'orange')]");
 
     private void openBaseURL() {
         getDriver().get(BASE_URL);
@@ -35,7 +40,7 @@ public class IrynaOkunTest extends BaseTest {
                 By.className("owm-loader-container")));
     }
 
-    private String getText (By by, WebDriver driver) {
+    private String getText(By by, WebDriver driver) {
         return driver.findElement(by).getText();
     }
 
@@ -55,6 +60,11 @@ public class IrynaOkunTest extends BaseTest {
     private void waitTextToBeChanged(By by, String text, WebDriver driver, WebDriverWait wait) {
         wait.until(ExpectedConditions
                 .not(ExpectedConditions.textToBePresentInElement(driver.findElement(by), text)));
+    }
+
+    private String countQuantityOfElementsOnPage(By by, WebDriver driver) {
+        String textOfNumber = String.valueOf(getDriver().findElements(by).size());
+        return textOfNumber;
     }
 
     @Test
@@ -79,18 +89,14 @@ public class IrynaOkunTest extends BaseTest {
         Assert.assertEquals(actualResult, expectedResult);
     }
 
-    @Ignore
     @Test
-    public void testSubmit30OrangeButtons() throws InterruptedException {
+    public void testSubmit30OrangeButtons() {
         String expectedResult = "30";
+        openBaseURL();
+        waitForGrayFrameDisappear();
+        click(API_NAVIGATION_BUTTON, getWait10());
 
-        getDriver().get(BASE_URL);
-        Thread.sleep(10000);
-        getDriver().findElement(By.xpath("//div/ul/li/a[@href='/api']")).click();
-
-        String actualResult = String.valueOf(getDriver().findElements(
-                By.xpath("//a[contains(@class, 'orange')]")
-        ).size());
+        String actualResult = countQuantityOfElementsOnPage(ORANGE_BUTTONS, getDriver());
 
         assertEquals(actualResult, expectedResult);
     }
