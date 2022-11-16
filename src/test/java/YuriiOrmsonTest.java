@@ -9,8 +9,13 @@ import runner.BaseTest;
 
 public class YuriiOrmsonTest extends BaseTest {
     final static String BASE_URL = "https://openweathermap.org/";
+    final static String PRICING_URL = "https://openweathermap.org/price";
     final static By A_HREF_PRICE = By.xpath("//div[@id = 'desktop-menu']//a[@href = '/price']");
+    final static By A_HREF_CURRENT_PROFESSIONAL_SUBSCRIPTIONS = By.xpath(
+            "//main//p//a[@href ='#current' and contains(text(), 'professional subscriptions')]");
     final static By H1 = By.xpath("//h1");
+    final static By PROFFESSIONAL_COLLECTION_SECTION = By.xpath(
+            "//div[@class = 'col-sm-12']//h2[contains(text(),'Current weather and forecasts collection')]");
     private void openBaseURL() {
         getDriver().get(BASE_URL);
     }
@@ -61,6 +66,20 @@ public class YuriiOrmsonTest extends BaseTest {
         waitForGrayFrameDisappeared();
 
         String actualResult = getDriver().getTitle();
+
+        Assert.assertEquals(actualResult,expectedResult);
+    }
+    @Test
+    public void testScrollToProfessionalCollections_WhenClickOnProfessionalSubscriptions() {
+        String expectedResult = "https://openweathermap.org/price#current";
+
+        openBaseURL();
+        waitForGrayFrameDisappeared();
+        click(A_HREF_PRICE,getWait5());
+        waitForGrayFrameDisappeared();
+        click(A_HREF_CURRENT_PROFESSIONAL_SUBSCRIPTIONS,getWait5());
+
+        String actualResult = getDriver().getCurrentUrl();
 
         Assert.assertEquals(actualResult,expectedResult);
     }
