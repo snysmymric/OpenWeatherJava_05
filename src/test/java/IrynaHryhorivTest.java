@@ -10,12 +10,14 @@ import runner.BaseTest;
 
 public class IrynaHryhorivTest extends BaseTest {
     final static String BASE_URL = "https://openweathermap.org/";
+    final static String BLOG_URL = "https://openweather.co.uk/blog";
     final static By H2_CITY_COUNTRY_HEADER = By.xpath("//div[@id = 'weather-widget']//h2");
     final static By SEARCH_CITY_FIELD = By.xpath("//div[@id = 'weather-widget']//input[@placeholder = 'Search city']");
     final static By SEARCH_BUTTON = By.xpath("//div[@id = 'weather-widget']//button[@type = 'submit']");
     final static By SEARCH_DROPDOWN_MENU = By.className("search-dropdown-menu");
     final static By PARIS_FR_CHOICE_IN_DROPDOWN_MENU = By.xpath("//ul[@class = 'search-dropdown-menu']/li/span[text() = 'Paris, FR ']");
     final static By SEARCH_GUIDE_BUTTON = By.xpath("//a[@href='/guide']");
+    final static By CONFIRM_BLOG_CATEGORY_WEATHER = By.xpath("//a[@href ='/blog/category/weather']");
     final static By CONFIRM_API = By.xpath("//*[@id='desktop-menu']/ul/li[2]/a");
     final static String TEMP_IMPERIAL_F = "Imperial: °F, mph";
     final static String TEMP_METRIC_C = "Metric: °C, m/s";
@@ -27,6 +29,9 @@ public class IrynaHryhorivTest extends BaseTest {
     private void openBaseURL() {
         getDriver().get(BASE_URL);
     }
+    private void openBLOG_URL() {
+       getDriver().get(BLOG_URL);
+     }
 
     private void waitForGrayFrameDisappeared() {
         getWait20().until(ExpectedConditions.invisibilityOfElementLocated(
@@ -140,4 +145,15 @@ public class IrynaHryhorivTest extends BaseTest {
 
         Assert.assertTrue(find_element_by_xpath_METRIC_C(getDriver(), TEMP_METRIC_C, SYMBOL_TEMP_C));
     }
+    @Test
+        public void MenuIsClickable_pageBlogOpen(){
+            String expectedResult = "https://openweather.co.uk/blog/category/weather";
+
+            openBLOG_URL();
+            waitForGrayFrameDisappeared();
+
+            click(CONFIRM_BLOG_CATEGORY_WEATHER, getWait5());
+
+            Assert.assertEquals(getDriver().getCurrentUrl(), expectedResult);
+        }
 }
