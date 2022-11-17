@@ -1,7 +1,7 @@
-import com.beust.ah.A;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
@@ -22,6 +22,10 @@ public class YulianaDaraganTest extends BaseTest {
     final static By MESSAGE_FIELD_IN_ASK_A_QUESTION_PAGE= By.xpath("//textarea[@class = 'form-control text required']");
     final static By SUMBIT_BUTTON_IN_ASK_A_QUESTION_PAGE = By.xpath("//input[@name = 'commit']");
     final static By CAPTCHA_HELP_BLOCK_IN_ASK_A_QUESTION_PAGE = By.xpath("//div[@class = 'help-block']");
+
+    final static By LOGO = By.xpath( "//li[@class='logo']//img");
+    final static By SIGN_IN_MENU = By.xpath(
+            "//li[@class='user-li']/a[@href='https://openweathermap.org/home/sign_in']");
 
     private void openURL(String url) {
         getDriver().get(url);
@@ -55,6 +59,11 @@ public class YulianaDaraganTest extends BaseTest {
         getDriver().switchTo().window(tabsList.get(1));
     }
 
+    private WebElement getWebElement(By by) {
+
+        return getDriver().findElement(by);
+    }
+
     @Test
     public void testFillAskAQuestion_WithoutCapcha() {
         String email = "tester@tester.com";
@@ -80,4 +89,29 @@ public class YulianaDaraganTest extends BaseTest {
 
         Assert.assertEquals(actualResult,expectedResult);
     }
+
+    @Test
+    public void testLogoChecking_HappyPath() {
+        String expectedLogoImageLink =
+                "https://openweathermap.org/themes/openweathermap/assets/img/logo_white_cropped.png";
+
+        openURL(BASE_URL);
+        waitForGrayFrameDisappeared();
+
+        String actualLogoImageLink = getWebElement(LOGO).getAttribute("src");
+
+        Assert.assertTrue(getWebElement(LOGO).isDisplayed());
+        Assert.assertEquals(getDriver().getCurrentUrl(), BASE_URL);
+        Assert.assertEquals(actualLogoImageLink, expectedLogoImageLink);
+
+        click(SIGN_IN_MENU, getWait5());
+
+        Assert.assertNotEquals(getDriver().getCurrentUrl(), BASE_URL);
+
+        click(LOGO, getWait5());
+
+        Assert.assertEquals(getDriver().getCurrentUrl(), BASE_URL);
+    }
+
+
 }
