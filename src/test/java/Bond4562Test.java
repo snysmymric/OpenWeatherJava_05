@@ -6,7 +6,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import runner.BaseTest;
 
-
+import java.time.Duration;
 
 
 public class Bond4562Test extends BaseTest {
@@ -19,6 +19,8 @@ public class Bond4562Test extends BaseTest {
             "//div[@class='col-sm-7']/h1");
     final static By SEARCH_LOGO = By.xpath(
             "//img[@src='/themes/openweathermap/assets/img/logo_white_cropped.png']");
+    final static By SEARCH_PRICING_BUTTON = By.xpath(
+            "//div[@id='desktop-menu']//a[@href='/price']");
 
 
     private void openBaseURL() {
@@ -90,6 +92,28 @@ public class Bond4562Test extends BaseTest {
         waitCloseForGrayFrame();
         click(SEARCH_LOGO, getWait5());
         waitOpenGrayFrame();
+    }
+
+    @Test
+    public void testFromGuideToPricingForDesktopMenu() {
+
+        String expectedUrlGuide   = "https://openweathermap.org/guide";
+        String expectedTitleGuide = "OpenWeatherMap API guide - OpenWeatherMap";
+        String expectedTextGuide  = "Guide";
+
+        String expectedUrlPricing   = "https://openweathermap.org/price";
+        String expectedTitlePricing = "Pricing - OpenWeatherMap";
+        String expectedTextPricing  = "Pricing";
+
+        getDriver().get(expectedUrlGuide);
+        Assert.assertEquals(actualTitle(), expectedTitleGuide);
+        Assert.assertEquals(getText(SEARCH_HEADER_ROW, getDriver()), expectedTextGuide);
+
+        click(SEARCH_PRICING_BUTTON,getWait5());
+
+        getDriver().get(expectedUrlPricing);
+        Assert.assertEquals(actualTitle(), expectedTitlePricing);
+        Assert.assertEquals(getText(SEARCH_HEADER_ROW, getDriver()), expectedTextPricing);
     }
 
 
