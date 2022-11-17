@@ -23,6 +23,7 @@ public class ViktoriyaEDTest extends BaseTest {
     final static By SEARCH_DROP_DOWN_MENU = By.className("search-dropdown-menu");
     final static By PARIS_FR_CHOICE_IN_DROPDOWN_MENU = By.xpath("//ul[@class='search-dropdown-menu']//li//span[text() = 'Paris, FR ']");
     final static By GUIDE_BUTTON = By.xpath("//a[@href = '/guide']");
+    final static By SUPPORT_BUTTON = By.xpath("//div[@id='support-dropdown']");
 
     private void openBaseURL() {
         getDriver().get(BASE_URL);
@@ -75,6 +76,56 @@ public class ViktoriyaEDTest extends BaseTest {
         String actualResult = getText(H_2_CITY_COUNTRY_HEADER, getDriver());
 
         Assert.assertEquals(actualResult, expectedResult);
+    }
+
+    @Test
+    public void test_SupportMenuIsClickable() {
+
+        final String[] SUBMENU_NAMES = {"FAQ", "How to start", "Ask a question"};
+
+        openBaseURL();
+        waitForGrayWindowDisappeared();
+
+        click(SUPPORT_BUTTON, getWait5());
+
+        Assert.assertTrue(getDriver().findElement(
+                By.xpath("//ul[@id='support-dropdown-menu']")).getAttribute("class").toString().equals("dropdown-menu dropdown-visible"));
+
+        List<WebElement> supportSubmenuList = getDriver().findElements(
+                By.xpath("//ul[@id='support-dropdown-menu']/li/a"));
+
+        Assert.assertTrue(supportSubmenuList.size() == 3);
+
+        for (int i = 0; i < supportSubmenuList.size(); i++) {
+            Assert.assertTrue(supportSubmenuList.get(i).getText().equals(SUBMENU_NAMES[i]));
+        }
+
+        click(SUPPORT_BUTTON, getWait5());
+
+        Assert.assertTrue(getDriver().findElement(
+                By.xpath("//ul[@id='support-dropdown-menu']")).getAttribute("class").toString().equals("dropdown-menu"));
+
+        click(SUPPORT_BUTTON, getWait5());
+        click(By.xpath("//ul[@id='support-dropdown-menu']//a[@href='/faq']"), getWait10());
+
+        Assert.assertTrue(getDriver().getCurrentUrl().contains("https://openweathermap.org/faq"));
+
+        click(SUPPORT_BUTTON, getWait5());
+        click(By.xpath("//ul[@id='support-dropdown-menu']//a[@href='/appid']"), getWait10());
+
+        Assert.assertTrue(getDriver().getCurrentUrl().contains("https://openweathermap.org/appid"));
+
+        click(SUPPORT_BUTTON, getWait5());
+        click(By.xpath("//ul[@id='support-dropdown-menu']//a[@target='_blank']"), getWait10());
+
+        List<String> tabs = new ArrayList<>(getDriver().getWindowHandles());
+
+        Assert.assertEquals(tabs.size(), 2);
+
+        getDriver().switchTo().window(tabs.get(1));
+        getWait5().until(ExpectedConditions.not(ExpectedConditions.urlMatches(BASE_URL)));
+
+        Assert.assertTrue(getDriver().getCurrentUrl().contains("https://home.openweathermap.org/questions"));
     }
 }
 
