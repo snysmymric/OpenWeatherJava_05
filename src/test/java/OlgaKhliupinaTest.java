@@ -13,6 +13,8 @@ public class OlgaKhliupinaTest extends BaseTest {
    final static String BASE_URL = "https://openweathermap.org/";
    final static String TEMP_F = "Imperial: °F, mph";
    final static String SYMBOL_TEMP_F = "°F";
+   final static  String TEMP_C = "Metric: °C, m/s";
+   final static String SYMBOL_TEMP_C = "°C";
    final static By TEMP_UNIT_HEADING = By.xpath("//div[@class='current-temp']/span");
    final static By MENU_GUIDE = By.xpath("//div/ul//li/a[@href='/guide']");
    final static By GUIDE_TITLE = By.className("breadcrumb-title");
@@ -84,15 +86,11 @@ public class OlgaKhliupinaTest extends BaseTest {
       Assert.assertTrue(isTempInSymbol(getDriver(), TEMP_F, SYMBOL_TEMP_F));
    }
 
-   @Ignore
    @Test
-   public void testChangeFromFToC() throws InterruptedException {
-      String url = "https://openweathermap.org/";
+   public void testChangingTempUnitInHeadingToC_WhenSwitchTempUnitButtonToC() {
+      openBaseURL();
+      waitForGrayFrameDisappeared();
 
-      getDriver().get(url);
-      Thread.sleep(10000);
-
-      Assert.assertTrue(isTempInSymbol(getDriver(), "Imperial: °F, mph", "°F"));
-      Assert.assertTrue(isTempInSymbol(getDriver(), "Metric: °C, m/s", "°C"));
+      Assert.assertTrue(isTempInSymbol(getDriver(), TEMP_C, SYMBOL_TEMP_C));
    }
 }
