@@ -18,7 +18,9 @@ public class IrynaHryhorivTest extends BaseTest {
     final static By SEARCH_GUIDE_BUTTON = By.xpath("//a[@href='/guide']");
     final static By CONFIRM_API = By.xpath("//*[@id='desktop-menu']/ul/li[2]/a");
     final static String TEMP_IMPERIAL_F = "Imperial: °F, mph";
+    final static String TEMP_METRIC_C = "Metric: °C, m/s";
     final static String SYMBOL_TEMP = "°F";
+    final static String SYMBOL_TEMP_C = "°C";
     final static By APPROVE_DEGREES = By.xpath("//div[@id='weather-widget']//span[@class='heading']");
 
 
@@ -58,6 +60,14 @@ public class IrynaHryhorivTest extends BaseTest {
     }
 
     private boolean find_element_by_xpath(WebDriver driver, String temp, String symbolTemp) {
+        WebElement tempValue = driver.findElement(By.xpath(String.format("//div[text()='%s']", temp)));
+        tempValue.click();
+        waitForGrayFrameDisappeared();
+
+        return getText(APPROVE_DEGREES, getDriver()).contains(symbolTemp);
+    }
+
+    private boolean find_element_by_xpath_METRIC_C(WebDriver driver, String temp, String symbolTemp) {
         WebElement tempValue = driver.findElement(By.xpath(String.format("//div[text()='%s']", temp)));
         tempValue.click();
         waitForGrayFrameDisappeared();
@@ -121,5 +131,13 @@ public class IrynaHryhorivTest extends BaseTest {
         waitForGrayFrameDisappeared();
 
         Assert.assertTrue(find_element_by_xpath(getDriver(), TEMP_IMPERIAL_F, SYMBOL_TEMP));
+    }
+    @Test
+    public void VerifyMetricSymbolIsShownInCurrentTempWhenChangingUnitToMetric(){
+
+        openBaseURL();
+        waitForGrayFrameDisappeared();
+
+        Assert.assertTrue(find_element_by_xpath_METRIC_C(getDriver(), TEMP_METRIC_C, SYMBOL_TEMP_C));
     }
 }
