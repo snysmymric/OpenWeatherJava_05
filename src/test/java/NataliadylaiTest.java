@@ -19,6 +19,10 @@ public class NataliadylaiTest extends BaseTest {
     final static By SEARCH_DROPDOWN_MENU = By.className("search-dropdown-menu");
     final static By PARIS_FR_CHOICE_IN_DROPDOWN_MENU = By.xpath("//ul[@class = 'search-dropdown-menu']/li/span[text() = 'Paris, FR ']");
 
+    final static By MENU_GUIDE = By.xpath("//div[@id='desktop-menu']//a[contains (text(), 'Guide')]");
+
+    final static By GUIDE_TITLE = By.xpath("//div/ul/li/a[@href = '/guide']");
+
     private void openBaseURL(){
         getDriver().get(BASE_URL);
     }
@@ -44,13 +48,13 @@ public class NataliadylaiTest extends BaseTest {
         wait .until(ExpectedConditions.visibilityOfElementLocated(by));
     }
 
-    private void waitTextToBeChanged(By by, String text, WebDriver driver, WebDriverWait wait){
+    private void waitTextToBeChanged(By by, String text, WebDriver driver, WebDriverWait wait) {
 
         wait.until(ExpectedConditions.
                 not(ExpectedConditions.textToBePresentInElement(driver.findElement(by), text)));
     }
 
-
+    @Ignore
     @Test
     public void testH2TagText_WhenSearchCityCountry() {
         String cityName = "Paris";
@@ -72,24 +76,19 @@ public class NataliadylaiTest extends BaseTest {
 
 
 
-    @Ignore
+
     @Test
     public void test_OpenWeatherMapAPIGuide () throws InterruptedException {
+        String expectedResultUrl = "https://openweathermap.org/guide";
+        String expectedResultTitle = "Guide";
+        openBaseURL();
+        waitForGrayFrameDisappeared();
+        click(MENU_GUIDE, getWait10());
 
-        String url = "https://openweathermap.org/";
-        String expectedResult1 = "https://openweathermap.org/guide";
-        String expectedResult2 = "OpenWeatherMap API guide - OpenWeatherMap";
-        getDriver().get(url);
-        Thread.sleep(10000);
+        String actualResultTitle = getText(GUIDE_TITLE, getDriver());
 
-        WebElement guideHeader = getDriver().findElement(
-                By.xpath("//div/ul/li/a[@href = '/guide']"));
-        guideHeader.click();
-        Thread.sleep(2000);
-        String actualResult1 = getDriver().getCurrentUrl();
-        Assert.assertEquals(actualResult1, expectedResult1);
-        String actualResult2 = getDriver().getTitle();
-        Assert.assertEquals(actualResult2, expectedResult2);
+        Assert.assertEquals(getDriver().getCurrentUrl(), expectedResultUrl);
+        Assert.assertEquals(actualResultTitle, expectedResultTitle);
     }
 
 
