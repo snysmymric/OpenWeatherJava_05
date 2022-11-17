@@ -15,13 +15,13 @@ public class ValentinKuprinTest extends BaseTest {
     final static String BASE_URL = "https://openweathermap.org/";
     final static By GRID_CONTAINER_API_ICONS = By.xpath("//div[@class='grid-container api-icons']//a");
     final static By H2_OUR_NEW_PROJECT_HEADER = By.xpath("//div[@class='section-content no-mobile-padding']//h2");
+    final static By COLUMNS_OUR_NEW_PROJECT = By.xpath("//div[@class='grey-background']");
 
     private void openBaseUrl() {
         getDriver().get(BASE_URL);
     }
 
     private void waitForGrayFrameDisappeared() {
-
         getWait20().until(ExpectedConditions.invisibilityOfElementLocated(
                 By.className("owm-loader-container")));
     }
@@ -38,6 +38,11 @@ public class ValentinKuprinTest extends BaseTest {
     private String getText(By by, WebDriver driver) {
 
         return driver.findElement(by).getText();
+    }
+
+    private int getColumnCount(By by, WebDriver driver) {
+
+        return driver.findElements(by).size();
     }
 
     @Test
@@ -69,6 +74,17 @@ public class ValentinKuprinTest extends BaseTest {
         openBaseUrl();
         waitForGrayFrameDisappeared();
         String actualResult = getText(H2_OUR_NEW_PROJECT_HEADER, getDriver());
+
+        Assert.assertEquals(actualResult, expectedResult);
+    }
+
+    @Test
+    public void testCountColumnOurNewProjects() {
+        final int expectedResult = 3;
+
+        openBaseUrl();
+        waitForGrayFrameDisappeared();
+        int actualResult = getColumnCount(COLUMNS_OUR_NEW_PROJECT, getDriver());
 
         Assert.assertEquals(actualResult, expectedResult);
     }
