@@ -29,9 +29,8 @@ public class DimaZadrutsiyTest extends BaseTest {
     }
 
     private boolean seeElement(String element) {
-        getDriver().findElement(By.xpath(element)).isDisplayed();
 
-        return true;
+        return getDriver().findElement(By.xpath(element)).isDisplayed();
     }
 
     private boolean seeElement(String element, WebDriverWait wait) {
@@ -135,5 +134,18 @@ public class DimaZadrutsiyTest extends BaseTest {
         boolean actualResult = seeElement("//div[@class='pop-up-container']//*[name()='path' and @fill='#8a8a8a']");
 
         Assert.assertEquals(actualResult, expectedResult);
+    }
+
+    @Test
+    public void testSendButtonIsShown () {
+
+        openBaseURL();
+        waitForGrayFrameDisappeared();
+
+        click("//span[text()='Different Weather?']", getWait5());
+
+        boolean actualResult = seeElement("//button[text()='Send']");
+
+        Assert.assertTrue(actualResult);
     }
 }
