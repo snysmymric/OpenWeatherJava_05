@@ -2,36 +2,52 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import runner.BaseTest;
 
-@Ignore
+
 public class Dasha1991Test extends BaseTest {
+
+    final static String  BASE_URL = "https://openweathermap.org/";
+    final static By GUIDE_TITLE = By.className("breadcrumb-title");
+    final static By MENU_GUIDE = By.xpath("//div/ul//li/a[@href='/guide']");
+
+    private void openBaseURL() {
+        getDriver().get(BASE_URL);
+    }
+    private void waitForGrayFrameDissappeared() {
+        getWait20().until(ExpectedConditions.invisibilityOfElementLocated(By.className("owm-loader-container")));
+    }
+    private String getText(By by,WebDriver driver) {
+        return driver.findElement(by).getText();
+    }
+    private void click(By by, WebDriverWait wait) {
+
+        getWait5().until(ExpectedConditions.visibilityOfElementLocated(by));
+        getWait5().until(ExpectedConditions.elementToBeClickable(by)).click();
+    }
+
     @Test
-    public void testButtonGuide_OpenWeather() throws InterruptedException {
+    public void testButtonGuide_OpenWeather() {
 
-        String url = "https://openweathermap.org/";
-        String expectedResult1 = "https://openweathermap.org/guide";
-        String expectedResult2 = "OpenWeatherMap API guide - OpenWeatherMap";
+        String expectedResultUrl = "https://openweathermap.org/guide";
+        String expectedResultTitle = "Guide";
 
-        getDriver().get(url);
-        Thread.sleep(10000);
+        openBaseURL();
+        waitForGrayFrameDissappeared();
+        click(MENU_GUIDE, getWait10());
 
-        WebElement pushButtonGuide = getDriver().findElement(By.xpath("//a[@href = '/guide']"));
+        String actualResultTitle = getText(GUIDE_TITLE, getDriver());
 
-        pushButtonGuide.click();
-        Thread.sleep(2000);
-
-        String actualResult1 = getDriver().getCurrentUrl();
-        Assert.assertEquals(actualResult1, expectedResult1);
-
-
-        String actualResult2 = getDriver().getTitle();
-        Assert.assertEquals(actualResult2, expectedResult2);
+        Assert.assertEquals(getDriver().getCurrentUrl(), expectedResultUrl);
+        Assert.assertEquals(actualResultTitle, expectedResultTitle);
 
     }
+    @Ignore
     @Test
     public void testTemperatureF() throws InterruptedException {
 
@@ -52,6 +68,7 @@ public class Dasha1991Test extends BaseTest {
         Assert.assertTrue(actualResult);
 
     }
+    @Ignore
     @Test
     public void testMenuSupport() throws InterruptedException {
 
