@@ -10,6 +10,11 @@ public class MaxIaskoTest extends BaseTest {
     final static By SEARCH_API_PAGE = By.xpath("//div[@id = 'desktop-menu']//a[text()= 'API']");
     final static By SEARCH_ORANGE_ELEMENT = By.xpath("//a[contains(@class, 'btn_block orange round') " +
             "or contains(@class, 'ow-btn round btn-orange')]");
+    final static By SEARCH_LOGO_FIELD = By.xpath("//a[@href ='/']");
+
+    private void click(By by) {
+        getDriver().findElement(by).click();
+    }
 
     private void click(By by, WebDriverWait wait) {
         wait.until(ExpectedConditions.visibilityOfElementLocated(by));
@@ -37,6 +42,16 @@ public class MaxIaskoTest extends BaseTest {
         click(SEARCH_API_PAGE, getWait5());
 
         Assert.assertEquals(size(SEARCH_ORANGE_ELEMENT, getWait5()), expectedResult);
+    }
+
+    @Test
+    public void testConfirmLinkNoChangeByLogoClick() {
+        getDriver().get(BASE_URL);
+
+        waitGrayFrameDisappear();
+        click(SEARCH_LOGO_FIELD);
+
+        Assert.assertEquals(getDriver().getCurrentUrl(), BASE_URL);
     }
 }
 
