@@ -18,13 +18,13 @@ public class IrynaHryhorivTest extends BaseTest {
     final static By PARIS_FR_CHOICE_IN_DROPDOWN_MENU = By.xpath("//ul[@class = 'search-dropdown-menu']/li/span[text() = 'Paris, FR ']");
     final static By SEARCH_GUIDE_BUTTON = By.xpath("//a[@href='/guide']");
     final static By CONFIRM_BLOG_CATEGORY_WEATHER = By.xpath("//a[@href ='/blog/category/weather']");
-    final static By CONFIRM_API = By.xpath("//*[@id='desktop-menu']/ul/li[2]/a");
+    final static By CONFIRM_API = By.xpath("//div[@id='desktop-menu']/ul/li[2]/a");
     final static String TEMP_IMPERIAL_F = "Imperial: °F, mph";
     final static String TEMP_METRIC_C = "Metric: °C, m/s";
     final static String SYMBOL_TEMP = "°F";
     final static String SYMBOL_TEMP_C = "°C";
     final static By APPROVE_DEGREES = By.xpath("//div[@id='weather-widget']//span[@class='heading']");
-
+    final static By LOGO = By.xpath( "//li[@class='logo']//img");
 
     private void openBaseURL() {
         getDriver().get(BASE_URL);
@@ -78,6 +78,10 @@ public class IrynaHryhorivTest extends BaseTest {
         waitForGrayFrameDisappeared();
 
         return getText(APPROVE_DEGREES, getDriver()).contains(symbolTemp);
+    }
+    private WebElement getWebElement(By by){
+
+        return getDriver().findElement(by);
     }
     @Test
     public void testH2TagText_WhenSearchingCityCountry() {
@@ -146,7 +150,7 @@ public class IrynaHryhorivTest extends BaseTest {
         Assert.assertTrue(find_element_by_xpath_METRIC_C(getDriver(), TEMP_METRIC_C, SYMBOL_TEMP_C));
     }
     @Test
-        public void MenuIsClickable_pageBlogOpen(){
+    public void MenuIsClickable_pageBlogOpen(){
             String expectedResult = "https://openweather.co.uk/blog/category/weather";
 
             openBLOG_URL();
@@ -155,5 +159,23 @@ public class IrynaHryhorivTest extends BaseTest {
             click(CONFIRM_BLOG_CATEGORY_WEATHER, getWait5());
 
             Assert.assertEquals(getDriver().getCurrentUrl(), expectedResult);
-        }
+    }
+    @Test
+    public void testMainNavBarLogoVerifyTheWebsiteslogoIsExistsClickableAndItRedirectsAUserToTheStartPage(){
+            String expectedResult = 
+                    "https://openweathermap.org/themes/openweathermap/assets/img/logo_white_cropped.png";
+           
+            openBaseURL();
+            waitForGrayFrameDisappeared();
+            
+            Assert.assertTrue(getWebElement(LOGO).isDisplayed());
+            Assert.assertEquals(getDriver().getCurrentUrl(), BASE_URL);
+
+            click(LOGO, getWait5());
+            Assert.assertEquals(getDriver().getCurrentUrl(),BASE_URL);
+
+            String actualLogoImageLink = getWebElement(LOGO).getAttribute("src");
+
+            Assert.assertEquals(actualLogoImageLink, expectedResult);
+    }
 }
