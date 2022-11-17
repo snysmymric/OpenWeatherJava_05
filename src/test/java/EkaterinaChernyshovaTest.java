@@ -17,7 +17,7 @@ public class EkaterinaChernyshovaTest extends BaseTest {
     final static By SEARCH_BUTTON = By.xpath("//div[@id='weather-widget']//button[@type='submit']");
     final static By SEARCH_DROPDOWN_MENU = By.className("search-dropdown-menu");
     final static By PARIS_FR_CHOICE_IN_DROPDOWN_MENU = By.xpath("//ul[@class = 'search-dropdown-menu']/li/span[text() = 'Paris, FR ']");
-
+    final static By GUIDE_MENU = By.xpath("//div[@id = 'desktop-menu']//a[@href = '/guide']");
 
     private void openBaseURL(String url) {
         getDriver().get(url);
@@ -48,7 +48,7 @@ public class EkaterinaChernyshovaTest extends BaseTest {
         wait.until(ExpectedConditions
                 .not(ExpectedConditions.textToBePresentInElement(driver.findElement(by), text)));
     }
-
+    @Ignore
     @Test
     public void testH2TagText_WhenSearchingCityCountry() {
 
@@ -71,21 +71,16 @@ public class EkaterinaChernyshovaTest extends BaseTest {
 
         Assert.assertEquals(actualResult, expectedResult);
     }
-@Ignore
-    @Test
-    public void testLinkAndTitleOnThePage_OpenWeatherMap() throws InterruptedException {
 
-        String url = "https://openweathermap.org/";
+    @Test
+    public void testLinkAndTitleOnThePage_OpenWeatherMap() {
+
         String expectedResult1 = "https://openweathermap.org/guide";
         String expectedResult2 = "OpenWeatherMap API guide - OpenWeatherMap";
 
-        getDriver().get(url);
-        getDriver().manage().window().maximize();
-        Thread.sleep(5000);
-
-        WebElement guideMenu = getDriver().findElement(By.xpath("//div[@id = 'desktop-menu']//a[@href = '/guide']")
-        );
-        guideMenu.click();
+        openBaseURL(BASE_URL);
+        waitForGrayFrameDisappear();
+        click(GUIDE_MENU, getWait5());
 
         String actualResult1 = getDriver().getCurrentUrl();
         String actualResult2 = getDriver().getTitle();
@@ -93,7 +88,8 @@ public class EkaterinaChernyshovaTest extends BaseTest {
         Assert.assertEquals(actualResult1, expectedResult1);
         Assert.assertEquals(actualResult2, expectedResult2);
     }
-@Ignore
+
+    @Ignore
     @Test
     public void testIfTemperatureShowsInCelsius() throws InterruptedException {
 
