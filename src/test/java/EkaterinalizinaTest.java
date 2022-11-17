@@ -18,10 +18,11 @@ public class EkaterinalizinaTest extends BaseTest {
     final static By SEARCH_BUTTON = By.xpath("//div[@id = 'weather-widget']//button[@type = 'submit']");
     final static By SEARCH_DROPDOWN_MENU= By.className("search-dropdown-menu");
     final static By PARIS_FR_CHOISE_IN_DROP_DOWN_MENU = By.xpath("//ul[@class ='search-dropdown-menu']/li/span[text() = 'Paris, FR ']");
+    final static By MENU_GUIDE_IS_CLICKABLE = By.xpath("//div[@id ='desktop-menu']//a[text() = 'Guide']");
+    final static By MENU_GUIDE_IS_DISPLAYED =  By.xpath("//h1[text() = 'Guide']");
     private void openBaseURL(){
         getDriver().get(BASE_URL);
     }
-
     private void waitForGrayFrameDisappeared(){
         getWait20().until(ExpectedConditions.invisibilityOfElementLocated(
                 By.className("owm-loader-container")));
@@ -35,11 +36,9 @@ public class EkaterinalizinaTest extends BaseTest {
        wait.until(ExpectedConditions.visibilityOfElementLocated(by));
        wait.until(ExpectedConditions.elementToBeClickable(by)).click();
     }
-
     private void input(String text, By by, WebDriver driver){
         driver.findElement(by).sendKeys(text);
     }
-
     private void waitElementToBeVisible(By by, WebDriverWait wait){
         wait.until(ExpectedConditions.visibilityOfElementLocated(by));
     }
@@ -68,7 +67,6 @@ public class EkaterinalizinaTest extends BaseTest {
 
         Assert.assertEquals(actualResult, expectedResult);
     }
-
 
     @Ignore
     @Test
@@ -198,21 +196,16 @@ public class EkaterinalizinaTest extends BaseTest {
         Assert.assertEquals(actualResult3, expectedResult3);
     }
 
-    @Ignore
     @Test
-    public void testATMainNavBarMenuGuideIsClickableHappyStrawberryAT_EkaterinaLizina() throws InterruptedException {
+    public void testATMainNavBarMenuGuideIsClickableHappyStrawberryAT_EkaterinaLizina () {
         openBaseURL();
+        String expectedResult_Guide = "Guide";
+        waitForGrayFrameDisappeared();
+        click(MENU_GUIDE_IS_CLICKABLE, getWait10());
+        waitElementToBeVisible(MENU_GUIDE_IS_DISPLAYED, getWait5());
+        String actualResult = getText(MENU_GUIDE_IS_DISPLAYED, getDriver());
 
-      //  Thread.sleep(10000);
-
-        WebElement menuGuideIsClickable = getDriver().findElement(
-                By.xpath("//div[@id ='desktop-menu']//a[text() = 'Guide']"));
-        menuGuideIsClickable.click();
-
-        WebElement menuGuideIsDisplaied = getDriver().findElement(
-                By.xpath("//h1[text() = 'Guide']"));
-
-        Assert.assertTrue(menuGuideIsDisplaied.isDisplayed());
+        Assert.assertEquals(actualResult, expectedResult_Guide);
     }
 
 
