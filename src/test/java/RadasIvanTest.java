@@ -6,11 +6,16 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import runner.BaseTest;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class RadasIvanTest extends BaseTest {
     final static String BASE_URL = "https://openweathermap.org/";
     final static By DIFFERENT_WEATHER = By.xpath("//span[@class='control-el owm-switch']");
 
     final static By H3_DIALOG_TITLE = By.id("dialogTitle");
+
+    final static By CURRENT_TIME = By.xpath("//div[@id='weather-widget']//span[@class='orange-text'][text()]");
 
     private void openBaseURL() {
         getDriver().get(BASE_URL);
@@ -31,6 +36,13 @@ public class RadasIvanTest extends BaseTest {
         return driver.findElement(by).getText();
     }
 
+    private String systemDate() {
+        Date date = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("MMM dd, hh:mma");
+
+        return sdf.format(date).substring(0, 10);
+    }
+
     @Test
     public void testButtonDifferentWeatherIsClickableOnStartPage() {
         String expectedResult = "Different weather";
@@ -40,6 +52,19 @@ public class RadasIvanTest extends BaseTest {
         click(DIFFERENT_WEATHER, getWait5());
 
         String actualResult = getText(H3_DIALOG_TITLE, getDriver());
+
+        Assert.assertEquals(actualResult, expectedResult);
+    }
+
+    @Test
+    public void testCurentDateAndTimeStartPage() {
+
+        String expectedResult = systemDate();
+
+        openBaseURL();
+        waitForGrayFrameDisappeared();
+
+        String actualResult = getText(CURRENT_TIME, getDriver()).substring(0, 10);
 
         Assert.assertEquals(actualResult, expectedResult);
     }
