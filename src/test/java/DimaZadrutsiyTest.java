@@ -148,4 +148,20 @@ public class DimaZadrutsiyTest extends BaseTest {
 
         Assert.assertTrue(actualResult);
     }
+
+    @Test
+    public void testNoticeText_WhenCityNameFromRandomSymbols () {
+        String cityName = "Rrr";
+
+        final String expectedResult = "No results for Rrr";
+
+        openBaseURL();
+        waitForGrayFrameDisappeared();
+
+        input("//input[@placeholder='Search city']", cityName);
+
+        String actualResult = getText("//span[text()='No results for Rrr']");
+
+        Assert.assertEquals(actualResult, expectedResult);
+    }
 }
