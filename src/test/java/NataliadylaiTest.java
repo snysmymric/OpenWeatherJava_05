@@ -22,6 +22,10 @@ public class NataliadylaiTest extends BaseTest {
     final static By MENU_GUIDE = By.xpath("//div[@id='desktop-menu']//a[contains (text(), 'Guide')]");
 
     final static By GUIDE_TITLE = By.xpath("//div/ul/li/a[@href = '/guide']");
+    final static By TEMP_UNIT = By.xpath("//div[text()='Imperial: °F, mph']");
+    final static By TEMP_UNIT_HEADING = By.xpath("//div[@class='current-temp']/span");
+    final static By LOGO = By.xpath("//img[@src='/themes/openweathermap/assets/img/logo_white_cropped.png']");
+
 
     private void openBaseURL(){
         getDriver().get(BASE_URL);
@@ -38,6 +42,10 @@ public class NataliadylaiTest extends BaseTest {
     private void click(By by, WebDriverWait wait){
         wait.until(ExpectedConditions.visibilityOfElementLocated(by));
         wait.until(ExpectedConditions.elementToBeClickable(by)).click();
+    }
+
+    private void clickElement(By by, WebDriver driver){
+        driver.findElement(by).click();
     }
 
     private void input(String text, By by, WebDriver driver){
@@ -76,7 +84,7 @@ public class NataliadylaiTest extends BaseTest {
 
 
 
-
+    @Ignore
     @Test
     public void test_OpenWeatherMapAPIGuide () throws InterruptedException {
         String expectedResultUrl = "https://openweathermap.org/guide";
@@ -94,20 +102,14 @@ public class NataliadylaiTest extends BaseTest {
 
     @Ignore
     @Test
-    public void testChangingTempUnitInHeading_WhenSwitchTempUnitButton() throws InterruptedException {
-        String url = "https://openweathermap.org/";
-        getDriver().get(url);
-        Thread.sleep(10000);
-        WebElement tempUnit = getDriver().findElement(
-                By.xpath("//div[text()='Imperial: °F, mph']"));
-        tempUnit.click();
-        Thread.sleep(2000);
-        WebElement tempUnitHeading = getDriver().findElement(
-                By.xpath("//div[@class='current-temp']/span"));
-
-        boolean actualResult = tempUnitHeading.getText().contains("°F");
-
-        Assert.assertTrue(actualResult);
+    public void testChangingTempUnitInHeading_WhenSwitchTempUnitButton()  {
+       openBaseURL();
+       waitForGrayFrameDisappeared();
+       waitElementToBeVisible(TEMP_UNIT, getWait20());
+       click(TEMP_UNIT, getWait20());
+       waitElementToBeVisible(TEMP_UNIT_HEADING, getWait20());
+       boolean actualResult = getText(TEMP_UNIT_HEADING, getDriver()).contains("°F");
+       Assert.assertTrue(actualResult);
     }
 
     @Ignore
@@ -188,21 +190,15 @@ public class NataliadylaiTest extends BaseTest {
         Assert.assertEquals(actualResult,expectedResult);
     }
 
-    @Ignore
-    @Test
-    public void test_CorrectPageUpdatedAfterClickOnLogo() throws InterruptedException {
 
-        String url = "https://openweathermap.org/";
+    @Test
+    public void test_CorrectPageUpdatedAfterClickOnLogo() {
         String expectedResult = "https://openweathermap.org/";
-        getDriver().get(url);
-        getDriver().manage().window().maximize();
-        Thread.sleep(10000);
-        WebElement logo = getDriver().findElement(
-                By.xpath("//a[@href]//img[@src = '/themes/openweathermap/assets/img/logo_white_cropped.png']"));
-        logo.click();
-        Thread.sleep(2000);
-        String actualResult = getDriver().getCurrentUrl();
-        Assert.assertEquals(actualResult,expectedResult);
-        Thread.sleep(2000);
+        String expectedResultTitle = "Сurrent weather and forecast - OpenWeatherMap";
+        openBaseURL();
+        waitForGrayFrameDisappeared();
+        click(LOGO,getWait20());
+        Assert.assertEquals(getDriver().getCurrentUrl(), expectedResult);
+        Assert.assertEquals(getDriver().getTitle(), expectedResultTitle);
     }
 }
