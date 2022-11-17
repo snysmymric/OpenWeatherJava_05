@@ -11,6 +11,8 @@ public class LarisaBratukhinaTest extends BaseTest {
     final static String BASE_URL = "https://openweathermap.org/";
 
     final static By H_2_CITY_COUNTY_HEADER = By.xpath("//div[@id = 'weather-widget']//h2");
+    final static By LOGO =
+            By.xpath("//ul/li[@class='logo']//a[@href='/']/img[@src='/themes/openweathermap/assets/img/logo_white_cropped.png']");
     final static By SEARCH_CITY_FIELD = By.xpath("//div[@id = 'weather-widget']//input[@placeholder = 'Search city']");
     final static By SEARCH_BUTTON = By.xpath("//div[@id = 'weather-widget']//button[@type='submit']");
     final static By SEARCH_DROPDOWN_MENU = By.className("search-dropdown-menu");
@@ -47,6 +49,20 @@ public class LarisaBratukhinaTest extends BaseTest {
         wait.until(ExpectedConditions.not(ExpectedConditions.textToBePresentInElement(driver.findElement(by), text)));
     }
 
+    private void waitElementToBeClickable(By by, WebDriverWait wait) {
+        wait.until(ExpectedConditions.elementToBeClickable(by));
+    }
+
+    private String getCurrentUrl() {
+
+        return getDriver().getCurrentUrl();
+    }
+
+    private void waitLoadingLogoToBeChanged() {
+        getWait20().until(ExpectedConditions.visibilityOfElementLocated(
+                By.className("owm-loader-container")));
+    }
+
     @Test
     public void testH2TagText_WhenSearchingCityCountry() {
         String cityName = "Paris";
@@ -67,5 +83,18 @@ public class LarisaBratukhinaTest extends BaseTest {
         String actualResult = getText(H_2_CITY_COUNTY_HEADER, getDriver());
 
         Assert.assertEquals(actualResult, expectedResult);
+    }
+
+    @Test
+    public void testCheckUrlAfterReloadMainPage() {
+
+        openBaseURL();
+        waitForGrayFrameDisappeared();
+        waitElementToBeVisible(LOGO, getWait10());
+        waitElementToBeClickable(LOGO, getWait5());
+        click(LOGO, getWait5());
+        waitLoadingLogoToBeChanged();
+
+        Assert.assertEquals(getCurrentUrl(), BASE_URL);
     }
 }
