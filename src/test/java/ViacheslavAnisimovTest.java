@@ -1,7 +1,4 @@
-import org.openqa.selenium.By;
-import org.openqa.selenium.Dimension;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
@@ -24,6 +21,7 @@ public class ViacheslavAnisimovTest extends BaseTest {
     final static By HAMBURGER_MENU = By.id("hamburger");
     final static By LINK_TO_GUIDE_IN_HAMBURGER_MENU = By.xpath("//ul[@id='mobile-menu']//a[@href='/guide']");
     final static By LINK_TO_MARKETPLACE = By.linkText("Marketplace");
+    final static By LINK_TO_HISTORY_WEATHER_DATA = By.xpath("//div[@id='footer-website']//a[@href='/api#history']");
 
 
     private void openBaseURL() {
@@ -69,11 +67,16 @@ public class ViacheslavAnisimovTest extends BaseTest {
 
         wait.until(numberOfWindowsToBe(2));
         for (String windowHandle : getDriver().getWindowHandles()) {
-            if(!originalWindow.contentEquals(windowHandle)) {
+            if (!originalWindow.contentEquals(windowHandle)) {
                 getDriver().switchTo().window(windowHandle);
                 break;
             }
         }
+    }
+
+    private void scrollDown() {
+        JavascriptExecutor js = (JavascriptExecutor) getDriver();
+        js.executeScript("window.scrollTo(0, document.body.scrollHeight)");
     }
 
     @Test
@@ -133,5 +136,21 @@ public class ViacheslavAnisimovTest extends BaseTest {
 
         Assert.assertEquals(actualResult1, expectedResult1);
         Assert.assertEquals(actualResult2, expectedResult2);
+    }
+
+    @Test
+    public void testLinkHistoricalWeatherData() {
+        String expectedResult = "https://openweathermap.org/api#history";
+
+        openBaseURL();
+        waitForGrayFrameDisappeared();
+
+        scrollDown();
+
+        click(LINK_TO_HISTORY_WEATHER_DATA, getWait10());
+
+        String actualResult = getDriver().getCurrentUrl();
+
+        Assert.assertEquals(actualResult, expectedResult);
     }
 }
