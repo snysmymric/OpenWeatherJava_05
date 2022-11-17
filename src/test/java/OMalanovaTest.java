@@ -7,14 +7,16 @@ import org.testng.annotations.Test;
 import runner.BaseTest;
 
 import java.util.Random;
+import java.util.UUID;
 
 public class OMalanovaTest extends BaseTest {
     final static String BASE_URL = "https://openweathermap.org/";
     final static By SEARCH_CITY_FIELD = By.xpath("//div[@id = 'weather-widget']//input[@placeholder = 'Search city']");
     final static By SEARCH_BUTTON = By.xpath("//div[@id = 'weather-widget']//button[@type = 'submit']");
     final static By NOTICE_TEXT = By.xpath("//div[@id = 'weather-widget']//div[@class = 'sub not-found notFoundOpen']");
-    final static String CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
-    final static int STR_LENGTH = 9;
+    final static By NOTIFICATION_TEXT = By.xpath("//div[@class = 'widget-notification']");
+    final static String CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890";
+    final static int STR_LENGTH = (int) (Math.random() * 78 + 3);
     private void openBaseURL() {
         getDriver().get(BASE_URL);
     }
@@ -62,6 +64,22 @@ public class OMalanovaTest extends BaseTest {
         input(cityName, SEARCH_CITY_FIELD, getDriver());
         click(SEARCH_BUTTON, getWait5());
         String actualResult = getText(NOTICE_TEXT, getDriver());
+
+        Assert.assertEquals(actualResult, expectedResult);
+    }
+
+    @Test
+    public void testViewNotification_WhenCityNameFromRandomSymbols() {
+        String cityName = createRandomString(STR_LENGTH);
+        String expectedResult = "No results for " + cityName;
+
+        openBaseURL();
+        waitForGrayFrameDisappeared();
+
+        click(SEARCH_CITY_FIELD, getWait5());
+        input(cityName, SEARCH_CITY_FIELD, getDriver());
+        click(SEARCH_BUTTON, getWait5());
+        String actualResult = getText(NOTIFICATION_TEXT, getDriver());
 
         Assert.assertEquals(actualResult, expectedResult);
     }
