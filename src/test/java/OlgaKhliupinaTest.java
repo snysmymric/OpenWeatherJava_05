@@ -1,10 +1,8 @@
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
-import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import runner.BaseTest;
 
@@ -18,6 +16,7 @@ public class OlgaKhliupinaTest extends BaseTest {
    final static By TEMP_UNIT_HEADING = By.xpath("//div[@class='current-temp']/span");
    final static By MENU_GUIDE = By.xpath("//div/ul//li/a[@href='/guide']");
    final static By GUIDE_TITLE = By.className("breadcrumb-title");
+   final static By LOGO = By.xpath("//img[@src='/themes/openweathermap/assets/img/logo_white_cropped.png']");
 
    private void openBaseURL() {
       getDriver().get(BASE_URL);
@@ -61,21 +60,17 @@ public class OlgaKhliupinaTest extends BaseTest {
       Assert.assertEquals(actualResultTitle, expectedResultTitle);
    }
 
-   @Ignore
    @Test
-   public  void testCheckUrlAfterRefreshMainPage() throws InterruptedException {
-      String url = "https://openweathermap.org/";
-      String expectedResult = url;
+   public  void testCheckUrlTitle_AfterRefreshMainPage() {
+      String expectedResult = "https://openweathermap.org/";
+      String expectedResultTitle = "Сurrent weather and forecast - OpenWeatherMap";
 
-      getDriver().get(url);
-      Thread.sleep(10000);
-
-      WebElement logo = getDriver().findElement(
-              By.xpath("//img[@src='/themes/openweathermap/assets/img/logo_white_cropped.png']"));
-      logo.click();
-      Thread.sleep(8000);
+      openBaseURL();
+      waitForGrayFrameDisappeared();
+      click(LOGO, getWait20());
 
       Assert.assertEquals(getDriver().getCurrentUrl(), expectedResult);
+      Assert.assertEquals(getDriver().getTitle(), expectedResultTitle);
    }
 
    @Test
