@@ -1,4 +1,6 @@
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
@@ -11,6 +13,9 @@ public class MaxIaskoTest extends BaseTest {
     final static By SEARCH_ORANGE_ELEMENT = By.xpath("//a[contains(@class, 'btn_block orange round') " +
             "or contains(@class, 'ow-btn round btn-orange')]");
     final static By SEARCH_LOGO_FIELD = By.xpath("//a[@href ='/']");
+    final static By SEARCH_WHETHER_IN_YOUR_CITY_FIELD = By.xpath(
+            "//div[@id='desktop-menu']/form/input[@type ='text']");
+    final static By SEARCH_FIELD_TEXT = By.xpath("//div/input[@id='search_str']");
 
     private void click(By by) {
         getDriver().findElement(by).click();
@@ -30,6 +35,33 @@ public class MaxIaskoTest extends BaseTest {
     private int size(By by, WebDriverWait wait) {
         wait.until(ExpectedConditions.visibilityOfElementLocated(by));
         return getDriver().findElements(by).size();
+    }
+
+    private String getAttributeByName(By by, String name) {
+        WebElement searchFieldText = getDriver().findElement(by);
+        return searchFieldText.getAttribute(name);
+    }
+
+    private void jumpToNextWindow() {
+        String mainWindows = getDriver().getWindowHandle();
+        for (String windowsHandle : getDriver().getWindowHandles()) {
+            if (!mainWindows.contentEquals(windowsHandle)) {
+                getDriver().switchTo().window(windowsHandle);
+                break;
+            }
+        }
+    }
+
+    private boolean isContainsTextIn(String text) {
+        String currentUrl = getDriver().getCurrentUrl();
+        return currentUrl.contains(text);
+    }
+
+    private void searchFieldToSendKey(String key) {
+        WebElement searchWhetherInYourCityField = getDriver().findElement(SEARCH_WHETHER_IN_YOUR_CITY_FIELD);
+        click(SEARCH_WHETHER_IN_YOUR_CITY_FIELD);
+        searchWhetherInYourCityField.sendKeys(key);
+        searchWhetherInYourCityField.sendKeys(Keys.ENTER);
     }
 
     @Test
@@ -52,6 +84,24 @@ public class MaxIaskoTest extends BaseTest {
         click(SEARCH_LOGO_FIELD);
 
         Assert.assertEquals(getDriver().getCurrentUrl(), BASE_URL);
+    }
+
+    @Test
+    public void testConfirmTextInLink() {
+        final String name = "value";
+        final String expectedResult0 = "Rome";
+        final String expectedResult1 = "find";
+
+        getDriver().get(BASE_URL);
+
+        waitGrayFrameDisappear();
+        searchFieldToSendKey(expectedResult0);
+
+        Assert.assertEquals(isContainsTextIn(expectedResult0), isContainsTextIn(expectedResult1));
+
+        jumpToNextWindow();
+
+        Assert.assertEquals(getAttributeByName(SEARCH_FIELD_TEXT, name), expectedResult0);
     }
 }
 
