@@ -4,6 +4,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import runner.BaseTest;
 import java.util.List;
@@ -47,6 +48,8 @@ public class YuliaMatusevichTest extends BaseTest {
 
         Assert.assertEquals(actualResult,expectedResult);
     }
+
+    @Ignore
     @Test
     public void testFacebookIcon_IfCorrespondingFacebookWebpageOpens(){
         String expectedResult = "https://www.facebook.com/groups/270748973021342";
