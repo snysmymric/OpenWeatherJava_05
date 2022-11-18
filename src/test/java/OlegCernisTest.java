@@ -92,7 +92,6 @@ public class OlegCernisTest extends BaseTest {
         Assert.assertEquals(actualResult, expectedResult1);
         compareSymbol(getDriver(), imperialTemp, imperialSymbol );
     }
-    @Ignore
     @Test
     public void testVerifyMetricSymbolIsShownInCurrentTempWhenChangingUnitToMetric() {
 
