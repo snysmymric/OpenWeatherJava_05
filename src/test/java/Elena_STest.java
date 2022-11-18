@@ -1,5 +1,6 @@
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -26,8 +27,19 @@ public class Elena_STest extends BaseTest {
     private void openBaseUrl(){
         getDriver().get(BASE_URL);
     }
+
     private boolean isElementExists(By by){
         return  getWait5().until(ExpectedConditions.visibilityOfElementLocated(by)).isDisplayed();
+    }
+
+    private void waitForGrayFrameDisappeared(){
+        getWait20().until(ExpectedConditions.invisibilityOfElementLocated(
+                By.className("own-loader-container")));
+    }
+
+    private void clickElement(By by, WebDriver driver){
+        getWait5().until(ExpectedConditions.visibilityOfElementLocated(by));
+        getWait5().until(ExpectedConditions.elementToBeClickable(by)).click();
     }
 
     @Test
@@ -61,6 +73,16 @@ public class Elena_STest extends BaseTest {
         Assert.assertTrue(isElementExists(FOR_BUSINESS_BUTTON));
         Assert.assertTrue(isElementExists(SING_IN_BUTTON));
         Assert.assertTrue(isElementExists(SUPPORT_BUTTON));
+    }
+    @Test
+    public void testLogoExistsAndClickableUserAndStartPageRefresh(){
+        openBaseUrl();
+        waitForGrayFrameDisappeared();
+        clickElement(LOGO_IMAGE,getDriver());
+
+        Assert.assertTrue(isElementExists(LOGO_IMAGE));
+        Assert.assertTrue(getDriver().findElement(LOGO_IMAGE).isEnabled());
+        Assert.assertEquals(getDriver().getCurrentUrl(),BASE_URL);
     }
 
 }
