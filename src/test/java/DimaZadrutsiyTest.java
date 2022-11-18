@@ -75,6 +75,12 @@ public class DimaZadrutsiyTest extends BaseTest {
         wait.until(ExpectedConditions.elementToBeClickable(getDriver().findElement(By.xpath(whichButton)))).click();
     }
 
+    private String backgroundColor(String element, WebDriverWait wait) {
+        wait.until(ExpectedConditions.visibilityOf(getDriver().findElement(By.xpath(element))));
+
+        return getDriver().findElement(By.xpath(element)).getCssValue("background-color");
+    }
+
     @Test
     public void testUpdatePage() {
         String expectedResult = "Loading";
@@ -123,7 +129,7 @@ public class DimaZadrutsiyTest extends BaseTest {
     }
 
     @Test
-    public void test_X_ButtonIsShown () {
+    public void test_X_ButtonIsShown() {
         boolean expectedResult = true;
 
         openBaseURL();
@@ -137,7 +143,7 @@ public class DimaZadrutsiyTest extends BaseTest {
     }
 
     @Test
-    public void testSendButtonIsShown () {
+    public void testSendButtonIsShown() {
 
         openBaseURL();
         waitForGrayFrameDisappeared();
@@ -150,17 +156,31 @@ public class DimaZadrutsiyTest extends BaseTest {
     }
 
     @Test
-    public void testNoticeText_WhenCityNameFromRandomSymbols () {
+    public void testNoticeText_WhenCityNameFromRandomSymbols() {
         String cityName = "Rrr";
 
         final String expectedResult = "No results for Rrr";
 
         openBaseURL();
         waitForGrayFrameDisappeared();
-
         input("//input[@placeholder='Search city']", cityName);
 
         String actualResult = getText("//span[text()='No results for Rrr']");
+
+        Assert.assertEquals(actualResult, expectedResult);
+    }
+
+    @Test
+    public void test_X_buttonColorGreen() {
+        String cityName = "Rrr";
+
+        final String expectedResult = "rgba(120, 203, 191, 0.8)";
+
+        openBaseURL();
+        waitForGrayFrameDisappeared();
+        input("//input[@placeholder='Search city']", cityName);
+
+        String actualResult = backgroundColor("//div[@class='widget-notification']", getWait10());
 
         Assert.assertEquals(actualResult, expectedResult);
     }
