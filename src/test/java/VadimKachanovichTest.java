@@ -15,6 +15,8 @@ public class VadimKachanovichTest extends BaseTest {
     final static By SEARCH_BUTTON = By.xpath("//div[@id = 'weather-widget']//button[@type = 'submit']");
     final static By SEARCH_DROPDOWN_MENU = By.className("search-dropdown-menu");
     final static By PARIS_FR_DROPDOWN_MENU = By.xpath("//ul[@class = 'search-dropdown-menu']/li/span[text() = 'Paris, FR ']");
+    final static By DIFFERENT_WEATHER_BUTTON = By.xpath("//span[contains(@class,'control-el owm-switch' ) and contains(text(), 'Different Weather?')]");
+    final static By POPUP_MENU_NAME = By.xpath("//div[@class = 'pop-up-container']/div/h3[@id = 'dialogTitle']");
 
 
     String cityName = "Paris";
@@ -55,6 +57,16 @@ public class VadimKachanovichTest extends BaseTest {
         click(PARIS_FR_DROPDOWN_MENU, getWait10());
         waitTextToBeChanged(H2_CITY_COUNTRY_HEADER,startH2Header,getDriver(),getWait10());
         String actualResult = getText(H2_CITY_COUNTRY_HEADER, getDriver());
+        Assert.assertEquals(actualResult,expectedResult);
+    }
+
+    @Test
+    public void testVerifyPopUpWindowShownWhenClickingDifferentWeatherButton () {
+        String expectedResult = "Different weather";
+        getURL();
+        waitForGrayFrameDisappeared();
+        click(DIFFERENT_WEATHER_BUTTON, getWait5());
+        String actualResult = getText(POPUP_MENU_NAME,getDriver());
         Assert.assertEquals(actualResult,expectedResult);
     }
 }
