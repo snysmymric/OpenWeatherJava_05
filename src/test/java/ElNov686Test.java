@@ -83,7 +83,7 @@ public class ElNov686Test extends BaseTest {
         getBaseUrl();
         greyFrame();
 
-        click(By.xpath("//div[@class='switch-container']//div[text()='Imperial: °F, mph']"), getWait5());
+        click(By.xpath("//div[@class='switch-container']//div[text()='Imperial: °F, mph']"), getWait10());
         String actualResult = getText(By.xpath("//span[@class='heading']"), getDriver());
 
         actualResult = actualResult.substring(actualResult.length() - 1);
