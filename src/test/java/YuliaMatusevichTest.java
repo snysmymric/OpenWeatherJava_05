@@ -13,6 +13,7 @@ public class YuliaMatusevichTest extends BaseTest {
 
     final static String BASE_URL = "https://openweathermap.org/";
     final static By FACEBOOK_LINK = By.xpath("//div[@class = 'social']/a[1]");
+    final static By TWITTER_LINK = By.xpath("//div[@class = 'social']/a[2]");
 
     public void openBaseUrl(){
         getDriver().get(BASE_URL);
@@ -33,9 +34,14 @@ public class YuliaMatusevichTest extends BaseTest {
         wait.until(ExpectedConditions.visibilityOfElementLocated(by));
         wait.until(ExpectedConditions.elementToBeClickable(by)).click();
     }
-        public void scrollToPageBottom(){
+    public void scrollToPageBottom(){
         JavascriptExecutor js = (JavascriptExecutor) getDriver();
         js.executeScript("window.scrollTo(0, document.body.scrollHeight)");
+    }
+    public void switchWindows(){
+        for(String winHandle : getDriver().getWindowHandles()){
+            getDriver().switchTo().window(winHandle);
+        }
     }
     @Test
     public void testAllSocialMediaIconsVisibleAndClickable (){
@@ -67,6 +73,22 @@ public class YuliaMatusevichTest extends BaseTest {
 
         Assert.assertTrue((actualResult.contains(expectedResult)));
     }
+
+    @Test
+    public void testTwitterIcon_OnHomePage_WhenClickIcon(){
+        String expectedResult ="twitter.com";
+
+        openBaseUrl();
+        waitForGrayFrameDisappeared();
+        scrollToPageBottom();
+        click(TWITTER_LINK, getWait20());
+        getWait20().until(ExpectedConditions.numberOfWindowsToBe(2));
+        switchWindows();
+        String actualResult = getDriver().getCurrentUrl();
+
+        Assert.assertTrue((actualResult.contains(expectedResult)));
+    }
+
 }
 
 
