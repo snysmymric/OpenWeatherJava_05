@@ -1,5 +1,6 @@
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
@@ -16,6 +17,8 @@ public class TaniaKunoTest extends BaseTest {
     final static By SEARCH_BUTTON = By.xpath("//div[@id = 'weather-widget']//button[@type = 'submit']");
     final static By SEARCH_DROPDOWN_MENU = By.className("search-dropdown-menu");
     final static By PARIS_FR_CHOICE_IN_DROPDOWN_MENU = By.xpath("//ul[@class = 'search-dropdown-menu']/li/span[text() = 'Paris, FR ']");
+    final static By SUPPORT_MENU = By.xpath("//div[@id = 'support-dropdown']");
+    final static By ASK_A_QUESTION_SUBMENU = By.xpath("//ul[@class = 'dropdown-menu dropdown-visible']//a[text() = 'Ask a question']");
 
     private void openBaseURL() {
         getDriver().get(BASE_URL);
@@ -48,6 +51,14 @@ public class TaniaKunoTest extends BaseTest {
         wait.until(ExpectedConditions.not(ExpectedConditions.textToBePresentInElement(driver.findElement(by), text)));
     }
 
+    private void switchToNewWindow() {
+        for (String childHandle : getDriver().getWindowHandles()) {
+            if (!childHandle.equals(getDriver().getWindowHandle())) {
+                getDriver().switchTo().window(childHandle);
+            }
+        }
+    }
+
     @Test
     public void testH2TagText_WhenSearchingCityCountry() {
         String cityName = "Paris";
@@ -66,6 +77,21 @@ public class TaniaKunoTest extends BaseTest {
         waitTextToBeChanged(H2_CITY_COUNTRY_HEADER, oldH2Header, getDriver(), getWait10());
 
         String actualResult = getText(H2_CITY_COUNTRY_HEADER, getDriver());
+
+        Assert.assertEquals(actualResult, expectedResult);
+    }
+
+    @Test
+    public void testOpenPageAskAQuestion_WhenClickAskAQuestionSubmenu() {
+        String expectedResult = "https://home.openweathermap.org/questions";
+
+        openBaseURL();
+        waitForGrayFrameDisappeared();
+        click(SUPPORT_MENU, getWait5());
+        click(ASK_A_QUESTION_SUBMENU, getWait10());
+        switchToNewWindow();
+
+        String actualResult = getDriver().getCurrentUrl();
 
         Assert.assertEquals(actualResult, expectedResult);
     }
