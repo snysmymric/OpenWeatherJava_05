@@ -17,6 +17,8 @@ public class MarinarokhmanovaTest extends BaseTest {
     final static By PARIS_CHOICE_IN_DROP_DOWN_MENU = By.xpath(
             "//ul[@class ='search-dropdown-menu']/li/span[text() = 'Paris, FR ']");
 
+    final static By GUIDE_SEARCH_FIELD = By.xpath("//a[@href][text()='Guide']");
+
     private void openBaseURL(){
         getDriver().get(Base_URL);
     }
@@ -70,30 +72,19 @@ public class MarinarokhmanovaTest extends BaseTest {
         Assert.assertEquals(actualResult, expectedResult);
     }
 
-    @Ignore
     @Test
-    public void testOpenWeatherMapGuide() throws InterruptedException {
-        String url = "https://openweathermap.org/";
-        String expectedResult1 = "https://openweathermap.org/guide";
-        String expectedResult2 = "OpenWeatherMap API guide - OpenWeatherMap";
+    public void testOpenWeatherMapGuide() {
 
-        getDriver().get(url);
-        getDriver().manage().window().maximize();
-        Thread.sleep(10000);
+        String expectedResult = "https://openweathermap.org/guide";
+        String expectedResultTitle = "OpenWeatherMap API guide - OpenWeatherMap";
 
-        WebElement guideSearchField = getDriver().findElement(
-                By.xpath("//a[@href][text()='Guide']")
-        );
-        guideSearchField.click();
-        Thread.sleep(2000);
+        openBaseURL();
+        waitForGrayFrameDisappeared();
 
-        String confirmPageWithLink = getDriver().getTitle();
+        click(GUIDE_SEARCH_FIELD, getDriver());
 
-        String actualResult1 = getDriver().getCurrentUrl();
-        String actualResult2 = confirmPageWithLink.intern();
-
-        Assert.assertEquals(actualResult1, expectedResult1);
-        Assert.assertEquals(actualResult2, expectedResult2);
+        Assert.assertEquals(getDriver().getCurrentUrl(), expectedResult);
+        Assert.assertEquals(getDriver().getTitle(), expectedResultTitle);
     }
 
     @Ignore
