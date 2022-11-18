@@ -42,6 +42,6 @@ public class DenSebrovskyTest extends BaseTest {
         Assert.assertEquals(actualSubmenuButtonsAmount, expectedSubmenuButtonsAmount);
 
         click(SUPPORT_BUTTON, getWait5());
-        Assert.assertTrue(getDriver().findElement(SUPPORT_DROPDOWN_MENU).isEnabled());
+        Assert.assertFalse(getDriver().findElement(SUPPORT_DROPDOWN_MENU).isDisplayed());
     }
 }
