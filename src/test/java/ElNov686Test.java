@@ -75,6 +75,7 @@ public class ElNov686Test extends BaseTest {
         Assert.assertEquals(actualResult, expectedResult);
     }
 
+    @Ignore
     @Test
     public void testTemperatureImperialFahrenheitVerify() {
         String expectedResult = "F";
