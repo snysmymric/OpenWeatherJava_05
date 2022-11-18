@@ -36,7 +36,7 @@ public class SiarheiMSV_Test extends BaseTest {
         openBaseURL();
         waitForGrayFrameDisappeared();
 
-        click(SEARCH_BUTTON_DASHBOARD, getWait5());
+        click(SEARCH_BUTTON_DASHBOARD, getWait20());
 
         String actualResult1 = getDriver().getCurrentUrl();
         Assert.assertEquals(actualResult1, expectedResult1);
