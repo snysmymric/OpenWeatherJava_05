@@ -1,46 +1,60 @@
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
-import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import runner.BaseTest;
-import java.time.Duration;
-import java.util.concurrent.TimeUnit;
 
-@Ignore
 public class GdikhsanovTest extends BaseTest {
 
+    final static String BASE_URL = "https://openweathermap.org/";
+
+    private void openBaseUrl() {
+        getDriver().get(BASE_URL);
+    }
+
+    private void waitForGreyFrameDisappeared() {
+        getWait20().until(ExpectedConditions
+                .invisibilityOfElementLocated(By.className("owm-loader-container")));
+    }
+
+    private String getText(By by, WebDriver driver) {
+        return driver.findElement(by).getText();
+    }
+
+    private void click(By by, WebDriverWait wait) {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(by));
+        wait.until(ExpectedConditions.elementToBeClickable(by)).click();
+    }
+
+    private void input(String text, By by, WebDriver driver) {
+        driver.findElement(by).sendKeys(text);
+    }
+
+    private void waitElementToBeVisible(By by, WebDriverWait wait) {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(by));
+    }
+
+    private void waitTextToBeChanged(By by, String text, WebDriver driver, WebDriverWait wait) {
+        wait.until(ExpectedConditions.textToBePresentInElement(driver.findElement(by), text));
+    }
+
     @Test
-    public void test1Openweathermap_justGoToGuide_gdiksanov() {
+    public void test_TitleAndUrl_WhenGoToGuide() {
 
-        String url = "https://openweathermap.org/";
+        String expectedUrl = String.format("%sguide", BASE_URL);
+        String expectedTitle = "OpenWeatherMap API guide - OpenWeatherMap";
 
+        openBaseUrl();
+        waitForGreyFrameDisappeared();
 
-        getDriver().manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
-
-
-
-        getDriver().get(url);
-
-        getDriver().manage().window().maximize();
-
-
-        new WebDriverWait(getDriver(), Duration.ofSeconds(10))
-                .until(ExpectedConditions.invisibilityOfElementLocated(
-                        By.xpath("//div[@class='owm-loader-container']/div")));
-
-        getDriver().manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-
-        getDriver().findElement(By.xpath("//div[@id='desktop-menu']//a[@href='/guide']")).click();
+        click(By.xpath("//div[@id='desktop-menu']//a[@href='/guide']"), getWait5());
 
         String currentUrl = getDriver().getCurrentUrl();
-
         String currentTitle = getDriver().getTitle();
 
-        Assert.assertEquals(currentUrl, "https://openweathermap.org/guide");
-
-        Assert.assertEquals(currentTitle, "OpenWeatherMap API guide - OpenWeatherMap");
+        Assert.assertEquals(currentUrl, expectedUrl);
+        Assert.assertEquals(currentTitle, expectedTitle);
     }
 }
-
