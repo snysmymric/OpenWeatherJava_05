@@ -17,6 +17,7 @@ public class Kater1naGTest extends BaseTest {
     final static By SEARCH_DROPDOWN_MENU = By.className("search-dropdown-menu");
     final static By CHOICE_PARIS_FR = By.xpath
             ("//ul[@class = 'search-dropdown-menu']/li/span[text()= 'Paris, FR ']");
+    final static By SEARCH_GUIDE = By.xpath("//a[@href='/guide']");
     private void openBaseURL(){
         getDriver().get(BASE_URL);
     }
@@ -25,7 +26,7 @@ public class Kater1naGTest extends BaseTest {
                 By.className("owm-loader-container")));
 
     }
-    private String getText(By by,WebDriver driver){
+    private String getText(By by,WebDriver driver) {
         return driver.findElement(by).getText();
     }
     private void click(By by, WebDriverWait wait){
@@ -61,28 +62,20 @@ public class Kater1naGTest extends BaseTest {
 
         Assert.assertEquals(actualResult, expectedResult);
     }
-@Ignore
-    @Test
-    public void testRedirectToGuide() throws InterruptedException {
 
-        String url = "https://openweathermap.org/";
-        String reUrl = "https://openweathermap.org/guide";
+
+
+    @Test
+    public void testRedirectToGuide() {
+        String expectedResultReUrl = "https://openweathermap.org/guide";
         String expectedResult = "OpenWeatherMap API guide - OpenWeatherMap";
 
-        getDriver().get(url);
-
-        WebElement searchGuide = getDriver().findElement(
-                By.xpath("//a[@href='/guide']")
-        );
-        Thread.sleep(10000);
-        searchGuide.click();
-
-        String currentUrl = getDriver().getCurrentUrl();
-
-        Assert.assertEquals(currentUrl, reUrl);
-
+        openBaseURL();
+        waitForGreyFrameDisappeared();
+        click(SEARCH_GUIDE, getWait5());
+        String actualResultReUrl = getDriver().getCurrentUrl();
+        Assert.assertEquals(actualResultReUrl, expectedResultReUrl);
         String actualResult = getDriver().getTitle();
-
         Assert.assertEquals(actualResult, expectedResult);
     }
     @Ignore
