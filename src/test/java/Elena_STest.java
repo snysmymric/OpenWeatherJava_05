@@ -8,6 +8,7 @@ import runner.BaseTest;
 
 public class Elena_STest extends BaseTest {
     final static String BASE_URL ="https://openweathermap.org/";
+    final static  String GUID_URL = "https://openweathermap.org/guide";
     final static By NAVIGATION_BAR = By.xpath("//nav[@id='nav-website']");
     final static By LOGO_IMAGE =
             By.xpath("//li[@class='logo']//img[@src='/themes/openweathermap/assets/img/logo_white_cropped.png']");
@@ -82,6 +83,14 @@ public class Elena_STest extends BaseTest {
 
         Assert.assertTrue(isElementExists(LOGO_IMAGE));
         Assert.assertTrue(getDriver().findElement(LOGO_IMAGE).isEnabled());
+        Assert.assertEquals(getDriver().getCurrentUrl(),BASE_URL);
+    }
+
+    @Test
+    public void testRedirectToStartPageAfterLogoClick(){
+        getDriver().get(GUID_URL);
+        clickElement(LOGO_IMAGE,getDriver());
+
         Assert.assertEquals(getDriver().getCurrentUrl(),BASE_URL);
     }
 
