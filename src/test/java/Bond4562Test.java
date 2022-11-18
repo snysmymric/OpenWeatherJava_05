@@ -1,17 +1,20 @@
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import runner.BaseTest;
 
-import java.time.Duration;
+import java.util.List;
 
 
 public class Bond4562Test extends BaseTest {
 
     final static String BASE_URL = "https://openweathermap.org/";
+    final static String URL_BLOG_CAT_WEATHER = "https://openweather.co.uk/blog/category/weather";
 
     final static By SEARCH_GUIDE_BUTTON = By.xpath(
             "//div[@id='desktop-menu']//a[@href='/guide']");
@@ -21,6 +24,12 @@ public class Bond4562Test extends BaseTest {
             "//img[@src='/themes/openweathermap/assets/img/logo_white_cropped.png']");
     final static By SEARCH_PRICING_BUTTON = By.xpath(
             "//div[@id='desktop-menu']//a[@href='/price']");
+    final static By SEARCH_BLOG_NEWS = By.xpath(
+            "//div[@class='post-list']/div[@class='post']");
+    final static By SEARCH_PAGINATION = By.xpath(
+            "//div[@class='pagination-container']//a");
+    final static By SEARCH_FOOTER = By.xpath(
+            "//div[@id='footer-website']");
 
 
     private void openBaseURL() {
@@ -55,7 +64,22 @@ public class Bond4562Test extends BaseTest {
         wait.until(ExpectedConditions.presenceOfElementLocated(by));
     }
 
+    private List<WebElement> getWebElements(By by) {
 
+        return getDriver().findElements(by);
+    }
+
+    private void scrollTo(By by) {
+        WebElement scroll = getDriver().findElement(by);
+        new Actions(getDriver())
+                .scrollToElement(scroll)
+                .perform();
+    }
+
+    private void waitTextToBeChanged(By by, String text, WebDriver driver, WebDriverWait wait) {
+        wait.until(ExpectedConditions
+                .not(ExpectedConditions.textToBePresentInElement(driver.findElement(by), text)));
+    }
 
     private String actualUrl() {
 
@@ -114,6 +138,17 @@ public class Bond4562Test extends BaseTest {
         getDriver().get(expectedUrlPricing);
         Assert.assertEquals(actualTitle(), expectedTitlePricing);
         Assert.assertEquals(getText(SEARCH_HEADER_ROW, getDriver()), expectedTextPricing);
+    }
+
+    @Test
+    public void testBlogSetNumberPageCategoryWeather() {
+
+        getDriver().get(URL_BLOG_CAT_WEATHER);
+        List <WebElement> verifyChangeNews = getDriver().findElements(SEARCH_BLOG_NEWS);
+
+        scrollTo(SEARCH_FOOTER);
+        getWebElements(SEARCH_PAGINATION).get(0).click();
+        getWait5().until(ExpectedConditions.stalenessOf(verifyChangeNews.get(0)));
     }
 
 
