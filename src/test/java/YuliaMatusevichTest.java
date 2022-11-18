@@ -14,7 +14,7 @@ public class YuliaMatusevichTest extends BaseTest {
     final static String BASE_URL = "https://openweathermap.org/";
     final static By FACEBOOK_LINK = By.xpath("//div[@class = 'social']/a[1]");
     final static By TWITTER_LINK = By.xpath("//div[@class = 'social']/a[2]");
-
+    final static By LINKEDIN_LINK = By.xpath("//div[@class = 'social']/a[3]");
     public void openBaseUrl(){
         getDriver().get(BASE_URL);
     }
@@ -88,7 +88,20 @@ public class YuliaMatusevichTest extends BaseTest {
 
         Assert.assertTrue((actualResult.contains(expectedResult)));
     }
+    @Test
+    public void testLinkedInIcon_OnHomePage_WhenClickIcon(){
+        String expectedResult ="linkedin.com";
 
+        openBaseUrl();
+        waitForGrayFrameDisappeared();
+        scrollToPageBottom();
+        click(LINKEDIN_LINK, getWait20());
+        getWait20().until(ExpectedConditions.numberOfWindowsToBe(2));
+        switchWindows();
+        String actualResult = getDriver().getCurrentUrl();
+
+        Assert.assertTrue((actualResult.contains(expectedResult)));
+    }
 }
 
 
