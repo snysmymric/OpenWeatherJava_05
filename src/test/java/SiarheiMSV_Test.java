@@ -25,7 +25,6 @@ public class SiarheiMSV_Test extends BaseTest {
         wait.until(ExpectedConditions.elementToBeClickable(by)).click();
     }
 
-
     @Test
 
     public void RFMainNavBarMenuDashboard_testTitleText_WhenChooseMenuDashboard_SiarheiMSV (){
