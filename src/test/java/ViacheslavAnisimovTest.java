@@ -175,20 +175,19 @@ public class ViacheslavAnisimovTest extends BaseTest {
 
     @Test
     public void TestSignInToYourAccount_HappyPath() {
-        String expectedResult2 = "Signed in successfully.";
+        String expectedResult = "Signed in successfully.";
         openBaseURL();
         waitForGrayFrameDisappeared();
 
         click(LINK_SIGN_IN, getWait5());
 
-        String actualResult = getDriver().getCurrentUrl();
         click(ENTER_EMAIL_FIELD, getWait5());
 
         enterEmailAndPassword(EMAIL, PASSWORD);
 
-        String actualResult2 = getDriver().findElement(SUCCESSFULL_LOGIN_TEXT).getText();
+        String actualResult = getDriver().findElement(SUCCESSFULL_LOGIN_TEXT).getText();
 
-        Assert.assertEquals(actualResult2, expectedResult2);
+        Assert.assertEquals(actualResult, expectedResult);
 
     }
 }
