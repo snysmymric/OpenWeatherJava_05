@@ -7,16 +7,17 @@ import org.testng.annotations.Test;
 import runner.BaseTest;
 
 import java.util.Random;
-import java.util.UUID;
 
 public class OMalanovaTest extends BaseTest {
     final static String BASE_URL = "https://openweathermap.org/";
     final static By SEARCH_CITY_FIELD = By.xpath("//div[@id = 'weather-widget']//input[@placeholder = 'Search city']");
     final static By SEARCH_BUTTON = By.xpath("//div[@id = 'weather-widget']//button[@type = 'submit']");
     final static By NOTICE_TEXT = By.xpath("//div[@id = 'weather-widget']//div[@class = 'sub not-found notFoundOpen']");
+    final static By NOTICE_CONTAINER = By.xpath("//div[@class = 'sub not-found']");
     final static By NOTIFICATION_TEXT = By.xpath("//div[@class = 'widget-notification']");
     final static String CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890";
     final static int STR_LENGTH = (int) (Math.random() * 78 + 3);
+    final static int STR_LENGTH_012 = (int) (Math.random() * 3);
     private void openBaseURL() {
         getDriver().get(BASE_URL);
     }
@@ -44,7 +45,7 @@ public class OMalanovaTest extends BaseTest {
         Random random = new Random();
 
         StringBuilder builder = new StringBuilder();
-        for (int i = 0; i < STR_LENGTH; i++) {
+        for (int i = 0; i < strLength; i++) {
             int number = random.nextInt(CHARS.length());
             char ch = CHARS.charAt(number);
             builder.append(ch);
@@ -82,5 +83,20 @@ public class OMalanovaTest extends BaseTest {
         String actualResult = getText(NOTIFICATION_TEXT, getDriver());
 
         Assert.assertEquals(actualResult, expectedResult);
+    }
+
+    @Test
+    public void testNoView_NoticeText_WhenCityNameFromRandomSymbols() {
+        String cityName = createRandomString(STR_LENGTH_012);
+
+        openBaseURL();
+        waitForGrayFrameDisappeared();
+
+        click(SEARCH_CITY_FIELD, getWait10());
+        input(cityName, SEARCH_CITY_FIELD, getDriver());
+        click(SEARCH_BUTTON, getWait10());
+
+        Assert.assertFalse(getDriver().findElement(NOTICE_CONTAINER).isDisplayed());
+
     }
 }
