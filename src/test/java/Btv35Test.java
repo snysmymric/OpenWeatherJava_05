@@ -18,9 +18,16 @@ public class Btv35Test extends BaseTest {
     final static By SEARCH_DROPDOWN_MENU = By.className("search-dropdown-menu");
     final static By PARIS_FR_CHOICE_IN_DROP_DOWN_MENU =
             By.xpath("//ul[@class='search-dropdown-menu']/li/span[text() = 'Paris, FR ']");
-
-
     final static By MENU_GUIDE = By.xpath("//div[@id = 'desktop-menu']//a [@href = '/guide']");
+
+
+
+    final static By COOKIES_PANEL = By.xpath("//div[@id = 'stick-footer-panel']" +
+            "//p[@class='stick-footer-panel__description']");
+    final static By BUTTON_ALLOW_ALL = By.xpath("//div[@id='stick-footer-panel']"
+            + "//button[@class='stick-footer-panel__link']");
+    final static By BUTTON_MANAGE_COOKIES = By.xpath("//div[@id='stick-footer-panel']"
+            + "//a[text()=' Manage cookies ']");
 
     private void openBaseUrl () {
         getDriver().get(BASE_URL);
@@ -104,31 +111,22 @@ public class Btv35Test extends BaseTest {
 
         Assert.assertTrue(temperatureInFahrenheit.getText().contains(expectedResult));
     }
-    @Ignore
+
     @Test
-    public void testTwoButtonsOnTheCookiesMessage() throws InterruptedException {
-        String url = "https://openweathermap.org/";
+    public void testTwoButtonsOnTheCookiesMessage(){
         String cookies = "We use cookies which are essential for the site to work. We also use "
                 + "non-essential cookies to help us improve our services. Any data collected is "
                 + "anonymised. You can allow all cookies or manage them individually.";
         String expectedResultAllowAll = "Allow all";
         String expectedResultManageCookies = "Manage cookies";
 
-        getDriver().get(url);
-        Thread.sleep(10000);
+        openBaseUrl();
 
-        WebElement cookiesPanel = getDriver().findElement(
-                By.xpath("//div[@id = 'stick-footer-panel']" +
-                        "//p[@class='stick-footer-panel__description']"));
-        Assert.assertEquals(cookies, cookiesPanel.getText());
+        Assert.assertEquals(cookies, getText(COOKIES_PANEL,getDriver()));
 
-        WebElement buttonAllowAll = getDriver().findElement(
-                By.xpath("//div[@id='stick-footer-panel']//button[@class='stick-footer-panel__link']"));
-        String actualResultAllowAllButton = buttonAllowAll.getText();
+        String actualResultAllowAllButton = getText(BUTTON_ALLOW_ALL, getDriver());
 
-        WebElement buttonManageCookies = getDriver().findElement(
-                By.xpath("//div[@id='stick-footer-panel']//a[text()=' Manage cookies '] "));
-        String actualResultButtonManageCookies = buttonManageCookies.getText();
+        String actualResultButtonManageCookies = getText(BUTTON_MANAGE_COOKIES,getDriver());
 
         Assert.assertEquals(actualResultAllowAllButton, expectedResultAllowAll);
         Assert.assertEquals(actualResultButtonManageCookies, expectedResultManageCookies);
