@@ -1,10 +1,14 @@
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import runner.BaseTest;
+
+import java.util.List;
 
 public class LarisaBratukhinaTest extends BaseTest {
 
@@ -18,6 +22,9 @@ public class LarisaBratukhinaTest extends BaseTest {
     final static By SEARCH_DROPDOWN_MENU = By.className("search-dropdown-menu");
     final static By PARIS_FR_CHOICE_DROPDOWN_MENU = By.xpath(
             "//ul[@class = 'search-dropdown-menu']/li/span[text() = 'Paris, FR ']");
+    final static By TEXT_DOWNLOAD_OPEN_WEATHER_APP = By.xpath("//div[@class='my-5']/p[@style='margin: 0;']");
+    final static By DOWNLOAD_BUTTONS_PANEL = By.xpath(
+            "//div[@class='my-5']/div[@style='display: flex; flex-direction: row;']/a");
 
     private void openBaseURL() {
         getDriver().get(BASE_URL);
@@ -63,6 +70,21 @@ public class LarisaBratukhinaTest extends BaseTest {
                 By.className("owm-loader-container")));
     }
 
+    public int findAllVisibleElements(String xpath, WebDriverWait wait) {
+        wait.until(ExpectedConditions.visibilityOfAllElements(getDriver().findElement(By.xpath(xpath))));
+        List<WebElement> elements = getDriver().findElements(By.xpath(xpath));
+        for (WebElement element : elements) {
+            wait.until(ExpectedConditions.elementToBeClickable(element));
+        }
+
+        return elements.size();
+    }
+
+    private void scrollByVisibleElement(By by) {
+        JavascriptExecutor js = (JavascriptExecutor) getDriver();
+        js.executeScript("arguments[0].scrollIntoView();", getDriver().findElement(by));
+    }
+
     @Test
     public void testH2TagText_WhenSearchingCityCountry() {
         String cityName = "Paris";
@@ -96,5 +118,26 @@ public class LarisaBratukhinaTest extends BaseTest {
         waitLoadingLogoToBeChanged();
 
         Assert.assertEquals(getCurrentUrl(), BASE_URL);
+    }
+
+    @Test
+    public void testDownloadOpenWeatherAppAndAllStoreButtonsAreVisible() {
+        int expectedResultAllStoreButtonsVisible = 2;
+        String expectedResultText = "Download OpenWeather app";
+
+        openBaseURL();
+        waitForGrayFrameDisappeared();
+        waitElementToBeVisible(TEXT_DOWNLOAD_OPEN_WEATHER_APP, getWait5());
+
+        String actualResultText = getText(TEXT_DOWNLOAD_OPEN_WEATHER_APP, getDriver());
+
+        Assert.assertEquals(actualResultText, expectedResultText);
+
+        int actualResultAllStoreButtonsVisible = findAllVisibleElements(
+                "//div[@class='my-5']/div[@style='display: flex; flex-direction: row;']/a", getWait5());
+
+        scrollByVisibleElement(DOWNLOAD_BUTTONS_PANEL);
+
+        Assert.assertEquals(actualResultAllStoreButtonsVisible, expectedResultAllStoreButtonsVisible);
     }
 }
