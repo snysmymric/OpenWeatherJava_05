@@ -1,47 +1,63 @@
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
-import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import runner.BaseTest;
 
-@Ignore
+
 public class IrynaDanilevskaTest extends BaseTest {
+    final static String BASE_URL = "https://openweathermap.org/";
 
-    @Ignore
+    final static By H2_CITY_COUNTRY_HEADER = By.xpath("//div[@id = 'weather-widget']//h2");
+    final static By SEARCH_CITY_FIELD = By.xpath("//div[@id = 'weather-widget']//input[@placeholder = 'Search city']");
+    final static By SEARCH_BUTTON = By.xpath("//button[@type = 'submit']");
+    final static By SEARCH_DROPDOWN_MENU = By.className("search-dropdown-menu");
+    final static By PARIS_FR_CHOICE_IN_DROPDOWN_MENU = By.xpath("//ul[@class = 'search-dropdown-menu']/li/span[text() = 'Paris, FR ']");
+
+    private void openBaseURL(){
+        getDriver().get(BASE_URL);
+    }
+    private  void waitForGrayFrameDisappeared(){
+        getWait20().until(ExpectedConditions.invisibilityOfElementLocated(By.className(
+                "owm-loader-container"
+        )));
+    }
+    private String getText(By by, WebDriver driver){
+        return driver.findElement(by).getText();
+    }
+    private void click(By by, WebDriverWait wait){
+        wait.until(ExpectedConditions.visibilityOfElementLocated(by));
+        wait.until(ExpectedConditions.elementToBeClickable(by)).click();
+    }
+    private void input(String text, By by, WebDriver driver){
+        driver.findElement(by).sendKeys(text);
+    }
+    private void waitElementToBeVisible(By by, WebDriverWait wait){
+        wait .until(ExpectedConditions.visibilityOfElementLocated(by));
+    }
+    private void waitTextToBeChanged(By by, String text, WebDriver driver, WebDriverWait wait){
+        wait.until(ExpectedConditions.
+                not(ExpectedConditions.textToBePresentInElement(driver.findElement(by), text)));
+    }
+
     @Test
-    public void testFarengeitDegreesDisplayingOnMainPage_AfterClickingOnImperialButton() throws InterruptedException {
+    public void testH2TagText_WhenSearchCityCountry() {
+        String cityName = "Paris";
+        String expectedResult = "Paris, FR";
 
-        String url = "https://openweathermap.org/";
-        String expectedResult = "°F";
+        openBaseURL();
+        waitForGrayFrameDisappeared();
+        String oldH2Header = getText(H2_CITY_COUNTRY_HEADER, getDriver());
+        click(SEARCH_CITY_FIELD, getWait5());
+        input(cityName,SEARCH_CITY_FIELD,getDriver());
+        click(SEARCH_BUTTON,getWait5());
+        waitElementToBeVisible(SEARCH_DROPDOWN_MENU, getWait10());
+        click(PARIS_FR_CHOICE_IN_DROPDOWN_MENU, getWait10());
+        waitTextToBeChanged(H2_CITY_COUNTRY_HEADER, oldH2Header,getDriver(),getWait10());
+        String actualResult = getText(H2_CITY_COUNTRY_HEADER, getDriver());
 
-        getDriver().get(url);
-        getDriver().manage().window().maximize();
-        Thread.sleep(10000);
-
-        WebElement switchDegreeValue = getDriver().findElement(
-                By.xpath("//div[contains(text(),'Imperial: °F, mph')]")
-        );
-        switchDegreeValue.click();
-        Thread.sleep(5000);
-
-        WebElement valueDegreeLondon9Days = getDriver().findElement(
-                By.xpath("//span[contains(text(),('°F'))]")
-        );
-        WebElement dewPoint = getDriver().findElement(
-                By.xpath("//ul/li[contains(text(),('°F'))]")
-        );
-        WebElement feelsLike = getDriver().findElement(
-                By.xpath("//div[contains(text(),('°F'))]")
-        );
-        String actualResult1 = valueDegreeLondon9Days.getText();
-        String actualResult2 = dewPoint.getText();
-        String actualResult3 = feelsLike.getText();
-
-        Assert.assertTrue(actualResult1.contains(expectedResult));
-        Assert.assertTrue(actualResult3.contains(expectedResult));
-        Assert.assertTrue(actualResult2.contains(expectedResult));
-
-        Thread.sleep(5000);
+        Assert.assertEquals(actualResult, expectedResult);
     }
 }
