@@ -49,21 +49,23 @@ public class YuliaMatusevichTest extends BaseTest {
         Assert.assertEquals(actualResult,expectedResult);
     }
 
-    @Ignore
+
     @Test
     public void testFacebookIcon_IfCorrespondingFacebookWebpageOpens(){
-        String expectedResult = "https://www.facebook.com/groups/270748973021342";
+        String expectedResult ="facebook.com";
 
         openBaseUrl();
         waitForGrayFrameDisappeared();
         scrollToPageBottom();
-        click(FACEBOOK_LINK, getWait5());
+        click(FACEBOOK_LINK, getWait20());
+        getWait20().until(ExpectedConditions.numberOfWindowsToBe(2));
 
         for(String winHandle : getDriver().getWindowHandles()){
             getDriver().switchTo().window(winHandle);
         }
+        String actualResult = getDriver().getCurrentUrl();
 
-        Assert.assertTrue((getDriver().getCurrentUrl().contains(expectedResult)));
+        Assert.assertTrue((actualResult.contains(expectedResult)));
     }
 }
 
