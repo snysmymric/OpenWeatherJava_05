@@ -19,6 +19,9 @@ public class Btv35Test extends BaseTest {
     final static By PARIS_FR_CHOICE_IN_DROP_DOWN_MENU =
             By.xpath("//ul[@class='search-dropdown-menu']/li/span[text() = 'Paris, FR ']");
 
+
+    final static By MENU_GUIDE = By.xpath("//div[@id = 'desktop-menu']//a [@href = '/guide']");
+
     private void openBaseUrl () {
         getDriver().get(BASE_URL);
     }
@@ -42,6 +45,9 @@ public class Btv35Test extends BaseTest {
         wait.until(ExpectedConditions.
                 not(ExpectedConditions.textToBePresentInElement(driver.findElement(by),text)));
     }
+    private String currentUrl () {
+        return getDriver().getCurrentUrl();
+    }
     @Test
     public void testH2TagText_WhenSearchingCityCountry(){
         String cityName = "Paris";
@@ -60,24 +66,15 @@ public class Btv35Test extends BaseTest {
 
         Assert.assertEquals(actualResult,expectedResult);
     }
-    @Ignore
     @Test
-    public void testGuideMenuWithTitle_OpenWeatherMapAPIGuide() throws InterruptedException {
-        String url = "https://openweathermap.org/";
+    public void testGuideMenuWithTitle_OpenWeatherMapAPIGuide() {
         String guideUrl = "https://openweathermap.org/guide";
         String expectedResult = "OpenWeatherMap API guide - OpenWeatherMap";
 
-        getDriver().get(url);
-        Thread.sleep(10000);
-
-        WebElement menuGuide = getDriver().findElement(
-                By.xpath("//div[@id = 'desktop-menu']//a [@href = '/guide']"));
-        menuGuide.click();
-        Thread.sleep(7000);
-
-        getDriver().getCurrentUrl();
-
-        Assert.assertEquals(guideUrl, getDriver().getCurrentUrl());
+        openBaseUrl();
+        waitForGreyFrameDisappeared();
+        click(MENU_GUIDE,getWait5());
+        Assert.assertEquals(guideUrl,currentUrl());
 
         String actualResult = getDriver().getTitle();
 
