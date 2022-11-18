@@ -17,6 +17,8 @@ public class LiudmilaPlucciTest extends BaseTest {
     final static By SEARCH_BUTTON = By.xpath("//div[@id='weather-widget']//button[@type='submit']");
     final static By SEARCH_DROPDOWN_MENU =  By.className("search-dropdown-menu");
     final static By PARIS_FR_CHOICE_IN_DROPDOWN_MENU = By.xpath("//ul[@class=\"search-dropdown-menu\"]//li//span[text() = 'Paris, FR ']");
+    final static By MENU_PRICING_BUTTON = By.xpath("//div[@id='desktop-menu']//a[@href='/price']");
+    final static By BREADCRUMB_ENDPOINT= By.className("breadcrumb__leaf");
     private void openBaseURL() {
 
         getDriver().get(BASE_URL);
@@ -135,5 +137,22 @@ public class LiudmilaPlucciTest extends BaseTest {
         Assert.assertEquals(checkIfTextFAQIsPresent.getText(), expectedResultFAQ);
         Assert.assertEquals(checkIfTextHowToStartIsPresent.getText(), expectedResultHowToStart);
         Assert.assertEquals(checkIfTextAskAQuestionIsPresent.getText(), expectedResultAskAQuestion);
+    }
+    @Test
+    public void test_VerifyThePagePricingOpened_WhenClickPricingBtnAtMenu_BreadcrumbsPricing() {
+
+        String expectedUrl = String.format("%sprice", BASE_URL);
+        String expectedBreadcrumbEndpoint = "Pricing";
+
+        openBaseURL();
+        waitForGrayFrameDisappeared();
+
+        click(MENU_PRICING_BUTTON, getWait5());
+
+        String currentUrl = getDriver().getCurrentUrl();
+        String currentBreadcrumbEndpoint = getText(BREADCRUMB_ENDPOINT, getDriver());
+
+        Assert.assertEquals(currentUrl, expectedUrl);
+        Assert.assertEquals(currentBreadcrumbEndpoint, expectedBreadcrumbEndpoint);
     }
 }
