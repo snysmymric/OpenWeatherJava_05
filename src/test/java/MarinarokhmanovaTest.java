@@ -19,6 +19,10 @@ public class MarinarokhmanovaTest extends BaseTest {
 
     final static By GUIDE_SEARCH_FIELD = By.xpath("//a[@href][text()='Guide']");
 
+    final static By LOGO_OPEN_WEATHER =
+            By.xpath("//img[@src='/themes/openweathermap/assets/img/logo_white_cropped.png']");
+
+
     private void openBaseURL(){
         getDriver().get(Base_URL);
     }
@@ -90,12 +94,11 @@ public class MarinarokhmanovaTest extends BaseTest {
     @Ignore
     @Test
     public void testUnitsImperialCtoF() throws InterruptedException {
-        String url = "https://openweathermap.org/";
+
         String expectedResult = "°F";
 
-        getDriver().get(url);
-        getDriver().manage().window().maximize();
-        Thread.sleep(7000);
+        openBaseURL();
+        waitForGrayFrameDisappeared();
 
         WebElement unitsImperialF = getDriver().findElement(
                 By.xpath("//div[@class ='option'][text()='Imperial: °F, mph']")
@@ -144,23 +147,17 @@ public class MarinarokhmanovaTest extends BaseTest {
         Assert.assertTrue(actualResult, expectedResult);
     }
 
-    @Ignore
+
     @Test
-    public void testLogoComp_OpenWeather() throws InterruptedException {
-        String url = "https://openweathermap.org/";
+    public void testLogoComp_OpenWeather()  {
+
         String expectedResult = "https://openweathermap.org/";
 
-        getDriver().get(url);
-        getDriver().manage().window().maximize();
-        Thread.sleep(10000);
+        openBaseURL();
+        waitForGrayFrameDisappeared();
 
-        WebElement logoCompOpenWeather = getDriver().findElement(
-                By.xpath("//img[@src='/themes/openweathermap/assets/img/logo_white_cropped.png']"));
-        logoCompOpenWeather.click();
-        Thread.sleep(10000);
+        click(LOGO_OPEN_WEATHER, getDriver());
 
-        String actualResult = getDriver().getCurrentUrl();
-
-        Assert.assertEquals(actualResult, expectedResult);
+        Assert.assertEquals(getDriver().getCurrentUrl(), expectedResult);
     }
 }
