@@ -100,16 +100,14 @@ public class NataliadylaiTest extends BaseTest {
     }
 
 
-    @Ignore
+
     @Test
     public void testChangingTempUnitInHeading_WhenSwitchTempUnitButton()  {
        openBaseURL();
        waitForGrayFrameDisappeared();
-       waitElementToBeVisible(TEMP_UNIT, getWait20());
        click(TEMP_UNIT, getWait20());
        waitElementToBeVisible(TEMP_UNIT_HEADING, getWait20());
-       boolean actualResult = getText(TEMP_UNIT_HEADING, getDriver()).contains("°F");
-       Assert.assertTrue(actualResult);
+       Assert.assertTrue(getText(TEMP_UNIT_HEADING, getDriver()).contains("°F"));
     }
 
     @Ignore
@@ -190,7 +188,7 @@ public class NataliadylaiTest extends BaseTest {
         Assert.assertEquals(actualResult,expectedResult);
     }
 
-
+    @Ignore
     @Test
     public void test_CorrectPageUpdatedAfterClickOnLogo() {
         String expectedResult = "https://openweathermap.org/";
