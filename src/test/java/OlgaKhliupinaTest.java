@@ -1,5 +1,6 @@
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
@@ -17,6 +18,11 @@ public class OlgaKhliupinaTest extends BaseTest {
    final static By MENU_GUIDE = By.xpath("//div/ul//li/a[@href='/guide']");
    final static By GUIDE_TITLE = By.className("breadcrumb-title");
    final static By LOGO = By.xpath("//img[@src='/themes/openweathermap/assets/img/logo_white_cropped.png']");
+   final static By GITHUB_ICON =
+           By.xpath("//img[@src='/themes/openweathermap/assets/img/owm_icons/icon_github.png']");
+   final static By GITHUB_ICON_LINK =
+           By.xpath("//a[@href='https://github.com/search?q=openweathermap&ref=cmdform']");
+   final static By ALLOW_ALL_BUTTON = By.xpath("//button[@type='button']");
 
    private void openBaseURL() {
       getDriver().get(BASE_URL);
@@ -42,6 +48,31 @@ public class OlgaKhliupinaTest extends BaseTest {
    private void click(By by,  WebDriverWait wait) {
       wait.until(ExpectedConditions.visibilityOfElementLocated(by));
       wait.until(ExpectedConditions.elementToBeClickable(by)).click();
+   }
+
+   private void visibleElement(By by, WebDriverWait wait) {
+      wait.until(ExpectedConditions.visibilityOfElementLocated(by));
+   }
+
+   private void scrollDownToElement(By by, WebDriver driver) {
+      Actions a = new Actions(driver);
+      a.moveToElement(driver.findElement(by));
+   }
+
+   private void switchToAnotherWindow(WebDriver driver) {
+      String originalWindow = driver.getWindowHandle();
+
+      for (String windowHandle : driver.getWindowHandles()) {
+         if (!originalWindow.equals(windowHandle)) {
+            driver.switchTo().window(windowHandle);
+            break;
+         }
+      }
+   }
+
+   private boolean isElementDisplayed(By by, WebDriver driver) {
+
+      return driver.findElement(by).isDisplayed();
    }
 
    @Test
@@ -87,5 +118,22 @@ public class OlgaKhliupinaTest extends BaseTest {
       waitForGrayFrameDisappeared();
 
       Assert.assertTrue(isTempInSymbol(getDriver(), TEMP_C, SYMBOL_TEMP_C));
+   }
+
+   @Test
+   public void testGithubIconExistsAfterClickNavigateToGithub() throws InterruptedException {
+      String expectedResult2 = "https://github.com/search?q=openweathermap&ref=cmdform";
+
+      openBaseURL();
+      waitForGrayFrameDisappeared();
+      scrollDownToElement(GITHUB_ICON, getDriver());
+      click(ALLOW_ALL_BUTTON, getWait20());
+
+      Assert.assertTrue(isElementDisplayed(GITHUB_ICON, getDriver()));
+
+      click(GITHUB_ICON_LINK,getWait20());
+      switchToAnotherWindow(getDriver());
+
+      Assert.assertEquals(getDriver().getCurrentUrl(), expectedResult2);
    }
 }
