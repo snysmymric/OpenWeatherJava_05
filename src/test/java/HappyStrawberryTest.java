@@ -1,59 +1,37 @@
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
-import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import runner.BaseTest;
 
-@Ignore
 public class HappyStrawberryTest extends BaseTest {
 
+    private static final String URL = "https://openweathermap.org/";
 
+    private void openBaseURL() {
+        getDriver().get(URL);
+    }
 
+    private void waitForGrayFrameDisappeared() {
+        getWait20().until(ExpectedConditions.invisibilityOfElementLocated(
+                By.className("owm-loader-container")));
+    }
 
-       @Test
+    @Test
+    public void testMenuPricingIsClickable() {
 
-       public void testH2TagWhensearchingCityCountry() throws InterruptedException {
-           String url = "https://openweathermap.org/";
-           String cityName = "Paris";
-           String expectedResult = "Paris, FR";
+        openBaseURL();
 
-           getDriver().get(url);
-           Thread.sleep(10000);
+        waitForGrayFrameDisappeared();
 
-           WebElement searchCityField = getDriver().findElement(
-                   By.xpath("//input[@placeholder='Search city']"
-                   ));
+        WebElement MenuPricing = getDriver().findElement(
+                By.xpath("//div[@id='desktop-menu']//a[@href='/price']")
+        );
+        MenuPricing.click();
 
-           searchCityField.click();
-           searchCityField.sendKeys(cityName);
-
-
-           WebElement searchButton = getDriver().findElement(
-                   By.xpath("//div[@id='weather-widget']//button[@type='submit']")
-           );
-           searchButton.click();
-           Thread.sleep(2000);
-
-           WebElement parisFrChoiceInDropdownMenu = getDriver().findElement(
-                   By.xpath("//ul[@class='search-dropdown-menu']//li//span[text() = 'Paris, FR ']")
-           );
-           parisFrChoiceInDropdownMenu.click();
-
-
-           WebElement h2CittCountryHeader = getDriver().findElement(
-                   By.xpath("//div[@id= 'weather-widget']//h2")
-           );
-
-           Thread.sleep(2000);//задержка запуска сайта
-
-           String actualResult = h2CittCountryHeader.getText();
-
-
-           Assert.assertEquals(actualResult, expectedResult);
-
-       }
-
+        Assert.assertEquals(getDriver().findElement(
+                By.xpath("//div/div/div[1]/h1[@class='breadcrumb-title']")
+        ).getText(), "Pricing");
+    }
 }
