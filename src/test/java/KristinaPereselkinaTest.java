@@ -9,6 +9,7 @@ import runner.BaseTest;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 public class KristinaPereselkinaTest extends BaseTest {
@@ -19,7 +20,10 @@ public class KristinaPereselkinaTest extends BaseTest {
     final static By H2 = By.xpath("//h2[text()='Professional collections']");
     final static By PROFFESSIONAL_COLLECTION_TABLE_HEAD = By.xpath("//h3/b");
     final static By H2_HEADER_NAME_PROFESSIONAL_COLLECTION = By.xpath("//h2[text()= 'Current weather and forecasts collection']");
+    final static By COLLECTION_SUBSCRIPTION_PAYMENT = By.xpath("//div/table//th/h4/b");
+    final static By BUTTON_SUBSCRIPTION = By.xpath("//div/table//th/a");
     final static By COLLECTION_PRODUCTS = By.xpath("//div/table//td[1]/p");
+
 
     private List<String> getExpectedListProfessionalCollectionTableHead() {
         List<String> expectedList = new ArrayList<>();
@@ -52,6 +56,26 @@ public class KristinaPereselkinaTest extends BaseTest {
 
         return expectedList;
     }
+    private List<String> getExpectedListCollectionSubscribtionPayment() {
+        List<String> expectedList = new ArrayList<>();
+        expectedList.add("40 USD");
+        expectedList.add("180 USD");
+        expectedList.add("470 USD");
+        expectedList.add("2000 USD");
+
+        return expectedList;
+    }
+
+    private List<String> getExpectedListButtonSubscription() {
+        List<String> expectedList = new ArrayList<>();
+        expectedList.add("Get API key");
+        expectedList.add("Subscribe");
+        expectedList.add("Subscribe");
+        expectedList.add("Subscribe");
+        expectedList.add("Subscribe");
+
+        return expectedList;
+    }
 
     private List<String> getActualList(By locator) {
         List<String> actualListItems = new ArrayList<>();
@@ -59,6 +83,7 @@ public class KristinaPereselkinaTest extends BaseTest {
         for (WebElement items : listItemsInMenu) {
             actualListItems.add(items.getText());
         }
+        actualListItems = actualListItems.stream().map(String::trim).collect(Collectors.toList());
 
         return actualListItems;
     }
@@ -125,6 +150,20 @@ public class KristinaPereselkinaTest extends BaseTest {
     }
 
     @Test
+    public void testCollectionSubscribtionPayment() {
+
+        List<String> expectedList = getExpectedListCollectionSubscribtionPayment();
+
+        openBaseURL();
+        waitForGrayFrameDisappeared();
+        click(A_HREF_PRICE, getWait5());
+
+        List<String> actualList = getActualList(COLLECTION_SUBSCRIPTION_PAYMENT);
+
+        Assert.assertEquals(actualList, expectedList);
+    }
+
+    @Test
     public void testListOfProductsForProfessionalCollection() {
 
         List<String> expectedList = getExpectedProductList();
@@ -134,6 +173,20 @@ public class KristinaPereselkinaTest extends BaseTest {
         click(A_HREF_PRICE, getWait5());
 
         List<String> actualList = getActualList(COLLECTION_PRODUCTS);
+
+        Assert.assertEquals(actualList, expectedList);
+    }
+
+    @Test
+    public void testSubscriptionButtonForProfessionalCollection() {
+
+        List<String> expectedList = getExpectedListButtonSubscription();
+
+        openBaseURL();
+        waitForGrayFrameDisappeared();
+        click(A_HREF_PRICE, getWait5());
+
+        List<String> actualList = getActualList(BUTTON_SUBSCRIPTION);
 
         Assert.assertEquals(actualList, expectedList);
     }
