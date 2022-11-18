@@ -1,11 +1,14 @@
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import runner.BaseTest;
+
+import java.util.List;
 
 
 public class IrynaHryhorivTest extends BaseTest {
@@ -25,6 +28,8 @@ public class IrynaHryhorivTest extends BaseTest {
     final static String SYMBOL_TEMP_C = "°C";
     final static By APPROVE_DEGREES = By.xpath("//div[@id='weather-widget']//span[@class='heading']");
     final static By LOGO = By.xpath( "//li[@class='logo']//img");
+    final static By BUTTONS = By.xpath("//a[contains(@class, 'orange')]");
+
 
     private void openBaseURL() {
         getDriver().get(BASE_URL);
@@ -83,6 +88,17 @@ public class IrynaHryhorivTest extends BaseTest {
 
         return getDriver().findElement(by);
     }
+    private int seeAllElementAndCount(String whichElement, WebDriverWait wait) {
+        wait.until(ExpectedConditions.visibilityOfAllElements(getDriver().findElement(By.xpath(whichElement))));
+        List<WebElement> allElements = getDriver().findElements(By.xpath(whichElement));
+        int count = allElements.size();
+        for (WebElement checkedElement : allElements) {
+            wait.until(ExpectedConditions.elementToBeClickable(checkedElement));
+        }
+
+        return count;
+    }
+
     @Test
     public void testH2TagText_WhenSearchingCityCountry() {
         String cityName = "Paris";
@@ -177,5 +193,21 @@ public class IrynaHryhorivTest extends BaseTest {
             String actualLogoImageLink = getWebElement(LOGO).getAttribute("src");
 
             Assert.assertEquals(actualLogoImageLink, expectedResult);
+    }
+   @Test
+    public void testConfirmAPI30OrangeButton(){
+
+        openBaseURL();
+        waitForGrayFrameDisappeared();
+
+        int expectedResult = 30;
+
+        click(CONFIRM_API, getWait10());
+
+       Assert.assertTrue(getWebElement(BUTTONS).isDisplayed());
+
+       int actualResult = seeAllElementAndCount("//a[contains(@class, 'orange')]", getWait5());
+
+       Assert.assertEquals(actualResult, expectedResult);
     }
 }
