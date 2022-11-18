@@ -1,13 +1,10 @@
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
-import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import runner.BaseTest;
-
 
 public class NataliiaOliverTest extends BaseTest {
 
@@ -20,6 +17,7 @@ public class NataliiaOliverTest extends BaseTest {
     final static By PARIS_FR_CHOICE_IN_DROPDOWN_MENU = By.xpath("//ul[@class = 'search-dropdown-menu']/li/span[text() = 'Paris, FR ']");
 
     private void openBaseURL() {
+
         getDriver().get(BASE_URL);
     }
 
@@ -31,6 +29,11 @@ public class NataliiaOliverTest extends BaseTest {
     private String getText(By by, WebDriver driver) {
 
         return driver.findElement(by).getText();
+    }
+
+    private String getTextAttribute(By by, String attribute, WebDriver driver) {
+
+        return driver.findElement(by).getAttribute(attribute);
     }
 
     private void click(By by,  WebDriverWait wait) {
@@ -71,5 +74,18 @@ public class NataliiaOliverTest extends BaseTest {
         String actualResult = getText(H2_CITY_COUNTRY_HEADER, getDriver());
 
         Assert.assertEquals(actualResult, expectedResult);
+    }
+
+    @Test
+    public void testSearchBlockText_ShownSearchCityField() {
+        String expectedTextSearchCityField = "Search city";
+
+        openBaseURL();
+        waitForGrayFrameDisappeared();
+        click(SEARCH_CITY_FIELD,getWait5());
+
+       String actualTextSearchCityField = getTextAttribute(SEARCH_CITY_FIELD, "placeholder", getDriver());
+
+        Assert.assertEquals(actualTextSearchCityField, expectedTextSearchCityField);
     }
 }
