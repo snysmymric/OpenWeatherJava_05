@@ -12,6 +12,8 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.numberOfWindowsT
 
 public class ViacheslavAnisimovTest extends BaseTest {
     final static String BASE_URL = "https://openweathermap.org/";
+    final static String EMAIL = "jka59433@xcoxc.com";
+    final static String PASSWORD = "Tester12#";
 
     final static By H_2_CITY_COUNTRY_HEADER = By.xpath("//div[@id = 'weather-widget']//h2");
     final static By SEARCH_CITY_FIELD = By.xpath("//div[@id='weather-widget']//input[@placeholder = 'Search city']");
@@ -22,7 +24,11 @@ public class ViacheslavAnisimovTest extends BaseTest {
     final static By LINK_TO_GUIDE_IN_HAMBURGER_MENU = By.xpath("//ul[@id='mobile-menu']//a[@href='/guide']");
     final static By LINK_TO_MARKETPLACE = By.linkText("Marketplace");
     final static By LINK_TO_HISTORY_WEATHER_DATA = By.xpath("//div[@id='footer-website']//a[@href='/api#history']");
-
+    final static By LINK_SIGN_IN = By.xpath("//div[@id='desktop-menu']//li/a[@href='https://openweathermap.org/home/sign_in']");
+    final static By ENTER_EMAIL_FIELD = By.xpath("//input[@id='user_email']");
+    final static By PASSWORD_FIELD = By.xpath(("//input[@id='user_password']"));
+    final static By SUBMIT_BUTTON = By.xpath("//input[@name='commit']");
+    final static By SUCCESSFULL_LOGIN_TEXT = By.xpath("//div[@class='panel-body']");
 
     private void openBaseURL() {
         getDriver().get(BASE_URL);
@@ -77,6 +83,19 @@ public class ViacheslavAnisimovTest extends BaseTest {
     private void scrollDown() {
         JavascriptExecutor js = (JavascriptExecutor) getDriver();
         js.executeScript("window.scrollTo(0, document.body.scrollHeight)");
+    }
+
+    private void enterEmailAndPassword(String email, String password) {
+        WebElement emailField = getDriver().findElement(ENTER_EMAIL_FIELD);
+        emailField.click();
+        emailField.sendKeys(email);
+
+        WebElement passwordField = getDriver().findElement(PASSWORD_FIELD);
+        passwordField.click();
+        passwordField.sendKeys(password);
+
+        WebElement submitButton = getDriver().findElement(SUBMIT_BUTTON);
+        submitButton.click();
     }
 
     @Test
@@ -152,5 +171,24 @@ public class ViacheslavAnisimovTest extends BaseTest {
         String actualResult = getDriver().getCurrentUrl();
 
         Assert.assertEquals(actualResult, expectedResult);
+    }
+
+    @Test
+    public void TestSignInToYourAccount_HappyPath() {
+        String expectedResult2 = "Signed in successfully.";
+        openBaseURL();
+        waitForGrayFrameDisappeared();
+
+        click(LINK_SIGN_IN, getWait5());
+
+        String actualResult = getDriver().getCurrentUrl();
+        click(ENTER_EMAIL_FIELD, getWait5());
+
+        enterEmailAndPassword(EMAIL, PASSWORD);
+
+        String actualResult2 = getDriver().findElement(SUCCESSFULL_LOGIN_TEXT).getText();
+
+        Assert.assertEquals(actualResult2, expectedResult2);
+
     }
 }
