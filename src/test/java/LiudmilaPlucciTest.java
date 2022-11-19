@@ -78,7 +78,7 @@ public class LiudmilaPlucciTest extends BaseTest {
         openBaseURL();
         waitForGrayFrameDisappeared();
 
-        click(MENU_PRICING_BUTTON, getWait5());
+        click(MENU_PRICING_BUTTON, getWait10());
 
         String currentUrl = getDriver().getCurrentUrl();
         String currentBreadcrumbEndpoint = getText(BREADCRUMB_ENDPOINT, getDriver());
