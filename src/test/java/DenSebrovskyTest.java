@@ -34,14 +34,14 @@ public class DenSebrovskyTest extends BaseTest {
 
         openBaseURL();
         waitForGrayFrameDisappear();
-        click(SUPPORT_BUTTON, getWait5());
-        waitUntilElementIsVisible(SUPPORT_DROPDOWN_MENU, getWait5());
+        click(SUPPORT_BUTTON, getWait10());
+        waitUntilElementIsVisible(SUPPORT_DROPDOWN_MENU, getWait10());
         Assert.assertTrue(getDriver().findElement(SUPPORT_DROPDOWN_MENU).isDisplayed());
 
         int actualSubmenuButtonsAmount = getDriver().findElements(By.xpath("//ul[@id='support-dropdown-menu']/*")).size();
         Assert.assertEquals(actualSubmenuButtonsAmount, expectedSubmenuButtonsAmount);
 
-        click(SUPPORT_BUTTON, getWait5());
+        click(SUPPORT_BUTTON, getWait10());
         Assert.assertFalse(getDriver().findElement(SUPPORT_DROPDOWN_MENU).isDisplayed());
     }
 }
