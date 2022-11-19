@@ -15,6 +15,8 @@ public class TanyaMz81Test extends BaseTest {
     final static By SEARCH_DROPDOWN_MENU = By.className("search-dropdown-menu");
     final static By PARIS_FR_CHOICE_IN_DROPDOWN_MENU = By.xpath("//ul[@class = 'search-dropdown-menu']/li/span[text() = 'Paris, FR ']");
 
+    final static By NAV_BAR = By.id("first-level-nav");
+
     private void openBaseURL() {
         getDriver().get(BASE_URL);
     }
@@ -40,6 +42,10 @@ public class TanyaMz81Test extends BaseTest {
         wait.until(ExpectedConditions
                 .not(ExpectedConditions.textToBePresentInElement(driver.findElement(by), text)));
     }
+
+    private boolean navBarIsDisplayed(By by, WebDriver driver){
+        return driver.findElement(by).isDisplayed();
+    }
     @Test
     public void testH2TagText_WhenSearchingCityCountry() {
         String cityName = "Paris";
@@ -61,4 +67,12 @@ public class TanyaMz81Test extends BaseTest {
 
         Assert.assertEquals(actualResult, expectedResult);
     }
+
+    @Test
+    public void testNavigationBarElements(){
+        openBaseURL();
+        waitForGrayFrameDisappeared();
+
+        Assert.assertTrue(navBarIsDisplayed(NAV_BAR, getDriver()));
+            }
 }
