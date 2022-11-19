@@ -14,6 +14,8 @@ public class AndreyGolovTest extends BaseTest {
     final static By BUTTON_X_ON_POPUP = By.xpath("//div[@class = 'pop-up-container']//*[@class='icon-close']");
     final static By DIFFERENT_WEATHER_ICONS_CONTAINER = By.xpath("//div[@class = 'pop-up-container']//*[@class='icons']//li");
     final static By WEATHER_ICON_IN_POP_UP = By.xpath("//div[@class = 'pop-up-container']//ul[@class = 'icons']//li[1]");
+    final static By MORE_OPTIONS_BUTTON = By.className("more-options");
+    final static By MORE_OPTIONS_PANEL = By.xpath("//div[@class = 'more-options']/following-sibling::div");
 
     private void waitForGrayFrameDisappeared() {
         getWait20().until(ExpectedConditions.invisibilityOfElementLocated(
@@ -55,6 +57,7 @@ public class AndreyGolovTest extends BaseTest {
 
         Assert.assertEquals(buttonX.isDisplayed(), expectedCondition);
     }
+
     @Test
     public void testDifferentWeatherIconsOnPopUp() {
 
@@ -115,4 +118,28 @@ public class AndreyGolovTest extends BaseTest {
                 expectedValueOfAttribute
         );
     }
+
+    @Test
+    public void testMoreOptionsButtonAndPanelAppears() {
+        String expectedText = "Less options";
+
+        openBaseURL();
+        waitForGrayFrameDisappeared();
+        click(DIFFERENT_WEATHER_BUTTON, getWait10());
+
+        Assert.assertTrue(
+                getDriver().findElement(MORE_OPTIONS_BUTTON).isDisplayed()
+        );
+
+        click(MORE_OPTIONS_BUTTON, getWait5());
+
+        Assert.assertEquals(
+                getDriver().findElement(MORE_OPTIONS_BUTTON).getText(), expectedText
+        );
+
+        Assert.assertTrue(
+                getDriver().findElement(MORE_OPTIONS_PANEL).isDisplayed()
+        );
+    }
+
 }
