@@ -1,4 +1,5 @@
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -28,6 +29,10 @@ public class Kater1naGTest extends BaseTest {
     }
     private String getText(By by,WebDriver driver) {
         return driver.findElement(by).getText();
+    }
+    private WebElement getElement(By by, WebDriver driver) {
+        WebElement element = driver.findElement(by);
+        return element;
     }
     private void click(By by, WebDriverWait wait){
         wait.until(ExpectedConditions.visibilityOfElementLocated(by));
@@ -63,6 +68,24 @@ public class Kater1naGTest extends BaseTest {
         Assert.assertEquals(actualResult, expectedResult);
     }
 
+    @Test
+    public void testH2TagText_WhenSearchingCityCountryByPressENTER() {
+        String cityName = "Paris";
+        String expectedResult = "Paris, FR";
+
+        openBaseURL();
+        waitForGreyFrameDisappeared();
+        String oldH2Header = getText(H2_CITY_COUNTRY_HEADER, getDriver());
+        click(SEARCH_CITY_FIELD, getWait10());
+        input(cityName,SEARCH_CITY_FIELD,getDriver());
+        getElement(SEARCH_CITY_FIELD, getDriver()).sendKeys(Keys.ENTER);
+        waitElementToBeVisible(SEARCH_DROPDOWN_MENU,getWait10());
+        click(CHOICE_PARIS_FR, getWait10());
+        waitTextChanged(H2_CITY_COUNTRY_HEADER, oldH2Header, getDriver(),getWait20());
+        String actualResult = getText(H2_CITY_COUNTRY_HEADER, getDriver());
+
+        Assert.assertEquals(actualResult, expectedResult);
+    }
 
 
     @Test
