@@ -17,6 +17,14 @@ public class PratasevichSergeTest extends BaseTest {
             "//ul[@class ='search-dropdown-menu']/li/span[text() = 'Paris, FR ']");
     final static By SIGN_IN_MENU = By.xpath("//li[@class='user-li']//a");
     final static By SIGN_IN_PAGE_TITLE = By.xpath("//h3[@class='first-child']");
+    final static By FILL_IN_EMAIL_FIELD= By.xpath(
+            "//div[@class='input-group']//input[@class='string email optional form-control']");
+    final static By FILL_IN_PASSWORD_FIELD = By.xpath(
+            "//div[@class='input-group']//input[@id='user_password']");
+    final static By SUBMIT_BUTTON = By.xpath("//input[@value='Submit']");
+    final static By USER_CONTAINER = By.xpath("//div[@class='inner-user-container']");
+
+
 
 
     private void openBaseURL(){
@@ -48,10 +56,16 @@ public class PratasevichSergeTest extends BaseTest {
         wait.until(ExpectedConditions
                 .not(ExpectedConditions.textToBePresentInElement(driver.findElement(by), text)));
     }
+
     private void clickMenu(By by, WebDriver driver){
         driver.findElement(by).click();
     }
+
     private String getTitleSignIn(By by, WebDriverWait wait, WebDriver driver){
+        return wait.until(ExpectedConditions.visibilityOfElementLocated(by)).getText();
+    }
+
+    private String getLoggedInUserName(By by, WebDriverWait wait, WebDriver driver){
         return wait.until(ExpectedConditions.visibilityOfElementLocated(by)).getText();
     }
 
@@ -89,7 +103,24 @@ public class PratasevichSergeTest extends BaseTest {
         String actualResult = getTitleSignIn(SIGN_IN_PAGE_TITLE, getWait20(),getDriver());
 
         Assert.assertEquals(actualResult, expectedResult);
-
     }
+    @Test
+    public void testSignInUserIsLoggedInWithValidInput(){
+        String email = "jka59433@xcoxc.com";
+        String password ="Tester12#";
+        String expectedResult = "Tester";
 
+        openBaseURL();
+        waitForGrayFrameDisappeared();
+        clickMenu(SIGN_IN_MENU,getDriver());
+        click(FILL_IN_EMAIL_FIELD, getDriver());
+        input(email, FILL_IN_EMAIL_FIELD, getDriver());
+        click(FILL_IN_PASSWORD_FIELD, getDriver());
+        input(password, FILL_IN_PASSWORD_FIELD, getDriver());
+        click(SUBMIT_BUTTON, getDriver());
+
+        String actualResult = getLoggedInUserName(USER_CONTAINER, getWait20(), getDriver());
+
+        Assert.assertEquals(actualResult, expectedResult);
+    }
 }
