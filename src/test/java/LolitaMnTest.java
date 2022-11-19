@@ -19,6 +19,10 @@ public class LolitaMnTest extends BaseTest {
     final static By SIGN_IN_BUTTON = By.xpath(
             "//div[@id='desktop-menu']//a[@href='https://openweathermap.org/home/sign_in']");
     final static By SIGN_IN_FORM = By.className("sign-form");
+    final static By SIGN_IN_EMAIL_FIELD = By.id("user_email");
+    final static By SIGN_IN_PASSWORD_FIELD = By.id("user_password");
+    final static By SIGN_IN_SUBMIT_BUTTON = By.xpath("//input[@value='Submit' and @name='commit']");
+    final static By SUCCESS_SIGN_IN_MESSAGE = By.className("panel-body");
 
 
     private void openBaseURL() {
@@ -47,6 +51,12 @@ public class LolitaMnTest extends BaseTest {
     private void click(By by, WebDriverWait wait) {
         wait.until(ExpectedConditions.visibilityOfElementLocated(by));
         wait.until(ExpectedConditions.elementToBeClickable(by)).click();
+    }
+
+
+
+    private void input(String text, By by, WebDriver driver) {
+        driver.findElement(by).sendKeys(text);
     }
 
 
@@ -88,4 +98,33 @@ public class LolitaMnTest extends BaseTest {
         Assert.assertNotEquals(oldCurrentUrl,actualResultUrl);
         Assert.assertEquals(expectedResultUrl,actualResultUrl);
     }
+
+    @Test
+    public void testUserIsSignedInSuccessfully() {
+        String expectedResultUrl = "https://home.openweathermap.org/";
+        String expectedResultText = "Signed in successfully.";
+        String userEmail = "jka59433@xcoxc.com";
+        String userPassword = "Tester12#";
+
+        openBaseURL();
+        waitForGrayFrameDisappeared();
+        click(SIGN_IN_BUTTON, getWait5());
+
+        String currentUrl = getCurrentUrl();
+
+        waitForElementGetVisible(SIGN_IN_FORM, getWait10());
+        click(SIGN_IN_EMAIL_FIELD, getWait5());
+        input(userEmail,SIGN_IN_EMAIL_FIELD, getDriver());
+        click(SIGN_IN_PASSWORD_FIELD, getWait5());
+        input(userPassword, SIGN_IN_PASSWORD_FIELD, getDriver());
+        click(SIGN_IN_SUBMIT_BUTTON, getWait5());
+
+        String actualResultNewCurrentUrl = getCurrentUrl();
+        String actualResultMessage = getText(SUCCESS_SIGN_IN_MESSAGE, getDriver());
+
+        Assert.assertNotEquals(currentUrl, actualResultNewCurrentUrl);
+        Assert.assertEquals(expectedResultUrl,actualResultNewCurrentUrl);
+        Assert.assertEquals(expectedResultText, actualResultMessage);
+    }
+
 }
