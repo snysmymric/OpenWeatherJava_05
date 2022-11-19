@@ -27,7 +27,7 @@ public class SiarheiMSV_Test extends BaseTest {
 
     @Test
 
-    public void RFMainNavBarMenuDashboard_testTitleText_WhenChooseMenuDashboard_SiarheiMSV (){
+    public void testRFMainNavBarMenuDashboard_TitleText_WhenChooseMenuDashboard_SiarheiMSV (){
 
         String expectedResult1 = "https://openweathermap.org/weather-dashboard";
         String expectedResult2 = "Weather dashboard - OpenWeatherMap";
