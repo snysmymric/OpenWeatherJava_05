@@ -24,6 +24,8 @@ public class ViktoriyaEDTest extends BaseTest {
     final static By PARIS_FR_CHOICE_IN_DROPDOWN_MENU = By.xpath("//ul[@class='search-dropdown-menu']//li//span[text() = 'Paris, FR ']");
     final static By GUIDE_BUTTON = By.xpath("//a[@href = '/guide']");
     final static By SUPPORT_BUTTON = By.xpath("//div[@id='support-dropdown']");
+    final static By DIFFERENT_WEATHER_BUTTON = By.xpath("//span[@class='control-el owm-switch']");
+    final static By DIFFERENT_WEATHER_POP_UP = By.xpath("//div[@class='pop-up-container']");
 
     private void openBaseURL() {
         getDriver().get(BASE_URL);
@@ -126,6 +128,18 @@ public class ViktoriyaEDTest extends BaseTest {
         getWait5().until(ExpectedConditions.not(ExpectedConditions.urlMatches(BASE_URL)));
 
         Assert.assertTrue(getDriver().getCurrentUrl().contains("https://home.openweathermap.org/questions"));
+    }
+
+
+    @Test
+    public void test_VerifyPopupWindowIsShownWhenClickingDifferentWeatherButton() {
+
+        openBaseURL();
+        waitForGrayWindowDisappeared();
+
+        click(DIFFERENT_WEATHER_BUTTON, getWait5());
+
+        Assert.assertTrue(getDriver().findElement(DIFFERENT_WEATHER_POP_UP).isDisplayed());
     }
 }
 
