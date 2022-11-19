@@ -17,6 +17,7 @@ public class Lenochkanik80Test extends BaseTest {
     final static By SEARCH_DROPDOWN_MENU = By.className("search-dropdown-menu");
     final static By PARIS_FR_CHOICE_IN_DROPDOWN_MENU = By.xpath("//ul[@class='search-dropdown-menu']/li/span[text() = 'Paris, FR ']");
     final static By SEARCH_API_MENU = By.xpath("//div[@id='desktop-menu']//a[@href='/api']");
+    final static By API_TITLE = By.className("breadcrumb-title");
     private void openBaseURL() {
         getDriver().get(BASE_URL);
     }
@@ -77,6 +78,19 @@ public class Lenochkanik80Test extends BaseTest {
         click(SEARCH_API_MENU, getWait5());
 
         String actualResult = getDriver().getCurrentUrl();
+        Assert.assertEquals(actualResult, expectedResult);
+    }
+
+    @Test
+    public void testTitle_WhenOpenAPIMenuPage() {
+        String expectedResult = "Weather API";
+
+        openBaseURL();
+        waitForGrayFrameDisappeared();
+        click(SEARCH_API_MENU, getWait5());
+
+        String actualResult = getText(API_TITLE, getDriver());
+
         Assert.assertEquals(actualResult, expectedResult);
     }
 }
