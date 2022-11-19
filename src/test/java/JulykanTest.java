@@ -1,6 +1,5 @@
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
@@ -18,6 +17,10 @@ public class JulykanTest extends BaseTest {
     final static By SEARCH_BUTTON = By.xpath("//div[@id = 'weather-widget']//button[@type = 'submit']");
     final static By SEARCH_DROPDOWN_MENU = By.className("search-dropdown-menu");
     final static By PARIS_FR_CHOICE_IN_DROPDOWN_MENU = By.xpath("//ul[@class = 'search-dropdown-menu']/li/span[text() = 'Paris, FR ']");
+    final static By NAV_BAR = By.id("first-level-nav");
+    final static By LOGO = By.className("logo");
+    final static By DESKTOP_MENU = By.id("desktop-menu");
+
 
     private void openBaseURL() {
         getDriver().get(BASE_URL);
@@ -33,7 +36,7 @@ public class JulykanTest extends BaseTest {
         return driver.findElement(by).getText();
     }
 
-    private void click(By by,  WebDriverWait wait) {
+    private void click(By by, WebDriverWait wait) {
         wait.until(ExpectedConditions.visibilityOfElementLocated(by));
         wait.until(ExpectedConditions.elementToBeClickable(by)).click();
     }
@@ -49,6 +52,9 @@ public class JulykanTest extends BaseTest {
     private void waitTextToBeChanged(By by, String text, WebDriver driver, WebDriverWait wait) {
         wait.until(ExpectedConditions
                 .not(ExpectedConditions.textToBePresentInElement(driver.findElement(by), text)));
+    }
+    private boolean isElementVisible(By by, WebDriverWait wait){
+        return  wait.until(ExpectedConditions.visibilityOfElementLocated(by)).isDisplayed();
     }
 
 
@@ -72,5 +78,15 @@ public class JulykanTest extends BaseTest {
         String actualResult = getText(H2_CITY_COUNTRY_HEADER, getDriver());
 
         Assert.assertEquals(actualResult, expectedResult);
+    }
+
+    @Test
+    public void testMainNavBarAllElementsExistsVisible() {
+
+        openBaseURL();
+        waitForGrayFrameDisappeared();
+
+        Assert.assertTrue(isElementVisible(LOGO, getWait5()));
+        Assert.assertTrue(isElementVisible(DESKTOP_MENU, getWait5()));
     }
 }
