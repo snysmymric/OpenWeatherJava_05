@@ -9,7 +9,6 @@ import runner.BaseTest;
 
 public class JulykanTest extends BaseTest {
 
-
     final static String BASE_URL = "https://openweathermap.org/";
 
     final static By H2_CITY_COUNTRY_HEADER = By.xpath("//div[@id = 'weather-widget']//h2");
@@ -20,7 +19,8 @@ public class JulykanTest extends BaseTest {
     final static By NAV_BAR = By.id("first-level-nav");
     final static By LOGO = By.className("logo");
     final static By DESKTOP_MENU = By.id("desktop-menu");
-
+    final static By H1_OUR_INITIATIVES_PAGE = By.className("breadcrumb-title");
+    final static By OUR_INITIATIVES = By.xpath("//div[@id='desktop-menu']//a[@href='/our-initiatives']");
 
     private void openBaseURL() {
         getDriver().get(BASE_URL);
@@ -57,7 +57,6 @@ public class JulykanTest extends BaseTest {
         return  wait.until(ExpectedConditions.visibilityOfElementLocated(by)).isDisplayed();
     }
 
-
     @Test
     public void testH2TagText_WhenSearchingCityCountry() {
         String cityName = "Paris";
@@ -88,5 +87,26 @@ public class JulykanTest extends BaseTest {
 
         Assert.assertTrue(isElementVisible(LOGO, getWait5()));
         Assert.assertTrue(isElementVisible(DESKTOP_MENU, getWait5()));
+    }
+
+    @Test
+    public void testTitleAndUrl_WhenClickOurInitiatives_AtDesktopMenu() {
+
+        String expectedUrl = String.format("%sour-initiatives", BASE_URL);
+        String expectedTitle = "Our Initiatives - OpenWeatherMap";
+        String expectedH1 = "Our Initiatives";
+
+        openBaseURL();
+        waitForGrayFrameDisappeared();
+
+        click(OUR_INITIATIVES, getWait10());
+
+        String currentUrl = getDriver().getCurrentUrl();
+        String currentTitle = getDriver().getTitle();
+        String currentH1 =getText(H1_OUR_INITIATIVES_PAGE, getDriver());
+
+        Assert.assertEquals(currentUrl, expectedUrl);
+        Assert.assertEquals(currentTitle, expectedTitle);
+        Assert.assertEquals(currentH1, expectedH1);
     }
 }
