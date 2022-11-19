@@ -98,7 +98,7 @@ public class OlgaKhliupinaTest extends BaseTest {
    }
 
    @Test
-   public  void testCheckUrlTitle_AfterRefreshMainPage() {
+   public  void testCheckUrlTitle_AfterClickOnLogo() {
       String expectedResult = "https://openweathermap.org/";
       String expectedResultTitle = "Сurrent weather and forecast - OpenWeatherMap";
 
