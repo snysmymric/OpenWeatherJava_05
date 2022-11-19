@@ -23,6 +23,7 @@ public class OlgaKhliupinaTest extends BaseTest {
    final static By GITHUB_ICON_LINK =
            By.xpath("//a[@href='https://github.com/search?q=openweathermap&ref=cmdform']");
    final static By ALLOW_ALL_BUTTON = By.xpath("//button[@type='button']");
+   final static By SOCIAL_PANEL = By.className("social");
 
    private void openBaseURL() {
       getDriver().get(BASE_URL);
@@ -73,6 +74,11 @@ public class OlgaKhliupinaTest extends BaseTest {
    private boolean isElementDisplayed(By by, WebDriver driver) {
 
       return driver.findElement(by).isDisplayed();
+   }
+
+   private int quantityOfElements(By by, WebDriver driver) {
+
+      return driver.findElements(by).size();
    }
 
    @Test
@@ -135,5 +141,17 @@ public class OlgaKhliupinaTest extends BaseTest {
       switchToAnotherWindow(getDriver());
 
       Assert.assertEquals(getDriver().getCurrentUrl(), expectedResult2);
+   }
+
+   @Test
+   public void testSocialPanelExistsAndHas6Icons() {
+      int expectedResult2 = 6;
+
+      openBaseURL();
+      waitForGrayFrameDisappeared();
+
+      Assert.assertTrue(isElementDisplayed(SOCIAL_PANEL, getDriver()));
+      Assert.assertEquals(quantityOfElements(
+              By.xpath("//div[@class='social']/a"), getDriver()), expectedResult2);
    }
 }
