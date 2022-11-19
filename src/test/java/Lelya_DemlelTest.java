@@ -1,69 +1,69 @@
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
-import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import runner.BaseTest;
 
-@Ignore
+
 public class Lelya_DemlelTest extends BaseTest {
 
-    @Test
-    public void testH2TagText_WhenSearchCityCountry() throws InterruptedException {
-        String url = "https://openweathermap.org/";
-        String cityName = "Paris";
-        String expectedResult = "Paris, FR";
+    final static String BASE_URL = "https://openweathermap.org/";
 
-        getDriver().get(url);
-        Thread.sleep(10000);
+    final static By H_2_CITY_COUNTRY_HEADER = By.xpath("//div[@id= 'weather-widget']//h2");
+    final static By SEARCH_CITY_FIELD = By.xpath("//div[@id= 'weather-widget']//input[@placeholder = 'Search city']");
+    final static By SEARCH_BUTTON = By.xpath("//div[@id= 'weather-widget']// button[@type= 'submit']");
+    final static By SEARCH_DROPDOWN_MENU = By.className("search-dropdown-menu");
+    final static By PARIS_FR_CHOICE_IN_DROPDOWN_MENU = By.xpath("//ul[@class= 'search-dropdown-menu']/li/span[text()= 'Paris, FR ']");
+    final static By BUTTON_IMPERIAL_WITH_F = By.xpath("//div[@class='switch-container']/div[3]");
+    final static By CITY_TEMPERATURE_IN_FAHRENHEIT = By.className("heading");
 
-        WebElement searchCityField = getDriver().findElement(
-                By.xpath("//div[@id= 'weather-widget']//input[@placeholder = 'Search city']")
-        );
-        searchCityField.click();
-        searchCityField.sendKeys(cityName);
+    private void openBaseURL() {
+        getDriver().get(BASE_URL);
+    }
 
-        WebElement searchButton = getDriver().findElement(
-                By.xpath("//div[@id= 'weather-widget']// button[@type= 'submit']")
-        );
-        searchButton.click();
-        Thread.sleep(10000);
+    private void waitForGreyFrameDisappeared() {
+        getWait20().until(ExpectedConditions.invisibilityOfElementLocated(
+                By.className("owm-loader-container")));
+    }
 
-        WebElement parisFRChoiceInDropdownMenu = getDriver().findElement(
-                By.xpath("//ul[@class= 'search-dropdown-menu']/li/span[text()= 'Paris, FR ']")
-        );
-        parisFRChoiceInDropdownMenu.click();
+    private String getText(By by, WebDriver driver) {
+        return driver.findElement(by).getText();
+    }
 
-        WebElement h2CityCountryHeader = getDriver().findElement(
-                By.xpath("//div[@id= 'weather-widget']//h2")
-        );
-        Thread.sleep(10000);
+    private void click(By by, WebDriverWait wait) {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(by));
+        wait.until(ExpectedConditions.elementToBeClickable(by)).click();
+    }
 
-        String actualResult = h2CityCountryHeader.getText();
+    private void input(String text, By by, WebDriver driver) {
+        driver.findElement(by).sendKeys(text);
+    }
 
-        Assert.assertEquals(actualResult, expectedResult);
+    private void waitElementToBeVisible(By by, WebDriverWait wait) {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(
+                by));
+    }
+
+    private void waitTextToBeChanged(By by, String text, WebDriver driver, WebDriverWait wait) {
+        wait.until(ExpectedConditions
+                .not(ExpectedConditions.textToBePresentInElement(driver.findElement(by), text)));
     }
 
     @Test
-    public void temperatureFahrenheit_WhenClickButtonImperial() throws InterruptedException {
-        String url = "https://openweathermap.org/";
-        String expectedResultstr = "°F";
+    public void testTemperatureIsFahrenheit_WhenClickButtonImperial() {
         String fTempSymbol = "°F";
 
-        getDriver().get(url);
-        getDriver().manage().window().maximize();
-        Thread.sleep(10000);
-        WebElement buttonImperial = getDriver().findElement(
-                By.xpath("//div[@class='switch-container']/div[3]"));
-        buttonImperial.click();
-        Thread.sleep(10000);
-        WebElement cityTemperatureInFahrenheit = getDriver().findElement(
-                By.className("heading")
-        );
-        String temperatureFahrenheit = cityTemperatureInFahrenheit.getText();
+        openBaseURL();
+        waitForGreyFrameDisappeared();
+        click(BUTTON_IMPERIAL_WITH_F, getWait5());
+        getText(CITY_TEMPERATURE_IN_FAHRENHEIT, getDriver());
 
-        Assert.assertEquals(temperatureFahrenheit
-                .substring(temperatureFahrenheit.length() - 2), expectedResultstr);
-        Assert.assertTrue(cityTemperatureInFahrenheit.getText().contains(fTempSymbol));
+        String temperatureFahrenheit = getText(CITY_TEMPERATURE_IN_FAHRENHEIT, getDriver());
+
+        Assert.assertEquals(getText(CITY_TEMPERATURE_IN_FAHRENHEIT, getDriver())
+                .substring(temperatureFahrenheit.length() - 2), fTempSymbol);
+        Assert.assertTrue(getText(CITY_TEMPERATURE_IN_FAHRENHEIT, getDriver()).contains(fTempSymbol));
     }
 }
