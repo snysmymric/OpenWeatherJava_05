@@ -9,6 +9,7 @@ import org.testng.annotations.Test;
 import runner.BaseTest;
 
 import java.util.List;
+import java.util.Random;
 
 public class LarisaBratukhinaTest extends BaseTest {
 
@@ -27,7 +28,8 @@ public class LarisaBratukhinaTest extends BaseTest {
             "//div[@class='my-5']/div[@style='display: flex; flex-direction: row;']/a");
     final static By DOWNLOAD_ON_THE_APP_STORE_LINK = By.xpath(
             "//div[@class='my-5']//a/img[@src='/themes/openweathermap/assets/img/mobile_app/app-store-badge.svg']");
-
+    final static By GET_IT_ON_GOOGLE_PLAY_LINK = By.xpath(
+            "//div[@class='my-5']//a/img[@src='/themes/openweathermap/assets/img/mobile_app/google-play-badge.png']");
 
     private void openBaseURL() {
         getDriver().get(BASE_URL);
@@ -169,5 +171,22 @@ public class LarisaBratukhinaTest extends BaseTest {
 
         Assert.assertTrue((actualResultDownloadOnTheAPPStoreLinkClickable
                 .contains(expectedResultDownloadOnTheAPPStoreLinkClickable)));
+    }
+
+    @Test
+    public void testGetItOnGooglePlayStoreLinkIsVisibleAndClickable() {
+        String expectedResultGetItOnGooglePlayStoreLinkClickable =
+                "https://play.google.com/store/apps/details?id=uk.co.openweather";
+
+        openBaseURL();
+        waitForGrayFrameDisappeared();
+        scrollByVisibleElement(GET_IT_ON_GOOGLE_PLAY_LINK);
+        click(GET_IT_ON_GOOGLE_PLAY_LINK, getWait10());
+        switchToAnotherWindow(getDriver());
+
+        String actualResultGetItOnGooglePlayStoreLinkClickable = getDriver().getCurrentUrl();
+
+        Assert.assertTrue((actualResultGetItOnGooglePlayStoreLinkClickable.
+                contains(expectedResultGetItOnGooglePlayStoreLinkClickable)));
     }
 }
