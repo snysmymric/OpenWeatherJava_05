@@ -1,6 +1,5 @@
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
@@ -18,11 +17,12 @@ public class IraKalinkaTest extends BaseTest {
     final static By SEARCH_DROPDOWN_MENU = By.className("search-dropdown-menu");
     final static By PARIS_FR_CHOICE_IN_DROPDOWN_MENU = By.xpath(
             "//ul[@class='search-dropdown-menu']/li/span[text()='Paris, FR ']");
+    final static String PAGE_TITLE = "Сurrent weather and forecast - OpenWeatherMap";
 
 
     private void openBaseURL() { getDriver().get(BASE_URL); }
 
-    private void waitForGrayFrameDisapeared() {
+    private void waitForGrayFrameDisappeared() {
         getWait20().until(ExpectedConditions.invisibilityOfElementLocated(By.className("owm-loader-container")));
     }
     private String getText(By by, WebDriver driver) {
@@ -50,7 +50,7 @@ public class IraKalinkaTest extends BaseTest {
         String expectedResult = "Paris, FR";
 
         openBaseURL();
-        waitForGrayFrameDisapeared();
+        waitForGrayFrameDisappeared();
 
         String oldH2Header = getText(H_2_CITY_COUNTRY_HEADER, getDriver());
 
@@ -64,5 +64,14 @@ public class IraKalinkaTest extends BaseTest {
         String actualResult = getText(H_2_CITY_COUNTRY_HEADER, getDriver());
 
         Assert.assertEquals(actualResult, expectedResult);
+    }
+
+    @Test
+    public void testTitleTagAndUrL_WhenEnteringBaseUrl() {
+        openBaseURL();
+        waitForGrayFrameDisappeared();
+
+        Assert.assertEquals(getDriver().getTitle(), PAGE_TITLE);
+        Assert.assertEquals(getDriver().getCurrentUrl(), BASE_URL);
     }
 }
