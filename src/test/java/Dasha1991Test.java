@@ -3,6 +3,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import runner.BaseTest;
 
@@ -31,6 +32,7 @@ public class Dasha1991Test extends BaseTest {
         return driver.findElement(by).getText();
     }
 
+    @Ignore
     @Test
     public void testHeaderStartPage() {
          String expectedResultH1 = "OpenWeather";
@@ -44,5 +46,19 @@ public class Dasha1991Test extends BaseTest {
 
          Assert.assertEquals(actualResultH1,expectedResultH1);
          Assert.assertEquals(actualResultH2,expectedResultH2);
+    }
+    @Test
+    public void testNameOfURL() {
+         String expectedResultURL = "https://openweathermap.org/";
+         String expectedResultTitle = "Сurrent weather and forecast - OpenWeatherMap";
+
+         openBaseURL();
+         waitForGrayFrameDissappeared();
+
+         String actualResultURL = getDriver().getCurrentUrl();
+         String actualResultTitle = getDriver().getTitle();
+
+         Assert.assertEquals(actualResultURL,expectedResultURL);
+         Assert.assertEquals(actualResultTitle,expectedResultTitle);
     }
 }
