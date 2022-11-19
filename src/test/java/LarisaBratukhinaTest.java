@@ -15,8 +15,8 @@ public class LarisaBratukhinaTest extends BaseTest {
     final static String BASE_URL = "https://openweathermap.org/";
 
     final static By H_2_CITY_COUNTY_HEADER = By.xpath("//div[@id = 'weather-widget']//h2");
-    final static By LOGO =
-            By.xpath("//ul/li[@class='logo']//a[@href='/']/img[@src='/themes/openweathermap/assets/img/logo_white_cropped.png']");
+    final static By LOGO = By.xpath(
+            "//ul/li[@class='logo']//a[@href='/']/img[@src='/themes/openweathermap/assets/img/logo_white_cropped.png']");
     final static By SEARCH_CITY_FIELD = By.xpath("//div[@id = 'weather-widget']//input[@placeholder = 'Search city']");
     final static By SEARCH_BUTTON = By.xpath("//div[@id = 'weather-widget']//button[@type='submit']");
     final static By SEARCH_DROPDOWN_MENU = By.className("search-dropdown-menu");
@@ -25,6 +25,9 @@ public class LarisaBratukhinaTest extends BaseTest {
     final static By TEXT_DOWNLOAD_OPEN_WEATHER_APP = By.xpath("//div[@class='my-5']/p[@style='margin: 0;']");
     final static By DOWNLOAD_BUTTONS_PANEL = By.xpath(
             "//div[@class='my-5']/div[@style='display: flex; flex-direction: row;']/a");
+    final static By DOWNLOAD_ON_THE_APP_STORE_LINK = By.xpath(
+            "//div[@class='my-5']//a/img[@src='/themes/openweathermap/assets/img/mobile_app/app-store-badge.svg']");
+
 
     private void openBaseURL() {
         getDriver().get(BASE_URL);
@@ -85,6 +88,17 @@ public class LarisaBratukhinaTest extends BaseTest {
         js.executeScript("arguments[0].scrollIntoView();", getDriver().findElement(by));
     }
 
+    private void switchToAnotherWindow(WebDriver driver) {
+        String originalWindow = driver.getWindowHandle();
+
+        for (String windowHandle : driver.getWindowHandles()) {
+            if (!originalWindow.equals(windowHandle)) {
+                driver.switchTo().window(windowHandle);
+                break;
+            }
+        }
+    }
+
     @Test
     public void testH2TagText_WhenSearchingCityCountry() {
         String cityName = "Paris";
@@ -139,5 +153,21 @@ public class LarisaBratukhinaTest extends BaseTest {
         scrollByVisibleElement(DOWNLOAD_BUTTONS_PANEL);
 
         Assert.assertEquals(actualResultAllStoreButtonsVisible, expectedResultAllStoreButtonsVisible);
+    }
+
+    @Test
+    public void testDownloadOnTheAPPStoreLinkVisibleAndClickable() {
+        String expectedResultDownloadOnTheAPPStoreLinkClickable = "https://apps.apple.com/gb/app/openweather/id1535923697";
+
+        openBaseURL();
+        waitForGrayFrameDisappeared();
+        scrollByVisibleElement(DOWNLOAD_ON_THE_APP_STORE_LINK);
+        click(DOWNLOAD_ON_THE_APP_STORE_LINK, getWait10());
+        switchToAnotherWindow(getDriver());
+
+        String actualResultDownloadOnTheAPPStoreLinkClickable = getDriver().getCurrentUrl();
+
+        Assert.assertTrue((actualResultDownloadOnTheAPPStoreLinkClickable
+                .contains(expectedResultDownloadOnTheAPPStoreLinkClickable)));
     }
 }
