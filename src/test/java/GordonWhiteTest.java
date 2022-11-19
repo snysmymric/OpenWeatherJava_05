@@ -1,66 +1,48 @@
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
-import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import runner.BaseTest;
 
-@Ignore
 public class GordonWhiteTest extends BaseTest {
 
-    @Test
-    public void testH2TagText_WhenSearchingCityCountry() throws InterruptedException {
-        String url = "https://openweathermap.org/";
-        String cityName = "Paris";
-        String expectedResult = "Paris, FR";
+    final static String BASE_URL = "https://openweathermap.org/";
+    final static By SEARCH_CITY_FIELD = By.xpath("//ul[@id='first-level-nav']//input[@type='text']");
 
-        getDriver().get(url);
-        Thread.sleep(10000);
+    private void openBaseURL() {
+        getDriver().get(BASE_URL);
+    }
 
-        WebElement searchCityField = getDriver().findElement(
-                By.xpath("//div[@id = 'weather-widget']//input[@placeholder = 'Search city']")
-        );
-        searchCityField.click();
-        searchCityField.sendKeys(cityName);
+    private void waitForGrayFrameDisappeared() {
+        getWait20().until(ExpectedConditions.invisibilityOfElementLocated(
+                By.className("owm-loader-container")));
+    }
 
-        WebElement searchButton = getDriver().findElement(
-                By.xpath("//div[@id = 'weather-widget']//button[@type = 'submit']")
-        );
-        searchButton.click();
-        Thread.sleep(1000);
+    private void click(By by,  WebDriverWait wait) {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(by));
+        wait.until(ExpectedConditions.elementToBeClickable(by)).click();
+    }
 
-        WebElement parisFranceChoiceInDropdownMenu = getDriver().findElement(
-                By.xpath("//ul[@class = 'search-dropdown-menu']/li/span[text() = 'Paris, FR ']")
-        );
-        parisFranceChoiceInDropdownMenu.click();
-
-        WebElement h2CityCountryHeader = getDriver().findElement(
-                By.xpath("//div[@id = 'weather-widget']//h2")
-        );
-        Thread.sleep(2000);
-        String actualResult = h2CityCountryHeader.getText();
-
-        Assert.assertEquals(actualResult, expectedResult);
+    private void input(String text, By by, WebDriver driver) {
+        driver.findElement(by).sendKeys(text);
     }
 
     @Test
-    public void testSearchFieldWithTextOnMainPageWhenPressEnter() throws InterruptedException {
-        String url = "https://openweathermap.org/";
+    public void testSearchFieldWithTextOnMainPageWhenPressEnter() {
         String cityName = "Rome";
         String wordName = "find";
         boolean expectedResult = true;
 
-        getDriver().get(url);
-        Thread.sleep(10000);
+        openBaseURL();
+        waitForGrayFrameDisappeared();
 
-        WebElement searchCityField = getDriver().findElement(
-                By.xpath("//ul[@id='first-level-nav']//input[@type='text']")
-        );
-        searchCityField.click();
-        searchCityField.sendKeys(cityName);
-        searchCityField.sendKeys(Keys.RETURN);
-        Thread.sleep(1000);
+        click(SEARCH_CITY_FIELD, getWait10());
+        input(cityName, SEARCH_CITY_FIELD, getDriver());
+        getDriver().findElement(SEARCH_CITY_FIELD).sendKeys(Keys.RETURN);
 
         String currentUrl = getDriver().getCurrentUrl();
         boolean actualResult = currentUrl.contains(cityName) && currentUrl.contains(wordName);
