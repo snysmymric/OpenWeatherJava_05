@@ -16,10 +16,15 @@ public class ElenaHoustonTest extends BaseTest {
     final static By PARIS_CHOICE_IN_DROP_DOWN_MENU = By.xpath(
             "//ul[@class ='search-dropdown-menu']/li/span[text() = 'Paris, FR ']");
     final static By GUIDE_MENU = By.xpath("//div[@id = 'desktop-menu']//a[@href = '/guide']");
+    final static By PUSH_IMPERIAL_FAHRENHEIT = By.xpath("//div[@class = 'switch-container']//div"
+            + "[text()= 'Imperial: °F, mph']");
+    final static By TEMP_IN_F = By.xpath("//div[@class='current-temp']/span");
+
 
     private void openBaseURL() {
         getDriver().get(Base_URL);
     }
+
     private void waitForGrayFrameDisappeared() {
         getWait20().until(ExpectedConditions.invisibilityOfElementLocated(By.className("owm-loader-container")));
     }
@@ -32,6 +37,7 @@ public class ElenaHoustonTest extends BaseTest {
         wait.until(ExpectedConditions.visibilityOfElementLocated(by));
         wait.until(ExpectedConditions.elementToBeClickable(by)).click();
     }
+
     private void input(String text, By by, WebDriver driver) {
         driver.findElement(by).sendKeys(text);
     }
@@ -45,8 +51,8 @@ public class ElenaHoustonTest extends BaseTest {
                 .not(ExpectedConditions.textToBePresentInElement(driver.findElement(by), text)));
     }
 
-    private void findGuideMenuByLink(String text){
-     getDriver().findElement(By.linkText(text));
+    private void findGuideMenuByLink(String text) {
+        getDriver().findElement(By.linkText(text));
     }
 
     @Test
@@ -69,16 +75,17 @@ public class ElenaHoustonTest extends BaseTest {
 
         Assert.assertEquals(actualResult, expectedResult);
     }
+
     @Test
-    public void testConfirmTheLinkAndTitleOnThePage_OpenWeatherMap() throws InterruptedException {
+    public void testConfirmTheLinkAndTitleOnThePage_OpenWeatherMap() {
+
         String expectedResult1 = "https://openweathermap.org/guide";
 
         String expectedResult2 = "OpenWeatherMap API guide - OpenWeatherMap";
 
-        openBaseURL();
-        waitForGrayFrameDisappeared();
-
-       click(GUIDE_MENU, getWait5());
+      openBaseURL();
+      waitForGrayFrameDisappeared();
+      click(GUIDE_MENU, getWait5());
 
         String actualResult1 = getDriver().getCurrentUrl();
         String actualResult2 = getDriver().getTitle();
@@ -86,31 +93,24 @@ public class ElenaHoustonTest extends BaseTest {
         Assert.assertEquals(actualResult1, expectedResult1);
         Assert.assertEquals(actualResult2, expectedResult2);
     }
-//    @Ignore
-//    @Test
-//    public void testUnitsOfMeasurement_ImperialFMphConfirmFLondon() throws InterruptedException {
-//        String url = "https://openweathermap.org/";
-//        String fTempSymbol = "°F";
-//        String expectedResult = "°F";
-//
-//        getDriver().get(url);
-//        getDriver().manage().window().maximize();
-//        Thread.sleep(10000);
-//
-//        WebElement pushImperialFahrenheit = getDriver().findElement(By.xpath("//div[@class = 'switch-container']//div"
-//                + "[text()= 'Imperial: °F, mph']")
-//        );
-//        pushImperialFahrenheit.click();
-//
-//        WebElement tempInF = getDriver().findElement(By.xpath("//div[@class='current-temp']/span")
-//        );
-//        String tempF = tempInF.getText();
-//        String actualResult = tempF.substring((tempF.length() - 2));
-//
-//        Assert.assertTrue(tempInF.getText().contains(fTempSymbol));
-//        Assert.assertEquals(actualResult, expectedResult);
-//}
-//    @Ignore
+    @Test
+    public void testUnitsOfMeasurement_ImperialFMphConfirmFLondon() {
+
+        String fTempSymbol = "°F";
+        String expectedResult = "°F";
+
+        openBaseURL();
+        waitForGrayFrameDisappeared();
+
+        click(PUSH_IMPERIAL_FAHRENHEIT,getWait5());
+        getText(TEMP_IN_F, getDriver());
+
+        String actualResult = getText(TEMP_IN_F, getDriver()).substring((getText(TEMP_IN_F, getDriver()).length()-2));
+
+        Assert.assertTrue(getText(TEMP_IN_F,getDriver()).contains(fTempSymbol));
+        Assert.assertEquals(actualResult, expectedResult);
+    }
+}
 //    @Test
 //    public void testCheckPresenceOfTreeSubMenusInTheHead () throws InterruptedException {
 //        String url = "https://openweathermap.org/";
@@ -149,4 +149,4 @@ public class ElenaHoustonTest extends BaseTest {
 //        Assert.assertEquals(actualResult2, expectedResult2);
 //        Assert.assertEquals(actualResult3, expectedResult3);
 //    }
-}
+
