@@ -100,7 +100,6 @@ public class NataliadylaiTest extends BaseTest {
     }
 
 
-
     @Test
     public void testChangingTempUnitInHeading_WhenSwitchTempUnitButton()  {
        openBaseURL();
@@ -108,84 +107,6 @@ public class NataliadylaiTest extends BaseTest {
        click(TEMP_UNIT, getWait20());
        waitElementToBeVisible(TEMP_UNIT_HEADING, getWait20());
        Assert.assertTrue(getText(TEMP_UNIT_HEADING, getDriver()).contains("°F"));
-    }
-
-    @Ignore
-    @Test
-    public void test_ConfirmCookiesOnTheFooter() throws InterruptedException {
-        String url = "https://openweathermap.org/";
-        String expectedResult = "We use cookies which are essential for the site to work. We also use non-essential cookies to help us improve our services. Any data collected is anonymised. You can allow all cookies or manage them individually.";
-        String button1 = "Allow";
-        String button2 = "Manage cookies";
-        getDriver().get(url);
-        getDriver().manage().window().maximize();
-        Thread.sleep(10000);
-        Assert.assertTrue(getDriver().findElement(By.className("stick-footer-panel__container")).isDisplayed());
-        Assert.assertEquals(getDriver().findElements(
-                By.xpath("//div[@class = 'stick-footer-panel__btn-container']/*")).size(), 2);
-        WebElement cookies = getDriver().findElement(
-                By.className("stick-footer-panel__description"));
-        Thread.sleep(2000);
-        String actualResult = cookies.getText();
-        Assert.assertEquals(actualResult,expectedResult);
-
-        Assert.assertTrue(getDriver().findElement(
-                By.xpath("//div[@class = 'stick-footer-panel__btn-container']/*[text() = 'Allow all']")).isDisplayed());
-        Assert.assertTrue(getDriver().findElement(
-                By.xpath("//div[@class = 'stick-footer-panel__btn-container']/*[text() = ' Manage cookies ']")).isDisplayed());
-    }
-    @Ignore
-    @Test
-    public void test_checkSupportDropdownOnPAgeHeader() throws InterruptedException {
-        String url = "https://openweathermap.org/";
-        String expectedResult1 = "FAQ";
-        String expectedResult2 = "How to start";
-        String expectedResult3 = "Ask a question";
-
-        getDriver().get(url);
-        Thread.sleep(10000);
-
-        WebElement support = getDriver().findElement(
-                By.xpath("//div[@id = 'support-dropdown']"));
-        support.click();
-        Assert.assertEquals(getDriver().findElements(By.xpath("//ul[@id = 'support-dropdown-menu']/li")).size(), 3);
-        WebElement faq = getDriver().findElement(
-                By.xpath("//ul[@id = 'support-dropdown-menu']//a[@href ='/faq']")
-        );
-        String actualResult1 = faq.getText();
-        Assert.assertEquals(actualResult1,expectedResult1);
-        WebElement start = getDriver().findElement(
-                By.xpath("//ul[@id ='support-dropdown-menu']//a[@href ='/appid']")
-        );
-        String actualResult2 = start.getText();
-        Assert.assertEquals(actualResult2,expectedResult2);
-        WebElement question = getDriver().findElement(
-                By.xpath("//ul[@id ='support-dropdown-menu']//a[@href = 'https://home.openweathermap.org/questions']")
-        );
-        String actualResult3 = question.getText();
-        Assert.assertEquals(actualResult3,expectedResult3);
-    }
-    @Ignore
-    @Test
-    public void test_SwitchingMeasurementsBetweenFandC() throws InterruptedException {
-        String url = "https://openweathermap.org/";
-        boolean expectedResult = true;
-
-        getDriver().get(url);
-        getDriver().manage().window().maximize();
-        Thread.sleep(10000);
-        WebElement imperial = getDriver().findElement(
-                By.xpath("//div[@class= 'option'][2]")
-        );
-        imperial.click();
-        Thread.sleep(3000);
-        WebElement metric = getDriver().findElement(
-                By.xpath("//div[@class= 'option'][1]")
-        );
-        metric.click();
-        Thread.sleep(3000);
-        boolean actualResult = metric.getText().contains("°C");
-        Assert.assertEquals(actualResult,expectedResult);
     }
 
     @Ignore
