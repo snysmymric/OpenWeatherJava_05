@@ -15,6 +15,9 @@ public class PratasevichSergeTest extends BaseTest {
     final static By SEARCH_DROPDOWN_MENU = By.className("search-dropdown-menu");
     final static By PARIS_CHOICE_IN_DROP_DOWN_MENU = By.xpath(
             "//ul[@class ='search-dropdown-menu']/li/span[text() = 'Paris, FR ']");
+    final static By SIGN_IN_MENU = By.xpath("//li[@class='user-li']//a");
+    final static By SIGN_IN_PAGE_TITLE = By.xpath("//h3[@class='first-child']");
+
 
     private void openBaseURL(){
         getDriver().get(Base_URL);
@@ -45,6 +48,12 @@ public class PratasevichSergeTest extends BaseTest {
         wait.until(ExpectedConditions
                 .not(ExpectedConditions.textToBePresentInElement(driver.findElement(by), text)));
     }
+    private void clickMenu(By by, WebDriver driver){
+        driver.findElement(by).click();
+    }
+    private String getTitleSignIn(By by, WebDriverWait wait, WebDriver driver){
+        return wait.until(ExpectedConditions.visibilityOfElementLocated(by)).getText();
+    }
 
     @Test
     public void testH2TagText_WhenSearchingCityCountry() throws InterruptedException {
@@ -68,4 +77,19 @@ public class PratasevichSergeTest extends BaseTest {
 
         Assert.assertEquals(actualResult, expectedResult);
     }
+
+    @Test
+    public void testSignInMenuIsClickable(){
+        String expectedResult = "Sign In To Your Account";
+
+        openBaseURL();
+        waitForGrayFrameDisappeared();
+        clickMenu(SIGN_IN_MENU,getDriver());
+
+        String actualResult = getTitleSignIn(SIGN_IN_PAGE_TITLE, getWait20(),getDriver());
+
+        Assert.assertEquals(actualResult, expectedResult);
+
+    }
+
 }
