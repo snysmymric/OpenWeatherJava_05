@@ -1,4 +1,6 @@
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.Color;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -77,5 +79,23 @@ public class SnegafalTest extends BaseTest {
         String temperatureInStartPage = getDriver().findElement(START_PAGE_TEMPERATURE).getText();
 
         Assert.assertEquals(temperatureInPopupWithDegree, temperatureInStartPage);
+    }
+
+    @Test
+    public void testIncreaseTemperatureInDifferentWeatherPopUp() {
+        getDriver().get(BASE_URL);
+
+        waitForGrayFrameDisappeared();
+        click(DIFFERENT_WEATHER_BUTTON, getWait5());
+        waitForDifferentWeatherPopUpAppeared();
+        getDriver().findElement(MORE_OPTIONS_BUTTON).click();
+        WebElement temperatureInput = getDriver().findElement(DIFFERENT_WEATHER_TEMPERATURE_INPUT);
+        int temperatureInPopup = Integer.parseInt(getDriver().
+                findElement(DIFFERENT_WEATHER_TEMPERATURE_INPUT).getAttribute("_value"));
+        temperatureInput.sendKeys(Keys.ARROW_UP);
+        int increasedTemperatureInInput = Integer.parseInt(getDriver().
+                findElement(DIFFERENT_WEATHER_TEMPERATURE_INPUT).getAttribute("_value"));
+
+        Assert.assertEquals(increasedTemperatureInInput - temperatureInPopup, 1);
     }
 }
