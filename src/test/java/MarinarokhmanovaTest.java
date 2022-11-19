@@ -22,6 +22,10 @@ public class MarinarokhmanovaTest extends BaseTest {
     final static By LOGO_OPEN_WEATHER =
             By.xpath("//img[@src='/themes/openweathermap/assets/img/logo_white_cropped.png']");
 
+    final static By UNITS_IMPERIAL_F = By.xpath("//div[@class ='option'][text()='Imperial: °F, mph']");
+
+    final static By UNITS_IMPERIAL_F_CITY = By.xpath("//div[@class ='current-temp']/span");
+
 
     private void openBaseURL(){
         getDriver().get(Base_URL);
@@ -89,32 +93,6 @@ public class MarinarokhmanovaTest extends BaseTest {
 
         Assert.assertEquals(getDriver().getCurrentUrl(), expectedResult);
         Assert.assertEquals(getDriver().getTitle(), expectedResultTitle);
-    }
-
-    @Ignore
-    @Test
-    public void testUnitsImperialCtoF() throws InterruptedException {
-
-        String expectedResult = "°F";
-
-        openBaseURL();
-        waitForGrayFrameDisappeared();
-
-        WebElement unitsImperialF = getDriver().findElement(
-                By.xpath("//div[@class ='option'][text()='Imperial: °F, mph']")
-        );
-        unitsImperialF.click();
-        Thread.sleep(2000);
-
-        WebElement unitsImperialFCity = getDriver().findElement(
-                By.xpath("//div[@class ='current-temp']/span")
-        );
-        unitsImperialFCity.click();
-        Thread.sleep(2000);
-
-        boolean actualResult = unitsImperialFCity.getText().contains("F");
-
-        Assert.assertTrue(actualResult, expectedResult);
     }
 
     @Ignore
