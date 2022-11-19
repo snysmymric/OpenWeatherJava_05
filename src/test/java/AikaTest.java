@@ -49,4 +49,15 @@ public class AikaTest extends BaseTest {
         Assert.assertFalse(getDriver().findElement(SUPPORT_DROPDOWN)
                 .getAttribute("class").contains(dropdownVisibility));
     }
+
+    @Test
+    public void testWhenClickedOnFAQItRedirectsToFAQPage() {
+        openBaseURL();
+        waitForGrayFrameDisappeared();
+        click(SUPPORT_MENU, getDriver());
+        click(By.xpath("//ul[@id ='support-dropdown-menu']//a[text()='FAQ']"), getDriver());
+
+        Assert.assertEquals(getDriver().findElement(By.xpath("//main//h1")).getText(),
+                "Frequently Asked Questions");
+    }
 }
