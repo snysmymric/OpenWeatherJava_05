@@ -17,7 +17,8 @@ public class VadimKachanovichTest extends BaseTest {
     final static By PARIS_FR_DROPDOWN_MENU = By.xpath("//ul[@class = 'search-dropdown-menu']/li/span[text() = 'Paris, FR ']");
     final static By DIFFERENT_WEATHER_BUTTON = By.xpath("//span[contains(@class,'control-el owm-switch' ) and contains(text(), 'Different Weather?')]");
     final static By POPUP_MENU_NAME = By.xpath("//div[@class = 'pop-up-container']/div/h3[@id = 'dialogTitle']");
-
+    final static By IMPERIAL_UOM = By.xpath("//div[@id='weather-widget']//div[@class = 'switch-container']/div[contains(text(),'°F')]");
+    final static By HEADING_UOM = By.xpath("//div[@id='weather-widget']//div[@class = 'section-content']//span[@class='heading']");
 
     String cityName = "Paris";
     String expectedResult = "Paris, FR";
@@ -67,6 +68,16 @@ public class VadimKachanovichTest extends BaseTest {
         waitForGrayFrameDisappeared();
         click(DIFFERENT_WEATHER_BUTTON, getWait5());
         String actualResult = getText(POPUP_MENU_NAME,getDriver());
+        Assert.assertEquals(actualResult,expectedResult);
+    }
+
+    @Test
+    public void testVerifyChangingTempUnitInHeadingWhenSwitchTempUnitButton () {
+        boolean expectedResult = true;
+        getURL();
+        waitForGrayFrameDisappeared();
+        click(IMPERIAL_UOM,getWait5());
+        boolean actualResult = getText(HEADING_UOM,getDriver()).contains("°F");
         Assert.assertEquals(actualResult,expectedResult);
     }
 }
