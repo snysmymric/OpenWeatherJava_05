@@ -13,6 +13,10 @@ public class SnegafalTest extends BaseTest {
     static final By GUIDE_IN_MENU = By.xpath("//ul[@id='first-level-nav']//a[@href='/guide']");
     static final By DIFFERENT_WEATHER_POP_UP = By.xpath("//div[@class='pop-up-container']");
     static final By DIFFERENT_WEATHER_BUTTON = By.xpath("//span[contains(text(), 'Different')]");
+    static final By MORE_OPTIONS_BUTTON = By.xpath("//div[@class='more-options']");
+    static final By DIFFERENT_WEATHER_TEMPERATURE_INPUT = By.xpath("//input[@type='number']");
+    static final By START_PAGE_TEMPERATURE = By.xpath("//span[@class='heading']");
+    static final By DEGREE_SIGN_IN_DIFFERENT_WEATHER_POPUP = By.xpath("//div[@class='input-with-selection']/div");
 
 
     private void waitForGrayFrameDisappeared() {
@@ -57,5 +61,21 @@ public class SnegafalTest extends BaseTest {
 
         Assert.assertEquals(activeIcons, 1);
         Assert.assertEquals(activeIconBackgroundColorHex, "#ececed");
+    }
+
+    @Test
+    public void testVerifyTemperatureInDifferentPopUpWeatherAndInStartPage() {
+        getDriver().get(BASE_URL);
+
+        waitForGrayFrameDisappeared();
+        click(DIFFERENT_WEATHER_BUTTON, getWait5());
+        waitForDifferentWeatherPopUpAppeared();
+        getDriver().findElement(MORE_OPTIONS_BUTTON).click();
+        String temperatureInPopup = getDriver().findElement(DIFFERENT_WEATHER_TEMPERATURE_INPUT).getAttribute("_value");
+        String degreeSign = getDriver().findElement(DEGREE_SIGN_IN_DIFFERENT_WEATHER_POPUP).getText();
+        String temperatureInPopupWithDegree = temperatureInPopup.concat(degreeSign);
+        String temperatureInStartPage = getDriver().findElement(START_PAGE_TEMPERATURE).getText();
+
+        Assert.assertEquals(temperatureInPopupWithDegree, temperatureInStartPage);
     }
 }
