@@ -19,16 +19,16 @@ public class Btv35Test extends BaseTest {
     final static By PARIS_FR_CHOICE_IN_DROP_DOWN_MENU =
             By.xpath("//ul[@class='search-dropdown-menu']/li/span[text() = 'Paris, FR ']");
     final static By MENU_GUIDE = By.xpath("//div[@id = 'desktop-menu']//a [@href = '/guide']");
-
-
-
     final static By COOKIES_PANEL = By.xpath("//div[@id = 'stick-footer-panel']" +
             "//p[@class='stick-footer-panel__description']");
     final static By BUTTON_ALLOW_ALL = By.xpath("//div[@id='stick-footer-panel']"
             + "//button[@class='stick-footer-panel__link']");
     final static By BUTTON_MANAGE_COOKIES = By.xpath("//div[@id='stick-footer-panel']"
             + "//a[text()=' Manage cookies ']");
-
+    final static By SWITCH_TO_FAHRENHEIT = By.xpath("//div[@id ='weather-widget']"
+            + "//div[text() = 'Imperial: °F, mph']");
+    final static By TEMPERATURE_IN_FAHRENHEIT = By.xpath("//div[@id='weather-widget']"
+            +"//span[contains (text(),'F')]");
     private void openBaseUrl () {
         getDriver().get(BASE_URL);
     }
@@ -87,31 +87,20 @@ public class Btv35Test extends BaseTest {
 
         Assert.assertEquals(actualResult, expectedResult);
     }
-    @Ignore
     @Test
-    public void testSwitchingTemperatureToFahrenheit() throws InterruptedException {
-        String url = "https://openweathermap.org/";
+    public void testSwitchingTemperatureToFahrenheit() {
         String expectedResult = "F";
 
-        getDriver().get(url);
-        Thread.sleep(10000);
-
-        WebElement switchToFahrenheit = getDriver().findElement(
-                By.xpath("//div[@id ='weather-widget']//div[text() = 'Imperial: °F, mph']"));
-        switchToFahrenheit.click();
-        Thread.sleep(7000);
-
-        WebElement temperatureInFahrenheit = getDriver().findElement(
-                By.xpath("//div[@id='weather-widget']//span[contains (text(),'F')]"));
-
-        String temperatureInFahrenheitText = temperatureInFahrenheit.getText();
-        String actualResult = temperatureInFahrenheitText.substring(temperatureInFahrenheitText.length() - 1);
+        openBaseUrl();
+        waitForGreyFrameDisappeared();
+        click(SWITCH_TO_FAHRENHEIT,getWait5());
+        String actualResult = getText(TEMPERATURE_IN_FAHRENHEIT,getDriver()).
+                substring(getText(TEMPERATURE_IN_FAHRENHEIT,getDriver()).length() - 1);
 
         Assert.assertEquals(actualResult,expectedResult);
 
-        Assert.assertTrue(temperatureInFahrenheit.getText().contains(expectedResult));
+        Assert.assertTrue(getText(TEMPERATURE_IN_FAHRENHEIT,getDriver()).contains(expectedResult));
     }
-
     @Test
     public void testTwoButtonsOnTheCookiesMessage(){
         String cookies = "We use cookies which are essential for the site to work. We also use "
