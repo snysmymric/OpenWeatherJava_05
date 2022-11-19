@@ -60,9 +60,9 @@ public class DimaZadrutsiyTest extends BaseTest {
         return getDriver().findElement(By.xpath(where)).getText();
     }
 
-    private void input(String where, String what) {
-        getDriver().findElement(By.xpath(where)).sendKeys(what, Keys.ENTER);
-        getWait5();
+    private void input(String element, String what, WebDriverWait wait) {
+        wait.until(ExpectedConditions.visibilityOf(getDriver().findElement(By.xpath(element))));
+        getDriver().findElement(By.xpath(element)).sendKeys(what, Keys.ENTER);
     }
 
     private void chooseFromDropDownMenu(String whatChoose, WebDriverWait wait) {
@@ -71,7 +71,6 @@ public class DimaZadrutsiyTest extends BaseTest {
     }
 
     private void pressButton(String whichButton, WebDriverWait wait) {
-        getDriver().findElement(By.xpath(whichButton));
         wait.until(ExpectedConditions.elementToBeClickable(getDriver().findElement(By.xpath(whichButton)))).click();
     }
 
@@ -105,7 +104,7 @@ public class DimaZadrutsiyTest extends BaseTest {
         waitForGrayFrameDisappeared();
 
         click("//div//input[@placeholder='Search city']", getWait5());
-        input("//div//input[@placeholder='Search city']", cityName);
+        input("//div//input[@placeholder='Search city']", cityName, getWait10());
         chooseFromDropDownMenu("//ul//span[text()='45.787, -87.904']", getWait5());
         pressButton("//div[@class='control-el']", getWait10());
 
@@ -163,7 +162,7 @@ public class DimaZadrutsiyTest extends BaseTest {
 
         openBaseURL();
         waitForGrayFrameDisappeared();
-        input("//input[@placeholder='Search city']", cityName);
+        input("//input[@placeholder='Search city']", cityName, getWait10());
 
         String actualResult = getText("//span[text()='No results for Rrr']");
 
@@ -178,7 +177,7 @@ public class DimaZadrutsiyTest extends BaseTest {
 
         openBaseURL();
         waitForGrayFrameDisappeared();
-        input("//input[@placeholder='Search city']", cityName);
+        input("//input[@placeholder='Search city']", cityName, getWait10());
 
         String actualResult = backgroundColor("//div[@class='widget-notification']", getWait10());
 
