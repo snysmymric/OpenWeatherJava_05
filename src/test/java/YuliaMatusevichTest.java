@@ -16,6 +16,7 @@ public class YuliaMatusevichTest extends BaseTest {
     final static By TWITTER_LINK = By.xpath("//div[@class = 'social']/a[2]");
     final static By LINKEDIN_LINK = By.xpath("//div[@class = 'social']/a[3]");
     final static By MEDIUM_LINK = By.xpath("//div[@class = 'social']/a[4]");
+    final static By TELEGRAM_LINK = By.xpath("//div[@class = 'social']/a[5]");
     public void openBaseUrl(){
         getDriver().get(BASE_URL);
     }
@@ -117,6 +118,22 @@ public class YuliaMatusevichTest extends BaseTest {
 
         Assert.assertTrue((actualResult.contains(expectedResult)));
     }
+
+    @Test
+    public void testTelegramIcon_OnHomePage_WhenClickIcon(){
+        String expectedResult ="t.me";
+
+        openBaseUrl();
+        waitForGrayFrameDisappeared();
+        scrollToPageBottom();
+        click(TELEGRAM_LINK, getWait20());
+        getWait20().until(ExpectedConditions.numberOfWindowsToBe(2));
+        switchWindows();
+        String actualResult = getDriver().getCurrentUrl();
+
+        Assert.assertTrue((actualResult.contains(expectedResult)));
+    }
+
 }
 
 
