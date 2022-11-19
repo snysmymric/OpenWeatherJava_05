@@ -1,10 +1,8 @@
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
-import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import runner.BaseTest;
 
@@ -18,12 +16,16 @@ public class EkaterinaChernyshovaTest extends BaseTest {
     final static By SEARCH_DROPDOWN_MENU = By.className("search-dropdown-menu");
     final static By PARIS_FR_CHOICE_IN_DROPDOWN_MENU = By.xpath("//ul[@class = 'search-dropdown-menu']/li/span[text() = 'Paris, FR ']");
     final static By GUIDE_MENU = By.xpath("//div[@id = 'desktop-menu']//a[@href = '/guide']");
+    final static By IMPERIAL_TEMPERATURE_BUTTON = By.xpath("//div[@id = 'weather-widget']//div[text() = 'Imperial: °F, mph']");
+    final static By METRIC_TEMPERATURE_BUTTON = By.xpath("//div[@id = 'weather-widget']//div[text() = 'Metric: °C, m/s']");
+    final static By SYMBOL_C = By.xpath("//span[@class = 'heading']");
+
 
     private void openBaseURL(String url) {
         getDriver().get(url);
     }
 
-    private void waitForGrayFrameDisappear() {
+    private void waitForGreyFrameDisappear() {
         getWait20().until(ExpectedConditions.invisibilityOfElementLocated(By.className("owm-loader-container")));
     }
 
@@ -48,7 +50,8 @@ public class EkaterinaChernyshovaTest extends BaseTest {
         wait.until(ExpectedConditions
                 .not(ExpectedConditions.textToBePresentInElement(driver.findElement(by), text)));
     }
-    @Ignore
+
+
     @Test
     public void testH2TagText_WhenSearchingCityCountry() {
 
@@ -56,7 +59,7 @@ public class EkaterinaChernyshovaTest extends BaseTest {
         String expectedResult = "Paris, FR";
 
         openBaseURL(BASE_URL);
-        waitForGrayFrameDisappear();
+        waitForGreyFrameDisappear();
 
         String oldH2Header = getText(H2_CITY_NAME_HEADER, getDriver());
 
@@ -79,7 +82,7 @@ public class EkaterinaChernyshovaTest extends BaseTest {
         String expectedResult2 = "OpenWeatherMap API guide - OpenWeatherMap";
 
         openBaseURL(BASE_URL);
-        waitForGrayFrameDisappear();
+        waitForGreyFrameDisappear();
         click(GUIDE_MENU, getWait5());
 
         String actualResult1 = getDriver().getCurrentUrl();
@@ -89,34 +92,20 @@ public class EkaterinaChernyshovaTest extends BaseTest {
         Assert.assertEquals(actualResult2, expectedResult2);
     }
 
-    @Ignore
-    @Test
-    public void testIfTemperatureShowsInCelsius() throws InterruptedException {
 
-        String url = "https://openweathermap.org/";
+    @Test
+    public void testIfTemperatureShowsInCelsius() {
+
         String expectedResult = "°C";
 
-        getDriver().get(url);
-        Thread.sleep(10000);
+        openBaseURL(BASE_URL);
+        waitForGreyFrameDisappear();
 
-        WebElement imperialFahrenheitTemperatureButton = getDriver().findElement(By.xpath(
-                "//div[@id = 'weather-widget']//div[@class = 'option'][text() = 'Imperial: °F, mph']")
-        );
-        imperialFahrenheitTemperatureButton.click();
-        Thread.sleep(5000);
+        click(IMPERIAL_TEMPERATURE_BUTTON, getWait10());
+        waitForGreyFrameDisappear();
+        click(METRIC_TEMPERATURE_BUTTON, getWait10());
+       String actualResult = getText(SYMBOL_C, getDriver()).substring(getText(SYMBOL_C,getDriver()).length()-2);
 
-        WebElement imperialCelciusTemperatureButton = getDriver().findElement(By.xpath(
-                "//div[@class = 'option'][text() = 'Metric: °C, m/s']")
-        );
-        imperialCelciusTemperatureButton.click();
-        Thread.sleep(5000);
-
-        WebElement symbolC = getDriver().findElement(By.xpath(
-                "//span[@class = 'heading']")
-        );
-
-        Boolean actualResult = symbolC.isDisplayed();
-
-        Assert.assertTrue(actualResult, expectedResult);
+        Assert.assertEquals(actualResult, expectedResult);
     }
 }
