@@ -10,6 +10,9 @@ public class GdikhsanovTest extends BaseTest {
 
     final static String BASE_URL = "https://openweathermap.org/";
 
+    final static By H1_PRICING_PAGE = By.className("breadcrumb-title");
+    final static By MENU_PRICING_BUTTON = By.xpath("//div[@id='desktop-menu']//a[@href='/price']");
+
     private void openBaseUrl() {
         getDriver().get(BASE_URL);
     }
@@ -56,5 +59,23 @@ public class GdikhsanovTest extends BaseTest {
 
         Assert.assertEquals(currentUrl, expectedUrl);
         Assert.assertEquals(currentTitle, expectedTitle);
+    }
+
+    @Test
+    public void test_VerifyThePagePricingOpened_WhenClickPricingBtnAtMenu_gdikhsanov() {
+
+        String expectedUrl = String.format("%sprice", BASE_URL);
+        String expectedH1Text = "Pricing";
+
+        openBaseUrl();
+        waitForGreyFrameDisappeared();
+
+        click(MENU_PRICING_BUTTON, getWait5());
+
+        String currentUrl = getDriver().getCurrentUrl();
+        String currentH1Text = getText(H1_PRICING_PAGE, getDriver());
+
+        Assert.assertEquals(currentUrl, expectedUrl);
+        Assert.assertEquals(currentH1Text, expectedH1Text);
     }
 }
