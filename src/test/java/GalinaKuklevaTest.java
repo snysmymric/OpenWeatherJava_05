@@ -11,12 +11,15 @@ import runner.BaseTest;
 
 public class GalinaKuklevaTest extends BaseTest {
     final static String BASE_URL = "https://openweathermap.org/";
+    final static String FAHRENHEIT_SIGN = "°F";
     final static By H2_CITY_COUNTRY_HEADER = By.xpath("//div[@id = 'weather-widget']//h2");
     final static By SEARCH_CITY_FIELD = By.xpath("//div[@id = 'weather-widget']//input[@placeholder = 'Search city']");
     final static By SEARCH_BUTTON = By.xpath("//div[@id = 'weather-widget']//button[@type = 'submit']");
     final static By SEARCH_DROPDOWN_MENU = By.className("search-dropdown-menu");
     final static By PARIS_FR_CHOICE_IN_DROPDOWN_MENU = By.xpath("//ul[@class = 'search-dropdown-menu']/li/span[text() = 'Paris, FR ']");
     final static By GUIDE_BUTTON = By.xpath("//div[@id = 'desktop-menu']//li/a [@href='/guide']");
+    final static By IMPERIAL_DATA = By.xpath("//div[@id = 'weather-widget']//div[text() = 'Imperial: °F, mph']");
+    final static By TEMP_IN_THE_CITY = By.xpath("//div[@id = 'weather-widget']//span[@class = 'heading']");
 
     private void openBaseURL() {
         getDriver().get(BASE_URL);
@@ -89,23 +92,18 @@ public class GalinaKuklevaTest extends BaseTest {
         Assert.assertEquals(actualResult_2, expectedResult_2);
     }
 
-    @Ignore
     @Test
-    public void testTemperatureInFahrenheits() throws InterruptedException {
+    public void testTemperatureInFahrenheits() {
 
-        String baseUrl = "https://openweathermap.org/";
-        String expectedResult = "°F";
+        String expectedResult = FAHRENHEIT_SIGN;
 
-        getDriver().get(baseUrl);
-        Thread.sleep(7000);
-        WebElement imperialData = getDriver().findElement(
-                By.xpath("//div[@id = 'weather-widget']//div[text() = 'Imperial: °F, mph']")
-        );
-        imperialData.click();
-        WebElement tempInTheCity = getDriver().findElement(
-                By.xpath("//div[@id = 'weather-widget']//span[@class = 'heading']")
-        );
-        Boolean actualResult = tempInTheCity.getText().contains(expectedResult);
+        openBaseURL();
+        waitForGrayFrameDisappeared();
+        click(IMPERIAL_DATA, getWait20());
+
+        getText(TEMP_IN_THE_CITY, getDriver());
+
+        Boolean actualResult = getText(TEMP_IN_THE_CITY, getDriver()).contains(expectedResult);
 
         Assert.assertTrue(actualResult, expectedResult);
     }
