@@ -24,6 +24,11 @@ public class OlgaKhliupinaTest extends BaseTest {
            By.xpath("//a[@href='https://github.com/search?q=openweathermap&ref=cmdform']");
    final static By ALLOW_ALL_BUTTON = By.xpath("//button[@type='button']");
    final static By SOCIAL_PANEL = By.className("social");
+   final static By CURRENT_WEATHER_ICON = By.xpath("//div/a[@href='/current']");
+   final static By HOURLY_FORECAST_ICON = By.xpath("//div/a[@href='/api/hourly-forecast']");
+   final static By DAILY_FORECAST_ICON = By.xpath("//div/a[@href='/forecast16']");
+   final static By CLIMATIC_FORECAST_ICON = By.xpath("//div/a[@href='/api/forecast30']");
+   final static By HISTORICAL_WEATHER_ICON = By.xpath("//div/a[@href='/history']");
 
    private void openBaseURL() {
       getDriver().get(BASE_URL);
@@ -153,5 +158,21 @@ public class OlgaKhliupinaTest extends BaseTest {
       Assert.assertTrue(isElementDisplayed(SOCIAL_PANEL, getDriver()));
       Assert.assertEquals(quantityOfElements(
               By.xpath("//div[@class='social']/a"), getDriver()), expectedResult2);
+   }
+
+   @Test
+   public void test5IconsAreDisplayed_SectionOrangeBackgroundWhiteText() {
+      int expectedResultQuantity = 5;
+
+      openBaseURL();
+      waitForGrayFrameDisappeared();
+
+      Assert.assertEquals(quantityOfElements(By.xpath("//div/a[@class='stats white-text']"), getDriver()),
+              expectedResultQuantity);
+      Assert.assertTrue(isElementDisplayed(CURRENT_WEATHER_ICON, getDriver())
+              && isElementDisplayed(HOURLY_FORECAST_ICON, getDriver())
+              && isElementDisplayed(DAILY_FORECAST_ICON, getDriver())
+              && isElementDisplayed(CLIMATIC_FORECAST_ICON, getDriver())
+              && isElementDisplayed(HISTORICAL_WEATHER_ICON, getDriver()));
    }
 }
