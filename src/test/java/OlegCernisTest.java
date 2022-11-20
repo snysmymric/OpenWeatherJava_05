@@ -76,6 +76,8 @@ public class OlegCernisTest extends BaseTest {
 
         Assert.assertEquals(expectedResult, newCity);
     }
+
+    @Ignore
     @Test
     public void testVerifyChangingTempUnitInHeading_WhenSwitchTempUnitButton() {
 

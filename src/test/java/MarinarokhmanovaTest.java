@@ -80,6 +80,7 @@ public class MarinarokhmanovaTest extends BaseTest {
         Assert.assertEquals(actualResult, expectedResult);
     }
 
+    @Ignore
     @Test
     public void testOpenWeatherMapGuide() {
 

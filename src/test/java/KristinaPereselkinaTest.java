@@ -4,6 +4,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import runner.BaseTest;
 
@@ -177,6 +178,7 @@ public class KristinaPereselkinaTest extends BaseTest {
         Assert.assertEquals(actualList, expectedList);
     }
 
+    @Ignore
     @Test
     public void testSubscriptionButtonForProfessionalCollection() {
 

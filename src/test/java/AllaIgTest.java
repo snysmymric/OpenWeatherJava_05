@@ -33,6 +33,7 @@ public class AllaIgTest extends BaseTest {
         wait.until(ExpectedConditions.elementToBeClickable(by)).click();
     }
 
+    @Ignore
     @Test
     public void testUrlAndTitle_WhenGuidePress() throws InterruptedException {
 
