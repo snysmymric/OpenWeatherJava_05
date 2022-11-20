@@ -9,9 +9,19 @@ import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import runner.BaseTest;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class SnegafalTest extends BaseTest {
 
     static final String BASE_URL = "https://openweathermap.org/";
+
+    static final List<String> EXPECTED_DATA_SOURCE_ITEMS = List.of(
+            "Personal feelings",
+            "Own weather station or devices",
+            "Local weather provider",
+            "Global weather provider",
+            "Other");
 
     static final By GUIDE_IN_MENU = By.xpath("//ul[@id='first-level-nav']//a[@href='/guide']");
     static final By DIFFERENT_WEATHER_POP_UP = By.xpath("//div[@class='pop-up-container']");
@@ -20,6 +30,8 @@ public class SnegafalTest extends BaseTest {
     static final By DIFFERENT_WEATHER_TEMPERATURE_INPUT = By.xpath("//input[@type='number']");
     static final By START_PAGE_TEMPERATURE = By.xpath("//span[@class='heading']");
     static final By DEGREE_SIGN_IN_DIFFERENT_WEATHER_POPUP = By.xpath("//div[@class='input-with-selection']/div");
+    static final By DATA_SOURSE_SELECTOR = By.xpath("//div[@class='dropdown-selector']");
+    static final By DATA_SOURSE_OPTIONS = By.xpath("//div[@class='owm-selector open']//ul[@class='dropdown-menu']/li");
 
 
     private void waitForGrayFrameDisappeared() {
@@ -100,4 +112,25 @@ public class SnegafalTest extends BaseTest {
 
         Assert.assertEquals(increasedTemperatureInInput - temperatureInPopup, 1);
     }
+
+    @Test
+    public void testNamesInDataSourceSelector() {
+
+        getDriver().get(BASE_URL);
+
+        waitForGrayFrameDisappeared();
+        click(DIFFERENT_WEATHER_BUTTON, getWait5());
+        waitForDifferentWeatherPopUpAppeared();
+        getDriver().findElement(MORE_OPTIONS_BUTTON).click();
+        getDriver().findElement(DATA_SOURSE_SELECTOR).click();
+
+        List<WebElement> dataSourceElements = getDriver().findElements(DATA_SOURSE_OPTIONS);
+        List <String> actualDataSourceElements = new ArrayList<>();
+        for (WebElement option : dataSourceElements) {
+            actualDataSourceElements.add(option.getText());
+        }
+
+        Assert.assertEquals(actualDataSourceElements, EXPECTED_DATA_SOURCE_ITEMS);
+    }
 }
+
