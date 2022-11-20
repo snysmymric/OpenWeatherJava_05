@@ -1,10 +1,13 @@
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import runner.BaseTest;
+
+import java.util.ArrayList;
 
 public class YuliaKonkovaTest extends BaseTest {
     final static String BASE_URL = "https://openweathermap.org/";
@@ -14,6 +17,16 @@ public class YuliaKonkovaTest extends BaseTest {
     final static By SEARCH_DROPDOWN_MENU = By.className("search-dropdown-menu");
     final static By PARIS_FR_CHOICE_IN_DROPDOWN_MENU =
             By.xpath("//ul[@class='search-dropdown-menu']/li/span[text()='Paris, FR ']");
+
+    final static By SUPPORT_DROPDOWNMENU_IN_NAVBAR = By.xpath("//div[@id='support-dropdown']");
+    final static By SUBMENUES_OF_SUPPORT = By.xpath("//ul[@class='dropdown-menu dropdown-visible']/li");
+    final static By FIRST_SUBMENUE_OF_SUPPORT =
+            By.xpath("//ul[@class='dropdown-menu dropdown-visible']/li/a[@href='/faq']");
+    final static By SECOND_SUBMENUE_OF_SUPPORT =
+            By.xpath("//ul[@class='dropdown-menu dropdown-visible']/li/a[@href='/appid']");
+    final static By THIRD_SUBMENUE_OF_SUPPORT =
+            By.xpath("//ul[@class='dropdown-menu dropdown-visible']/li" +
+                    "/a[@href='https://home.openweathermap.org/questions']");
 
     private void openBaseUrl(){
         getDriver().get(BASE_URL);
@@ -66,5 +79,27 @@ public class YuliaKonkovaTest extends BaseTest {
         String actualResult = getText(H2_CITY_NAME_HEADER,getDriver());
 
         Assert.assertEquals(actualResult,expectedResult);
+    }
+
+    @Test
+    public void testMenuSupportHasThreeSubmenus() {
+        int expectedNumberOfSubmenues = 3;
+        String expectedFirstSubmenue = "FAQ";
+        String expectedSecondSubmenue = "How to start";
+        String expectedThirdSubmenue = "Ask a question";
+
+        openBaseUrl();
+        waitUntilGreyFrameDisappeared();
+
+        click(SUPPORT_DROPDOWNMENU_IN_NAVBAR, getWait10());
+        waitElementToBeVisible(SUBMENUES_OF_SUPPORT, getWait10());
+
+        ArrayList list = (ArrayList) getDriver().findElements(SUBMENUES_OF_SUPPORT);
+        int actualNumberOfSubmenues = list.size();
+
+        Assert.assertEquals(actualNumberOfSubmenues,expectedNumberOfSubmenues);
+        Assert.assertEquals(getText(FIRST_SUBMENUE_OF_SUPPORT, getDriver()),expectedFirstSubmenue);
+        Assert.assertEquals(getText(SECOND_SUBMENUE_OF_SUPPORT, getDriver()), expectedSecondSubmenue);
+        Assert.assertEquals(getText(THIRD_SUBMENUE_OF_SUPPORT, getDriver()), expectedThirdSubmenue);
     }
 }
