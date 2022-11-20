@@ -104,6 +104,10 @@ public abstract class BaseTest {
         return getDriver().findElement(by).isDisplayed();
     }
 
+    private int countOrangeButtons(By by) {
+        return driver.findElements(by).size();
+    }    
+
     public String systemDate() {
         Date date = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("MMM dd, hh:mma");
