@@ -1,4 +1,3 @@
-import org.bouncycastle.math.ec.custom.sec.SecT113Field;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -6,7 +5,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
-import runner.BaseTest;
+import base.BaseTest;
 
 import java.util.Set;
 

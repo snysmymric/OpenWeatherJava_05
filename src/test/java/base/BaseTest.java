@@ -1,11 +1,15 @@
-package runner;
+package base;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.ITestContext;
 import org.testng.ITestResult;
 import org.testng.Reporter;
 import org.testng.annotations.*;
+import utils.ReportUtils;
+import utils.TestUtils;
 
 import java.lang.reflect.Method;
 import java.time.Duration;
@@ -14,6 +18,8 @@ public abstract class BaseTest {
     private WebDriver driver;
     private WebDriverWait webDriverWait20;
     private WebDriverWait webDriverWait10;
+
+    public final String BASE_URL = TestUtils.getBaseUrl();
 
     @BeforeSuite
     protected void beforeSuite(ITestContext context) {
@@ -59,6 +65,40 @@ public abstract class BaseTest {
 
     protected WebDriverWait getWait5() {
 
-        return webDriverWait10;
+        return getWait10();
+    }
+
+    public void openBaseURL() {
+        driver.get(BASE_URL);
+        waitForGrayContainerDisappeared();
+    }
+
+    public void waitForGrayContainerDisappeared() {
+        webDriverWait20.until(ExpectedConditions.invisibilityOfElementLocated(
+                By.className("owm-loader-container")));
+    }
+
+    public String getText(By by) {
+
+        return driver.findElement(by).getText();
+    }
+
+    public void click(By by) {
+        webDriverWait10.until(ExpectedConditions.visibilityOfElementLocated(by));
+        webDriverWait10.until(ExpectedConditions.elementToBeClickable(by)).click();
+    }
+
+    public void input(String text, By by) {
+
+        driver.findElement(by).sendKeys(text);
+    }
+
+    public void waitElementToBeVisible(By by) {
+        webDriverWait20.until(ExpectedConditions.visibilityOfElementLocated(by));
+    }
+
+    public void waitTextToBeChanged(By by, String text) {
+        webDriverWait10.until(ExpectedConditions
+                .not(ExpectedConditions.textToBePresentInElement(driver.findElement(by), text)));
     }
 }
