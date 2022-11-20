@@ -5,7 +5,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
-import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import runner.BaseTest;
 
@@ -22,6 +21,9 @@ public class Kater1naGTest extends BaseTest {
     final static By IMPERIAL_F = By.xpath("//*[@id='weather-widget']/div[1]/div/div/div[1]/div[2]/div[3]");
     final static By TEMP_F = By.xpath("//*[@id='weather-widget']/div[2]/div[1]/div[1]/div[2]/div[1]/span");
 
+    final static By PANEL_OF_COOKIES = By.xpath("//div[@id='stick-footer-panel']");
+    final static By TEXT_ELEMENT_OF_PANEL = By.xpath("//div[@id='stick-footer-panel']/div/div/div/div/p");
+    final static By BUTTONS_OF_PANEL = By.tagName("button");
 
     private void openBaseURL() {
         getDriver().get(BASE_URL);
@@ -60,6 +62,10 @@ public class Kater1naGTest extends BaseTest {
         }else {
             return text.substring(1);
         }
+    }
+    private int getSizeOfElements(By by, WebDriver driver){
+        int sizeOfElement = getDriver().findElements(by).size();
+        return sizeOfElement;
     }
 
 
@@ -133,38 +139,25 @@ public class Kater1naGTest extends BaseTest {
         Assert.assertEquals(actualResult, expectedResult);
         Assert.assertEquals(expectedResultTempButton, actualResultTempButton);
     }
-@Ignore
-    @Test
-    public void testBelowButtonsAndText() throws InterruptedException {
 
-        String url = "https://openweathermap.org/";
+    @Test
+    public void testBelowButtonsAndTextIntoCookiePanel()  {
         int expectedButtons = 2;
-        String expectedResult = "We use cookies"
+        String expectedText = "We use cookies"
                 + " which are essential for the site to work. We also use non-essential cookies to help us"
                 + " improve our services. Any data collected is anonymised."
                 + " You can allow all cookies or manage them individually.";
 
-        getDriver().get(url);
+        openBaseURL();
+        waitForGreyFrameDisappeared();
+        waitElementToBeVisible(PANEL_OF_COOKIES, getWait20());
+        waitElementToBeVisible(TEXT_ELEMENT_OF_PANEL, getWait20());
+        String actualText = getText(TEXT_ELEMENT_OF_PANEL, getDriver());
+        int actualButtons = getSizeOfElements(BUTTONS_OF_PANEL, getDriver());
 
-        WebElement panelOfCookies = getDriver().findElement(
-                By.xpath("//div[@id='stick-footer-panel']")
-        );
-
-        WebElement textElementOfPanel = getDriver().findElement(
-                By.xpath("//div[@id='stick-footer-panel']/div/div/div/div/p")
-        );
-
-        String actualResult = textElementOfPanel.getText();
-
-        int buttonsOfPanel  =  getDriver().findElements(
-                By.tagName("button")
-        ).size();
-
-        Assert.assertTrue(panelOfCookies.isDisplayed());
-
-        Assert.assertEquals(actualResult, expectedResult);
-
-        Assert.assertEquals(buttonsOfPanel, expectedButtons);
+        Assert.assertTrue(getElement(PANEL_OF_COOKIES, getDriver()).isDisplayed());
+        Assert.assertEquals(actualText, expectedText);
+        Assert.assertEquals(actualButtons, expectedButtons);
 
     }
 }
