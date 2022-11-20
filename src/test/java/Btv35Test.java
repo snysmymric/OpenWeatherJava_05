@@ -25,10 +25,14 @@ public class Btv35Test extends BaseTest {
             + "//button[@class='stick-footer-panel__link']");
     final static By BUTTON_MANAGE_COOKIES = By.xpath("//div[@id='stick-footer-panel']"
             + "//a[text()=' Manage cookies ']");
+    final static By ORANGE_BUTTON_SUBSCRIBE = By.xpath("//a[contains(@class, 'btn_block orange round') "
+            + "and (text() = 'Subscribe')]");
+    final static By MENU_API = By.xpath("//div[@id='desktop-menu']//a[text()='API']");
     final static By SWITCH_TO_FAHRENHEIT = By.xpath("//div[@id ='weather-widget']"
             + "//div[text() = 'Imperial: °F, mph']");
     final static By TEMPERATURE_IN_FAHRENHEIT = By.xpath("//div[@id='weather-widget']"
             +"//span[contains (text(),'F')]");
+
     private void openBaseUrl () {
         getDriver().get(BASE_URL);
     }
@@ -54,6 +58,9 @@ public class Btv35Test extends BaseTest {
     }
     private String currentUrl () {
         return getDriver().getCurrentUrl();
+    }
+    private int countAmountOfButtons (By by,WebDriver driver) {
+        return driver.findElements(by).size();
     }
     @Test
     public void testH2TagText_WhenSearchingCityCountry(){
@@ -119,5 +126,15 @@ public class Btv35Test extends BaseTest {
 
         Assert.assertEquals(actualResultAllowAllButton, expectedResultAllowAll);
         Assert.assertEquals(actualResultButtonManageCookies, expectedResultManageCookies);
+    }
+    @Test
+    public void testAmountOfOrangeRoundButtonSubscribe () {
+
+        int expectedResult = 20;
+
+        openBaseUrl();
+        waitForGreyFrameDisappeared();
+        click(MENU_API,getWait5());
+        Assert.assertEquals(countAmountOfButtons(ORANGE_BUTTON_SUBSCRIBE,getDriver()),expectedResult);
     }
 }
