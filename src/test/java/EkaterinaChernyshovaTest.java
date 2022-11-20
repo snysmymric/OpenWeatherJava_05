@@ -76,7 +76,7 @@ public class EkaterinaChernyshovaTest extends BaseTest {
         Assert.assertEquals(actualResult, expectedResult);
     }
 
-    @Ignore
+
     @Test
     public void testLinkAndTitleOnThePage_OpenWeatherMap() {
 
@@ -85,7 +85,7 @@ public class EkaterinaChernyshovaTest extends BaseTest {
 
         openBaseURL(BASE_URL);
         waitForGreyFrameDisappear();
-        click(GUIDE_MENU, getWait5());
+        click(GUIDE_MENU, getWait20());
 
         String actualResult1 = getDriver().getCurrentUrl();
         String actualResult2 = getDriver().getTitle();
