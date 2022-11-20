@@ -18,6 +18,8 @@ public class elenuraTest extends BaseTest {
     final static By SEARCH_BUTTON = By.xpath("//div[@id = 'weather-widget']//button[@type = 'submit']");
     final static By SEARCH_DROPDOWN_MENU = By.className("search-dropdown-menu");
     final static By PARIS_FR_CHOICE_IN_DROPDOWN_MENU = By.xpath("//ul[@class = 'search-dropdown-menu']/li/span[text() = 'Paris, FR ']");
+    final static By DASHBOARD_MENU = By.xpath("//div[@id='desktop-menu']//a[@href='/weather-dashboard']");
+    final static By DASHBOARD_HEADER = By.xpath("//h1[@class = 'breadcrumb-title']");
 
     private void openBaseURL() {
         getDriver().get(BASE_URL);
@@ -73,7 +75,19 @@ public class elenuraTest extends BaseTest {
 
         Assert.assertEquals(actualResult, expectedResult);
     }
+    
+    @Test
+    public void testDashboardIsClickableVerifyTitle() {
+        String expectedResultURL = "https://openweathermap.org/weather-dashboard";
+        String expectedResultHeader = "Weather dashboard";
 
+        openBaseURL();
+        waitForGrayFrameDisappeared();
+        click(DASHBOARD_MENU,getWait10());
+
+        Assert.assertEquals(getDriver().getCurrentUrl(),expectedResultURL);
+        Assert.assertEquals(getText(DASHBOARD_HEADER, getDriver()), expectedResultHeader);
+    }
     @Ignore
     @Test
     public void testTitleOpenWeatherMapAPIGuide() throws InterruptedException {
