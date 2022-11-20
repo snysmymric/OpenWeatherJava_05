@@ -19,10 +19,14 @@ public class Kater1naGTest extends BaseTest {
     final static By CHOICE_PARIS_FR = By.xpath
             ("//ul[@class = 'search-dropdown-menu']/li/span[text()= 'Paris, FR ']");
     final static By SEARCH_GUIDE = By.xpath("//a[@href='/guide']");
-    private void openBaseURL(){
+    final static By IMPERIAL_F = By.xpath("//*[@id='weather-widget']/div[1]/div/div/div[1]/div[2]/div[3]");
+    final static By TEMP_F = By.xpath("//*[@id='weather-widget']/div[2]/div[1]/div[1]/div[2]/div[1]/span");
+
+
+    private void openBaseURL() {
         getDriver().get(BASE_URL);
     }
-    private void waitForGreyFrameDisappeared(){
+    private void waitForGreyFrameDisappeared() {
         getWait20().until(ExpectedConditions.invisibilityOfElementLocated(
                 By.className("owm-loader-container")));
 
@@ -34,20 +38,30 @@ public class Kater1naGTest extends BaseTest {
         WebElement element = driver.findElement(by);
         return element;
     }
-    private void click(By by, WebDriverWait wait){
+    private void click(By by, WebDriverWait wait) {
         wait.until(ExpectedConditions.visibilityOfElementLocated(by));
         wait.until(ExpectedConditions.elementToBeClickable(by)).click();
     }
-    private void input(String text,By by,WebDriver driver){
+    private void input(String text,By by,WebDriver driver) {
         driver.findElement(by).sendKeys(text);
     }
-    private void waitElementToBeVisible(By by,WebDriverWait wait){
+    private void waitElementToBeVisible(By by,WebDriverWait wait) {
         wait.until(ExpectedConditions.visibilityOfElementLocated(by));
     }
-    private void waitTextChanged(By by, String text, WebDriver driver, WebDriverWait wait){
+    private void waitTextChanged(By by, String text, WebDriver driver, WebDriverWait wait) {
         wait.until(ExpectedConditions
                 .not(ExpectedConditions.textToBePresentInElement(driver.findElement(by), text)));
     }
+    private String symbolF(String text) {
+        if(text.length() == 4){
+            return text.substring(2);
+        } else if (text.length() > 4) {
+            return text.substring(3);
+        }else {
+            return text.substring(1);
+        }
+    }
+
 
     @Test
     public void testH2TagText_WhenSearchingCityCountry() {
@@ -101,38 +115,23 @@ public class Kater1naGTest extends BaseTest {
         String actualResult = getDriver().getTitle();
         Assert.assertEquals(actualResult, expectedResult);
     }
-    @Ignore
-    @Test
-    public void testImperialF() throws InterruptedException {
 
-        String url = "https://openweathermap.org/";
-        String tempButton = "Imperial: °F, mph";
+    @Test
+    public void testImperialF() {
+        String expectedResultTempButton = "Imperial: °F, mph";
         String expectedResult = "°F";
 
-        getDriver().get(url);
-
-        WebElement imperialF = getDriver().findElement(
-                By.xpath("//*[@id='weather-widget']/div[1]/div/div/div[1]/div[2]/div[3]")
-        );
-        Thread.sleep(10000);
-        imperialF.click();
-
-        WebElement tempF = getDriver().findElement(
-                By.xpath("//*[@id='weather-widget']/div[2]/div[1]/div[1]/div[2]/div[1]/span")
-        );
-
-        String letterF = tempF.getText();
-
-        String actualResult;
-        if(letterF.length() == 4){
-            actualResult = letterF.substring(2);
-        } else if (letterF.length() > 4) {
-            actualResult = letterF.substring(3);
-        }else {
-            actualResult = letterF.substring(1);
-        }
+        openBaseURL();
+        waitForGreyFrameDisappeared();
+        click(IMPERIAL_F, getWait10());
+        waitElementToBeVisible(IMPERIAL_F, getWait10());
+        String actualResultTempButton= getText(IMPERIAL_F, getDriver());
+        waitElementToBeVisible(TEMP_F, getWait10());
+        String  letterSymbolF = getText(TEMP_F,getDriver());
+        String actualResult = symbolF(letterSymbolF);
 
         Assert.assertEquals(actualResult, expectedResult);
+        Assert.assertEquals(expectedResultTempButton, actualResultTempButton);
     }
 @Ignore
     @Test
