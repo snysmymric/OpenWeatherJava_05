@@ -1,7 +1,7 @@
-
-import base.BaseTest;
-
-
-public class YulyaNyuTest extends BaseTest {
-
-}
+//
+//import base.BaseTest;
+//
+//
+//public class YulyaNyuTest extends BaseTest {
+//
+//}

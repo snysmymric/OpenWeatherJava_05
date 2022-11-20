@@ -1,6 +1,6 @@
-
-import base.BaseTest;
-
-public class ViktoriiaKarpusTest extends BaseTest {
-
-}
+//
+//import base.BaseTest;
+//
+//public class ViktoriiaKarpusTest extends BaseTest {
+//
+//}

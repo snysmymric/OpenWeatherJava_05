@@ -63,42 +63,37 @@ public abstract class BaseTest {
         return webDriverWait10;
     }
 
-    protected WebDriverWait getWait5() {
-
-        return getWait10();
-    }
-
     public void openBaseURL() {
-        driver.get(BASE_URL);
+        getDriver().get(BASE_URL);
         waitForGrayContainerDisappeared();
     }
 
     public void waitForGrayContainerDisappeared() {
-        webDriverWait20.until(ExpectedConditions.invisibilityOfElementLocated(
+        getWait20().until(ExpectedConditions.invisibilityOfElementLocated(
                 By.className("owm-loader-container")));
     }
 
     public String getText(By by) {
 
-        return driver.findElement(by).getText();
+        return getDriver().findElement(by).getText();
     }
 
     public void click(By by) {
-        webDriverWait10.until(ExpectedConditions.visibilityOfElementLocated(by));
-        webDriverWait10.until(ExpectedConditions.elementToBeClickable(by)).click();
+        getWait10().until(ExpectedConditions.visibilityOfElementLocated(by));
+        getWait10().until(ExpectedConditions.elementToBeClickable(by)).click();
     }
 
     public void input(String text, By by) {
 
-        driver.findElement(by).sendKeys(text);
+        getDriver().findElement(by).sendKeys(text);
     }
 
     public void waitElementToBeVisible(By by) {
-        webDriverWait20.until(ExpectedConditions.visibilityOfElementLocated(by));
+        getWait20().until(ExpectedConditions.visibilityOfElementLocated(by));
     }
 
     public void waitTextToBeChanged(By by, String text) {
-        webDriverWait10.until(ExpectedConditions
+        getWait10().until(ExpectedConditions
                 .not(ExpectedConditions.textToBePresentInElement(driver.findElement(by), text)));
     }
 }

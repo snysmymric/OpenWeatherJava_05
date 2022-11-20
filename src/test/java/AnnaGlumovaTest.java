@@ -1,5 +1,5 @@
-import base.BaseTest;
-
-
-public class AnnaGlumovaTest extends BaseTest {
-}
+//import base.BaseTest;
+//
+//
+//public class AnnaGlumovaTest extends BaseTest {
+//}

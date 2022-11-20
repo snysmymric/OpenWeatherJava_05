@@ -1,6 +1,6 @@
-import base.BaseTest;
-
-
-public class AnzhelikaBaaTest extends BaseTest {
-
-}
+//import base.BaseTest;
+//
+//
+//public class AnzhelikaBaaTest extends BaseTest {
+//
+//}
