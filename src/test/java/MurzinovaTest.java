@@ -12,6 +12,7 @@ public class MurzinovaTest extends BaseTest {
     final static By GUIDE_LINK = By.xpath("//div[@id='desktop-menu']//a[@href='/guide']");
     final static By SIGN_IN_LINK = By.xpath(
             "//div[@id='desktop-menu']//a[@href='https://openweathermap.org/home/sign_in']");
+    final static By CREATE_AN_ACCOUNT_LINK = By.xpath("//p/a[@href='/users/sign_up']");
 
     private void openBaseURL() {
         getDriver().get(BASE_URL);
@@ -51,6 +52,20 @@ public class MurzinovaTest extends BaseTest {
         waitForGrayFrameDisappeared();
 
         click(SIGN_IN_LINK, getWait10());
+
+        String actualResult = getDriver().getCurrentUrl();
+        Assert.assertEquals(actualResult,expectedResult);
+    }
+
+    @Test
+    public void testCreateAnAccountLinkIsClickableRedirectionToCreateAnAccountPage() {
+        String expectedResult = "https://home.openweathermap.org/users/sign_up";
+
+        openBaseURL();
+        waitForGrayFrameDisappeared();
+
+        click(SIGN_IN_LINK, getWait10());
+        click(CREATE_AN_ACCOUNT_LINK, getWait10());
 
         String actualResult = getDriver().getCurrentUrl();
         Assert.assertEquals(actualResult,expectedResult);
