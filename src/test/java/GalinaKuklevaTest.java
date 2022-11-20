@@ -6,17 +6,17 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
-import runner.BaseTest;
 
+import runner.BaseTest;
 
 public class GalinaKuklevaTest extends BaseTest {
     final static String BASE_URL = "https://openweathermap.org/";
-
     final static By H2_CITY_COUNTRY_HEADER = By.xpath("//div[@id = 'weather-widget']//h2");
     final static By SEARCH_CITY_FIELD = By.xpath("//div[@id = 'weather-widget']//input[@placeholder = 'Search city']");
     final static By SEARCH_BUTTON = By.xpath("//div[@id = 'weather-widget']//button[@type = 'submit']");
     final static By SEARCH_DROPDOWN_MENU = By.className("search-dropdown-menu");
     final static By PARIS_FR_CHOICE_IN_DROPDOWN_MENU = By.xpath("//ul[@class = 'search-dropdown-menu']/li/span[text() = 'Paris, FR ']");
+    final static By GUIDE_BUTTON = By.xpath("//div[@id = 'desktop-menu']//li/a [@href='/guide']");
 
     private void openBaseURL() {
         getDriver().get(BASE_URL);
@@ -72,20 +72,16 @@ public class GalinaKuklevaTest extends BaseTest {
         Assert.assertEquals(actualResult, expectedResult);
     }
 
-    @Ignore
     @Test
-    public void testOpenWeatherMapGuidePageTitle() throws InterruptedException {
+    public void testOpenWeatherMapGuidePageTitle() {
 
-        String baseUrl = "https://openweathermap.org/";
         String expectedResult_1 = "https://openweathermap.org/guide";
         String expectedResult_2 = "OpenWeatherMap API guide - OpenWeatherMap";
 
-        getDriver().get(baseUrl);
-        Thread.sleep(7000);
-        WebElement guideButton = getDriver().findElement(
-                By.xpath("//div[@id = 'desktop-menu']//li/a [@href='/guide']")
-        );
-        guideButton.click();
+        openBaseURL();
+        waitForGrayFrameDisappeared();
+        click(GUIDE_BUTTON, getWait5());
+
         String actualResult_1 = getDriver().getCurrentUrl();
         String actualResult_2 = getDriver().getTitle();
 
