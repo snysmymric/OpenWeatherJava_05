@@ -84,7 +84,7 @@ public class AnnaAbgTest extends BaseTest {
         Assert.assertEquals(actualResultCurrentURL, expectedResultCurrentURL);
     }
 
-    @Ignore
+
     @Test
     public void testBreadcrumbTitle() {
 
@@ -93,7 +93,7 @@ public class AnnaAbgTest extends BaseTest {
         OpenBaseURL();
         waitForGrayFrameDisappeared();
 
-        click(SEARCH_PARTNERS_MENU, getWait5());
+        click(SEARCH_PARTNERS_MENU, getWait10());
 
         String actualResultTitle = getTitle();
 

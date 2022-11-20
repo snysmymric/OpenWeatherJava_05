@@ -3,6 +3,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import runner.BaseTest;
 
@@ -102,6 +103,7 @@ public class ViktoriiaHukTest extends BaseTest {
         Assert.assertEquals(getDriver().getCurrentUrl(), expectedResult);
     }
 
+    @Ignore
     @Test
     public void testVerifyListHyperlinksOnPartnersPage() {
         List<String> expectedList = getExpectedListHyperlinksInMenuPartners();

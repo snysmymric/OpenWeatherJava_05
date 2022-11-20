@@ -175,6 +175,7 @@ public class LarisaBratukhinaTest extends BaseTest {
                 .contains(expectedResultDownloadOnTheAPPStoreLinkClickable)));
     }
 
+    @Ignore
     @Test
     public void testGetItOnGooglePlayStoreLinkIsVisibleAndClickable() {
         String expectedResultGetItOnGooglePlayStoreLinkClickable =
