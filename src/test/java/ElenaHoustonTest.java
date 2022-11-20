@@ -3,22 +3,32 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
-import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import runner.BaseTest;
+
+import java.util.ArrayList;
 
 public class ElenaHoustonTest extends BaseTest {
     final static String Base_URL = "https://openweathermap.org/";
     final static By H2_CITY_COUNTRY_HEADER = By.xpath("//div[@id='weather-widget']//h2");
     final static By SEARCH_CITY_FIELD = By.xpath("//div[@id='weather-widget']//input[@placeholder='Search city']");
     final static By SEARCH_BUTTON = By.xpath("//div[@id='weather-widget']//button[@type='submit']");
+    final static By SUPPORT_DROPDOWN = By.id("support-dropdown");
     final static By SEARCH_DROPDOWN_MENU = By.className("search-dropdown-menu");
+    final static By SUPPORT_DROPDOWN_MENU = By.xpath("//ul[@id='support-dropdown-menu']/li");
     final static By PARIS_CHOICE_IN_DROP_DOWN_MENU = By.xpath(
             "//ul[@class ='search-dropdown-menu']/li/span[text() = 'Paris, FR ']");
     final static By GUIDE_MENU = By.xpath("//div[@id = 'desktop-menu']//a[@href = '/guide']");
     final static By PUSH_IMPERIAL_FAHRENHEIT = By.xpath("//div[@class = 'switch-container']//div"
             + "[text()= 'Imperial: °F, mph']");
     final static By TEMP_IN_F = By.xpath("//div[@class='current-temp']/span");
+    final static By SEARCH_SUPPORT = By.xpath("//div[@id = 'support-dropdown']");
+    final static By FIND_SUB_1 = By.xpath("//ul[@class ='dropdown-menu dropdown-visible']//"
+            + "a[@href = '/faq']");
+    final static By FIND_SUB_2 = By.xpath("//ul[@class ='dropdown-menu dropdown-visible']//"
+            + "a[@href = '/appid']");
+    final static By FIND_SUB_3 = By.xpath("//ul[@class ='dropdown-menu dropdown-visible']//"
+            + "a[text() = 'Ask a question']");
 
 
     private void openBaseURL() {
@@ -53,6 +63,10 @@ public class ElenaHoustonTest extends BaseTest {
 
     private void findGuideMenuByLink(String text) {
         getDriver().findElement(By.linkText(text));
+    }
+    private int dropDownSize(By by, WebDriver driver) {
+
+        return driver.findElements(by).size();
     }
 
     @Test
@@ -110,43 +124,25 @@ public class ElenaHoustonTest extends BaseTest {
         Assert.assertTrue(getText(TEMP_IN_F,getDriver()).contains(fTempSymbol));
         Assert.assertEquals(actualResult, expectedResult);
     }
-}
-//    @Test
-//    public void testCheckPresenceOfTreeSubMenusInTheHead () throws InterruptedException {
-//        String url = "https://openweathermap.org/";
-//
-//        String expectedResult1 = "FAQ";
-//        String expectedResult2 = "How to start";
-//        String expectedResult3 = "Ask a question";
-//
-//        getDriver().get(url);
-//        Thread.sleep(10000);
-//
-//        WebElement searchSupport = getDriver().findElement(By.xpath("//div[@id = 'support-dropdown']")
-//        );
-//        searchSupport.click();
-//        Thread.sleep(2000);
-//
-//        WebElement findSub1 = getDriver().findElement(By.xpath("//ul[@class ='dropdown-menu dropdown-visible']//"
-//                + "a[@href = '/faq']")
-//        );
-//
-//        WebElement findSub2 = getDriver().findElement(By.xpath("//ul[@class ='dropdown-menu dropdown-visible']//"
-//                + "a[@href = '/appid']")
-//        );
-//
-//        WebElement findSub3 = getDriver().findElement(By.xpath("//ul[@class ='dropdown-menu dropdown-visible']//"
-//                + "a[text() = 'Ask a question']")
-//        );
-//
-//        Assert.assertEquals(getDriver().findElements(By.xpath("//ul[@id = 'support-dropdown-menu']/li")).size(), 3);
-//
-//        String actualResult1 = findSub1.getText();
-//        String actualResult2 = findSub2.getText();
-//        String actualResult3 = findSub3.getText();
-//
-//        Assert.assertEquals(actualResult1, expectedResult1);
-//        Assert.assertEquals(actualResult2, expectedResult2);
-//        Assert.assertEquals(actualResult3, expectedResult3);
-//    }
+    @Test
+    public void testCheckPresenceOfTreeSubMenusInTheHead () {
 
+        String expectedResult1 = "FAQ";
+        String expectedResult2 = "How to start";
+        String expectedResult3 = "Ask a question";
+
+        openBaseURL();
+        waitForGrayFrameDisappeared();
+        click(SUPPORT_DROPDOWN, getWait10());
+
+        Assert.assertEquals(dropDownSize(SUPPORT_DROPDOWN_MENU, getDriver()), 3);
+
+        String actualResult1 = getText(FIND_SUB_1, getDriver());
+        String actualResult2 = getText(FIND_SUB_2, getDriver());
+        String actualResult3 = getText(FIND_SUB_3, getDriver());
+
+        Assert.assertEquals(actualResult1, expectedResult1);
+        Assert.assertEquals(actualResult2, expectedResult2);
+        Assert.assertEquals(actualResult3, expectedResult3);
+    }
+}
