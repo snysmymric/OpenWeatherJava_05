@@ -57,6 +57,8 @@ public class OlegCernisTest extends BaseTest {
 
         return getText(confirmTemp, getDriver()).contains(symbolTemp);
     }
+
+    @Ignore
     @Test
     public void testVerifyThatLocationIsChangedInCurrentWeatherBlockAfterInputNewCity() {
 

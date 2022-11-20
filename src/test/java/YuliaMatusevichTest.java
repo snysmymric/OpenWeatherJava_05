@@ -76,6 +76,7 @@ public class YuliaMatusevichTest extends BaseTest {
         Assert.assertTrue((actualResult.contains(expectedResult)));
     }
 
+    @Ignore
     @Test
     public void testTwitterIcon_OnHomePage_WhenClickIcon(){
         String expectedResult ="twitter.com";

@@ -79,6 +79,7 @@ public class StadAlexTest extends BaseTest {
         Assert.assertEquals(actualResult, expectedResult);
     }
 
+    @Ignore
     @Test
     public void testAskAQuestionIsClickable_LinkOpensCorrectly_EverythingIsClickableAsExpected() throws InterruptedException {
 

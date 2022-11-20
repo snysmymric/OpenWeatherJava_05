@@ -6,6 +6,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import runner.BaseTest;
 
@@ -106,6 +107,7 @@ public class LinavolovickTest extends BaseTest {
         Assert.assertEquals(getCurrentUrl(), expectedResult);
     }
 
+    @Ignore
     @Test
     public void testVerifyCurrentAndForecastAPIsLinkExistsAndRedirectsToWeatherAPIPage() {
         String expectedResult = WEATHER_API_URL;
