@@ -11,11 +11,9 @@ import java.lang.reflect.Method;
 import java.time.Duration;
 
 public abstract class BaseTest {
-
     private WebDriver driver;
     private WebDriverWait webDriverWait20;
     private WebDriverWait webDriverWait10;
-    private WebDriverWait webDriverWait5;
 
     @BeforeSuite
     protected void beforeSuite(ITestContext context) {
@@ -37,7 +35,6 @@ public abstract class BaseTest {
         driver.quit();
         webDriverWait20 = null;
         webDriverWait10 = null;
-        webDriverWait5 = null;
     }
 
     protected WebDriver getDriver() {
@@ -61,10 +58,7 @@ public abstract class BaseTest {
     }
 
     protected WebDriverWait getWait5() {
-        if (webDriverWait5 == null) {
-            webDriverWait5 = new WebDriverWait(driver, Duration.ofSeconds(5));
-        }
 
-        return webDriverWait5;
+        return webDriverWait10;
     }
 }
