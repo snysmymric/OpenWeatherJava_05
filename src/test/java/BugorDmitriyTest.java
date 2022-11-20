@@ -1,11 +1,14 @@
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import runner.BaseTest;
+
+import java.util.List;
 
 public class BugorDmitriyTest extends BaseTest {
     final static String BASE_URL = "https://openweathermap.org/";
@@ -23,7 +26,8 @@ public class BugorDmitriyTest extends BaseTest {
     final static By FAQ = By.xpath("//ul[@class='dropdown-menu dropdown-visible']//a [@href='/faq']");
     final static By HOW_TO_START = By.xpath("//ul[@class='dropdown-menu dropdown-visible']//li/a[@href='/appid']");
     final static By ASK_A_QUESTION = By.xpath("//ul[@class='dropdown-menu dropdown-visible']//a[text()='Ask a question']");
-//    final static By SUPPORT_DROPDOWN_MENU = By.xpath("//ul[@id='support-dropdown-menu']/*");
+    final static By SUPPORT_DROPDOWN_MENU = By.xpath("//ul[@id='support-dropdown-menu']/*");
+    final static By DASHBOARD_MENU = By.xpath("//div[@id='desktop-menu']/ul/li[3]/a");
     private void openBaseURL(){
         getDriver().get(BASE_URL);
     }
@@ -52,6 +56,16 @@ public class BugorDmitriyTest extends BaseTest {
 
     private void waitTextChanged(By by, String text, WebDriver driver, WebDriverWait wait) {
         wait.until(ExpectedConditions.not(ExpectedConditions.textToBePresentInElement(driver.findElement(by), text)));
+    }
+
+    private int seeAllElementAndCount(String whichElement, WebDriverWait wait) {
+        wait.until(ExpectedConditions.visibilityOfAllElements(getDriver().findElement(By.xpath(whichElement))));
+        List<WebElement> allElements = getDriver().findElements(By.xpath(whichElement));
+        int count = allElements.size();
+        for (WebElement checkedElement : allElements) {
+            wait.until(ExpectedConditions.elementToBeClickable(checkedElement));
+        }
+        return count;
     }
 
         @Test
@@ -101,6 +115,7 @@ public class BugorDmitriyTest extends BaseTest {
             @Test
         public void testMenuSupport() {
 
+            int expectedResult = 3;
             String expectedResult1 = "FAQ";
             String expectedResult2 = "How to start";
             String expectedResult3 = "Ask a question";
@@ -109,17 +124,30 @@ public class BugorDmitriyTest extends BaseTest {
             waitForGreyFrameDisappeared();
 
             click(HEADING_SUPPORT_DROPDOWN, getWait5());
-
-//            Assert.assertEquals(SUPPORT_DROPDOWN_MENU).size(), 3);
-//            getDriver().findElements(By.xpath("//ul[@id='support-dropdown-menu']/*")).size(), 3
-//            );
+            int actualResult = seeAllElementAndCount ("//ul[@id='support-dropdown-menu']/*", getWait5());
 
             String actualResult1FAQ = getText(FAQ, getDriver());
             String actualResult2HowToStart = getText(HOW_TO_START, getDriver());
             String actualResult3AskAQuestion = getText(ASK_A_QUESTION, getDriver());
 
+            Assert.assertEquals(actualResult, expectedResult);
             Assert.assertEquals(actualResult1FAQ, expectedResult1);
             Assert.assertEquals(actualResult2HowToStart, expectedResult2);
             Assert.assertEquals(actualResult3AskAQuestion, expectedResult3);
+    }
+
+            @Test
+        public void testDashboardMenu(){
+
+            String expectedResult = "https://openweathermap.org/weather-dashboard";
+
+            openBaseURL();
+            waitForGreyFrameDisappeared();
+
+            click(DASHBOARD_MENU, getWait5());
+
+            String actualResult = getDriver().getCurrentUrl();
+
+            Assert.assertEquals(actualResult, expectedResult);
     }
    }
