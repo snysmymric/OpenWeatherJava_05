@@ -14,7 +14,7 @@ public class ViacheslavAnisimovTest extends BaseTest {
     final static String BASE_URL = "https://openweathermap.org/";
     final static String EMAIL = "jka59433@xcoxc.com";
     final static String PASSWORD = "Tester12#";
-    final static String symbolFahrenheit = "°F";
+    final static String SYMBOL_FAHRENHEIT = "°F";
 
     final static By H_2_CITY_COUNTRY_HEADER = By.xpath("//div[@id = 'weather-widget']//h2");
     final static By SEARCH_CITY_FIELD = By.xpath("//div[@id='weather-widget']//input[@placeholder = 'Search city']");
@@ -210,6 +210,6 @@ public class ViacheslavAnisimovTest extends BaseTest {
         click(FAHRENHEIT, getWait10());
         waitForGrayFrameDisappeared();
 
-        Assert.assertEquals(isTemp(TEMP_TEXT_IN_HEADING, symbolFahrenheit), true);
+        Assert.assertEquals(isTemp(TEMP_TEXT_IN_HEADING, SYMBOL_FAHRENHEIT), true);
     }
 }
