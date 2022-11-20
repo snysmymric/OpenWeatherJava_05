@@ -45,6 +45,7 @@ public class IraKalinkaTest extends BaseTest {
                 .not(ExpectedConditions.textToBePresentInElement(driver.findElement(by), text)));
     }
 
+
     @Test
     public void testH2Tag_WhenSearchingCityCountry() {
         String cityName = "Paris";
@@ -67,11 +68,11 @@ public class IraKalinkaTest extends BaseTest {
         Assert.assertEquals(actualResult, expectedResult);
     }
 
-    @Ignore
     @Test
     public void testTitleTagAndUrL_WhenEnteringBaseUrl() {
         openBaseURL();
         waitForGrayFrameDisappeared();
+        getWait10().until(ExpectedConditions.titleIs(getDriver().getTitle()));
 
         Assert.assertEquals(getDriver().getTitle(), PAGE_TITLE);
         Assert.assertEquals(getDriver().getCurrentUrl(), BASE_URL);
