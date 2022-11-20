@@ -1,5 +1,6 @@
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -10,12 +11,17 @@ import runner.BaseTest;
 public class MaxIaskoTest extends BaseTest {
     final static String BASE_URL = "https://openweathermap.org/";
     final static By SEARCH_API_PAGE = By.xpath("//div[@id = 'desktop-menu']//a[text()= 'API']");
-    final static By SEARCH_ORANGE_ELEMENT = By.xpath("//a[contains(@class, 'btn_block orange round') " +
+    final static By SEARCH_ORANGE_ELEMENT = By.xpath("//a[contains(@class, 'btn_block orange round')" +
             "or contains(@class, 'ow-btn round btn-orange')]");
-    final static By SEARCH_LOGO_FIELD = By.xpath("//a[@href ='/']");
+    //final static By SEARCH_LOGO_FIELD = By.xpath("//a[@href ='/']");
+    final static By SEARCH_LOGO_FIELD = By.xpath("//ul[@id= 'first-level-nav']/li[@class = 'logo']");
     final static By SEARCH_WHETHER_IN_YOUR_CITY_FIELD = By.xpath(
             "//div[@id='desktop-menu']/form/input[@type ='text']");
     final static By SEARCH_FIELD_TEXT = By.xpath("//div/input[@id='search_str']");
+
+    private void openBaseUrl(WebDriver driver) {
+        getDriver().get(BASE_URL);
+    }
 
     private void click(By by) {
         getDriver().findElement(by).click();
@@ -68,7 +74,7 @@ public class MaxIaskoTest extends BaseTest {
     public void testSearch30OrangeButtons() {
         final int expectedResult = 30;
 
-        getDriver().get(BASE_URL);
+        openBaseUrl(getDriver());
 
         waitGrayFrameDisappear();
         click(SEARCH_API_PAGE, getWait5());
@@ -78,7 +84,8 @@ public class MaxIaskoTest extends BaseTest {
 
     @Test
     public void testConfirmLinkNoChangeByLogoClick() {
-        getDriver().get(BASE_URL);
+
+        openBaseUrl(getDriver());
 
         waitGrayFrameDisappear();
         click(SEARCH_LOGO_FIELD);
@@ -92,7 +99,7 @@ public class MaxIaskoTest extends BaseTest {
         final String expectedResult0 = "Rome";
         final String expectedResult1 = "find";
 
-        getDriver().get(BASE_URL);
+        openBaseUrl(getDriver());
 
         waitGrayFrameDisappear();
         searchFieldToSendKey(expectedResult0);
