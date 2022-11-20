@@ -15,6 +15,7 @@ public class MsnataTest extends BaseTest {
    final static By SEARCH_BUTTON = By.xpath("//div[@id = 'weather-widget']//button[@type = 'submit']");
    final static By SEARCH_DROPDOWN_MENU = By.className("search-dropdown-menu");
    final static By PARIS_FR_CHOICE_IN_DROPDOWN_MENU = By.xpath("//ul[@class = 'search-dropdown-menu']/li/span[text() = \"Paris, FR \"]");
+   final static By SEARCH_API_IN_NAVIGATION_MENU = By.xpath("//div[@id = 'desktop-menu']/ul/li/a[@href = '/api']");
 
     private void openBaseUrl(){
         getDriver().get(BASE_URL);
@@ -69,5 +70,21 @@ public class MsnataTest extends BaseTest {
 
         Assert.assertEquals(actualResult, expectedResult);
 
+
     }
+
+    @Test
+    public void testVerifyThatPageAPIIsOpenedAfterClick(){
+
+        String expectedResult = "https://openweathermap.org/api";
+
+        openBaseUrl();
+        waitForGrayFrameDisappeared();
+        click(SEARCH_API_IN_NAVIGATION_MENU, getWait10());
+
+        String actualResult = getDriver().getCurrentUrl();
+
+        Assert.assertEquals(actualResult, expectedResult);
+    }
+
 }
