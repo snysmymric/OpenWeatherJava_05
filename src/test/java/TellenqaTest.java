@@ -1,6 +1,5 @@
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
@@ -16,6 +15,7 @@ public class TellenqaTest extends BaseTest {
     final static By SEARCH_BUTTON = By.xpath("//div[@id='weather-widget']//button[@type='submit']");
     final static By SEARCH_DROPDOWMMENU = By.className("search-dropdown-menu");
     final static By PARIS_FR_CHOICE_IN_DROPDOWN_MENU = By.xpath("//ul[@class='search-dropdown-menu']/li/span[text()='Paris, FR ']");
+    final static By GUIDE_MENU_BUTTON = By.xpath("//div[@id = 'desktop-menu']//a[@href = '/guide']");
 
     private void openBaseURL() {
         getDriver().get(BASE_URL);
@@ -68,5 +68,17 @@ public class TellenqaTest extends BaseTest {
         String actualResult = getText(H_2_CITY_COUNTRY_HEADER, getDriver());
 
         Assert.assertEquals(actualResult, expectedResult);
+    }
+
+    @Test
+    public void testGuideMenuOpensGuidePage() {
+        String expectedResult = "https://openweathermap.org/guide";
+
+        openBaseURL();
+        waitForGreyFrameDissapeared();
+
+        click(GUIDE_MENU_BUTTON, getWait5());
+
+        Assert.assertEquals(getDriver().getCurrentUrl(),expectedResult);
     }
 }
