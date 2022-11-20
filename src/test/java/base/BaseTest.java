@@ -21,6 +21,7 @@ public abstract class BaseTest {
 
     public final String BASE_URL = TestUtils.getBaseUrl();
 
+
     @BeforeSuite
     protected void beforeSuite(ITestContext context) {
         Reporter.log(ReportUtils.getReportHeader(context), true);
@@ -95,5 +96,10 @@ public abstract class BaseTest {
     public void waitTextToBeChanged(By by, String text) {
         getWait10().until(ExpectedConditions
                 .not(ExpectedConditions.textToBePresentInElement(driver.findElement(by), text)));
+    }
+
+    public boolean isDisplayed(By by) {
+
+        return getDriver().findElement(by).isDisplayed();
     }
 }
