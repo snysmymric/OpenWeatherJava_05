@@ -104,7 +104,7 @@ public abstract class BaseTest {
         return getDriver().findElement(by).isDisplayed();
     }
 
-    private int countOrangeButtons(By by) {
+    public int countOrangeButtons(By by) {
         return driver.findElements(by).size();
     }    
 
