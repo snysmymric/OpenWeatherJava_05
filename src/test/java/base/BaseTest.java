@@ -12,7 +12,9 @@ import utils.ReportUtils;
 import utils.TestUtils;
 
 import java.lang.reflect.Method;
+import java.text.SimpleDateFormat;
 import java.time.Duration;
+import java.util.Date;
 
 public abstract class BaseTest {
     private WebDriver driver;
@@ -20,7 +22,6 @@ public abstract class BaseTest {
     private WebDriverWait webDriverWait10;
 
     public final String BASE_URL = TestUtils.getBaseUrl();
-
 
     @BeforeSuite
     protected void beforeSuite(ITestContext context) {
@@ -101,5 +102,12 @@ public abstract class BaseTest {
     public boolean isDisplayed(By by) {
 
         return getDriver().findElement(by).isDisplayed();
+    }
+
+    public String systemDate() {
+        Date date = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("MMM dd, hh:mma");
+
+        return sdf.format(date).substring(0, 10);
     }
 }
