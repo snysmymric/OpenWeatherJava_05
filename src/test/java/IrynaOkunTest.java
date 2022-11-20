@@ -12,7 +12,7 @@ import java.util.List;
 
 import static org.testng.AssertJUnit.assertEquals;
 
-
+@Ignore
 public class IrynaOkunTest extends BaseTest {
 
     final static String BASE_URL = "https://openweathermap.org/";

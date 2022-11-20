@@ -12,6 +12,7 @@ import runner.BaseTest;
 import java.util.List;
 import java.util.Random;
 
+@Ignore
 public class LarisaBratukhinaTest extends BaseTest {
 
     final static String BASE_URL = "https://openweathermap.org/";

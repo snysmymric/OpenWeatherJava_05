@@ -2,10 +2,11 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import runner.BaseTest;
 
-
+@Ignore
 public class RomanTest extends BaseTest {
 
     private static final String BASE_URL = "https://openweathermap.org/";

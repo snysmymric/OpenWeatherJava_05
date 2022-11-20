@@ -9,6 +9,7 @@ import org.testng.annotations.Test;
 import runner.BaseTest;
 import java.util.List;
 
+@Ignore
 public class YuliaMatusevichTest extends BaseTest {
 
     final static String BASE_URL = "https://openweathermap.org/";

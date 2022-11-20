@@ -9,7 +9,7 @@ import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import runner.BaseTest;
 
-
+@Ignore
 public class AllaIgTest extends BaseTest {
     final static String BASE_URL = "https://openweathermap.org/";
     final static By MENU_GUIDE = By.xpath("//div/ul//li/a[@href='/guide']");

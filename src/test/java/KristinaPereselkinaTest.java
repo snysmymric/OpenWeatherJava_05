@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-
+@Ignore
 public class KristinaPereselkinaTest extends BaseTest {
 
     final static String BASE_URL = "https://openweathermap.org/";

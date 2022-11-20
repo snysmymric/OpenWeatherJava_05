@@ -9,6 +9,7 @@ import org.testng.annotations.Test;
 
 import runner.BaseTest;
 
+@Ignore
 public class GalinaKuklevaTest extends BaseTest {
     final static String BASE_URL = "https://openweathermap.org/";
     final static String FAHRENHEIT_SIGN = "°F";

@@ -2,9 +2,11 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import runner.BaseTest;
 
+@Ignore
 public class SviatlanaPiletskayaTest extends BaseTest {
     final static String BASE_URL = "https://openweathermap.org/";
     final static By NAME_WEBSITE = By.xpath("//div[@class='section where-to']//span[@class= 'orange-text']");

@@ -12,6 +12,7 @@ import runner.BaseTest;
 import java.util.ArrayList;
 import java.util.List;
 
+@Ignore
 public class SnegafalTest extends BaseTest {
 
     static final String BASE_URL = "https://openweathermap.org/";

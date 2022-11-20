@@ -10,6 +10,7 @@ import runner.BaseTest;
 
 import java.util.List;
 
+@Ignore
 public class BugorDmitriyTest extends BaseTest {
     final static String BASE_URL = "https://openweathermap.org/";
     final static By H2_CITY_COUNTRY_HEADER = By.xpath("//div[@id = 'weather-widget']//h2");

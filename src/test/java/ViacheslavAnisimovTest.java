@@ -10,6 +10,7 @@ import java.time.Duration;
 
 import static org.openqa.selenium.support.ui.ExpectedConditions.numberOfWindowsToBe;
 
+@Ignore
 public class ViacheslavAnisimovTest extends BaseTest {
     final static String BASE_URL = "https://openweathermap.org/";
     final static String EMAIL = "jka59433@xcoxc.com";

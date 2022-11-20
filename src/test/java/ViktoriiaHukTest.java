@@ -10,7 +10,7 @@ import runner.BaseTest;
 import java.util.ArrayList;
 import java.util.List;
 
-
+@Ignore
 public class ViktoriiaHukTest extends BaseTest {
     private static final String BASE_URL = "https://openweathermap.org/";
     private static final By DESKTOP_MENU_API = By.linkText("API");

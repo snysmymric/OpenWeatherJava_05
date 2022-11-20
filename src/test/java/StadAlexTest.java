@@ -10,6 +10,7 @@ import runner.BaseTest;
 
 import java.util.Set;
 
+@Ignore
 public class StadAlexTest extends BaseTest {
 
     final static String BASE_URL = "https://openweathermap.org/";

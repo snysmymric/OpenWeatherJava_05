@@ -9,7 +9,8 @@ import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import runner.BaseTest;
 
-    public class ViktorLytovchenkoTest extends BaseTest {
+@Ignore
+public class ViktorLytovchenkoTest extends BaseTest {
 
         final static String BASE_URL = "https://openweathermap.org/";
 

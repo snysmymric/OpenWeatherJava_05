@@ -9,6 +9,7 @@ import org.testng.annotations.Test;
 import runner.BaseTest;
 
 
+@Ignore
 public class Btv35Test extends BaseTest {
     final static String BASE_URL = "https://openweathermap.org/";
     final static By H2_CITY_COUNTRY_HEADER = By.xpath("//div[@id = 'weather-widget']//h2");

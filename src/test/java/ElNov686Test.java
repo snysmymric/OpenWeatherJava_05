@@ -8,7 +8,7 @@ import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import runner.BaseTest;
 
-
+@Ignore
 public class ElNov686Test extends BaseTest {
     final static String BASE_URL = "https://openweathermap.org/";
     final static By SEARCH_CITY_FIELD = By

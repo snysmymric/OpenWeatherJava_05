@@ -10,7 +10,7 @@ import runner.BaseTest;
 
 import java.time.Duration;
 
-
+@Ignore
 public class EkaterinalizinaTest extends BaseTest {
     final static String BASE_URL = "https://openweathermap.org/";
     final static By H_2_CITY_COUNT_HEADER =  By.xpath("//div[@id = 'weather-widget']//h2");
