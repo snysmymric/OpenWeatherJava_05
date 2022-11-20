@@ -14,6 +14,7 @@ public class ViacheslavAnisimovTest extends BaseTest {
     final static String BASE_URL = "https://openweathermap.org/";
     final static String EMAIL = "jka59433@xcoxc.com";
     final static String PASSWORD = "Tester12#";
+    final static String symbolFahrenheit = "°F";
 
     final static By H_2_CITY_COUNTRY_HEADER = By.xpath("//div[@id = 'weather-widget']//h2");
     final static By SEARCH_CITY_FIELD = By.xpath("//div[@id='weather-widget']//input[@placeholder = 'Search city']");
@@ -29,6 +30,8 @@ public class ViacheslavAnisimovTest extends BaseTest {
     final static By PASSWORD_FIELD = By.xpath(("//input[@id='user_password']"));
     final static By SUBMIT_BUTTON = By.xpath("//input[@name='commit']");
     final static By SUCCESSFULL_LOGIN_TEXT = By.xpath("//div[@class='panel-body']");
+    final static By FAHRENHEIT = By.xpath("//div[@class='option'][contains(text(), 'Imperial: °F, mph')]");
+    final static By TEMP_TEXT_IN_HEADING =By.xpath("//span[@class='heading'][contains(text(), '°F')]");
 
     private void openBaseURL() {
         getDriver().get(BASE_URL);
@@ -96,6 +99,14 @@ public class ViacheslavAnisimovTest extends BaseTest {
 
         WebElement submitButton = getDriver().findElement(SUBMIT_BUTTON);
         submitButton.click();
+    }
+
+    private boolean isTemp(By by, String text) {
+        if (getDriver().findElement(by).getText().contains(text)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @Test
@@ -188,6 +199,17 @@ public class ViacheslavAnisimovTest extends BaseTest {
         String actualResult = getDriver().findElement(SUCCESSFULL_LOGIN_TEXT).getText();
 
         Assert.assertEquals(actualResult, expectedResult);
+    }
 
+    @Test
+    public void testChangeTempFahrenheitInHeadingAfterClickButtonF() {
+
+        openBaseURL();
+        waitForGrayFrameDisappeared();
+
+        click(FAHRENHEIT, getWait10());
+        waitForGrayFrameDisappeared();
+
+        Assert.assertEquals(isTemp(TEMP_TEXT_IN_HEADING, symbolFahrenheit), true);
     }
 }
