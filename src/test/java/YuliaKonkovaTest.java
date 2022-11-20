@@ -1,43 +1,69 @@
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
-import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import runner.BaseTest;
 
-@Ignore
 public class YuliaKonkovaTest extends BaseTest {
-    @Test
-    public void testH2TagText_WhenSearchingCityCountry() throws InterruptedException {
+    final static String BASE_URL = "https://openweathermap.org/";
+    final static By H2_CITY_NAME_HEADER = By.xpath("//div[@id='weather-widget']//h2");
+    final static By SEARCH_CITY_FIELD = By.xpath("//div[@id = 'weather-widget']//input[@placeholder='Search city']");
+    final static By BUTTON = By.xpath("//div[@id='weather-widget']//button[@type='submit']");
+    final static By SEARCH_DROPDOWN_MENU = By.className("search-dropdown-menu");
+    final static By PARIS_FR_CHOICE_IN_DROPDOWN_MENU =
+            By.xpath("//ul[@class='search-dropdown-menu']/li/span[text()='Paris, FR ']");
 
-        String url = "https://openweathermap.org/";
+    private void openBaseUrl(){
+        getDriver().get(BASE_URL);
+    }
+
+    private void waitUntilGreyFrameDisappeared(){
+        getWait20().until(ExpectedConditions.invisibilityOfElementLocated(By.className("owm-loader-container")));
+    }
+
+    private String getText (By by, WebDriver driver){
+
+        return driver.findElement(by).getText();
+    }
+
+    private void click (By by, WebDriverWait wait){
+        wait.until(ExpectedConditions.visibilityOfElementLocated(by));
+        wait.until(ExpectedConditions.elementToBeClickable(by)).click();
+    }
+
+    private void input (String text, By by, WebDriver driver){
+        driver.findElement(by).sendKeys(text);
+    }
+
+    private void waitElementToBeVisible (By by, WebDriverWait wait){
+        wait.until(ExpectedConditions.visibilityOfElementLocated(by));
+    }
+
+    private void textToBeChanged(By by, String text, WebDriver driver, WebDriverWait wait){
+        wait.until(ExpectedConditions
+                .not(ExpectedConditions.textToBePresentInElement(driver.findElement(by),text)));
+    }
+
+    @Test
+    public void testH2TagText_WhenSearchingCityCountry(){
         String cityName = "Paris";
         String expectedResult = "Paris, FR";
 
-        getDriver().get(url);
-        Thread.sleep(10000);
+        openBaseUrl();
+        waitUntilGreyFrameDisappeared();
 
-        WebElement searchCityField = getDriver().findElement(
-                By.xpath("//div[@id = 'weather-widget']//input[@placeholder='Search city']")
-        );
-        searchCityField.click();
-        searchCityField.sendKeys(cityName);
+        String oldH2Header = getText(H2_CITY_NAME_HEADER,getDriver());
 
-        WebElement searchButton = getDriver().findElement(
-                By.xpath("//div[@id='weather-widget']//button[@type='submit']")
-        );
-        searchButton.click();
-        Thread.sleep(7000);
+        click(SEARCH_CITY_FIELD, getWait10());
+        input(cityName, SEARCH_CITY_FIELD, getDriver());
+        click(BUTTON, getWait5());
+        waitElementToBeVisible(SEARCH_DROPDOWN_MENU, getWait10());
+        click(PARIS_FR_CHOICE_IN_DROPDOWN_MENU, getWait5());
+        textToBeChanged(H2_CITY_NAME_HEADER, oldH2Header, getDriver(), getWait10());
 
-        WebElement parisFRChoiceInDropdownMenu = getDriver().findElement(
-                By.xpath("//ul[@class='search-dropdown-menu']/li/span[text()='Paris, FR ']")
-        );
-        parisFRChoiceInDropdownMenu.click();
-        Thread.sleep(7000);
-
-        WebElement h2CityNameHeader = getDriver().findElement(By.xpath("//div[@id='weather-widget']//h2"));
-        Thread.sleep(7000);
-        String actualResult = h2CityNameHeader.getText();
+        String actualResult = getText(H2_CITY_NAME_HEADER,getDriver());
 
         Assert.assertEquals(actualResult,expectedResult);
     }
