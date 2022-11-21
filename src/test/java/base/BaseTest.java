@@ -85,6 +85,11 @@ public abstract class BaseTest {
         getWait10().until(ExpectedConditions.elementToBeClickable(by)).click();
     }
 
+    public void click20(By by) {
+        getWait20().until(ExpectedConditions.visibilityOfElementLocated(by));
+        getWait20().until(ExpectedConditions.elementToBeClickable(by)).click();
+    }
+
     public void input(String text, By by) {
 
         getDriver().findElement(by).sendKeys(text);
@@ -164,7 +169,7 @@ public abstract class BaseTest {
     public String getTitle() {
         return getDriver().getTitle();
     }
-    
+
     public void switchWindow() {
         ArrayList<String> newWindow = new ArrayList<>(getDriver().getWindowHandles());
         getDriver().switchTo().window(newWindow.get(1));
@@ -192,15 +197,17 @@ public abstract class BaseTest {
         return getDriver().findElement(by).getCssValue("background-color");
     }
 
-    public boolean isElementExists(By by){
+    public boolean isElementExists(By by) {
 
-        return  getWait10().until(
+        return getWait10().until(
                 ExpectedConditions.visibilityOfElementLocated(by)).isDisplayed();
     }
-    public void openURL(String url){
+
+    public void openURL(String url) {
         getDriver().get(url);
     }
-    public  boolean isElementEnabled(By by){
+
+    public boolean isElementEnabled(By by) {
 
         return getDriver().findElement(by).isEnabled();
     }
