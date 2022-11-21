@@ -9,8 +9,9 @@ public class IrynaKolyadaTest extends BaseTest {
     final static By SEARCH_BUTTON = By.xpath("//div[@id = 'weather-widget']//button[@type = 'submit']");
     final static By SEARCH_DROPDOWN_MENU = By.className("search-dropdown-menu");
     final static By PARIS_FR_CHOICE_IN_DROPDOWN_MENU = By.xpath("//ul[@class = 'search-dropdown-menu']/li/span[text() = 'Paris, FR ']");
-    final static By PLACEHOLDER_FIELD = By.xpath("//div[@id='desktop-menu']//form[@role='search']");
-    final static By PLACEHOLDER_TEXT = By.xpath("//div[@id='desktop-menu']//input[@type='text']");
+    final static By PLACEHOLDER_BOX = By.xpath("//div[@id='desktop-menu']//form[@role='search']");
+    final static By PLACEHOLDER_FIELD = By.xpath("//div[@id='desktop-menu']//input[@type='text']");
+    final static By PLACEHOLDER_VALUE =By.xpath("//div//input[@id='search_str']");
 
     @Test
     public void testH2TagText_WhenSearchingCityCountry()  {
@@ -36,9 +37,22 @@ public class IrynaKolyadaTest extends BaseTest {
 
         openBaseURL();
 
-        Assert.assertTrue(isDisplayed(PLACEHOLDER_FIELD));
+        Assert.assertTrue(isDisplayed(PLACEHOLDER_BOX));
 
-        Assert.assertEquals(getTextByAttribute(PLACEHOLDER_TEXT, "placeholder"), expectedResult);
+        Assert.assertEquals(getTextByAttribute(PLACEHOLDER_FIELD, "placeholder"), expectedResult);
+    }
+
+    @Test
+    public void testSearchByWordPlaceholderNavBar_homePage() {
+        final String city = "Barcelona";
+
+        openBaseURL();
+        click(PLACEHOLDER_FIELD);
+        inputTextAndClickEnter(PLACEHOLDER_FIELD, city);
+
+        Assert.assertEquals(getTextByAttribute(PLACEHOLDER_VALUE, "value"), city);
+
+        Assert.assertTrue(getCurrentURL().contains(city));
     }
 
 }
