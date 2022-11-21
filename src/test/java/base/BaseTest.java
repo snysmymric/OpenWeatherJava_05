@@ -219,4 +219,14 @@ public abstract class BaseTest {
         String currentUrl = getDriver().getCurrentUrl();
         return currentUrl.contains(text);
     }
+
+    public List<String> getListText(By by) {
+        List<String> elements = new ArrayList<>();
+
+        for (WebElement temp : getDriver().findElements(by)) {
+            elements.add(temp.getText());
+        }
+
+        return elements;
+    }
 }
