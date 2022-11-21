@@ -192,15 +192,15 @@ public abstract class BaseTest {
         return getDriver().findElement(by).getCssValue("background-color");
     }
 
-    private boolean isElementExists(By by){
+    public boolean isElementExists(By by){
 
         return  getWait10().until(
                 ExpectedConditions.visibilityOfElementLocated(by)).isDisplayed();
     }
-    private void openURL(String url){
+    public void openURL(String url){
         getDriver().get(url);
     }
-    private  boolean isElementEnabled(By by){
+    public  boolean isElementEnabled(By by){
 
         return getDriver().findElement(by).isEnabled();
     }
