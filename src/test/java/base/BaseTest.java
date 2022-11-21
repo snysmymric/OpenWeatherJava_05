@@ -16,6 +16,7 @@ import utils.TestUtils;
 import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -161,5 +162,10 @@ public abstract class BaseTest {
                 break;
             }
         }
+    }
+
+    public void switchWindow() {
+        ArrayList<String> newWindow = new ArrayList<>(getDriver().getWindowHandles());
+        getDriver().switchTo().window(newWindow.get(1));
     }
 }
