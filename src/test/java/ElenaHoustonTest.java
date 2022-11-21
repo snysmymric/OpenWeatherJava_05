@@ -1,5 +1,6 @@
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import base.BaseTest;
@@ -24,6 +25,7 @@ public class ElenaHoustonTest extends BaseTest {
             + "a[@href = '/appid']");
     final static By FIND_SUB_3 = By.xpath("//ul[@class ='dropdown-menu dropdown-visible']//"
             + "a[text() = 'Ask a question']");
+    final static By MAP_MENU = By.xpath("//div[@id='desktop-menu']//a[@href='/weathermap']");
     private int dropDownSize(By by, WebDriver driver) {
 
         return driver.findElements(by).size();
@@ -100,5 +102,22 @@ public class ElenaHoustonTest extends BaseTest {
         Assert.assertEquals(actualResult1, expectedResult1);
         Assert.assertEquals(actualResult2, expectedResult2);
         Assert.assertEquals(actualResult3, expectedResult3);
+    }
+    @Test
+    public void testMapMenu (){
+
+        String expectedCurrentURL = "https://openweathermap.org/weathermap";
+        String expectedResultTitle = "Interactive weather maps - OpenWeatherMap";
+
+        openBaseURL();
+        click(MAP_MENU);
+        getWait10().until(ExpectedConditions.urlContains("http"));
+
+
+        String actualCurrentURL = getCurrentURL();
+        String actualResultTitle = getTitle();
+
+        Assert.assertTrue(actualCurrentURL.contains(expectedCurrentURL));
+        Assert.assertEquals(actualResultTitle, expectedResultTitle);
     }
 }
