@@ -1,65 +1,45 @@
-//import org.openqa.selenium.By;
-//import org.openqa.selenium.WebDriver;
-//import org.openqa.selenium.WebElement;
-//import org.openqa.selenium.support.ui.ExpectedConditions;
-//import org.testng.Assert;
-//import org.testng.annotations.Ignore;
-//import org.testng.annotations.Test;
-//import base.BaseTest;
-//
-//import java.util.List;
-//
-//@Ignore
-//public class AikaTest extends BaseTest {
-//
-//    final static String BASE_URL = "https://openweathermap.org/";
-//    final static By SUPPORT_MENU = By.id("support-dropdown");
-//    final static By SUPPORT_DROPDOWN = By.xpath("//ul[@id='support-dropdown-menu']");
-//
-//    private void openBaseURL() {
-//        getDriver().get(BASE_URL);
-//    }
-//
-//    private void waitForGrayFrameDisappeared() {
-//        getWait20().until(ExpectedConditions.invisibilityOfElementLocated(
-//                By.className("owm-loader-container")));
-//    }
-//
-//    private void click(By by, WebDriver driver) {
-//        driver.findElement(by).click();
-//    }
-//
-//    @Test
-//    public void testSupportMenuAndDropdownThreeSubmenuExist() {
-//        String dropdownVisibility = "dropdown-visible";
-//        int expectedDropdownSize = 3;
-//
-//        openBaseURL();
-//        waitForGrayFrameDisappeared();
-//        click(SUPPORT_MENU, getDriver());
-//
-//        Assert.assertTrue(getDriver().findElement(SUPPORT_DROPDOWN)
-//                .getAttribute("class").contains(dropdownVisibility));
-//
-//        List<WebElement> dropdownSize = getDriver().findElements(
-//                By.xpath("//ul[@id='support-dropdown-menu']/li"));
-//
-//        Assert.assertEquals(dropdownSize.size(), expectedDropdownSize);
-//
-//        click(SUPPORT_MENU, getDriver());
-//
-//        Assert.assertFalse(getDriver().findElement(SUPPORT_DROPDOWN)
-//                .getAttribute("class").contains(dropdownVisibility));
-//    }
-//
-//    @Test
-//    public void testWhenClickedOnFAQItRedirectsToFAQPage() {
-//        openBaseURL();
-//        waitForGrayFrameDisappeared();
-//        click(SUPPORT_MENU, getDriver());
-//        click(By.xpath("//ul[@id ='support-dropdown-menu']//a[text()='FAQ']"), getDriver());
-//
-//        Assert.assertEquals(getDriver().findElement(By.xpath("//main//h1")).getText(),
-//                "Frequently Asked Questions");
-//    }
-//}
+import org.openqa.selenium.By;
+import org.testng.Assert;
+import org.testng.annotations.Test;
+import base.BaseTest;
+
+public class AikaTest extends BaseTest {
+
+    private final By SUPPORT_MENU = By.id("support-dropdown");
+    private final By SUPPORT_DROPDOWN = By.xpath("//ul[@id='support-dropdown-menu']");
+    private final By SUPPORT_DROPDOWN_LIST = By.xpath("//ul[@id='support-dropdown-menu']/li");
+    private final By FAQ_BTN_DROPDOWN = By.xpath("//ul[@id ='support-dropdown-menu']//a[text()='FAQ']");
+    private final By FAQ_PAGE_H1 = By.xpath("//main//h1");
+
+    @Test
+    public void testSupportMenuAndDropdownThreeSubmenuExist() {
+        final String dropdownVisibility = "dropdown-visible";
+        int expectedDropdownSize = 3;
+
+        openBaseURL();
+        click(SUPPORT_MENU);
+
+        Assert.assertTrue(getDriver().findElement(SUPPORT_DROPDOWN)
+                .getAttribute("class").contains(dropdownVisibility));
+        Assert.assertEquals(getListSize(SUPPORT_DROPDOWN_LIST), expectedDropdownSize);
+
+        click(SUPPORT_MENU);
+
+        Assert.assertFalse(getDriver().findElement(SUPPORT_DROPDOWN)
+                .getAttribute("class").contains(dropdownVisibility));
+    }
+
+    @Test
+    public void testWhenClickedOnFAQItRedirectsToFAQPage() {
+
+        openBaseURL();
+
+        click(SUPPORT_MENU);
+        click(FAQ_BTN_DROPDOWN);
+
+        String FAQpage_H1 = getText(FAQ_PAGE_H1);
+        String expectedFAQpage_H1 = "Frequently Asked Questions";
+
+        Assert.assertEquals(FAQpage_H1, expectedFAQpage_H1);
+    }
+}
