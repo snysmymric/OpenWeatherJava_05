@@ -10,6 +10,7 @@ public class AsyniaginaTest extends BaseTest {
     private final By SEARCH_BUTTON = By.xpath("//div[@id = 'weather-widget']//button[@type = 'submit']");
     private final By SEARCH_DROPDOWN_MENU = By.className("search-dropdown-menu");
     private final By PARIS_FR_CHOICE_IN_DROPDOWN_MENU = By.xpath("//ul[@class = 'search-dropdown-menu']/li/span[text() = 'Paris, FR ']");
+    private final By SUBSCRIBE_FOR_FREE = By.xpath("//a[@href='https://home.openweathermap.org/users/sign_up']");
 
     @Test
     public void testH2TagText_WhenSearchingCityCountry() {
@@ -30,5 +31,23 @@ public class AsyniaginaTest extends BaseTest {
         String actualCityCountryNames = getText(H2_CITY_COUNTRY_HEADER);
 
         Assert.assertEquals(actualCityCountryNames, expectedCityCountryNames);
+    }
+
+    @Test
+    public void testSubscribeForFreeLinkExists_WhenClickLink() {
+        String expectedSubscribeForFreeLinkExists = "https://home.openweathermap.org/users/sign_up";
+
+        openBaseURL();
+        scrollByVisibleElement(SUBSCRIBE_FOR_FREE);
+
+        Assert.assertTrue(isDisplayed(SUBSCRIBE_FOR_FREE));
+
+        click(SUBSCRIBE_FOR_FREE);
+        switchToAnotherWindow(getDriver());
+
+        String actualSubscribeForFreeLinkExists = getDriver().getCurrentUrl();
+
+        Assert.assertTrue(actualSubscribeForFreeLinkExists
+                .contains(expectedSubscribeForFreeLinkExists));
     }
 }
