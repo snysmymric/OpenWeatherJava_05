@@ -1,5 +1,6 @@
 import org.openqa.selenium.By;
 import org.testng.Assert;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import base.BaseTest;
 
@@ -71,7 +72,7 @@ public class LarisaBratukhinaTest extends BaseTest {
         Assert.assertTrue((actualDownloadOnTheAPPStoreLinkExists
                 .contains(expectedDownloadOnTheAPPStoreLinkExists)));
     }
-
+    @Ignore
     @Test
     public void testGetItOnGooglePlayStoreLinkExists_WhenClickButton() {
         String expectedGetItOnGooglePlayStoreLinkExists =

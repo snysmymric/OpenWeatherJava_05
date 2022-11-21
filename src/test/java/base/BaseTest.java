@@ -204,4 +204,19 @@ public abstract class BaseTest {
 
         return getDriver().findElement(by).isEnabled();
     }
+
+    public void jumpToNextWindow() {
+        String mainWindows = getDriver().getWindowHandle();
+        for (String windowsHandle : getDriver().getWindowHandles()) {
+            if (!mainWindows.contentEquals(windowsHandle)) {
+                getDriver().switchTo().window(windowsHandle);
+                break;
+            }
+        }
+    }
+
+    public boolean isContainsTextInUrl(String text) {
+        String currentUrl = getDriver().getCurrentUrl();
+        return currentUrl.contains(text);
+    }
 }
