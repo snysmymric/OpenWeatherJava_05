@@ -1,9 +1,14 @@
+import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import base.BaseTest;
 
 
 public class YanDadaelovTest extends BaseTest {
+
+    private final By NAVIGATION_BAR_CONTAINER = By.xpath("//nav[@id='nav-website']");
+    private final By NAVIGATION_BAR_ITEMS = By.xpath("//ul[@id='first-level-nav']");
+
     @Test
     public void testStartPageUrl() {
         openBaseURL();
@@ -20,5 +25,13 @@ public class YanDadaelovTest extends BaseTest {
         final String actual_titleText = getTitle();
 
         Assert.assertEquals(actual_titleText, startPageTitle);
+    }
+
+    @Test
+    public void testNavigationBarIsDisplayedOnMainPage() {
+        openBaseURL();
+
+        Assert.assertTrue(isDisplayed(NAVIGATION_BAR_CONTAINER)
+                && isDisplayed(NAVIGATION_BAR_ITEMS));
     }
 }
