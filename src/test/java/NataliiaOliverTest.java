@@ -4,7 +4,6 @@ import org.testng.annotations.Test;
 import base.BaseTest;
 
 public class NataliiaOliverTest extends BaseTest {
-
     private final By H2_CITY_COUNTRY_HEADER = By.xpath("//div[@id = 'weather-widget']//h2");
     private final By SEARCH_CITY_FIELD = By.xpath("//div[@id = 'weather-widget']//input[@placeholder = 'Search city']");
     private final By SEARCH_BUTTON = By.xpath("//div[@id = 'weather-widget']//button[@type = 'submit']");
@@ -58,5 +57,19 @@ public class NataliiaOliverTest extends BaseTest {
         String actualTextSearchButton = getText(SEARCH_BUTTON);
 
         Assert.assertEquals(actualTextSearchButton, expectedTextSearchButton);
+    }
+
+    @Test
+    public void testSearchBlockText_ClickableSearchButton() {
+        final String cityName = "Baton Rouge";
+
+        openBaseURL();
+
+        click(SEARCH_CITY_FIELD);
+        input(cityName, SEARCH_CITY_FIELD);
+        click(SEARCH_BUTTON);
+        waitElementToBeVisible(SEARCH_DROPDOWN_MENU);
+
+        Assert.assertTrue(isDisplayed(SEARCH_DROPDOWN_MENU));
     }
 }
