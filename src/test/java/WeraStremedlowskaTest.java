@@ -11,6 +11,7 @@ public class WeraStremedlowskaTest extends BaseTest {
     private final By SUBMENU_ASK_A_QUESTION = By
             .xpath("//ul[@id='support-dropdown-menu']/li/a[@href='https://home.openweathermap.org/questions']");
     private final static By BREADCRUMB_TITLE = By.className("breadcrumb-title");
+    private final By our_technology_link = By.cssSelector("a[href='/technology']");
 
     @Test
     public void testH1TagText_WhenMenuHowToStartIsClicked() {
@@ -23,5 +24,18 @@ public class WeraStremedlowskaTest extends BaseTest {
 
         Assert.assertEquals(getDriver().getCurrentUrl(), expectedResultUrl);
         Assert.assertEquals(getText(BREADCRUMB_TITLE), expectedResult);
+    }
+
+    @Test
+    public void testOurTechnologyLinkVisibleAndClickable() {
+        final String expectedURL = "https://openweathermap.org/technology";
+        final String expectedTitle = "Weather model - OpenWeatherMap";
+
+        openBaseURL();
+        scrollByVisibleElement(our_technology_link);
+        click(our_technology_link);
+
+        Assert.assertEquals(getCurrentURL(), expectedURL);
+        Assert.assertEquals(getTitle(), expectedTitle);
     }
 }
