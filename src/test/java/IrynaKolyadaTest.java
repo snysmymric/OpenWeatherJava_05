@@ -9,6 +9,9 @@ public class IrynaKolyadaTest extends BaseTest {
     final static By SEARCH_BUTTON = By.xpath("//div[@id = 'weather-widget']//button[@type = 'submit']");
     final static By SEARCH_DROPDOWN_MENU = By.className("search-dropdown-menu");
     final static By PARIS_FR_CHOICE_IN_DROPDOWN_MENU = By.xpath("//ul[@class = 'search-dropdown-menu']/li/span[text() = 'Paris, FR ']");
+    final static By PLACEHOLDER_FIELD = By.xpath("//div[@id='desktop-menu']//form[@role='search']");
+    final static By PLACEHOLDER_TEXT = By.xpath("//div[@id='desktop-menu']//input[@type='text']");
+
     @Test
     public void testH2TagText_WhenSearchingCityCountry()  {
         String cityName = "Paris";
@@ -25,6 +28,17 @@ public class IrynaKolyadaTest extends BaseTest {
         String actualResult = getText(H2_CITY_COUNTRY_HEADER);
 
         Assert.assertEquals(actualResult, expectedResult);
+    }
+
+    @Test
+    public void testTextOfPlaceholderNavBar_homePage()  {
+        final String expectedResult = "Weather in your city";
+
+        openBaseURL();
+
+        Assert.assertTrue(isDisplayed(PLACEHOLDER_FIELD));
+
+        Assert.assertEquals(getTextByAttribute(PLACEHOLDER_TEXT, "placeholder"), expectedResult);
     }
 
 }
