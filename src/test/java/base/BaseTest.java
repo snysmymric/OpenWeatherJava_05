@@ -136,4 +136,9 @@ public abstract class BaseTest {
 
         return getDriver().findElement(by).getAttribute(text);
     }
+
+    private String getAttribute(By by, String attribute) {
+
+        return getDriver().findElement(by).getAttribute(attribute);
+    }
 }
