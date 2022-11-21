@@ -1,213 +1,98 @@
-//import org.openqa.selenium.By;
-//import org.openqa.selenium.WebDriver;
-//import org.openqa.selenium.WebElement;
-//import org.openqa.selenium.support.ui.ExpectedConditions;
-//import org.openqa.selenium.support.ui.WebDriverWait;
-//import org.testng.Assert;
-//import org.testng.annotations.Ignore;
-//import org.testng.annotations.Test;
-//import base.BaseTest;
-//
-//import java.util.List;
-//
-//@Ignore
-//public class IrynaHryhorivTest extends BaseTest {
-//    final static String BASE_URL = "https://openweathermap.org/";
-//    final static String BLOG_URL = "https://openweather.co.uk/blog";
-//    final static By H2_CITY_COUNTRY_HEADER = By.xpath("//div[@id = 'weather-widget']//h2");
-//    final static By SEARCH_CITY_FIELD = By.xpath("//div[@id = 'weather-widget']//input[@placeholder = 'Search city']");
-//    final static By SEARCH_BUTTON = By.xpath("//div[@id = 'weather-widget']//button[@type = 'submit']");
-//    final static By SEARCH_DROPDOWN_MENU = By.className("search-dropdown-menu");
-//    final static By PARIS_FR_CHOICE_IN_DROPDOWN_MENU = By.xpath("//ul[@class = 'search-dropdown-menu']/li/span[text() = 'Paris, FR ']");
-//    final static By SEARCH_GUIDE_BUTTON = By.xpath("//a[@href='/guide']");
-//    final static By CONFIRM_BLOG_CATEGORY_WEATHER = By.xpath("//a[@href ='/blog/category/weather']");
-//    final static By CONFIRM_API = By.xpath("//div[@id='desktop-menu']/ul/li[2]/a");
-//    final static String TEMP_IMPERIAL_F = "Imperial: °F, mph";
-//    final static String TEMP_METRIC_C = "Metric: °C, m/s";
-//    final static String SYMBOL_TEMP = "°F";
-//    final static String SYMBOL_TEMP_C = "°C";
-//    final static By APPROVE_DEGREES = By.xpath("//div[@id='weather-widget']//span[@class='heading']");
-//    final static By LOGO = By.xpath( "//li[@class='logo']//img");
-//    final static By BUTTONS = By.xpath("//a[contains(@class, 'orange')]");
-//
-//
-//    private void openBaseURL() {
-//        getDriver().get(BASE_URL);
-//    }
-//    private void openBLOG_URL() {
-//       getDriver().get(BLOG_URL);
-//     }
-//
-//    private void waitForGrayFrameDisappeared() {
-//        getWait20().until(ExpectedConditions.invisibilityOfElementLocated(
-//                By.className("owm-loader-container")));
-//    }
-//
-//    private String getText(By by, WebDriver driver) {
-//
-//        return driver.findElement(by).getText();
-//    }
-//
-//    private void click(By by,  WebDriverWait wait) {
-//        wait.until(ExpectedConditions.visibilityOfElementLocated(by));
-//        wait.until(ExpectedConditions.elementToBeClickable(by)).click();
-//    }
-//
-//    private void input(String text, By by, WebDriver driver) {
-//        driver.findElement(by).sendKeys(text);
-//    }
-//
-//    private void waitElementToBeVisible(By by, WebDriverWait wait) {
-//        wait.until(ExpectedConditions.visibilityOfElementLocated(by));
-//    }
-//
-//    private void waitTextToBeChanged(By by, String text, WebDriver driver, WebDriverWait wait) {
-//        wait.until(ExpectedConditions
-//                .not(ExpectedConditions.textToBePresentInElement(driver.findElement(by), text)));
-//    }
-//    private void waitURLToBeChanged(String url2, WebDriver driver, WebDriverWait wait) {
-//        wait.until(ExpectedConditions.urlToBe(url2));
-//    }
-//
-//    private boolean find_element_by_xpath(WebDriver driver, String temp, String symbolTemp) {
-//        WebElement tempValue = driver.findElement(By.xpath(String.format("//div[text()='%s']", temp)));
-//        tempValue.click();
-//        waitForGrayFrameDisappeared();
-//
-//        return getText(APPROVE_DEGREES, getDriver()).contains(symbolTemp);
-//    }
-//
-//    private boolean find_element_by_xpath_METRIC_C(WebDriver driver, String temp, String symbolTemp) {
-//        WebElement tempValue = driver.findElement(By.xpath(String.format("//div[text()='%s']", temp)));
-//        tempValue.click();
-//        waitForGrayFrameDisappeared();
-//
-//        return getText(APPROVE_DEGREES, getDriver()).contains(symbolTemp);
-//    }
-//    private WebElement getWebElement(By by){
-//
-//        return getDriver().findElement(by);
-//    }
-//    private int seeAllElementAndCount(String whichElement, WebDriverWait wait) {
-//        wait.until(ExpectedConditions.visibilityOfAllElements(getDriver().findElement(By.xpath(whichElement))));
-//        List<WebElement> allElements = getDriver().findElements(By.xpath(whichElement));
-//        int count = allElements.size();
-//        for (WebElement checkedElement : allElements) {
-//            wait.until(ExpectedConditions.elementToBeClickable(checkedElement));
-//        }
-//
-//        return count;
-//    }
-//
-//    @Test
-//    public void testH2TagText_WhenSearchingCityCountry() {
-//        String cityName = "Paris";
-//        String expectedResult = "Paris, FR";
-//
-//        openBaseURL();
-//        waitForGrayFrameDisappeared();
-//
-//        String oldH2Header = getText(H2_CITY_COUNTRY_HEADER, getDriver());
-//
-//        click(SEARCH_CITY_FIELD, getWait5());
-//        input(cityName, SEARCH_CITY_FIELD, getDriver());
-//        click(SEARCH_BUTTON, getWait5());
-//        waitElementToBeVisible(SEARCH_DROPDOWN_MENU, getWait10());
-//        click(PARIS_FR_CHOICE_IN_DROPDOWN_MENU, getWait10());
-//        waitTextToBeChanged(H2_CITY_COUNTRY_HEADER, oldH2Header, getDriver(), getWait10());
-//
-//        String actualResult = getText(H2_CITY_COUNTRY_HEADER, getDriver());
-//
-//        Assert.assertEquals(actualResult, expectedResult);
-//    }
-//    @Test
-//    public void testOpenAndClickToGuide() {
-//
-//        String expectedResult = "https://openweathermap.org/guide";
-//        String expectedResult1 ="OpenWeatherMap API guide - OpenWeatherMap" ;
-//
-//        openBaseURL();
-//        waitForGrayFrameDisappeared();
-//
-//        click(SEARCH_GUIDE_BUTTON,getWait5());
-//
-//        waitURLToBeChanged(expectedResult, getDriver(), getWait10());
-//
-//        Assert.assertEquals(getDriver().getCurrentUrl(), expectedResult);
-//        Assert.assertEquals(getDriver().getTitle(), expectedResult1);
-//    }
-//    @Test
-//    public void testMenuAPIIsClickable(){
-//        String expectedResult = "https://openweathermap.org/api";
-//
-//        openBaseURL();
-//        waitForGrayFrameDisappeared();
-//
-//        click(CONFIRM_API, getWait5());
-//
-//        waitURLToBeChanged(expectedResult, getDriver(), getWait10());
-//
-//        Assert.assertEquals(getDriver().getCurrentUrl(), expectedResult);
-//    }
-//    @Test
-//    public void VerifyChangingTempUnitInHeading_WhenSwitchTempUnitButton() {
-//
-//        openBaseURL();
-//        waitForGrayFrameDisappeared();
-//
-//        Assert.assertTrue(find_element_by_xpath(getDriver(), TEMP_IMPERIAL_F, SYMBOL_TEMP));
-//    }
-//    @Test
-//    public void VerifyMetricSymbolIsShownInCurrentTempWhenChangingUnitToMetric(){
-//
-//        openBaseURL();
-//        waitForGrayFrameDisappeared();
-//
-//        Assert.assertTrue(find_element_by_xpath_METRIC_C(getDriver(), TEMP_METRIC_C, SYMBOL_TEMP_C));
-//    }
-//    @Test
-//    public void MenuIsClickable_pageBlogOpen(){
-//            String expectedResult = "https://openweather.co.uk/blog/category/weather";
-//
-//            openBLOG_URL();
-//            waitForGrayFrameDisappeared();
-//
-//            click(CONFIRM_BLOG_CATEGORY_WEATHER, getWait5());
-//
-//            Assert.assertEquals(getDriver().getCurrentUrl(), expectedResult);
-//    }
-//    @Test
-//    public void testMainNavBarLogoVerifyTheWebsiteslogoIsExistsClickableAndItRedirectsAUserToTheStartPage(){
-//            String expectedResult =
-//                    "https://openweathermap.org/themes/openweathermap/assets/img/logo_white_cropped.png";
-//
-//            openBaseURL();
-//            waitForGrayFrameDisappeared();
-//
-//            Assert.assertTrue(getWebElement(LOGO).isDisplayed());
-//            Assert.assertEquals(getDriver().getCurrentUrl(), BASE_URL);
-//
-//            click(LOGO, getWait5());
-//            Assert.assertEquals(getDriver().getCurrentUrl(),BASE_URL);
-//
-//            String actualLogoImageLink = getWebElement(LOGO).getAttribute("src");
-//
-//            Assert.assertEquals(actualLogoImageLink, expectedResult);
-//    }
-//   @Test
-//    public void testConfirmAPI30OrangeButton(){
-//
-//        openBaseURL();
-//        waitForGrayFrameDisappeared();
-//
-//        int expectedResult = 30;
-//
-//        click(CONFIRM_API, getWait10());
-//
-//       Assert.assertTrue(getWebElement(BUTTONS).isDisplayed());
-//
-//       int actualResult = seeAllElementAndCount("//a[contains(@class, 'orange')]", getWait5());
-//
-//       Assert.assertEquals(actualResult, expectedResult);
-//    }
-//}
+import org.openqa.selenium.By;
+import org.testng.Assert;
+import org.testng.annotations.Test;
+import base.BaseTest;
+
+public class IrynaHryhorivTest extends BaseTest {
+    private final String BASE_URL = "https://openweathermap.org/";
+    private final By H2_CITY_COUNTRY_HEADER = By.xpath("//div[@id = 'weather-widget']//h2");
+    private final By SEARCH_CITY_FIELD = By.xpath("//div[@id = 'weather-widget']//input[@placeholder = 'Search city']");
+    private final By SEARCH_BUTTON = By.xpath("//div[@id = 'weather-widget']//button[@type = 'submit']");
+    private final By SEARCH_DROPDOWN_MENU = By.className("search-dropdown-menu");
+    private final By PARIS_FR_CHOICE_IN_DROPDOWN_MENU = By.xpath("//ul[@class = 'search-dropdown-menu']/li/span[text() = 'Paris, FR ']");
+    private final By SEARCH_GUIDE_BUTTON = By.xpath("//a[@href='/guide']");
+    private final By CONFIRM_API = By.xpath("//div[@id='desktop-menu']/ul/li[2]/a");
+    private final String TEMP_IMPERIAL_F = "Imperial: °F, mph";
+    private final String TEMP_METRIC_C = "Metric: °C, m/s";
+    private final String SYMBOL_TEMP_F = "°F";
+    private final String SYMBOL_TEMP_C = "°C";
+    final static By APPROVE_DEGREES = By.xpath("//div[@id='weather-widget']//span[@class='heading']");
+
+    private final By LOGO = By.xpath( "//li[@class='logo']//img");
+    private final By BUTTONS = By.xpath("//a[contains(@class, 'orange')]");
+
+    @Test
+    public void testH2TagText_WhenSearchingCityCountry() {
+        String cityName = "Paris";
+        String expectedResult = "Paris, FR";
+
+        openBaseURL();
+
+        String oldH2Header = getText(H2_CITY_COUNTRY_HEADER);
+
+        click(SEARCH_CITY_FIELD);
+        input(cityName, SEARCH_CITY_FIELD);
+        click(SEARCH_BUTTON);
+        waitElementToBeVisible(SEARCH_DROPDOWN_MENU);
+        click(PARIS_FR_CHOICE_IN_DROPDOWN_MENU);
+        waitTextToBeChanged(H2_CITY_COUNTRY_HEADER, oldH2Header);
+
+        String actualResult = getText(H2_CITY_COUNTRY_HEADER);
+
+        Assert.assertEquals(actualResult, expectedResult);
+    }
+    @Test
+    public void testOpenAndClickToGuide() {
+
+        String expectedResult = "https://openweathermap.org/guide";
+        String expectedResult1 ="OpenWeatherMap API guide - OpenWeatherMap" ;
+
+        openBaseURL();
+
+        click(SEARCH_GUIDE_BUTTON);
+
+        Assert.assertEquals(getDriver().getCurrentUrl(), expectedResult);
+        Assert.assertEquals(getDriver().getTitle(), expectedResult1);
+    }
+    @Test
+    public void testMenuAPIIsClickable(){
+        String expectedResult = "https://openweathermap.org/api";
+
+        openBaseURL();
+
+        click(CONFIRM_API);
+
+        Assert.assertEquals(getDriver().getCurrentUrl(), expectedResult);
+    }
+
+    @Test
+    public void VerifyChangingTempUnitInHeading_WhenSwitchTempUnitButton() {
+
+        openBaseURL();
+        By temperature = By.xpath(String.format("//div[text()='%s']", TEMP_IMPERIAL_F));
+        click(temperature);
+        Assert.assertTrue(getText(APPROVE_DEGREES).contains(SYMBOL_TEMP_F));
+    }
+    @Test
+    public void VerifyMetricSymbolIsShownInCurrentTempWhenChangingUnitToMetric(){
+
+        openBaseURL();
+        By temperature = By.xpath(String.format("//div[text()='%s']", TEMP_METRIC_C));
+        click(temperature);
+        Assert.assertTrue(getText(APPROVE_DEGREES).contains(SYMBOL_TEMP_C));
+    }
+    @Test
+    public void testConfirmAPI30OrangeButton(){
+
+        openBaseURL();
+
+        int expectedResult = 30;
+
+        click(CONFIRM_API);
+
+        int actualResult = seeAllElementAndCount(By.xpath("//a[contains(@class, 'orange')]"));
+
+        Assert.assertEquals(actualResult, expectedResult);
+    }
+}
+
