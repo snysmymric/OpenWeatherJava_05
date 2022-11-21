@@ -5,9 +5,8 @@ import base.BaseTest;
 
 public class VeraFesTest extends BaseTest {
 
-    final static By LOGO =
-            By.xpath("//a[@href]//img[@src='/themes/openweathermap/assets/img/logo_white_cropped.png']");
-    final static By NAME_WEBSITE = By.xpath("//div[@class='section where-to']//span[@class='orange-text']");
+    private final By LOGO = By.xpath("//li[@class='logo']/a");
+    private final By NAME_WEBSITE = By.xpath("//div[@class='section where-to']//span[@class='orange-text']");
 
     @Test
     public void testLogo_WhenClickRedirects2Start() {
@@ -26,5 +25,19 @@ public class VeraFesTest extends BaseTest {
         String actualResultTitle = getText(NAME_WEBSITE);
 
         Assert.assertEquals(actualResultTitle, expectedResultTitle);
+    }
+
+    @Test
+    public void testLogoLink() {
+        final String attribute = "href";
+        final String expectedResultLogoLink = "/";
+
+        openBaseURL();
+
+        waitElementToBeVisible(LOGO);
+
+        String actualResultLogoLink = getTextByAttribute(LOGO, attribute);
+
+        Assert.assertTrue(actualResultLogoLink.contains(expectedResultLogoLink));
     }
 }
