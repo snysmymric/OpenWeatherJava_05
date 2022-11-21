@@ -5,8 +5,8 @@ import base.BaseTest;
 
 public class VeraFesTest extends BaseTest {
 
-    final static By LOGO = By.xpath("//li[@class='logo']/a");
-    final static By NAME_WEBSITE = By.xpath("//div[@class='section where-to']//span[@class='orange-text']");
+    private final By LOGO = By.xpath("//li[@class='logo']/a");
+    private final By NAME_WEBSITE = By.xpath("//div[@class='section where-to']//span[@class='orange-text']");
 
     @Test
     public void testLogo_WhenClickRedirects2Start() {
