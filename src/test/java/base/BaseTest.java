@@ -240,4 +240,8 @@ public abstract class BaseTest {
 
         return elements;
     }
+    public void scrollToPageBottom(){
+        JavascriptExecutor js = (JavascriptExecutor) getDriver();
+        js.executeScript("window.scrollTo(0, document.body.scrollHeight)");
+    }
 }
