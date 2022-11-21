@@ -1,6 +1,7 @@
 package base;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -19,11 +20,10 @@ import java.util.Date;
 import java.util.List;
 
 public abstract class BaseTest {
+    public final String BASE_URL = TestUtils.getBaseUrl();
     private WebDriver driver;
     private WebDriverWait webDriverWait20;
     private WebDriverWait webDriverWait10;
-
-    public final String BASE_URL = TestUtils.getBaseUrl();
 
     @BeforeSuite
     protected void beforeSuite(ITestContext context) {
@@ -108,7 +108,7 @@ public abstract class BaseTest {
 
     public int countOrangeButtons(By by) {
         return driver.findElements(by).size();
-    }    
+    }
 
     public String systemDate() {
         Date date = new Date();
@@ -132,9 +132,34 @@ public abstract class BaseTest {
         return getListOfElements(by).size();
     }
 
-    public String getTextByAttribute(By by, String attribute){
+    public String getTextByAttribute(By by, String attribute) {
 
         return getDriver().findElement(by).getAttribute(attribute);
     }
 
+    public int findAllVisibleElements(String xpath, WebDriverWait wait) {
+        wait.until(ExpectedConditions.visibilityOfAllElements(getDriver().findElement(By.xpath(xpath))));
+        List<WebElement> elements = getDriver().findElements(By.xpath(xpath));
+        for (WebElement element : elements) {
+            wait.until(ExpectedConditions.elementToBeClickable(element));
+        }
+
+        return elements.size();
+    }
+
+    public void scrollByVisibleElement(By by) {
+        JavascriptExecutor js = (JavascriptExecutor) getDriver();
+        js.executeScript("arguments[0].scrollIntoView();", getDriver().findElement(by));
+    }
+
+    public void switchToAnotherWindow(WebDriver driver) {
+        String originalWindow = driver.getWindowHandle();
+
+        for (String windowHandle : driver.getWindowHandles()) {
+            if (!originalWindow.equals(windowHandle)) {
+                driver.switchTo().window(windowHandle);
+                break;
+            }
+        }
+    }
 }
