@@ -132,13 +132,9 @@ public abstract class BaseTest {
         return getListOfElements(by).size();
     }
 
-    public String getTextByAttribute(By by,String text){
-
-        return getDriver().findElement(by).getAttribute(text);
-    }
-
-    private String getAttribute(By by, String attribute) {
+    public String getTextByAttribute(By by, String attribute){
 
         return getDriver().findElement(by).getAttribute(attribute);
     }
+
 }
