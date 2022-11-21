@@ -114,4 +114,8 @@ public abstract class BaseTest {
 
         return sdf.format(date).substring(0, 10);
     }
+
+    public String getTextByAttribute(By by,String text){
+        return getDriver().findElement(by).getAttribute(text);
+    }
 }
