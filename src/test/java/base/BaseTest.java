@@ -2,6 +2,7 @@ package base;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.ITestContext;
@@ -15,6 +16,7 @@ import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.util.Date;
+import java.util.List;
 
 public abstract class BaseTest {
     private WebDriver driver;
@@ -115,7 +117,23 @@ public abstract class BaseTest {
         return sdf.format(date).substring(0, 10);
     }
 
+    public String getCurrentURL() {
+
+        return getDriver().getCurrentUrl();
+    }
+
+    public List<WebElement> getListOfElements(By by) {
+
+        return getDriver().findElements(by);
+    }
+
+    public int getListSize(By by) {
+
+        return getListOfElements(by).size();
+    }
+
     public String getTextByAttribute(By by,String text){
+
         return getDriver().findElement(by).getAttribute(text);
     }
 }
