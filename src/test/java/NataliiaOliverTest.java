@@ -44,4 +44,19 @@ public class NataliiaOliverTest extends BaseTest {
 
         Assert.assertEquals(actualTextSearchCityField, expectedTextSearchCityField);
     }
+
+    @Test
+    public void testSearchBlockText_ShownSearchButton() {
+        final String expectedTextSearchButton = "Search";
+
+        openBaseURL();
+
+        click(SEARCH_BUTTON);
+
+        Assert.assertTrue(isDisplayed(SEARCH_BUTTON));
+
+        String actualTextSearchButton = getText(SEARCH_BUTTON);
+
+        Assert.assertEquals(actualTextSearchButton, expectedTextSearchButton);
+    }
 }
