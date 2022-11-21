@@ -1,9 +1,6 @@
 package base;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.ITestContext;
@@ -171,5 +168,27 @@ public abstract class BaseTest {
     public void switchWindow() {
         ArrayList<String> newWindow = new ArrayList<>(getDriver().getWindowHandles());
         getDriver().switchTo().window(newWindow.get(1));
+    }
+
+    public int seeAllElementAndCount(By by) {
+        getWait20().until(ExpectedConditions.visibilityOfAllElements(getDriver().findElement(by)));
+        List<WebElement> allElements = getDriver().findElements(by);
+        int count = allElements.size();
+        for (WebElement checkedElement : allElements) {
+            getWait20().until(ExpectedConditions.elementToBeClickable(checkedElement));
+        }
+
+        return count;
+    }
+
+    public void inputAndEnter(By by, String text) {
+        getWait10().until(ExpectedConditions.visibilityOf(getDriver().findElement(by)));
+        getDriver().findElement(by).sendKeys(text, Keys.ENTER);
+    }
+
+    public String backgroundColor(By by) {
+        getWait10().until(ExpectedConditions.visibilityOf(getDriver().findElement(by)));
+
+        return getDriver().findElement(by).getCssValue("background-color");
     }
 }
