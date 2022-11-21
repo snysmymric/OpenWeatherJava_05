@@ -164,6 +164,10 @@ public abstract class BaseTest {
         }
     }
 
+    public String getTitle() {
+        return getDriver().getTitle();
+    }
+    
     public void switchWindow() {
         ArrayList<String> newWindow = new ArrayList<>(getDriver().getWindowHandles());
         getDriver().switchTo().window(newWindow.get(1));
