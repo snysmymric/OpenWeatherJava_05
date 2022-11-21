@@ -227,6 +227,10 @@ public abstract class BaseTest {
         return currentUrl.contains(text);
     }
 
+    public void inputTextAndClickEnter (By by, String text) {
+        getDriver().findElement(by).sendKeys(text + Keys.ENTER);
+    }
+    
     public List<String> getListText(By by) {
         List<String> elements = new ArrayList<>();
 
