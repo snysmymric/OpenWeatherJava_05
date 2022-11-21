@@ -1,56 +1,35 @@
+import base.BaseTest;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
-import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
-import runner.BaseTest;
 
-@Ignore
-public class TsetskolTest extends BaseTest{
+public class TsetskolTest extends BaseTest {
+    final static By SEARCH_CITY_FIELD=By.xpath("//div[@id = 'weather-widget']//input[@placeholder = 'Search city']");
+    final static By SEARCH_BUTTON = By.xpath("//div[@id = 'weather-widget']//button[@type = 'submit']");
+    final static By PARIS_FR_CHOICE_IN_DROPDOWN_MENU = By.xpath
+            ("//ul[@class = 'search-dropdown-menu']/li/span[text() = 'Paris, FR ']");
+    private final By SEARCH_DROPDOWN_MENU = By.className("search-dropdown-menu");
+    final static By H2_CITY_COUNTRY_HEADER = By.xpath("//div[@id = 'weather-widget']//h2");
 
-    //    TC_1_1  - Тест кейс:
-    //    //1. Открыть страницу https://openweathermap.org/
-    //    //2. Набрать в строке поиска город Paris
-    //    //3. Нажать пункт меню Search
-    //    //4. Из выпадающего списка выбрать Paris, FR
-    //    //5. Подтвердить, что заголовок изменился на "Paris, FR"
     @Test
-    public void testH2TagText_WhenSearchingCityCountry() throws InterruptedException {
+    public void testH2TagText_WhenSearchingCityCountry() {
+        final String cityName = "Paris";
+        final String expectedCityCountryNames = "Paris, FR";
 
-        String url = "https://openweathermap.org/";
-        String cityName = "Paris";
-        String expectedResult = "Paris, FR";
+        openBaseURL();
 
+        final String oldH2Header = getText(H2_CITY_COUNTRY_HEADER);
 
-        getDriver().get(url);
-        Thread.sleep(5000);
+        click(SEARCH_CITY_FIELD);
+        input(cityName, SEARCH_CITY_FIELD);
+        click(SEARCH_BUTTON);
+        waitElementToBeVisible(SEARCH_DROPDOWN_MENU);
+        click(PARIS_FR_CHOICE_IN_DROPDOWN_MENU);
+        waitTextToBeChanged(H2_CITY_COUNTRY_HEADER, oldH2Header);
 
-        WebElement searchCityField = getDriver().findElement(
-                By.xpath("//div[@id = 'weather-widget']//input[@placeholder = 'Search city']")
-        );
+        String actualCityCountryNames = getText(H2_CITY_COUNTRY_HEADER);
 
-        searchCityField.click();
-        searchCityField.sendKeys(cityName);
-
-        WebElement searchButton = getDriver().findElement(
-                By.xpath("//div[@id = 'weather-widget']//button[@type = 'submit']")
-        );
-
-        searchButton.click();
-        Thread.sleep(1000);
-
-
-        WebElement parisFRChoiceInDropdownMenu = getDriver().findElement(
-                By.xpath("//ul[@class = 'search-dropdown-menu']/li/span[text() = 'Paris, FR ']")
-        );
-        parisFRChoiceInDropdownMenu.click();
-
-        WebElement h2CityCountryHeader = getDriver().findElement(
-                By.xpath("//div[@id = 'weather-widget']//h2")
-        );
-        Thread.sleep(2000);
-        String actualResult = h2CityCountryHeader.getText();
-
-        Assert.assertEquals(actualResult, expectedResult);
+        Assert.assertEquals(actualCityCountryNames, expectedCityCountryNames);
     }
 }
