@@ -45,7 +45,7 @@ public class IrynaHryhorivTest extends BaseTest {
 
         openBaseURL();
 
-        click(SEARCH_GUIDE_BUTTON);
+        click20(SEARCH_GUIDE_BUTTON);
 
         Assert.assertEquals(getDriver().getCurrentUrl(), expectedResult);
         Assert.assertEquals(getDriver().getTitle(), expectedResult1);
@@ -56,7 +56,7 @@ public class IrynaHryhorivTest extends BaseTest {
 
         openBaseURL();
 
-        click(CONFIRM_API);
+        click20(CONFIRM_API);
 
         Assert.assertEquals(getDriver().getCurrentUrl(), expectedResult);
     }
@@ -66,7 +66,7 @@ public class IrynaHryhorivTest extends BaseTest {
 
         openBaseURL();
         By temperature = By.xpath(String.format("//div[text()='%s']", TEMP_IMPERIAL_F));
-        click(temperature);
+        click20(temperature);
         Assert.assertTrue(getText(APPROVE_DEGREES).contains(SYMBOL_TEMP_F));
     }
     @Test
@@ -74,7 +74,7 @@ public class IrynaHryhorivTest extends BaseTest {
 
         openBaseURL();
         By temperature = By.xpath(String.format("//div[text()='%s']", TEMP_METRIC_C));
-        click(temperature);
+        click20(temperature);
         Assert.assertTrue(getText(APPROVE_DEGREES).contains(SYMBOL_TEMP_C));
     }
 
@@ -84,7 +84,7 @@ public class IrynaHryhorivTest extends BaseTest {
         openBaseURL();
         int expectedResult = 30;
 
-        click(CONFIRM_API);
+        click20(CONFIRM_API);
 
         int actualResult = seeAllElementAndCount(By.xpath("//a[contains(@class, 'orange')]"));
 
