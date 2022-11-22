@@ -1,6 +1,7 @@
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import base.BaseTest;
 
@@ -73,6 +74,7 @@ public class YuliaMatusevichTest extends BaseTest {
 
         Assert.assertTrue((actualResult.contains(expectedResult)));
     }
+    @Ignore
     @Test
     public void testTelegramIcon_OnHomePage_WhenClickIcon(){
         String expectedResult ="t.me";
