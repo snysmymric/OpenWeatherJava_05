@@ -1,6 +1,5 @@
 import org.openqa.selenium.By;
 import org.testng.Assert;
-import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import base.BaseTest;
 
@@ -24,7 +23,7 @@ public class AnnaAbgTest extends BaseTest {
 
         Assert.assertEquals(actualNumberOfButtons, expectedNumberOfButtons);
     }
-     @Ignore
+
     @Test
     public void testPartnersAndSolutionsLinkPage() {
 
@@ -32,11 +31,11 @@ public class AnnaAbgTest extends BaseTest {
 
         openBaseURL();
 
-        click(SEARCH_PARTNERS_MENU);
+        click20(SEARCH_PARTNERS_MENU);
 
-        String actualResultCurrentURL = getCurrentURL();
+        String actualCurrentURL = getCurrentURL();
 
-        Assert.assertEquals(actualResultCurrentURL, expectedCurrentURL);
+        Assert.assertEquals(actualCurrentURL, expectedCurrentURL);
     }
 
     @Test
@@ -56,15 +55,15 @@ public class AnnaAbgTest extends BaseTest {
     @Test
     public void testBreadcrumbTitle2() {
 
-        final String expectedResultTitle = "Partners and solutions";
+        final String expectedTitle = "Partners and solutions";
 
         openBaseURL();
 
         click(SEARCH_PARTNERS_MENU);
 
-        String actualResultTitle2 = getText(SEARCH_BREADCRUMB_TITLE);
+        String actualTitle2 = getText(SEARCH_BREADCRUMB_TITLE);
         waitElementToBeVisible(SEARCH_BREADCRUMB_TITLE);
 
-        Assert.assertEquals(actualResultTitle2, expectedResultTitle);
+        Assert.assertEquals(actualTitle2, expectedTitle);
     }
 }
