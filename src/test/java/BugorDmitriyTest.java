@@ -25,6 +25,8 @@ public class BugorDmitriyTest extends BaseTest {
     final static By SUPPORT_DROPDOWN_MENU = By.xpath("//ul[@id='support-dropdown-menu']/*");
     final static By DASHBOARD_MENU = By.xpath("//div[@id='desktop-menu']/ul/li[3]/a");
 
+    
+    @Ignore
            @Test
         public void testH2TextWhenSearchingCityCountry() {
 
