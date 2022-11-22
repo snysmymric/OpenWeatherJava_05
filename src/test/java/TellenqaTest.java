@@ -1,11 +1,15 @@
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import base.BaseTest;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class TellenqaTest extends BaseTest {
 
-    final static String BASE_URL = "https://openweathermap.org/";
+    final static String PRICE_URL = "https://openweathermap.org/price";
 
     final static By H_2_CITY_COUNTRY_HEADER = By.xpath("//div[@id='weather-widget']//h2");
     final static By SEARCH_CITY_FIELD = By.xpath("//div[@id = 'weather-widget']//input[@placeholder='Search city']");
@@ -47,10 +51,30 @@ public class TellenqaTest extends BaseTest {
         Assert.assertEquals(getDriver().getCurrentUrl(),expectedResult);
     }
 
- @Test
-    public void testFooterContainerIsDisplayed(){
+    @Test
+    public void testFooterContainerIsDisplayed() {
         openBaseURL();
 
         Assert.assertTrue(getDriver().findElement(FOOTER_CONTAINER).isDisplayed());
+    }
+
+    @Test
+    public void testH2Headers_UnderProfessionalCollections() {
+        int expectedAmountH2Headers = 5;
+        List<String> expectedH2Headers = List.of(
+                "Current weather and forecasts collection","Special products","Historical weather collection",
+                "Special products","Free data for students");
+
+        openBaseURL();
+        getDriver().get(PRICE_URL);
+
+        List<String> actualH2Headers = new ArrayList<>();
+        List<WebElement> actualH2HeadersElements = getDriver().findElements(By.xpath("//h2"));
+        for(int i = 2; i < actualH2HeadersElements.size(); i++) {
+            actualH2Headers.add(actualH2HeadersElements.get(i).getText());
+        }
+
+        Assert.assertEquals(actualH2Headers.size(),expectedAmountH2Headers);
+        Assert.assertEquals(actualH2Headers, expectedH2Headers);
     }
 }
