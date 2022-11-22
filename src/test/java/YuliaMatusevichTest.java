@@ -1,9 +1,14 @@
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import base.BaseTest;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class YuliaMatusevichTest extends BaseTest {
     final static By FACEBOOK_LINK = By.xpath("//div[@class = 'social']/a[1]");
@@ -11,6 +16,10 @@ public class YuliaMatusevichTest extends BaseTest {
     final static By LINKEDIN_LINK = By.xpath("//div[@class = 'social']/a[3]");
     final static By MEDIUM_LINK = By.xpath("//div[@class = 'social']/a[4]");
     final static By TELEGRAM_LINK = By.xpath("//div[@class = 'social']/a[5]");
+    final static By BLOG_BUTTON =
+            By.xpath("//div[@id = 'desktop-menu']//a[@href = 'https://openweather.co.uk/blog/category/weather']");
+
+    final static By BLOG_CATEGORIES_PANEL = By.xpath("//ul[@id ='blog-categories']");
 
     @Test
     public void testAllSocialMediaIconsVisibleAndClickable (){
@@ -87,6 +96,23 @@ public class YuliaMatusevichTest extends BaseTest {
         String actualResult = getDriver().getCurrentUrl();
 
         Assert.assertTrue((actualResult.contains(expectedResult)));
+    }
+    @Test
+    public void testBlogGategoriesName_whenSwitchToBlogPage(){
+        final List<String> expectedCategoriesName =
+                new ArrayList<> (Arrays.asList("ALL", "WEATHER", "AGRO", "PLATFORM", "TECHNOLOGIES", "TEAM&COMPANY"));
+
+        openBaseURL();
+        click20(BLOG_BUTTON);
+        jumpToNextWindow();
+        waitElementToBeVisible(BLOG_CATEGORIES_PANEL);
+        List<WebElement> categories = getListOfElements(By.xpath("//a[@class = 'post-filters__link']"));
+        List<String> actualCategoriesName = new ArrayList<>();
+        for(WebElement category : categories){
+            actualCategoriesName.add(category.getText());
+        }
+
+        Assert.assertEquals(actualCategoriesName, expectedCategoriesName);
     }
 
 }
