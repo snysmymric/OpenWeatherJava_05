@@ -81,6 +81,12 @@ public abstract class BaseTest {
         return getDriver().findElement(by).getText();
     }
 
+    public String getTextWaiting(By by) {
+        getWait20().until(ExpectedConditions.visibilityOfElementLocated(by));
+
+        return getDriver().findElement(by).getText();
+    }
+
     public void click(By by) {
         getWait10().until(ExpectedConditions.visibilityOfElementLocated(by));
         getWait10().until(ExpectedConditions.elementToBeClickable(by)).click();
