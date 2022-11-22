@@ -67,6 +67,7 @@ public class TellenqaTest extends BaseTest {
 
         openBaseURL();
         getDriver().get(PRICE_URL);
+        getWait20();
 
         List<String> actualH2Headers = new ArrayList<>();
         List<WebElement> actualH2HeadersElements = getDriver().findElements(By.xpath("//h2"));
