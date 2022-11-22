@@ -33,7 +33,6 @@ public class TimberhutTest extends BaseTest {
         final String backgroundColorGray = "rgba(236, 236, 237, 1)";
 
         openBaseURL();
-        waitForGrayContainerDisappeared();
         click(DIFFERENT_WEATHER_BUTTON);
         click(MORE_OPTION_BUTTON);
 
@@ -52,7 +51,6 @@ public class TimberhutTest extends BaseTest {
         final String backgroundColorGray = "rgba(236, 236, 237, 1)";
 
         openBaseURL();
-        waitForGrayContainerDisappeared();
         click(DIFFERENT_WEATHER_BUTTON);
         click(MORE_OPTION_BUTTON);
 
@@ -73,7 +71,6 @@ public class TimberhutTest extends BaseTest {
         final String message = "Test message";
 
         openBaseURL();
-        waitForGrayContainerDisappeared();
         click(DIFFERENT_WEATHER_BUTTON);
         click(MORE_OPTION_BUTTON);
         click(CLEAR_SKY_BUTTON);
@@ -95,7 +92,6 @@ public class TimberhutTest extends BaseTest {
     @Test
     public void testDifferentWeatherPopUpCloseWindowButton() {
         openBaseURL();
-        waitForGrayContainerDisappeared();
         click(DIFFERENT_WEATHER_BUTTON);
         click(DIFFERENT_WEATHER_CLOSE_WINDOW_BUTTON);
         getWait10();
@@ -108,7 +104,6 @@ public class TimberhutTest extends BaseTest {
         final String expectedResult = "https://openweathermap.org/guide";
 
         openBaseURL();
-        waitForGrayContainerDisappeared();
         click(MAIN_PAGE_GUIDE_BUTTON_UPPER_MENU);
 
         Assert.assertEquals(getCurrentURL(),expectedResult);
