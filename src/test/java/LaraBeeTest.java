@@ -91,6 +91,7 @@ public class LaraBeeTest extends BaseTest {
                 contains(expectedGetItOnGooglePlayStoreLinkExists)));
     }
 
+    @Ignore
     @Test
     public void testDownloadOpenWeatherAppAndAllStoreButtonsAreVisible() {
         final int expectedAllStoreButtonsVisible = 2;
