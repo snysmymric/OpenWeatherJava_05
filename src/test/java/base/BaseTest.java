@@ -68,6 +68,7 @@ public abstract class BaseTest {
     public void openBaseURL() {
         getDriver().get(BASE_URL);
         waitForGrayContainerDisappeared();
+        waitForElement(By.xpath("//div[@id = 'weather-widget']//h2"));
     }
 
     public void waitForGrayContainerDisappeared() {
@@ -243,5 +244,9 @@ public abstract class BaseTest {
     public void scrollToPageBottom(){
         JavascriptExecutor js = (JavascriptExecutor) getDriver();
         js.executeScript("window.scrollTo(0, document.body.scrollHeight)");
+    }
+
+    public void waitForElement(By by) {
+        getWait20().until(ExpectedConditions.presenceOfElementLocated(by));
     }
 }
