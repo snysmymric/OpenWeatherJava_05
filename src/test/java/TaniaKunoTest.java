@@ -15,6 +15,7 @@ public class TaniaKunoTest extends BaseTest {
     final static By PARIS_FR_CHOICE_IN_DROPDOWN_MENU = By.xpath("//ul[@class = 'search-dropdown-menu']/li/span[text() = 'Paris, FR ']");
     final static By SUPPORT_MENU = By.xpath("//div[@id = 'support-dropdown']");
     final static By ASK_A_QUESTION_SUBMENU = By.xpath("//ul[@class = 'dropdown-menu dropdown-visible']//a[text() = 'Ask a question']");
+    final static By H4_ASK_A_QUESTION_HEADLINE = By.xpath("//div[@class = 'container']//h4");
 
     @Test
     public void testH2TagText_WhenSearchingCityCountry() {
@@ -45,10 +46,28 @@ public class TaniaKunoTest extends BaseTest {
 
         click(SUPPORT_MENU);
         click(ASK_A_QUESTION_SUBMENU);
-        switchToAnotherWindow(getDriver());
+        jumpToNextWindow();
 
         String actualResult = getCurrentURL();
 
         Assert.assertEquals(actualResult, expectedResult);
+    }
+
+    @Test
+    public void testVerifyHeadlineOfForm_OnAskAQuestionPage() {
+        final String expectedHeadline = "Ask a question";
+
+        openBaseURL();
+        click(SUPPORT_MENU);
+        click(ASK_A_QUESTION_SUBMENU);
+        jumpToNextWindow();
+
+        Assert.assertTrue(
+                getDriver().findElement(
+                        By.className("headline")).isDisplayed());
+
+        String actualHeadline = getText(H4_ASK_A_QUESTION_HEADLINE);
+
+        Assert.assertEquals(actualHeadline, expectedHeadline);
     }
 }
