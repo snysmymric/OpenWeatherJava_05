@@ -11,9 +11,10 @@ public class Lenochkanik80Test extends BaseTest {
     private final By PARIS_FR_CHOICE_IN_DROPDOWN_MENU = By.xpath("//ul[@class='search-dropdown-menu']/li/span[text() = 'Paris, FR ']");
     private final By SEARCH_API_MENU = By.xpath("//div[@id='desktop-menu']//a[@href='/api']");
     private final By API_TITLE = By.className("breadcrumb-title");
+    private final By CONNECT_YOUR_WEATHER_STATION = By.xpath("//div[@onclick='toggleFooterSection(event)']//a[@href='/stations']");
 
     @Test
-    public void testH2TagText_WhenSearchingCityCountry()  {
+    public void testH2TagText_WhenSearchingCityCountry() {
         final String cityName = "Paris";
         final String expectedResult = "Paris, FR";
 
@@ -55,5 +56,21 @@ public class Lenochkanik80Test extends BaseTest {
         String actualResult = getText(API_TITLE);
 
         Assert.assertEquals(actualResult, expectedResult);
+    }
+
+    @Test
+    public void testConnectYourWeatherStation_FooterTechnologies() {
+        final String expectedResultURL = "https://openweathermap.org/stations";
+        final String expectedResultTitle = "Weather Stations - OpenWeatherMap";
+
+        openBaseURL();
+        scrollByVisibleElement(CONNECT_YOUR_WEATHER_STATION);
+        click(CONNECT_YOUR_WEATHER_STATION);
+
+        String actualResultURL = getCurrentURL();
+        String actualResultTitle = getTitle();
+
+        Assert.assertEquals(actualResultURL, expectedResultURL);
+        Assert.assertEquals(actualResultTitle, expectedResultTitle);
     }
 }
