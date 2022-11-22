@@ -2,6 +2,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import base.BaseTest;
 
@@ -21,7 +22,6 @@ public class ViktoriyaEDTest extends BaseTest {
 
     @Test
     public void test_SupportMenuIsClickable() {
-
         openBaseURL();
         click(SUPPORT_BUTTON);
 
@@ -54,18 +54,18 @@ public class ViktoriyaEDTest extends BaseTest {
     public void test_SupportMenuSubmenusAreClickableAndRedirectedToTheRightPage() {
 
         openBaseURL();
-        click(SUPPORT_BUTTON);
-        click(SUPPORT_MENU_FAQ);
+        click20(SUPPORT_BUTTON);
+        click20(SUPPORT_MENU_FAQ);
 
         Assert.assertTrue(getDriver().getCurrentUrl().contains("https://openweathermap.org/faq"));
 
-        click(SUPPORT_BUTTON);
-        click(SUPPORT_MENU_HOW_TO_START);
+        click20(SUPPORT_BUTTON);
+        click20(SUPPORT_MENU_HOW_TO_START);
 
         Assert.assertTrue(getDriver().getCurrentUrl().contains("https://openweathermap.org/appid"));
 
-        click(SUPPORT_BUTTON);
-        click(SUPPORT_MENU_ASK_A_QUESTION);
+        click20(SUPPORT_BUTTON);
+        click20(SUPPORT_MENU_ASK_A_QUESTION);
         List<String> tabs = new ArrayList<>(getDriver().getWindowHandles());
 
         Assert.assertEquals(tabs.size(), 2);
