@@ -68,8 +68,7 @@ public class DimaZadrutsiyTest extends BaseTest {
     public void test_X_ButtonIsShown() {
 
         openBaseURL();
-
-        click(BUTTON_DIFFERENT_WEATHER);
+        click20(BUTTON_DIFFERENT_WEATHER);
 
         boolean actualResult = isDisplayed(BUTTON_X_IN_DIFFERENT_WEATHER_MENU);
 
