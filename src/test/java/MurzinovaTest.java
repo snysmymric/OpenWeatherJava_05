@@ -35,7 +35,7 @@ public class MurzinovaTest extends BaseTest {
         click(SIGN_IN_LINK);
 
         String actualResult = getCurrentURL();
-        Assert.assertEquals(actualResult,expectedResult);
+        Assert.assertEquals(actualResult, expectedResult);
     }
 
     @Test
@@ -43,11 +43,10 @@ public class MurzinovaTest extends BaseTest {
         final String expectedResult = "https://home.openweathermap.org/users/sign_up";
 
         openBaseURL();
-
-        click(SIGN_IN_LINK);
-        click(CREATE_AN_ACCOUNT_LINK);
+        click20(SIGN_IN_LINK);
+        click20(CREATE_AN_ACCOUNT_LINK);
 
         String actualResult = getCurrentURL();
-        Assert.assertEquals(actualResult,expectedResult);
+        Assert.assertEquals(actualResult, expectedResult);
     }
 }
