@@ -2,7 +2,6 @@ import base.BaseTest;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
-import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import java.util.List;
 
@@ -11,7 +10,7 @@ public class ElviraKh1Test extends BaseTest {
     private final By SUPPORT_MENU_ITEM = By.xpath("//div[@id='support-dropdown']");
     private final By SUB_SUPPORT_MENU_ITEMS = By.xpath("//ul[@id='support-dropdown-menu']//li");
 
-    @Ignore
+
     @Test
     public void testSupportSubMenu() {
         final int cntSubSupportMenu = 3;
@@ -20,8 +19,8 @@ public class ElviraKh1Test extends BaseTest {
 
         openBaseURL();
 
-        click(SUPPORT_MENU_ITEM);
-
+        click20(SUPPORT_MENU_ITEM);
+        waitElementToBeVisible(SUB_SUPPORT_MENU_ITEMS);
         List<WebElement> subSupportMenus = getListOfElements(SUB_SUPPORT_MENU_ITEMS);
 
         Assert.assertEquals(getText(SUPPORT_MENU_ITEM), expectedSupportMenu);
