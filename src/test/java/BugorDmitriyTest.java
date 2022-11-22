@@ -1,10 +1,8 @@
 import org.openqa.selenium.By;
 import org.testng.Assert;
-import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import base.BaseTest;
 
-import java.util.List;
 
 
 public class BugorDmitriyTest extends BaseTest {
@@ -13,9 +11,7 @@ public class BugorDmitriyTest extends BaseTest {
     final static By SEARCH_BUTTON = By.xpath("//div[@id = 'weather-widget']//button[@type = 'submit']");
     final static By SEARCH_DROPDOWN_MENU = By.className("search-dropdown-menu");
     final static By PARIS_FR_CHOICE_DROPDOWN_MENU = By.xpath("//ul[@class = 'search-dropdown-menu']/li/span[text() = 'Paris, FR ']");
-    final static By WE_USE_COOKIES = By.xpath("//div[@class='stick-footer-panel__container']//p[text()='We use cookies which are essential "
-            + "for the site to work. We also use non-essential cookies to help us improve our services. Any data collected is anonymised. "
-            + "You can allow all cookies or manage them individually.']");
+    final static By WE_USE_COOKIES = By.xpath("//p[@class='stick-footer-panel__description']");
     final static By ALLOW_ALL = By.xpath("//button[@class='stick-footer-panel__link']");
     final static By MANAGE_COOKIES = By.xpath("//div[@class='stick-footer-panel__btn-container']//a");
     final static By HEADING_SUPPORT_DROPDOWN = By.xpath("//div[@id='support-dropdown']");
@@ -23,7 +19,7 @@ public class BugorDmitriyTest extends BaseTest {
     final static By HOW_TO_START = By.xpath("//ul[@class='dropdown-menu dropdown-visible']//li/a[@href='/appid']");
     final static By ASK_A_QUESTION = By.xpath("//ul[@class='dropdown-menu dropdown-visible']//a[text()='Ask a question']");
     final static By SUPPORT_DROPDOWN_MENU = By.xpath("//ul[@id='support-dropdown-menu']/*");
-    final static By DASHBOARD_MENU = By.xpath("//div[@id='desktop-menu']/ul/li[3]/a");
+    final static By DASHBOARD_MENU = By.xpath("//div[@id='desktop-menu']//ul//li//a[@href='/weather-dashboard']");
 
     
             @Test
