@@ -228,10 +228,10 @@ public abstract class BaseTest {
         return currentUrl.contains(text);
     }
 
-    public void inputTextAndClickEnter (By by, String text) {
+    public void inputTextAndClickEnter(By by, String text) {
         getDriver().findElement(by).sendKeys(text + Keys.ENTER);
     }
-    
+
     public List<String> getListText(By by) {
         List<String> elements = new ArrayList<>();
 
@@ -241,12 +241,31 @@ public abstract class BaseTest {
 
         return elements;
     }
-    public void scrollToPageBottom(){
+
+    public void scrollToPageBottom() {
         JavascriptExecutor js = (JavascriptExecutor) getDriver();
         js.executeScript("window.scrollTo(0, document.body.scrollHeight)");
     }
 
     public void waitForElement(By by) {
         getWait20().until(ExpectedConditions.presenceOfElementLocated(by));
+    }
+
+    public boolean checkWebElementIsVisibleOrNotVisible(By by, WebDriver driver) {
+        try {
+            driver.findElement(by).isDisplayed();
+            return false;
+        } catch (Exception e) {
+            return true;
+        }
+    }
+
+    public boolean checkWebElementIsEnabledOrDisabled(By by, WebDriver driver) {
+        try {
+            driver.findElement(by).isEnabled();
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 }
