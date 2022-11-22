@@ -81,6 +81,8 @@ public class IrynaHryhorivTest extends BaseTest {
         click(temperature);
         Assert.assertTrue(getText(APPROVE_DEGREES).contains(SYMBOL_TEMP_C));
     }
+    
+    @Ignore
     @Test
     public void testConfirmAPI30OrangeButton(){
 
