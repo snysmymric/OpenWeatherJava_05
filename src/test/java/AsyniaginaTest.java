@@ -12,6 +12,7 @@ public class AsyniaginaTest extends BaseTest {
     private final By PARIS_FR_CHOICE_IN_DROPDOWN_MENU = By.xpath("//ul[@class = 'search-dropdown-menu']/li/span[text() = 'Paris, FR ']");
     private final By SUBSCRIBE_FOR_FREE = By.xpath("//a[@href='https://home.openweathermap.org/users/sign_up']");
     private final By COMPANY_TEXT = By.xpath("//div[@class='footer-section']//div[@class='section-content']/p");
+    private final By ACCURACY_AND_QUALITY_OF_WEATHER_DATA = By.xpath("//a[@href='/accuracy-and-quality']");
 
     @Test
     public void testH2TagText_WhenSearchingCityCountry() {
@@ -62,5 +63,23 @@ public class AsyniaginaTest extends BaseTest {
 
         Assert.assertTrue(isDisplayed(COMPANY_TEXT));
         Assert.assertEquals(actualCompanyText, expectedCompanyText);
+    }
+
+    @Test
+    public void testAccurancyAndQualityLinkVisibleAndClickable() {
+        String expectedAccurancyAndQualityOfWeatherDataLink = "https://openweathermap.org/accuracy-and-quality";
+
+        openBaseURL();
+        scrollByVisibleElement(ACCURACY_AND_QUALITY_OF_WEATHER_DATA);
+
+        Assert.assertTrue(isDisplayed(ACCURACY_AND_QUALITY_OF_WEATHER_DATA));
+
+        click(ACCURACY_AND_QUALITY_OF_WEATHER_DATA);
+        switchToAnotherWindow(getDriver());
+
+        String actualAccurancyAndQualityOfWeatherDataLink = getDriver().getCurrentUrl();
+
+        Assert.assertTrue(actualAccurancyAndQualityOfWeatherDataLink
+                .contains(expectedAccurancyAndQualityOfWeatherDataLink));
     }
 }
