@@ -6,7 +6,9 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.ITestContext;
 import org.testng.ITestResult;
 import org.testng.Reporter;
-import org.testng.annotations.*;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeSuite;
 import utils.ReportUtils;
 import utils.TestUtils;
 
@@ -68,7 +70,26 @@ public abstract class BaseTest {
     public void openBaseURL() {
         getDriver().get(BASE_URL);
         waitForGrayContainerDisappeared();
-        waitForElement(By.xpath("//div[@id = 'weather-widget']//h2"));
+
+        if (reloadPageIfElementNotFound(By.xpath("//div[@id = 'weather-widget']//h2"))) {
+            Reporter.log("BaseURL page was loaded successfully ", true);
+        } else {
+            Reporter.log("!!!!! Error !!!!! BaseURL page was NOT loaded. \n "
+                    + "Cancel current run and Re-Run jobs\n", true);
+        }
+    }
+
+    private boolean reloadPageIfElementNotFound(By by) {
+        int count = 0;
+
+        while (count <= 3 && !(isElementExists(by))) {
+            getDriver().navigate().refresh();
+            Reporter.log("Re-loading base URL page", true);
+            waitForGrayContainerDisappeared();
+            count++;
+        }
+
+        return isElementExists(by);
     }
 
     public void waitForGrayContainerDisappeared() {
@@ -77,8 +98,12 @@ public abstract class BaseTest {
     }
 
     public String getText(By by) {
+        WebElement element = getDriver().findElement(by);
+        if (!element.getText().isEmpty()) {
+            getWait10().until(ExpectedConditions.visibilityOfElementLocated(by));
+        }
 
-        return getDriver().findElement(by).getText();
+        return element.getText();
     }
 
     public String getTextWaiting(By by) {
@@ -205,9 +230,14 @@ public abstract class BaseTest {
     }
 
     public boolean isElementExists(By by) {
+        boolean isExists = true;
+        try {
+            driver.findElement(by);
+        } catch (NoSuchElementException e) {
+            isExists = false;
+        }
 
-        return getWait10().until(
-                ExpectedConditions.visibilityOfElementLocated(by)).isDisplayed();
+        return isExists;
     }
 
     public void openURL(String url) {
