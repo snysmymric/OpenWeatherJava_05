@@ -1,10 +1,14 @@
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import base.BaseTest;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class TaniaKunoTest extends BaseTest {
 
@@ -15,7 +19,8 @@ public class TaniaKunoTest extends BaseTest {
     final static By PARIS_FR_CHOICE_IN_DROPDOWN_MENU = By.xpath("//ul[@class = 'search-dropdown-menu']/li/span[text() = 'Paris, FR ']");
     final static By SUPPORT_MENU = By.xpath("//div[@id = 'support-dropdown']");
     final static By ASK_A_QUESTION_SUBMENU = By.xpath("//ul[@class = 'dropdown-menu dropdown-visible']//a[text() = 'Ask a question']");
-    final static By H4_ASK_A_QUESTION_HEADLINE = By.xpath("//div[@class = 'container']//h4");
+    final static By H4_ASK_A_QUESTION_HEADLINE = By.xpath("//div[@class = 'row']//h4");
+    final static By LABELS_ASK_A_QUESTION_FORM = By.xpath("//div[@class = 'row']//label");
 
     @Test
     public void testH2TagText_WhenSearchingCityCountry() {
@@ -69,5 +74,23 @@ public class TaniaKunoTest extends BaseTest {
         String actualHeadline = getText(H4_ASK_A_QUESTION_HEADLINE);
 
         Assert.assertEquals(actualHeadline, expectedHeadline);
+    }
+
+    @Test
+    public void testVerifyRequiredFieldsOfForm_OnAskAQuestionPage() {
+        final List<String> expectedFields = new ArrayList<>(
+                Arrays.asList("Are you an OpenWeather user?", "Yes", "No", "* Email", "* Subject", "* Message"));
+
+        openBaseURL();
+        click(SUPPORT_MENU);
+        click(ASK_A_QUESTION_SUBMENU);
+        jumpToNextWindow();
+
+        Assert.assertTrue(
+                getDriver().findElement(LABELS_ASK_A_QUESTION_FORM).isDisplayed());
+
+        List<String> actualFields = getListText(LABELS_ASK_A_QUESTION_FORM);
+
+        Assert.assertEquals(actualFields, expectedFields);
     }
 }
