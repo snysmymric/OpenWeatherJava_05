@@ -304,4 +304,16 @@ public abstract class BaseTest {
             return false;
         }
     }
+
+    public boolean isElementsListActive(By by) {
+        boolean active = false;
+        List<WebElement> list = getDriver().findElements(by);
+        for (WebElement element : list) {
+            if (element.isEnabled()) {
+                active = true;
+            }
+        }
+
+        return active;
+    }
 }
