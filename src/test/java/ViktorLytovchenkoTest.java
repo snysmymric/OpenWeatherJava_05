@@ -43,5 +43,3 @@ public class ViktorLytovchenkoTest extends BaseTest {
 }
 
 
-
-
