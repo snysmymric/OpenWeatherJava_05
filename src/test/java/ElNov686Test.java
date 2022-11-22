@@ -1,6 +1,5 @@
 import org.openqa.selenium.By;
 import org.testng.Assert;
-import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import base.BaseTest;
 
@@ -21,6 +20,7 @@ public class ElNov686Test extends BaseTest {
         String expectedResult = "Paris, FR";
 
         openBaseURL();
+        waitForGrayContainerDisappeared();
 
         String oldH2Header = getText(H2_CITYNAME_HEADER);
 
@@ -41,6 +41,7 @@ public class ElNov686Test extends BaseTest {
         String expectedResult = "F";
 
         openBaseURL();
+        waitForGrayContainerDisappeared();
 
         click(By.xpath("//div[@class='switch-container']//div[text()='Imperial: °F, mph']"));
         String actualResult = getText(By.xpath("//span[@class='heading']"));
@@ -55,6 +56,7 @@ public class ElNov686Test extends BaseTest {
         int expectedResult = 30;
 
         openBaseURL();
+        waitForGrayContainerDisappeared();
 
         click(By.xpath("//div[@id='desktop-menu']//a[normalize-space()='API']"));
         int actualResult = countOrangeButtons(By.xpath("//a[contains(@class, 'btn_block orange round') " +
@@ -63,15 +65,16 @@ public class ElNov686Test extends BaseTest {
         Assert.assertEquals(actualResult, expectedResult);
     }
 
-    @Ignore
     @Test
     public void testMainNavBarMenuPartnersMenuisclickable() {
-        String expectedResult = "https://openweathermap.org/examples";
+        String expectedResult = "Partners and solutions - OpenWeatherMap";
 
         openBaseURL();
-
+        waitForGrayContainerDisappeared();
         click(By.xpath("//div[@id='desktop-menu']//a[normalize-space()='Partners']"));
-        String actualResult = getDriver().getCurrentUrl();
+        getWait20();
+
+        String actualResult = getDriver().getTitle();
 
         Assert.assertEquals(actualResult, expectedResult);
     }
@@ -82,6 +85,7 @@ public class ElNov686Test extends BaseTest {
         String expectedResult2 = "London, GB";
 
         openBaseURL();
+        waitForGrayContainerDisappeared();
 
         click(By.xpath("//div[@class='control-el']//*[name()='svg']"));
 
