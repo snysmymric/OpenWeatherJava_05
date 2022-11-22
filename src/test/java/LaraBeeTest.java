@@ -1,6 +1,5 @@
 import org.openqa.selenium.By;
 import org.testng.Assert;
-import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import base.BaseTest;
 
@@ -22,7 +21,7 @@ public class LaraBeeTest extends BaseTest {
             "//img[@src='/themes/openweathermap/assets/img/mobile_app/google-play-badge.png']");
     private final By GET_IT_ON_GOOGLE_PLAY_LINK = By.xpath(
             "//a[@href='https://play.google.com/store/apps/details?id=uk.co.openweather'][@target='_blank']");
-    private final By TEXT_DOWNLOAD_OPEN_WEATHER_APP = By.xpath("//div[@class='my-5']/p[@style='margin: 0;']");
+    private final By TEXT_DOWNLOAD_OPEN_WEATHER_APP = By.xpath(".//p[text()='Download OpenWeather app']");
 
     @Test
     public void testH2TagText_WhenSearchingCityCountry() {
@@ -92,7 +91,6 @@ public class LaraBeeTest extends BaseTest {
                 contains(expectedGetItOnGooglePlayStoreLinkExists)));
     }
 
-    @Ignore
     @Test
     public void testDownloadOpenWeatherAppAndAllStoreButtonsAreVisible() {
         final int expectedAllStoreButtonsVisible = 2;
