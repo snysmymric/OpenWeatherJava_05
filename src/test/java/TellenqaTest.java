@@ -13,6 +13,7 @@ public class TellenqaTest extends BaseTest {
     final static By SEARCH_DROPDOWN_MENU = By.className("search-dropdown-menu");
     final static By PARIS_FR_CHOICE_IN_DROPDOWN_MENU = By.xpath("//ul[@class='search-dropdown-menu']/li/span[text()='Paris, FR ']");
     final static By GUIDE_MENU_BUTTON = By.xpath("//div[@id = 'desktop-menu']//a[@href = '/guide']");
+    final static By FOOTER_CONTAINER = By.xpath("//div[@class = 'inner-footer-container']");
 
     @Test
     public void testH2Tag_WhenSearchingCityCountry() {
@@ -44,5 +45,12 @@ public class TellenqaTest extends BaseTest {
         click(GUIDE_MENU_BUTTON);
 
         Assert.assertEquals(getDriver().getCurrentUrl(),expectedResult);
+    }
+
+ @Test
+    public void testFooterContainerIsDisplayed(){
+        openBaseURL();
+
+        Assert.assertTrue(getDriver().findElement(FOOTER_CONTAINER).isDisplayed());
     }
 }
