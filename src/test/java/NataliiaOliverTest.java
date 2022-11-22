@@ -1,6 +1,5 @@
 import org.openqa.selenium.By;
 import org.testng.Assert;
-import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import base.BaseTest;
 
@@ -44,18 +43,16 @@ public class NataliiaOliverTest extends BaseTest {
 
         Assert.assertEquals(actualTextSearchCityField, expectedTextSearchCityField);
     }
-    
 
-    @Ignore
     @Test
     public void testSearchBlockText_ShownSearchButton() {
         final String expectedTextSearchButton = "Search";
 
         openBaseURL();
 
-        click(SEARCH_BUTTON);
-
         Assert.assertTrue(isDisplayed(SEARCH_BUTTON));
+
+        click(SEARCH_BUTTON);
 
         String actualTextSearchButton = getText(SEARCH_BUTTON);
 
