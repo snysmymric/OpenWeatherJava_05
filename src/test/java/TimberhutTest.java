@@ -93,7 +93,7 @@ public class TimberhutTest extends BaseTest {
     public void testDifferentWeatherPopUpCloseWindowButton() {
         openBaseURL();
         click(DIFFERENT_WEATHER_BUTTON);
-        click(DIFFERENT_WEATHER_CLOSE_WINDOW_BUTTON);
+        click20(DIFFERENT_WEATHER_CLOSE_WINDOW_BUTTON);
         getWait10();
 
         Assert.assertFalse(checkWebElementIsVisibleOrNotVisible(POPUP_WINDOW,getDriver()));
