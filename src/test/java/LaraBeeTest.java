@@ -1,10 +1,9 @@
 import org.openqa.selenium.By;
 import org.testng.Assert;
-import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import base.BaseTest;
 
-public class LarisaBratukhinaTest extends BaseTest {
+public class LaraBeeTest extends BaseTest {
 
     private final By H2_CITY_COUNTRY_HEADER = By.xpath("//div[@id = 'weather-widget']//h2");
     private final By SEARCH_CITY_FIELD = By.xpath("//div[@id = 'weather-widget']//input[@placeholder = 'Search city']");
@@ -19,7 +18,7 @@ public class LarisaBratukhinaTest extends BaseTest {
     private final By DOWNLOAD_ON_THE_APP_LINK = By.xpath(
             "//a[@href='https://apps.apple.com/gb/app/openweather/id1535923697'] [@target='_blank']");
     private final By GET_IT_ON_GOOGLE_PLAY_BUTTON = By.xpath(
-            "//div[@class='my-5']//a/img[@src='/themes/openweathermap/assets/img/mobile_app/google-play-badge.png']");
+            "//img[@src='/themes/openweathermap/assets/img/mobile_app/google-play-badge.png']");
     private final By GET_IT_ON_GOOGLE_PLAY_LINK = By.xpath(
             "//a[@href='https://play.google.com/store/apps/details?id=uk.co.openweather'][@target='_blank']");
     private final By TEXT_DOWNLOAD_OPEN_WEATHER_APP = By.xpath("//div[@class='my-5']/p[@style='margin: 0;']");
@@ -56,7 +55,7 @@ public class LarisaBratukhinaTest extends BaseTest {
 
     @Test
     public void testDownloadOnTheAPPStoreLinkExists_WhenClickButton() {
-        String expectedDownloadOnTheAPPStoreLinkExists =
+        final String expectedDownloadOnTheAPPStoreLinkExists =
                 "https://apps.apple.com/gb/app/openweather/id1535923697";
 
         openBaseURL();
@@ -72,10 +71,10 @@ public class LarisaBratukhinaTest extends BaseTest {
         Assert.assertTrue((actualDownloadOnTheAPPStoreLinkExists
                 .contains(expectedDownloadOnTheAPPStoreLinkExists)));
     }
-    @Ignore
+
     @Test
     public void testGetItOnGooglePlayStoreLinkExists_WhenClickButton() {
-        String expectedGetItOnGooglePlayStoreLinkExists =
+        final String expectedGetItOnGooglePlayStoreLinkExists =
                 "https://play.google.com/store/apps/details?id=uk.co.openweather";
 
         openBaseURL();
@@ -94,8 +93,8 @@ public class LarisaBratukhinaTest extends BaseTest {
 
     @Test
     public void testDownloadOpenWeatherAppAndAllStoreButtonsAreVisible() {
-        int expectedAllStoreButtonsVisible = 2;
-        String expectedText = "Download OpenWeather app";
+        final int expectedAllStoreButtonsVisible = 2;
+        final String expectedText = "Download OpenWeather app";
 
         openBaseURL();
         waitElementToBeVisible(TEXT_DOWNLOAD_OPEN_WEATHER_APP);
