@@ -5,7 +5,6 @@ import org.testng.Assert;
 import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import base.BaseTest;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -15,7 +14,8 @@ public class YuliaMatusevichTest extends BaseTest {
     final static By TWITTER_LINK = By.xpath("//div[@class = 'social']/a[2]");
     final static By LINKEDIN_LINK = By.xpath("//div[@class = 'social']/a[3]");
     final static By MEDIUM_LINK = By.xpath("//div[@class = 'social']/a[4]");
-    final static By TELEGRAM_LINK = By.xpath("//div[@class = 'social']/a[5]");
+    final static By TELEGRAM_ICON = By.xpath(
+            "//div[@class = 'social']//img[@src= '/themes/openweathermap/assets/img/owm_icons/icon_telegram.png']");
     final static By BLOG_BUTTON =
             By.xpath("//div[@id = 'desktop-menu']//a[@href = 'https://openweather.co.uk/blog/category/weather']");
 
@@ -83,14 +83,13 @@ public class YuliaMatusevichTest extends BaseTest {
 
         Assert.assertTrue((actualResult.contains(expectedResult)));
     }
-    @Ignore
     @Test
     public void testTelegramIcon_OnHomePage_WhenClickIcon(){
         String expectedResult ="t.me";
 
         openBaseURL();
         scrollToPageBottom();
-        click20(TELEGRAM_LINK);
+        click20(TELEGRAM_ICON);
         getWait20().until(ExpectedConditions.numberOfWindowsToBe(2));
         jumpToNextWindow();
         String actualResult = getDriver().getCurrentUrl();
