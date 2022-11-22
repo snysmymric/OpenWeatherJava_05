@@ -1,14 +1,9 @@
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import base.BaseTest;
 
 public class Maksim2404Test extends BaseTest {
-    final  String Base_URL = "https://openweathermap.org/";
     final  By H2_CITY_COUNTRY_HEADER = By.xpath("//div[@id='weather-widget']//h2");
     final  By SEARCH_CITY_FIELD = By.xpath("//div[@id='weather-widget']//input[@placeholder='Search city']");
     final  By SEARCH_BUTTON = By.xpath("//div[@id='weather-widget']//button[@type='submit']");
@@ -20,8 +15,7 @@ public class Maksim2404Test extends BaseTest {
     final By CONFIRM_TYPE2 = By.xpath("//ul[@id='support-dropdown-menu']/li/a[@href='/appid']");
     final By CONFIRM_TYPE3 = By.xpath(
             "//ul[@id='support-dropdown-menu']/li/a[@href='https://home.openweathermap.org/questions']");
-    final By GET_LOGO = By.xpath("//div[@id='desktop-menu']/ul/li[3]/a");
-//"//li[@class='logo']"
+    final By GET_LOGO = By.xpath("//div[@id='desktop-menu']//a[@href='/weather-dashboard']");
 
     @Test
     public void testH2TextWhenSearchingCityCountry() {
