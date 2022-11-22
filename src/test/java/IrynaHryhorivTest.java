@@ -1,26 +1,21 @@
 import org.openqa.selenium.By;
 import org.testng.Assert;
-import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import base.BaseTest;
 
 public class IrynaHryhorivTest extends BaseTest {
-    private final String BASE_URL = "https://openweathermap.org/";
     private final By H2_CITY_COUNTRY_HEADER = By.xpath("//div[@id = 'weather-widget']//h2");
     private final By SEARCH_CITY_FIELD = By.xpath("//div[@id = 'weather-widget']//input[@placeholder = 'Search city']");
     private final By SEARCH_BUTTON = By.xpath("//div[@id = 'weather-widget']//button[@type = 'submit']");
     private final By SEARCH_DROPDOWN_MENU = By.className("search-dropdown-menu");
     private final By PARIS_FR_CHOICE_IN_DROPDOWN_MENU = By.xpath("//ul[@class = 'search-dropdown-menu']/li/span[text() = 'Paris, FR ']");
     private final By SEARCH_GUIDE_BUTTON = By.xpath("//a[@href='/guide']");
-    private final By CONFIRM_API = By.xpath("//div[@id='desktop-menu']/ul/li[2]/a");
+    private final By CONFIRM_API = By.xpath("//div[@id='desktop-menu']//li/a[@href='/api']");
     private final String TEMP_IMPERIAL_F = "Imperial: °F, mph";
     private final String TEMP_METRIC_C = "Metric: °C, m/s";
     private final String SYMBOL_TEMP_F = "°F";
     private final String SYMBOL_TEMP_C = "°C";
     final static By APPROVE_DEGREES = By.xpath("//div[@id='weather-widget']//span[@class='heading']");
-
-    private final By LOGO = By.xpath( "//li[@class='logo']//img");
-    private final By BUTTONS = By.xpath("//a[contains(@class, 'orange')]");
 
     @Test
     public void testH2TagText_WhenSearchingCityCountry() {
@@ -82,13 +77,11 @@ public class IrynaHryhorivTest extends BaseTest {
         click(temperature);
         Assert.assertTrue(getText(APPROVE_DEGREES).contains(SYMBOL_TEMP_C));
     }
-    
-    @Ignore
+
     @Test
     public void testConfirmAPI30OrangeButton(){
 
         openBaseURL();
-
         int expectedResult = 30;
 
         click(CONFIRM_API);
