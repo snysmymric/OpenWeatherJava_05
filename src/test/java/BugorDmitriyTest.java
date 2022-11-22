@@ -26,8 +26,7 @@ public class BugorDmitriyTest extends BaseTest {
     final static By DASHBOARD_MENU = By.xpath("//div[@id='desktop-menu']/ul/li[3]/a");
 
     
-    @Ignore
-           @Test
+            @Test
         public void testH2TextWhenSearchingCityCountry() {
 
             String cityName = "Paris";
@@ -68,7 +67,6 @@ public class BugorDmitriyTest extends BaseTest {
             Assert.assertEquals(actualResult3ManageCookies, expectedResult3);
     }
 
-            @Ignore
             @Test
         public void testMenuSupport() {
 
