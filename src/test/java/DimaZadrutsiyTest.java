@@ -1,6 +1,5 @@
 import org.openqa.selenium.By;
 import org.testng.Assert;
-import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import base.BaseTest;
 
@@ -13,7 +12,7 @@ public class DimaZadrutsiyTest extends BaseTest {
     private final By LOADING = By.xpath("//div[@aria-label='Loading']");
     private final By CLICK_CITY_NORWAY = By.xpath("//span[text()='45.787, -87.904']");
     private final By PRESS_BUTTON_LOCATION = By.xpath("//div[@class='control-el']");
-    private final By H2_CITY_COUNTRY_HEADER = By.xpath("//div[@id = 'weather-widget']//h2");
+    private final By H2_CITY_COUNTRY_HEADER = By.xpath("//div[@id]//h2");
     private final By ELEMENTS_DIFFERENT_WEATHER = By.xpath("//ul[@class='icons']/li");
     private final By BUTTON_X_IN_DIFFERENT_WEATHER_MENU = By
             .xpath("//div[@class='pop-up-container']//*[name()='path' and @fill='#8a8a8a']");
@@ -35,7 +34,6 @@ public class DimaZadrutsiyTest extends BaseTest {
         Assert.assertEquals(actualResult, expectedResult);
     }
 
-    @Ignore
     @Test
     public void testIconCurrentLocation() {
         final String cityName = "Norway";
@@ -43,13 +41,12 @@ public class DimaZadrutsiyTest extends BaseTest {
         final String expectedResult = "London, GB";
 
         openBaseURL();
-
         click(SEARCH_CITY_FIELD);
         inputAndEnter(SEARCH_CITY_FIELD, cityName);
         click(CLICK_CITY_NORWAY);
         click(PRESS_BUTTON_LOCATION);
 
-        String actualResult = getText(H2_CITY_COUNTRY_HEADER);
+        String actualResult = getTextWaiting(H2_CITY_COUNTRY_HEADER);
 
         Assert.assertEquals(actualResult, expectedResult);
     }
