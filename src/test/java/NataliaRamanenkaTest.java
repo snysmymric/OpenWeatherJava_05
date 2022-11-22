@@ -4,7 +4,6 @@ import org.testng.annotations.Test;
 import base.BaseTest;
 
 public class NataliaRamanenkaTest extends BaseTest {
-    final static String BASE_URL = "https://openweathermap.org/";
     final static By SEARCH_GUIDE_BUTTON = By.xpath(
             "//div[@id = 'desktop-menu']/ul/li/a[@href = '/guide']");
     final static By SEARCH_HEAD_OF_PAGE_GUIDE = By.xpath(
@@ -12,6 +11,10 @@ public class NataliaRamanenkaTest extends BaseTest {
     final static By ABOUT_US = By.xpath("//a[@href = '/about-us']");
 
     final static By SEARCH_HEAD_OF_ABOUT_US = By.xpath("//div[@class = 'about-us']//h1");
+
+    final static By ASK_A_QUESTION = By.xpath("//div[@class = 'footer-section not-foldable']" +
+            "//a[@href = 'https://home.openweathermap.org/questions']");
+    final static By SEARCH_HEAD_OF_ASK_A_QUESTION = By.xpath("//h4[@class ='headline']");
 
     @Test
     public void testGuideLinkAndTitle()  {
@@ -40,5 +43,18 @@ public class NataliaRamanenkaTest extends BaseTest {
 
         Assert.assertEquals(getCurrentURL(),expectedUrl);
     }
+    @Test
+    public void testAskAQuestionVisibleAndClickable(){
+        String expectedUrl = "https://home.openweathermap.org/questions";
 
+        openBaseURL();
+
+        scrollByVisibleElement(ASK_A_QUESTION);
+        click(ASK_A_QUESTION);
+
+        switchToAnotherWindow(getDriver());
+        waitElementToBeVisible(SEARCH_HEAD_OF_ASK_A_QUESTION);
+
+        Assert.assertEquals(getCurrentURL(),expectedUrl);
+    }
 }
