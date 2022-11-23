@@ -306,6 +306,27 @@ public abstract class BaseTest {
         }
     }
 
+    public void clickByKeyEnter(By by){
+        getDriver().findElement(by).sendKeys(Keys.ENTER);
+    }
+
+    public int getSizeList(List<String> list) {
+        return list.size();
+    }
+
+    public  List<String> getElemntsText(By by) {
+        List<WebElement> elementtList = getListOfElements(by);
+        List<String> textList = new ArrayList<>();
+        for(WebElement element : elementtList){
+            textList.add(element.getText());
+        }
+        return textList;
+    }
+
+    public void getSmallSizeWindow(int width, int height) {
+        getDriver().manage().window().setSize(new Dimension(width, height));
+    }
+
     public boolean isElementsListActive(By by) {
         boolean active = false;
         List<WebElement> list = getDriver().findElements(by);
@@ -314,7 +335,6 @@ public abstract class BaseTest {
                 active = true;
             }
         }
-
         return active;
     }
 
