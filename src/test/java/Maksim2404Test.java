@@ -16,6 +16,8 @@ public class Maksim2404Test extends BaseTest {
     final By CONFIRM_TYPE3 = By.xpath(
             "//ul[@id='support-dropdown-menu']/li/a[@href='https://home.openweathermap.org/questions']");
     final By GET_LOGO = By.xpath("//div[@id='desktop-menu']//a[@href='/weather-dashboard']");
+    final By GET_NAME_METRIC = By.xpath("//div[@class='option']");
+    final By SELECTED_IS_TRUE = By.xpath("//div[@id='selected']");
 
     @Test
     public void testH2TextWhenSearchingCityCountry() {
@@ -67,5 +69,21 @@ public class Maksim2404Test extends BaseTest {
         String actualConfirmSite = getDriver().getCurrentUrl();
 
         Assert.assertEquals(actualConfirmSite,expectedConfirmSite);
+    }
+    @Test
+    public void testVerifyMetricSymbolIsShownInCurrentTemp () {
+
+        String expectedMetricDisplayed = "Metric: °C, m/s";
+        Boolean expectedMetricSelected = true;
+
+        openBaseURL();
+
+        String actualMetricDisplayed = getText(GET_NAME_METRIC);
+
+        Assert.assertEquals(actualMetricDisplayed,expectedMetricDisplayed);
+
+        Boolean actualMetricSelected = isDisplayed(SELECTED_IS_TRUE);
+
+        Assert.assertTrue(actualMetricSelected);
     }
 }
