@@ -577,6 +577,10 @@ public abstract class BaseTest {
         return stringBuilder.substring(0, stringBuilder.length() - 2);
     }
 
+    public void clear(By by) {
+        getWait10().until(ExpectedConditions.visibilityOf(getDriver().findElement(by))).clear();
+    }
+
     public WebElement getElement(By by) { return getDriver().findElement(by); }
 
     public List<String> getLinksList(By xpath, By tagName){
@@ -585,8 +589,4 @@ public abstract class BaseTest {
             linksList.add(link.getText());
         } return linksList;
     }
-
-
-
-
 }
