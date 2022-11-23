@@ -318,6 +318,10 @@ public abstract class BaseTest {
         return active;
     }
 
+    public void waitElementToBeClickable(By by) {
+        getWait20().until(ExpectedConditions.elementToBeClickable(by));
+    } 
+       
     public void CopyAndPast(By by, By id) {
         WebElement apiKeyFrom = getDriver().findElement(by);
         WebElement apiKeyWhere = getDriver().findElement(id);
