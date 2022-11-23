@@ -328,4 +328,16 @@ public abstract class BaseTest {
         getDriver().findElement(id).sendKeys(Keys.chord(Keys.CONTROL, "v"));
         act.keyUp(Keys.CONTROL).build().perform();
     }
+
+    public void scrollToElement(By by) {
+        WebElement scroll = getDriver().findElement(by);
+        new Actions(getDriver())
+                .scrollToElement(scroll)
+                .perform();
+    }
+
+    public void waitForGrayContainerAppeared() {
+        getWait20().until(ExpectedConditions.visibilityOfElementLocated(
+                By.className("owm-loader-container")));
+    }
 }
