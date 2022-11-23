@@ -11,7 +11,9 @@ public class IrynaKolyadaTest extends BaseTest {
     final static By PARIS_FR_CHOICE_IN_DROPDOWN_MENU = By.xpath("//ul[@class = 'search-dropdown-menu']/li/span[text() = 'Paris, FR ']");
     final static By PLACEHOLDER_BOX = By.xpath("//div[@id='desktop-menu']//form[@role='search']");
     final static By PLACEHOLDER_FIELD = By.xpath("//div[@id='desktop-menu']//input[@type='text']");
-    final static By PLACEHOLDER_VALUE =By.xpath("//div//input[@id='search_str']");
+    final static By PLACEHOLDER_VALUE = By.xpath("//div//input[@id='search_str']");
+    final static By HAMBURGER_BUTTON_IMAGE = By.xpath("//nav/ul/li[@id='hamburger']/img");
+    final static By HAMBURGER_DROPDOWN_MENU = By.xpath("//ul[@id='mobile-menu']/li");
 
     @Test
     public void testH2TagText_WhenSearchingCityCountry()  {
@@ -55,4 +57,19 @@ public class IrynaKolyadaTest extends BaseTest {
         Assert.assertTrue(getCurrentURL().contains(city));
     }
 
+    @Test
+    public void testHamburgerMenuNavBarisDisplayed_homePage() {
+        String expectedResult = "https://openweathermap.org/themes/openweathermap/assets/img/owm_icons/icon_hamburger.svg";
+        int width = 1020;
+        int heigth = 880;
+        String attributeName = "src";
+        int numberOfButtonsOnHamburgerMenu =13;
+        openBaseURL();
+        getSmallSizeWindow(width, heigth);
+
+        Assert.assertEquals(getTextByAttribute(HAMBURGER_BUTTON_IMAGE, attributeName), expectedResult);
+        click(HAMBURGER_BUTTON_IMAGE);
+
+        Assert.assertEquals(getListSize(HAMBURGER_DROPDOWN_MENU),numberOfButtonsOnHamburgerMenu);
+    }
 }
