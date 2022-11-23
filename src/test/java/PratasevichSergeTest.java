@@ -1,7 +1,10 @@
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import base.BaseTest;
+import java.util.ArrayList;
+import java.util.List;
 
 public class PratasevichSergeTest extends BaseTest {
     final static String Base_URL = "https://openweathermap.org/";
@@ -13,7 +16,7 @@ public class PratasevichSergeTest extends BaseTest {
             "//ul[@class ='search-dropdown-menu']/li/span[text() = 'Paris, FR ']");
     final static By SIGN_IN_MENU = By.xpath("//li[@class='user-li']//a");
     final static By SIGN_IN_PAGE_TITLE = By.xpath("//h3[@class='first-child']");
-    final static By FILL_IN_EMAIL_FIELD= By.xpath(
+    final static By FILL_IN_EMAIL_FIELD = By.xpath(
             "//div[@class='input-group']//input[@class='string email optional form-control']");
     final static By FILL_IN_PASSWORD_FIELD = By.xpath(
             "//div[@class='input-group']//input[@id='user_password']");
@@ -22,6 +25,9 @@ public class PratasevichSergeTest extends BaseTest {
     final static By BLOG_MENU = By.xpath(
             "//div[@id='desktop-menu']//a[@href='https://openweather.co.uk/blog/category/weather']");
     final static By POST_FILTERS = By.xpath("//div[@class='post-filters']/form/ul");
+    final static By SUB_MENU_BLOG = By.xpath("//li[@class='post-filters__item']");
+    final static By ALL_SUB_MENUS_BLOG = By.xpath("//div[@class='post-filters']//li");
+
     @Test
     public void testH2TagText_WhenSearchingCityCountry() throws InterruptedException {
 
@@ -43,7 +49,7 @@ public class PratasevichSergeTest extends BaseTest {
     }
 
     @Test
-    public void testSignInMenuIsClickable(){
+    public void testSignInMenuIsClickable() {
         String expectedResult = "Sign In To Your Account";
 
         openBaseURL();
@@ -52,10 +58,11 @@ public class PratasevichSergeTest extends BaseTest {
 
         Assert.assertEquals(actualResult, expectedResult);
     }
+
     @Test
-    public void testSignInUserIsLoggedInWithValidInput(){
+    public void testSignInUserIsLoggedInWithValidInput() {
         String email = "jka59433@xcoxc.com";
-        String password ="Tester12#";
+        String password = "Tester12#";
         String expectedResult = "Tester";
 
         openBaseURL();
@@ -70,6 +77,7 @@ public class PratasevichSergeTest extends BaseTest {
 
         Assert.assertEquals(actualResult, expectedResult);
     }
+
     @Test
     public void testBlogMenuIsOpened(){
         String expectedPestFiltersItemsAreVisible = "blog-categories";
@@ -83,5 +91,29 @@ public class PratasevichSergeTest extends BaseTest {
         String actualPestFiltersItemsAreVisible = getTextByAttribute(POST_FILTERS, attribute);
 
         Assert.assertEquals(actualPestFiltersItemsAreVisible, expectedPestFiltersItemsAreVisible);
+    }
+
+    @Test
+    public void testAllSubMenusOfBlogPageAreVisibleAndClickable() {
+        String blogUrl = "https://openweather.co.uk/blog";
+
+        int expectedQuantityOfAllSubMenuBlog = 6;
+        List<String> expectedSubMenuNames = new ArrayList<>();
+        expectedSubMenuNames.add("ALL");
+        expectedSubMenuNames.add("WEATHER");
+        expectedSubMenuNames.add("AGRO");
+        expectedSubMenuNames.add("PLATFORM");
+        expectedSubMenuNames.add("TECHNOLOGIES");
+        expectedSubMenuNames.add("TEAM&COMPANY");
+
+        openBaseURL();
+        getDriver().get(blogUrl);
+        int actualQuantityOfAllSubMenuBlog = getListSize(SUB_MENU_BLOG);
+
+        Assert.assertEquals(actualQuantityOfAllSubMenuBlog, expectedQuantityOfAllSubMenuBlog);
+
+        List<String> actualSubMenuNames = getListText(ALL_SUB_MENUS_BLOG);
+
+        Assert.assertEquals(actualSubMenuNames, expectedSubMenuNames);
     }
 }
