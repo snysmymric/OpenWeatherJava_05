@@ -576,4 +576,17 @@ public abstract class BaseTest {
         }
         return stringBuilder.substring(0, stringBuilder.length() - 2);
     }
+
+    public WebElement getElement(By by) { return getDriver().findElement(by); }
+
+    public List<String> getLinksList(By xpath, By tagName){
+        List<String> linksList = new ArrayList<>();
+        for (WebElement link : getElement(xpath).findElements(tagName)) {
+            linksList.add(link.getText());
+        } return linksList;
+    }
+
+
+
+
 }
