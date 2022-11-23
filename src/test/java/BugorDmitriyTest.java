@@ -19,8 +19,8 @@ public class BugorDmitriyTest extends BaseTest {
     final static By HOW_TO_START = By.xpath("//ul[@class='dropdown-menu dropdown-visible']//li/a[@href='/appid']");
     final static By ASK_A_QUESTION = By.xpath("//ul[@class='dropdown-menu dropdown-visible']//a[text()='Ask a question']");
     final static By SUPPORT_DROPDOWN_MENU = By.xpath("//ul[@id='support-dropdown-menu']/*");
-    final static By DASHBOARD_MENU = By.xpath("//div[@id='desktop-menu']//ul//li//a[@href='/weather-dashboard']");
-
+    final static By DASHBOARD_MENU = By.xpath("//div[@id='footer-website']//div[@class='section-content']//ul//li//a[@href='/weather-dashboard']");
+    final static By OPEN_WEATHER_FOR_BUSINESS_FOOTER_MENU = By.xpath("//div[@id='footer-website']//div[@class='section-content']//ul//li//a[@href='https://openweather.co.uk/']");
     
             @Test
         public void testH2TextWhenSearchingCityCountry() {
@@ -74,6 +74,7 @@ public class BugorDmitriyTest extends BaseTest {
             openBaseURL();
 
             click(HEADING_SUPPORT_DROPDOWN);
+
             int actualResult = seeAllElementAndCount (SUPPORT_DROPDOWN_MENU);
 
             String actualResult1FAQ = getText(FAQ);
@@ -93,10 +94,24 @@ public class BugorDmitriyTest extends BaseTest {
 
             openBaseURL();
 
+            scrollByVisibleElement(DASHBOARD_MENU);
             click(DASHBOARD_MENU);
 
-            String actualResult = getDriver().getCurrentUrl();
-
-            Assert.assertEquals(actualResult, expectedResult);
+            Assert.assertEquals(getCurrentURL(), expectedResult);
     }
-   }
+
+            @Test
+        public void testOpenWeatherForBusiness(){
+
+            String expectedUrl = "https://openweather.co.uk/";
+
+            openBaseURL();
+
+            scrollByVisibleElement(OPEN_WEATHER_FOR_BUSINESS_FOOTER_MENU);
+            click(OPEN_WEATHER_FOR_BUSINESS_FOOTER_MENU);
+
+            switchToAnotherWindow(getDriver());
+
+            Assert.assertEquals(getCurrentURL(), expectedUrl);
+  }
+}
