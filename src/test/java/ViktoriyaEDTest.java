@@ -19,6 +19,7 @@ public class ViktoriyaEDTest extends BaseTest {
     final static By SUPPORT_MENU_HOW_TO_START = By.xpath("//ul[@id='support-dropdown-menu']//a[@href='/appid']");
     final static By SUPPORT_MENU_ASK_A_QUESTION = By.xpath("//ul[@id='support-dropdown-menu']//a[@target='_blank']");
     final static String[] SUBMENU_NAMES = {"FAQ", "How to start", "Ask a question"};
+    final static By WIDGET_BUTTON = By.xpath("//div[@class='section-content']/ul/li/a[@href='/widgets-constructor']");
 
     @Test
     public void test_SupportMenuIsClickable() {
@@ -83,5 +84,17 @@ public class ViktoriyaEDTest extends BaseTest {
         click(DIFFERENT_WEATHER_BUTTON);
 
         Assert.assertTrue(getDriver().findElement(DIFFERENT_WEATHER_POP_UP).isDisplayed());
+    }
+
+    @Test
+    public void test_WidgetsIsClickableAndRedirectsUserToTheWidgetsPage() {
+
+        final String expectedWidgetsPage = "https://openweathermap.org/widgets-constructor";
+
+        openBaseURL();
+        scrollToPageBottom();
+        click20(WIDGET_BUTTON);
+
+        Assert.assertTrue(getCurrentURL().contains(expectedWidgetsPage));
     }
 }
