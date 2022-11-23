@@ -337,19 +337,17 @@ public abstract class BaseTest {
         }
         return active;
     }
-
-    public void waitElementToBeClickable(By by) {
+      public void waitElementToBeClickable(By by) {
         getWait20().until(ExpectedConditions.elementToBeClickable(by));
     } 
-       
-    public void CopyAndPast(By by, By id) {
+    
+    public void CopyAndPast(By by,By id) {
+        Actions act = new Actions(getDriver());
         WebElement apiKeyFrom = getDriver().findElement(by);
         WebElement apiKeyWhere = getDriver().findElement(id);
-        Actions act = new Actions(getDriver());
-        act.moveToElement(apiKeyFrom).doubleClick().build().perform();
-        act.keyDown(Keys.CONTROL).sendKeys("a", "c");
-        act.moveToElement(apiKeyWhere).click();
-        getDriver().findElement(id).sendKeys(Keys.chord(Keys.CONTROL, "v"));
+        act.moveToElement(apiKeyFrom).doubleClick();
+        act.keyDown(Keys.CONTROL).sendKeys("c");
+        act.moveToElement(apiKeyWhere).click().keyDown(Keys.CONTROL).sendKeys("v");
         act.keyUp(Keys.CONTROL).build().perform();
     }
 
