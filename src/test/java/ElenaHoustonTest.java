@@ -1,9 +1,13 @@
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import base.BaseTest;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ElenaHoustonTest extends BaseTest {
     final static By H2_CITY_COUNTRY_HEADER = By.xpath("//div[@id='weather-widget']//h2");
@@ -26,6 +30,13 @@ public class ElenaHoustonTest extends BaseTest {
     final static By FIND_SUB_3 = By.xpath("//ul[@class ='dropdown-menu dropdown-visible']//"
             + "a[text() = 'Ask a question']");
     final static By MAP_MENU = By.xpath("//div[@id='desktop-menu']//a[@href='/weathermap']");
+    /*
+    final static By WEATHER_CONTROL_LAYERS = By.xpath("//div[@class='weather-control-layers-new "
+           + "weather-control-layers-expanded leaflet-control']");
+
+     */
+    final static By ZOOM_PLUS_MAP_PAGE = By.xpath("//a[@class='leaflet-control-zoom-in']");
+    final static By ZOOM_MINUS_MAP_PAGE = By.xpath("//a[@class='leaflet-control-zoom-out']");
     private int dropDownSize(By by, WebDriver driver) {
 
         return driver.findElements(by).size();
@@ -119,5 +130,54 @@ public class ElenaHoustonTest extends BaseTest {
 
         Assert.assertTrue(actualCurrentURL.contains(expectedCurrentURL));
         Assert.assertEquals(actualResultTitle, expectedResultTitle);
+    }
+    /*
+    @Test
+    public void testWeatherControlLayers_OnTeWeatherMapPage(){
+        int expectedAmountOfLabels = 6;
+        List<String> expectedLabels = new ArrayList<>();
+
+        expectedLabels.add("Temperature");
+        expectedLabels.add("Pressure");
+        expectedLabels.add("Wind speed");
+        expectedLabels.add("Clouds");
+        expectedLabels.add("Global Precipitation");
+        expectedLabels.add("Cities");
+        String mapURL = "https://openweathermap.org/weathermap";
+
+        openBaseURL();
+        getDriver().get(mapURL);
+
+        Assert.assertTrue(isElementExists(WEATHER_CONTROL_LAYERS));
+
+        List<String> actualLabels = new ArrayList<>();
+
+        List<WebElement> actualLabelsElements = getDriver().findElements(By.xpath("//div[@class='weather-control-"
+               + "layers-new weather-control-layers-expanded leaflet-control']"));
+
+
+        Assert.assertEquals(actualLabels, expectedLabels);
+        Assert.assertEquals(actualLabelsElements.size(), expectedAmountOfLabels);
+    }
+     */
+    @Test
+    public void testZoomLeafletControl_OnTheMapPage() {
+
+        String mapURL = "https://openweathermap.org/weathermap";
+        String expectedZoomIN = "+";
+        String expectedZoomOut = "-";
+
+        openBaseURL();
+        getDriver().get(mapURL);
+
+        click(ZOOM_MINUS_MAP_PAGE);
+        getWait10().until(ExpectedConditions.urlContains("http"));
+        click(ZOOM_PLUS_MAP_PAGE);
+
+        String actualZoomIN = getDriver().findElement(ZOOM_PLUS_MAP_PAGE).getText();
+        String actualZoomOUT = getDriver().findElement(ZOOM_MINUS_MAP_PAGE).getText();
+
+        Assert.assertEquals(actualZoomIN, expectedZoomIN);
+        Assert.assertEquals(actualZoomOUT, expectedZoomOut);
     }
 }
