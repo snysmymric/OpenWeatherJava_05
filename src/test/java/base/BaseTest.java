@@ -1,6 +1,7 @@
 package base;
 
 import org.openqa.selenium.*;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.ITestContext;
@@ -315,5 +316,16 @@ public abstract class BaseTest {
         }
 
         return active;
+    }
+
+    public void CopyAndPast(By by,By id) {
+        WebElement apiKeyFrom = getDriver().findElement(by);
+        WebElement apiKeyWhere = getDriver().findElement(id);
+        Actions act = new Actions(getDriver());
+        act.moveToElement(apiKeyFrom).doubleClick().build().perform();
+        act.keyDown(Keys.CONTROL).sendKeys("a", "c");
+        act.moveToElement(apiKeyWhere).click();
+        getDriver().findElement(id).sendKeys(Keys.chord(Keys.CONTROL, "v"));
+        act.keyUp(Keys.CONTROL).build().perform();
     }
 }
