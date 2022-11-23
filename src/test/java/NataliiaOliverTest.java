@@ -1,15 +1,19 @@
 import org.openqa.selenium.By;
 import org.testng.Assert;
-import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import base.BaseTest;
 
 public class NataliiaOliverTest extends BaseTest {
+
+    private final String FAQ_URL = "https://openweathermap.org/faq";
+
     private final By H2_CITY_COUNTRY_HEADER = By.xpath("//div[@id = 'weather-widget']//h2");
     private final By SEARCH_CITY_FIELD = By.xpath("//div[@id = 'weather-widget']//input[@placeholder = 'Search city']");
     private final By SEARCH_BUTTON = By.xpath("//div[@id = 'weather-widget']//button[@type = 'submit']");
     private final By SEARCH_DROPDOWN_MENU = By.className("search-dropdown-menu");
     private final By PARIS_FR_CHOICE_IN_DROPDOWN_MENU = By.xpath("//ul[@class = 'search-dropdown-menu']/li/span[text() = 'Paris, FR ']");
+    private final By H1_FAQ_TITLE = By.xpath("//main[@class='wrapper']//h1");
+    private final By SUBSCRIPTION_FAQ = By.xpath("//div[@id='footer-website']//a[@href='/faq']");
 
     @Test
     public void testH2TagText_WhenSearchingCityCountry() {
@@ -40,7 +44,7 @@ public class NataliiaOliverTest extends BaseTest {
 
         click(SEARCH_CITY_FIELD);
 
-       String actualTextSearchCityField = getTextByAttribute(SEARCH_CITY_FIELD, "placeholder");
+        String actualTextSearchCityField = getTextByAttribute(SEARCH_CITY_FIELD, "placeholder");
 
         Assert.assertEquals(actualTextSearchCityField, expectedTextSearchCityField);
     }
@@ -72,5 +76,22 @@ public class NataliiaOliverTest extends BaseTest {
         waitElementToBeVisible(SEARCH_DROPDOWN_MENU);
 
         Assert.assertTrue(isDisplayed(SEARCH_DROPDOWN_MENU));
+    }
+
+    @Test
+    public void testMainFooterWebsiteSubscriptionFAQ_ClickableFAQLink() {
+        final String expectedTitleFaq = "Frequently Asked Questions";
+
+        openBaseURL();
+
+        scrollToPageBottom();
+
+        click20(SUBSCRIPTION_FAQ);
+
+        Assert.assertEquals(getCurrentURL(), FAQ_URL);
+
+        String actualTitleFaq = getText(H1_FAQ_TITLE);
+
+        Assert.assertEquals(actualTitleFaq, expectedTitleFaq);
     }
 }
