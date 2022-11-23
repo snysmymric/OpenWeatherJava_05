@@ -26,6 +26,7 @@ public class YuriiOrmsonTest extends BaseTest {
     private final By CHANGE_PASSWORD = By.xpath(
             "//div[@class = 'col-xs-9']//input[@value = 'Change Password']");
     private final By PANEL_BODY = By.xpath("//div[@class = 'panel-body']");
+    private final By ALERTS_H2 = By.xpath("//section[@id = 'alerts']/h2");
 
     @Test
     public void testH1BreadcrumbTitle_WhenOpenPricingPage() {
@@ -126,5 +127,18 @@ public class YuriiOrmsonTest extends BaseTest {
         click(PASSWORD_FORM_PASSWORD_CONFIRMATION);
         input(oldPassword,PASSWORD_FORM_PASSWORD_CONFIRMATION);
         click(CHANGE_PASSWORD);
+    }
+    @Test
+    public void testH2AlertsAnchorEl_WhenOpenPricingPage() {
+        String expectedResult = "Special products";
+
+        openBaseURL();
+
+        click(A_HREF_PRICE);
+        waitForGrayContainerDisappeared();
+
+        String actualResult = getText(ALERTS_H2);
+
+        Assert.assertEquals(actualResult,expectedResult);
     }
 }
