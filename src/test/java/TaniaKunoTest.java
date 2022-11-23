@@ -1,8 +1,5 @@
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import base.BaseTest;
@@ -21,6 +18,9 @@ public class TaniaKunoTest extends BaseTest {
     final static By ASK_A_QUESTION_SUBMENU = By.xpath("//ul[@class = 'dropdown-menu dropdown-visible']//a[text() = 'Ask a question']");
     final static By H4_ASK_A_QUESTION_HEADLINE = By.xpath("//div[@class = 'row']//h4");
     final static By LABELS_ASK_A_QUESTION_FORM = By.xpath("//div[@class = 'row']//label");
+    final static By LABELS_IS_USER_FIELD = By.xpath("//div[@class = 'col-sm-8']//span//label");
+    final static By CHECKBOX_IS_USER_FIELD = By.xpath("//div[@class = 'col-sm-8']//span//input");
+    final static By TEXT_IS_USER_YES = By.xpath("//div[@id = 'prompt']");
 
     @Test
     public void testH2TagText_WhenSearchingCityCountry() {
@@ -92,5 +92,32 @@ public class TaniaKunoTest extends BaseTest {
         List<String> actualFields = getListText(LABELS_ASK_A_QUESTION_FORM);
 
         Assert.assertEquals(actualFields, expectedFields);
+    }
+
+    @Test
+    public void testVerifyOptionsInIsUserField_OnAskAQuestionForm() {
+        List<String> expectedLabels = new ArrayList<>(Arrays.asList("Yes", "No"));
+        String expectedText = "Please enter your account email in our system - it will help us process your request faster";
+
+        openBaseURL();
+        click(SUPPORT_MENU);
+        click(ASK_A_QUESTION_SUBMENU);
+        jumpToNextWindow();
+
+        List<WebElement> labelsIsUserField = getListOfElements(LABELS_IS_USER_FIELD);
+        List<WebElement> checkboxesIsUserField = getListOfElements(CHECKBOX_IS_USER_FIELD);
+
+        Assert.assertEquals(labelsIsUserField.size(), 2);
+        Assert.assertEquals(checkboxesIsUserField.size(), 2);
+
+        checkboxesIsUserField.get(0).click();
+        waitElementToBeVisible(TEXT_IS_USER_YES);
+
+        List<String> actualLabels = getListText(LABELS_IS_USER_FIELD);
+        String actualText = getText(TEXT_IS_USER_YES);
+
+        Assert.assertTrue(isDisplayed(LABELS_IS_USER_FIELD));
+        Assert.assertEquals(actualLabels, expectedLabels);
+        Assert.assertEquals(actualText, expectedText);
     }
 }
