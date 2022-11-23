@@ -341,7 +341,7 @@ public abstract class BaseTest {
                 By.className("owm-loader-container")));
     }
     
-    private String getCssStyleColor(By by) {
+    public String getCssStyleColor(By by) {
         String color = getDriver().findElement(by).getCssValue("color");
 
         String[] hexValue = color.replace("rgba(", "").replace(")", "").split(",");
