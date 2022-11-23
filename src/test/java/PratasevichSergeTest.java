@@ -19,6 +19,9 @@ public class PratasevichSergeTest extends BaseTest {
             "//div[@class='input-group']//input[@id='user_password']");
     final static By SUBMIT_BUTTON = By.xpath("//input[@value='Submit']");
     final static By USER_CONTAINER = By.xpath("//div[@class='inner-user-container']");
+    final static By BLOG_MENU = By.xpath(
+            "//div[@id='desktop-menu']//a[@href='https://openweather.co.uk/blog/category/weather']");
+    final static By POST_FILTERS = By.xpath("//div[@class='post-filters']/form/ul");
     @Test
     public void testH2TagText_WhenSearchingCityCountry() throws InterruptedException {
 
@@ -66,5 +69,19 @@ public class PratasevichSergeTest extends BaseTest {
         String actualResult = getText(USER_CONTAINER);
 
         Assert.assertEquals(actualResult, expectedResult);
+    }
+    @Test
+    public void testBlogMenuIsOpened(){
+        String expectedPestFiltersItemsAreVisible = "blog-categories";
+        String attribute = "id";
+
+        openBaseURL();
+        click(BLOG_MENU);
+        jumpToNextWindow();
+        getWait20();
+
+        String actualPestFiltersItemsAreVisible = getTextByAttribute(POST_FILTERS, attribute);
+
+        Assert.assertEquals(actualPestFiltersItemsAreVisible, expectedPestFiltersItemsAreVisible);
     }
 }
