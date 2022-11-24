@@ -3,6 +3,9 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import base.BaseTest;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class YuriiOrmsonTest extends BaseTest {
     private final By A_HREF_PRICE = By.xpath("//div[@id = 'desktop-menu']//a[@href = '/price']");
     private final By A_HREF_CURRENT_PROFESSIONAL_SUBSCRIPTIONS = By.xpath(
@@ -27,6 +30,20 @@ public class YuriiOrmsonTest extends BaseTest {
             "//div[@class = 'col-xs-9']//input[@value = 'Change Password']");
     private final By PANEL_BODY = By.xpath("//div[@class = 'panel-body']");
     private final By ALERTS_H2 = By.xpath("//section[@id = 'alerts']/h2");
+    private final By SPECIAL_PRODUCTS_SUB_HEADERS = By.xpath(
+            "//section[@id = 'alerts']//tbody/tr/th/h4/a");
+
+    static private List<String> getSpecialProductsSubHeaders() {
+        List<String> expectedList = new ArrayList<>();
+        expectedList.add("Solar Radiation API");
+        expectedList.add("Solar Radiation API - Historical data");
+        expectedList.add("Global Weather Alerts Push notifications");
+        expectedList.add("Road Risk API (advanced configuration)");
+        expectedList.add("Global Precipitation Map - Forecast and historical data");
+        expectedList.add("Weather Maps 2.0 with 1-hour step");
+
+        return expectedList;
+    }
 
     @Test
     public void testH1BreadcrumbTitle_WhenOpenPricingPage() {
@@ -39,8 +56,9 @@ public class YuriiOrmsonTest extends BaseTest {
 
         String actualResult = getText(H1);
 
-        Assert.assertEquals(actualResult,expectedResult);
+        Assert.assertEquals(actualResult, expectedResult);
     }
+
     @Test
     public void testUrl_WhenOpenPricingPage() {
         String expectedResult = "https://openweathermap.org/price";
@@ -52,8 +70,9 @@ public class YuriiOrmsonTest extends BaseTest {
 
         String actualResult = getDriver().getCurrentUrl();
 
-        Assert.assertEquals(actualResult,expectedResult);
+        Assert.assertEquals(actualResult, expectedResult);
     }
+
     @Test
     public void testTabTitle_WhenOpenPricingPage() {
         String expectedResult = "Pricing - OpenWeatherMap";
@@ -65,8 +84,9 @@ public class YuriiOrmsonTest extends BaseTest {
 
         String actualResult = getDriver().getTitle();
 
-        Assert.assertEquals(actualResult,expectedResult);
+        Assert.assertEquals(actualResult, expectedResult);
     }
+
     @Test
     public void testScrollToProfessionalCollections_WhenClickOnProfessionalSubscriptions() {
         String expectedResult = "https://openweathermap.org/price#current";
@@ -79,8 +99,9 @@ public class YuriiOrmsonTest extends BaseTest {
 
         String actualResult = getDriver().getCurrentUrl();
 
-        Assert.assertEquals(actualResult,expectedResult);
+        Assert.assertEquals(actualResult, expectedResult);
     }
+
     @Test
     public void testBtnBlock_WhenOpenPricingPage() {
         int expectedResult = 19;
@@ -92,8 +113,9 @@ public class YuriiOrmsonTest extends BaseTest {
         click(A_HREF_CURRENT_PROFESSIONAL_SUBSCRIPTIONS);
         int actualResult = countOrangeButtons(BTN_BLOCK_TRANSPARENT_ROUND);
 
-        Assert.assertEquals(actualResult,expectedResult);
+        Assert.assertEquals(actualResult, expectedResult);
     }
+
     @Test
     public void testChangePasswordSuccessfully_WhenOpenUserSettings() {
         String expectedResult = "Password was changed successfully";
@@ -106,28 +128,29 @@ public class YuriiOrmsonTest extends BaseTest {
 
         click(SIGN_IN);
         click(INPUT_GROUP_USER_EMAIL);
-        input(email,INPUT_GROUP_USER_EMAIL);
+        input(email, INPUT_GROUP_USER_EMAIL);
         click(INPUT_GROUP_USER_PASSWORD);
-        input(password,INPUT_GROUP_USER_PASSWORD);
+        input(password, INPUT_GROUP_USER_PASSWORD);
         click(SUBMIT);
         click(USER_DROPDOWN);
         click(A_HREF_HOME);
         click(PASSWORD_FORM_PASSWORD);
-        input(newPassword,PASSWORD_FORM_PASSWORD);
+        input(newPassword, PASSWORD_FORM_PASSWORD);
         click(PASSWORD_FORM_PASSWORD_CONFIRMATION);
-        input(newPassword,PASSWORD_FORM_PASSWORD_CONFIRMATION);
+        input(newPassword, PASSWORD_FORM_PASSWORD_CONFIRMATION);
         click(CHANGE_PASSWORD);
 
         String actualResult = getText(PANEL_BODY);
 
-        Assert.assertEquals(actualResult,expectedResult);
+        Assert.assertEquals(actualResult, expectedResult);
 
         click(PASSWORD_FORM_PASSWORD);
-        input(oldPassword,PASSWORD_FORM_PASSWORD);
+        input(oldPassword, PASSWORD_FORM_PASSWORD);
         click(PASSWORD_FORM_PASSWORD_CONFIRMATION);
-        input(oldPassword,PASSWORD_FORM_PASSWORD_CONFIRMATION);
+        input(oldPassword, PASSWORD_FORM_PASSWORD_CONFIRMATION);
         click(CHANGE_PASSWORD);
     }
+
     @Test
     public void testH2AlertsAnchorEl_WhenOpenPricingPage() {
         String expectedResult = "Special products";
@@ -139,6 +162,20 @@ public class YuriiOrmsonTest extends BaseTest {
 
         String actualResult = getText(ALERTS_H2);
 
-        Assert.assertEquals(actualResult,expectedResult);
+        Assert.assertEquals(actualResult, expectedResult);
+    }
+
+    @Test
+    public void testSectionIdAlertsAnchorEl_SubHeadersOfSection() {
+        List<String> expectedList = getSpecialProductsSubHeaders();
+
+        openBaseURL();
+
+        click(A_HREF_PRICE);
+        waitForGrayContainerDisappeared();
+
+        List<String> actualList = getListText(SPECIAL_PRODUCTS_SUB_HEADERS);
+
+        Assert.assertEquals(actualList, expectedList);
     }
 }
