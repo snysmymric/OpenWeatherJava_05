@@ -73,4 +73,17 @@ public class AndreyGolovTest extends BaseTest {
 
         Assert.assertTrue(getDriver().findElement(MORE_OPTIONS_PANEL).isDisplayed());
     }
+
+    @Test
+    public void testMoreOptionsButtonСhangesToLessOptionsAfterClick() {
+
+        String expectedTextOnButtonAfterClick = "Less options";
+
+        openBaseURL();
+        click(DIFFERENT_WEATHER_BUTTON);
+        click(MORE_OPTIONS_BUTTON);
+        getWait10().until(ExpectedConditions.visibilityOfElementLocated(MORE_OPTIONS_PANEL));
+
+        Assert.assertEquals(getText(MORE_OPTIONS_BUTTON), expectedTextOnButtonAfterClick);
+    }
 }
