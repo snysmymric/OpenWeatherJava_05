@@ -1,8 +1,12 @@
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import base.BaseTest;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class ElNov686Test extends BaseTest {
@@ -13,6 +17,7 @@ public class ElNov686Test extends BaseTest {
     private final By PARIS_FR_FROM_DROPDOWN_MENU = By
             .xpath("//ul[@class = 'search-dropdown-menu']/li/span[text ()= 'Paris, FR ']");
     private final By H2_CITYNAME_HEADER = By.xpath("//div[@id = 'weather-widget']//h2");
+    private final By H3 = By.xpath("//h3");
 
 
     @Test
@@ -97,6 +102,24 @@ public class ElNov686Test extends BaseTest {
 
         Assert.assertEquals(actualResult1, expectedResult1);
         Assert.assertEquals(actualResult2, expectedResult2);
+    }
+
+    @Test
+    public void testMainSupportHowToStart_CountAllH3() {
+        openBaseURL();
+        waitForGrayContainerDisappeared();
+        click(By.xpath("//div[@id='support-dropdown']"));
+        switchToAnotherWindow(getDriver());
+        click(By.xpath("//ul[@id='support-dropdown-menu']//a[normalize-space()='How to start']"));
+        getWait20();
+
+        List<String> texts = new ArrayList<>();
+
+        for (WebElement element : getListOfElements(H3)) {
+            texts.add(element.getText());
+        }
+
+        Assert.assertFalse(texts.size() == 0);
     }
 }
 
