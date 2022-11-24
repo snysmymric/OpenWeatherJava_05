@@ -2,6 +2,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import base.BaseTest;
 
@@ -36,7 +37,7 @@ public class IraKalinkaTest extends BaseTest {
        click(SUPPORT_LINK);
        Assert.assertEquals(getLinksList(DROPDOWN_MENU, TAG_NAME), expectedList);
     }
-
+    @Ignore
     @Test
     public void testCaptchaErrorMessage() {
         final String email = "test@test.com";
