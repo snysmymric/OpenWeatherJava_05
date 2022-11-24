@@ -281,11 +281,6 @@ public abstract class BaseTest {
         return elements;
     }
 
-    public void scrollToPageBottom() {
-        JavascriptExecutor js = (JavascriptExecutor) getDriver();
-        js.executeScript("window.scrollTo(0, document.body.scrollHeight)");
-    }
-
     public void waitForElement(By by) {
         getWait20().until(ExpectedConditions.presenceOfElementLocated(by));
     }
@@ -306,6 +301,11 @@ public abstract class BaseTest {
         } catch (Exception e) {
             return false;
         }
+    }
+
+    public void scrollToPageBottom() {
+        JavascriptExecutor js = (JavascriptExecutor) getDriver();
+        js.executeScript("window.scrollTo(0, document.body.scrollHeight)");
     }
 
     public void clickByKeyEnter(By by){
