@@ -11,7 +11,7 @@ public class AndreyGolovTest extends BaseTest {
     final static By DIFFERENT_WEATHER_ICONS_CONTAINER = By.xpath("//div[@class = 'pop-up-container']//div[@id='dialogDesc']//li");
     final static By FIRST_WEATHER_ICON_IN_POP_UP = By.xpath("//div[@class = 'pop-up-container']//ul[@class = 'icons']//li[1]");
 
-    private By getByWithNumber(By by, int numberInSequence) {
+    private By getByOfElementWithExactIndex(By by, int numberInSequence) {
         String NumberInSequence = String.valueOf(numberInSequence);
         return By.xpath(by.toString().substring(10, by.toString().length() - 2) + NumberInSequence + "]");
     }
@@ -41,6 +41,7 @@ public class AndreyGolovTest extends BaseTest {
 
         String nameOfTestedAttribute = "class";
         String expectedValueOfTestedAttribute = "activeIcon";
+        int[] elementIndexes = new int[]{1, 2, 3, 4, 5, 6, 7, 8, 9};
 
         openBaseURL();
         click(DIFFERENT_WEATHER_BUTTON);
@@ -51,49 +52,11 @@ public class AndreyGolovTest extends BaseTest {
                         size(), 9
         );
 
-        Assert.assertEquals(
-                getAttributeValueAfterClick(FIRST_WEATHER_ICON_IN_POP_UP, nameOfTestedAttribute),
-                expectedValueOfTestedAttribute
-        );
-
-        Assert.assertEquals(
-                getAttributeValueAfterClick((getByWithNumber(FIRST_WEATHER_ICON_IN_POP_UP, 2)), nameOfTestedAttribute),
-                expectedValueOfTestedAttribute
-        );
-
-        Assert.assertEquals(
-                getAttributeValueAfterClick((getByWithNumber(FIRST_WEATHER_ICON_IN_POP_UP, 3)), nameOfTestedAttribute),
-                expectedValueOfTestedAttribute
-        );
-
-        Assert.assertEquals(
-                getAttributeValueAfterClick((getByWithNumber(FIRST_WEATHER_ICON_IN_POP_UP, 4)), nameOfTestedAttribute),
-                expectedValueOfTestedAttribute
-        );
-
-        Assert.assertEquals(
-                getAttributeValueAfterClick((getByWithNumber(FIRST_WEATHER_ICON_IN_POP_UP, 5)), nameOfTestedAttribute),
-                expectedValueOfTestedAttribute
-        );
-
-        Assert.assertEquals(
-                getAttributeValueAfterClick((getByWithNumber(FIRST_WEATHER_ICON_IN_POP_UP, 6)), nameOfTestedAttribute),
-                expectedValueOfTestedAttribute
-        );
-
-        Assert.assertEquals(
-                getAttributeValueAfterClick((getByWithNumber(FIRST_WEATHER_ICON_IN_POP_UP, 7)), nameOfTestedAttribute),
-                expectedValueOfTestedAttribute
-        );
-
-        Assert.assertEquals(
-                getAttributeValueAfterClick((getByWithNumber(FIRST_WEATHER_ICON_IN_POP_UP, 8)), nameOfTestedAttribute),
-                expectedValueOfTestedAttribute
-        );
-
-        Assert.assertEquals(
-                getAttributeValueAfterClick((getByWithNumber(FIRST_WEATHER_ICON_IN_POP_UP, 9)), nameOfTestedAttribute),
-                expectedValueOfTestedAttribute
-        );
+        for (int element : elementIndexes) {
+            Assert.assertEquals(
+                    getAttributeValueAfterClick((getByOfElementWithExactIndex(FIRST_WEATHER_ICON_IN_POP_UP, element)), nameOfTestedAttribute),
+                    expectedValueOfTestedAttribute
+            );
+        }
     }
 }
