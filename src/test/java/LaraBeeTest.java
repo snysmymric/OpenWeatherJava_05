@@ -66,7 +66,7 @@ public class LaraBeeTest extends BaseTest {
         Assert.assertTrue(isDisplayed(GET_IT_ON_GOOGLE_PLAY_BUTTON));
 
         click(DOWNLOAD_ON_THE_APP_LINK);
-        switchToAnotherWindow(getDriver());
+        jumpToNextWindow();
 
         String actualDownloadOnTheAPPStoreLinkExists = getDriver().getCurrentUrl();
 
@@ -85,7 +85,7 @@ public class LaraBeeTest extends BaseTest {
         Assert.assertTrue(isDisplayed(GET_IT_ON_GOOGLE_PLAY_BUTTON));
 
         click(GET_IT_ON_GOOGLE_PLAY_LINK);
-        switchToAnotherWindow(getDriver());
+        jumpToNextWindow();
 
         String actualGetItOnGooglePlayStoreLinkExists = getDriver().getCurrentUrl();
 
