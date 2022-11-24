@@ -585,12 +585,18 @@ public abstract class BaseTest {
 
     public List<String> getLinksList(By xpath, By tagName){
         List<String> linksList = new ArrayList<>();
-        for (WebElement link : getDriver().findElement(xpath).findElements(tagName)) {
+        for (WebElement link : getElement(xpath).findElements(tagName)) {
             linksList.add(link.getText());
         } return linksList;
     }
 
     public String getTitleNameConfirmed(By by){
         return getDriver().findElement(by).getText();
+    }
+
+    public void clickOnButton(By by) {
+        WebElement Button = getDriver().findElement(by);
+        JavascriptExecutor executor = (JavascriptExecutor) getDriver();
+        executor.executeScript("arguments[0].click();", Button);
     }
 }
