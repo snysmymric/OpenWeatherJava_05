@@ -32,6 +32,8 @@ public class YuriiOrmsonTest extends BaseTest {
     private final By ALERTS_H2 = By.xpath("//section[@id = 'alerts']/h2");
     private final By SPECIAL_PRODUCTS_SUB_HEADERS = By.xpath(
             "//section[@id = 'alerts']//tbody/tr/th/h4/a");
+    private final By SPECIAL_PRODUCTS_GET_REQUEST = By.xpath(
+            "//section[@id = 'alerts']//tr/th[2]/h4[contains(text(), 'By request' )]");
 
     static private List<String> getSpecialProductsSubHeaders() {
         List<String> expectedList = new ArrayList<>();
@@ -111,7 +113,7 @@ public class YuriiOrmsonTest extends BaseTest {
         click(A_HREF_PRICE);
         waitForGrayContainerDisappeared();
         click(A_HREF_CURRENT_PROFESSIONAL_SUBSCRIPTIONS);
-        int actualResult = countOrangeButtons(BTN_BLOCK_TRANSPARENT_ROUND);
+        int actualResult = countElements(BTN_BLOCK_TRANSPARENT_ROUND);
 
         Assert.assertEquals(actualResult, expectedResult);
     }
@@ -126,13 +128,13 @@ public class YuriiOrmsonTest extends BaseTest {
 
         openBaseURL();
 
-        click(SIGN_IN);
-        click(INPUT_GROUP_USER_EMAIL);
+        click20(SIGN_IN);
+        click20(INPUT_GROUP_USER_EMAIL);
         input(email, INPUT_GROUP_USER_EMAIL);
-        click(INPUT_GROUP_USER_PASSWORD);
+        click20(INPUT_GROUP_USER_PASSWORD);
         input(password, INPUT_GROUP_USER_PASSWORD);
         click(SUBMIT);
-        click(USER_DROPDOWN);
+        click20(USER_DROPDOWN);
         click(A_HREF_HOME);
         click(PASSWORD_FORM_PASSWORD);
         input(newPassword, PASSWORD_FORM_PASSWORD);
@@ -177,5 +179,17 @@ public class YuriiOrmsonTest extends BaseTest {
         List<String> actualList = getListText(SPECIAL_PRODUCTS_SUB_HEADERS);
 
         Assert.assertEquals(actualList, expectedList);
+    }
+    @Test
+    public void testSectionIdAlertsAnchorEl_countByRequest() {
+        int expectedResult = 4;
+
+        openBaseURL();
+
+        click(A_HREF_PRICE);
+        waitForGrayContainerDisappeared();
+
+        int actualResult = countElements(SPECIAL_PRODUCTS_GET_REQUEST);
+        Assert.assertEquals(actualResult,expectedResult);
     }
 }

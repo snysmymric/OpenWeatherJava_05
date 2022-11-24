@@ -30,7 +30,7 @@ public class MaxIaskoTest extends BaseTest {
         openBaseURL();
         click(SEARCH_API_PAGE);
 
-        Assert.assertEquals(countOrangeButtons(SEARCH_ORANGE_ELEMENT), expectedResult);
+        Assert.assertEquals(countElements(SEARCH_ORANGE_ELEMENT), expectedResult);
     }
 
     @Test

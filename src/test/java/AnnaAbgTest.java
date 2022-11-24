@@ -21,7 +21,7 @@ public class AnnaAbgTest extends BaseTest {
 
         click(API_DESKTOP_MENU);
 
-        int actualNumberOfButtons = countOrangeButtons(BUTTONS_COUNT);
+        int actualNumberOfButtons = countElements(BUTTONS_COUNT);
 
         Assert.assertEquals(actualNumberOfButtons, expectedNumberOfButtons);
     }

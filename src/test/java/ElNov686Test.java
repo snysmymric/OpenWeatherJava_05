@@ -1,7 +1,6 @@
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
-import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import base.BaseTest;
 
@@ -65,7 +64,7 @@ public class ElNov686Test extends BaseTest {
         waitForGrayContainerDisappeared();
 
         click(By.xpath("//div[@id='desktop-menu']//a[normalize-space()='API']"));
-        int actualResult = countOrangeButtons(By.xpath("//a[contains(@class, 'btn_block orange round') " +
+        int actualResult = countElements(By.xpath("//a[contains(@class, 'btn_block orange round') " +
                 "or contains(@class, 'ow-btn round btn-orange')]"));
 
         Assert.assertEquals(actualResult, expectedResult);
