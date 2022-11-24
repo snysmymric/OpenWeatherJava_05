@@ -10,6 +10,9 @@ public class ElenavanesovaTest extends BaseTest {
     final By SEARCH_BUTTON = By.xpath("//div[@id = 'weather-widget']//button[@type = 'submit']");
     final By SEARCH_DROPDOWN_MENU =  By.className("search-dropdown-menu");
     final By PARIS_FR_CHOICE_IN_DROPDOWN_MENU =  By.xpath("//ul[@class = 'search-dropdown-menu']/li/span[text() = 'Paris, FR ']");
+    final By SEARCH_GUIDE = By.xpath("//div//a[@href='/guide']");
+    final By GUIDE_TITLE = By.className("breadcrumb-title");
+
     @Test
     public void testH2TagText_WhenSearchingCityCountry() {
         String cityName = "Paris";
@@ -32,4 +35,19 @@ public class ElenavanesovaTest extends BaseTest {
         Assert.assertEquals(actualResult, expectedResult);
     }
 
+    @Test
+    public void testOpenAndClickToGuide(){
+
+        String expectedResult = "Guide";
+        String expectedResult1 = "https://openweathermap.org/guide";
+
+        openBaseURL();
+        click(SEARCH_GUIDE);
+
+        String actualResul = getText(GUIDE_TITLE);
+        String actualResul1 = getCurrentURL();
+
+        Assert.assertEquals(actualResul, expectedResult);
+        Assert.assertEquals(actualResul1,expectedResult1);
+    }
 }
