@@ -5,10 +5,12 @@ import base.BaseTest;
 
 public class AnnaAbgTest extends BaseTest {
 
-    private final By API_LINK_PAGE = By.xpath("//a[@href='/api']");
+    private final By API_DESKTOP_MENU = By.xpath("//a[@href='/api']");
     private final By BUTTONS_COUNT = By.xpath("// a[contains(@class,'orange')]");
-    private final By SEARCH_PARTNERS_MENU = By.xpath("//div[@id='desktop-menu']//a[@href='/examples']");
+    private final By PARTNERS_DESKTOP_MENU = By.xpath("//div[@id='desktop-menu']//a[@href='/examples']");
     private final By SEARCH_BREADCRUMB_TITLE = By.xpath("//div[@class='col-sm-7']/h1");
+    private final By APACHE_CAMEL_HYPERLINK = By.xpath("//a[@href='#apache']");
+    private final By SEE_ON_WEBSITE_BUTTON = By.xpath("//a[@href='http://camel.apache.org/weather.html']");
 
     @Test
     public void testThirtyOrangeButtons() {
@@ -17,7 +19,7 @@ public class AnnaAbgTest extends BaseTest {
 
         openBaseURL();
 
-        click(API_LINK_PAGE);
+        click(API_DESKTOP_MENU);
 
         int actualNumberOfButtons = countOrangeButtons(BUTTONS_COUNT);
 
@@ -31,7 +33,7 @@ public class AnnaAbgTest extends BaseTest {
 
         openBaseURL();
 
-        click20(SEARCH_PARTNERS_MENU);
+        click20(PARTNERS_DESKTOP_MENU);
 
         String actualCurrentURL = getCurrentURL();
 
@@ -45,7 +47,7 @@ public class AnnaAbgTest extends BaseTest {
 
         openBaseURL();
 
-        click(SEARCH_PARTNERS_MENU);
+        click(PARTNERS_DESKTOP_MENU);
 
         String actualTitle = getTitle();
 
@@ -59,11 +61,26 @@ public class AnnaAbgTest extends BaseTest {
 
         openBaseURL();
 
-        click(SEARCH_PARTNERS_MENU);
+        click(PARTNERS_DESKTOP_MENU);
 
         String actualTitle2 = getText(SEARCH_BREADCRUMB_TITLE);
         waitElementToBeVisible(SEARCH_BREADCRUMB_TITLE);
 
         Assert.assertEquals(actualTitle2, expectedTitle);
+    }
+
+    @Test
+    public void testActiveHyperlinkButton_SeeOnTheWebsite() {
+
+        final String expectedURL = "https://camel.apache.org/components/next/weather-component.html";
+
+        openBaseURL();
+
+        click(PARTNERS_DESKTOP_MENU);
+        click20(APACHE_CAMEL_HYPERLINK);
+        click20(SEE_ON_WEBSITE_BUTTON);
+        switchToAnotherWindow(getDriver());
+
+        Assert.assertEquals(getCurrentURL(), expectedURL);
     }
 }
