@@ -1,5 +1,6 @@
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import base.BaseTest;
@@ -10,6 +11,8 @@ public class AndreyGolovTest extends BaseTest {
     final static By BUTTON_X_ON_POPUP = By.xpath("//div[@class = 'pop-up-container']//*[@class='icon-close']");
     final static By DIFFERENT_WEATHER_ICONS_CONTAINER = By.xpath("//div[@class = 'pop-up-container']//div[@id='dialogDesc']//li");
     final static By FIRST_WEATHER_ICON_IN_POP_UP = By.xpath("//div[@class = 'pop-up-container']//ul[@class = 'icons']//li[1]");
+    final static By MORE_OPTIONS_BUTTON = By.className("more-options");
+    final static By MORE_OPTIONS_PANEL = By.xpath("//div[@class = 'more-options']/following-sibling::div");
 
     private By getByOfElementWithExactIndex(By by, int numberInSequence) {
         String NumberInSequence = String.valueOf(numberInSequence);
@@ -58,5 +61,16 @@ public class AndreyGolovTest extends BaseTest {
                     expectedValueOfTestedAttribute
             );
         }
+    }
+
+    @Test
+    public void testMoreOptionsButtonAndPanelAppears() {
+
+        openBaseURL();
+        click(DIFFERENT_WEATHER_BUTTON);
+        click(MORE_OPTIONS_BUTTON);
+        getWait10().until(ExpectedConditions.visibilityOfElementLocated(MORE_OPTIONS_PANEL));
+
+        Assert.assertTrue(getDriver().findElement(MORE_OPTIONS_PANEL).isDisplayed());
     }
 }
