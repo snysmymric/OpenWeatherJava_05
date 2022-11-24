@@ -643,4 +643,8 @@ public void clickAllElements(By by) {
 
         return evenOneIsUnchecked;
     }
+
+    public void waitForElementToBeDisappeared(By by) {
+        getWait10().until(ExpectedConditions.invisibilityOfElementLocated(by));
+    }
 }
