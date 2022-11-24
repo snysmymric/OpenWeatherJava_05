@@ -2,7 +2,6 @@ import base.BaseTest;
 import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,6 +13,7 @@ public class KristinaPereselkinaTest extends BaseTest {
     static final By COLLECTION_SUBSCRIPTION_PRICE = By.xpath("//div/table//th/h4/b");
     static final By BUTTON_SUBSCRIPTION = By.xpath("//div/table//th/a");
     static final By COLLECTION_PRODUCTS = By.xpath("//div/table//td[1]/p");
+    static final By DISABLED_PRODUCTS_FREE_SUBSCRIPTION = By.xpath("//div/table//td[1]/p[@style='color:#e0e0e0;']");
     static private List<String> getProfessionalSubscriptionPlans() {
         List<String> expectedList = new ArrayList<>();
         expectedList.add("Free");
@@ -63,12 +63,25 @@ public class KristinaPereselkinaTest extends BaseTest {
 
         return expectedList;
     }
+    private List<String> getDisabledProductsFreeCollection() {
+        List<String> expectedList = new ArrayList<>();
+        expectedList.add("Hourly Forecast 4 days");
+        expectedList.add("Daily Forecast 16 days");
+        expectedList.add("Climatic Forecast 30 days");
+        expectedList.add("Bulk Download");
+        expectedList.add("Historical maps");
+        expectedList.add("Global Precipitation Map - Historical data");
+        expectedList.add("Road Risk API (basic configuration)");
+
+        return expectedList;
+    }
 
     @Test
     public void testH2ProfessionalcollectionsText() {
         final String expectedResult = "Professional collections";
 
         openBaseURL();
+
         waitForGrayContainerDisappeared();
         click(A_HREF_PRICE);
 
@@ -82,6 +95,7 @@ public class KristinaPereselkinaTest extends BaseTest {
         final String expectedResult = "Current weather and forecasts collection";
 
         openBaseURL();
+
         waitForGrayContainerDisappeared();
         click(A_HREF_PRICE);
 
@@ -95,6 +109,7 @@ public class KristinaPereselkinaTest extends BaseTest {
         List<String> expectedList = getProfessionalSubscriptionPlans();
 
         openBaseURL();
+
         waitForGrayContainerDisappeared();
         click(A_HREF_PRICE);
 
@@ -108,6 +123,7 @@ public class KristinaPereselkinaTest extends BaseTest {
         List<String> expectedList = getProfessionalSubscriptionPrices();
 
         openBaseURL();
+
         waitForGrayContainerDisappeared();
         click(A_HREF_PRICE);
 
@@ -121,6 +137,7 @@ public class KristinaPereselkinaTest extends BaseTest {
         List<String> expectedList = getProfessionalCollectionProducts();
 
         openBaseURL();
+
         waitForGrayContainerDisappeared();
         click(A_HREF_PRICE);
 
@@ -130,10 +147,23 @@ public class KristinaPereselkinaTest extends BaseTest {
     }
 
     @Test
+    public void testDisabledProductsOnFreeSubscription() {
+        List<String> expectedList = getDisabledProductsFreeCollection();
+
+        openBaseURL();
+
+        waitForGrayContainerDisappeared();
+        click(A_HREF_PRICE);
+
+        List<String> actualList = getListText(DISABLED_PRODUCTS_FREE_SUBSCRIPTION);
+}
+
+   @Test
     public void testProfessionalSubscriptionButtons() {
         List<String> expectedList = getSubscriptionButtons();
 
         openBaseURL();
+
         waitForGrayContainerDisappeared();
         click(A_HREF_PRICE);
 
