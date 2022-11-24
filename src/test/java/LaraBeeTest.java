@@ -1,6 +1,5 @@
 import org.openqa.selenium.By;
 import org.testng.Assert;
-import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import base.BaseTest;
 
@@ -23,6 +22,8 @@ public class LaraBeeTest extends BaseTest {
     private final By GET_IT_ON_GOOGLE_PLAY_LINK = By.xpath(
             "//a[@href='https://play.google.com/store/apps/details?id=uk.co.openweather'][@target='_blank']");
     private final By TEXT_DOWNLOAD_OPEN_WEATHER_APP = By.xpath(".//p[text()='Download OpenWeather app']");
+    private final By ALL_STORE_BUTTONS = By.xpath(
+            "//div[@class='my-5']/div[@style='display: flex; flex-direction: row;']/a");
 
     @Test
     public void testH2TagText_WhenSearchingCityCountry() {
@@ -104,8 +105,7 @@ public class LaraBeeTest extends BaseTest {
 
         Assert.assertEquals(actualText, expectedText);
 
-        int actualAllStoreButtonsVisible = findAllVisibleElements(
-                "//div[@class='my-5']/div[@style='display: flex; flex-direction: row;']/a", getWait10());
+        int actualAllStoreButtonsVisible = seeAllElementAndCount(ALL_STORE_BUTTONS);
 
         Assert.assertEquals(actualAllStoreButtonsVisible, expectedAllStoreButtonsVisible);
     }
