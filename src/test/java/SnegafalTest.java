@@ -26,6 +26,8 @@ public class SnegafalTest extends BaseTest {
     private final By DATA_SOURCE_SELECTOR = By.xpath("//div[@class='dropdown-selector']");
     private final By DATA_SOURCE_OPTIONS = By.xpath("//div[@class='owm-selector open']//ul[@class='dropdown-menu']/li");
     private final By ACTIVE_ICON_IN_DIFFERENT_WEATHER_POP_UP = By.className("activeIcon");
+    private final By WIND_SWITCHER_RADIO_BUTTONS = By.xpath("//div[@class='radio-buttons-switch']/div");
+    private final By ACTIVE_WIND_OPTION = By.xpath("//div[@class='radio-buttons-switch']/div[@class='active']");
 
     @Test
     public void testOnlyOneIconIsHighlightedWhenDifferentWeatherPopupAppears() {
@@ -91,6 +93,27 @@ public class SnegafalTest extends BaseTest {
         }
 
         Assert.assertEquals(actualDataSourceElements, EXPECTED_DATA_SOURCE_ITEMS);
+    }
+
+    @Test
+    public void testChosenWindOptionSavedAfterClickingLessOptionsInDifferentWeatherPopUp() {
+        openBaseURL();
+        click(DIFFERENT_WEATHER_BUTTON);
+        waitElementToBeVisible(DIFFERENT_WEATHER_POP_UP);
+        click(MORE_OPTIONS_BUTTON);
+        int windSelectorElements = seeAllElementAndCount(WIND_SWITCHER_RADIO_BUTTONS);
+        int randomNumber = (int) ((Math.random() * windSelectorElements) + 1);
+        click(By.xpath("//div[@class='radio-buttons-switch']/div[" + randomNumber + "]"));
+
+        String chosenElementBeforeClickingLessOptions = getTextWaiting(
+                By.xpath("//div[@class='radio-buttons-switch']/div[" + randomNumber + "]"));
+
+        click(MORE_OPTIONS_BUTTON);
+        click(MORE_OPTIONS_BUTTON);
+
+        String chosenElementAfterClickingLessOptions = getTextWaiting(ACTIVE_WIND_OPTION);
+
+        Assert.assertEquals(chosenElementAfterClickingLessOptions, chosenElementBeforeClickingLessOptions);
     }
 }
 
