@@ -23,6 +23,7 @@ public class Elena_STest extends BaseTest {
     private final  By SING_IN_BUTTON = By.xpath("//div[@id='desktop-menu']//a[@href='https://openweathermap.org/home/sign_in']");
     private final  By SUPPORT_BUTTON = By.xpath("//div[@id='support-dropdown']");
     private final By HAMBURGER = By.id("hamburger");
+    private final By SEARCH_FIELD_MOBILE = By.xpath("//ul[@id='mobile-menu']//input[@name='q']");
 
     @Test
     public void testOpenWeatherStartPageOpened(){
@@ -79,6 +80,30 @@ public class Elena_STest extends BaseTest {
 
         Assert.assertTrue(isElementExists(HAMBURGER));
         Assert.assertTrue(isElementEnabled(HAMBURGER));
+    }
+    @Test
+    public void testHamburgerListWithAllElementsNavBarOpens(){
+
+        changeWindowResolution(1020,800);
+        openBaseURL();
+
+        click(HAMBURGER);
+        String expectedElementsName = "Guide\n" +
+                "API\n" +
+                "Dashboard\n" +
+                "Marketplace\n" +
+                "Pricing\n" +
+                "Maps\n" +
+                "Our Initiatives\n" +
+                "Partners\n" +
+                "Blog\n" +
+                "For Business\n" +
+                "Ask a question\n" +
+                "Sign in";
+        String actualElementsName =  getDriver().findElement(By.id("mobile-menu")).getText();
+
+        Assert.assertTrue(isElementExists(SEARCH_FIELD_MOBILE));
+        Assert.assertEquals(actualElementsName,expectedElementsName);
     }
 
 }
