@@ -16,9 +16,10 @@ public class ViacheslavAnisimovTest extends BaseTest {
     final static By ENTER_EMAIL_FIELD = By.xpath("//input[@id='user_email']");
     final static By PASSWORD_FIELD = By.xpath(("//input[@id='user_password']"));
     final static By SUBMIT_BUTTON = By.xpath("//input[@name='commit']");
-    final static By SUCCESSFULL_LOGIN_TEXT = By.xpath("//div[@class='panel-body']");
+    final static By SUCCESSFUL_LOGIN_TEXT = By.xpath("//div[@class='panel-body']");
     final static By FAHRENHEIT = By.xpath("//div[@class='option'][contains(text(), 'Imperial: °F, mph')]");
-    final static By TEMP_TEXT_IN_HEADING =By.xpath("//span[@class='heading'][contains(text(), '°F')]");
+    final static By TEMP_TEXT_IN_HEADING = By.xpath("//span[@class='heading'][contains(text(), '°F')]");
+    final static By CURRENT_DATE_TIME = By.xpath("//div[@id='weather-widget']//span[@class='orange-text']");
 
     @Test
     public void testHamburgerMenuAndGuidePageTitle() {
@@ -85,7 +86,7 @@ public class ViacheslavAnisimovTest extends BaseTest {
         input(PASSWORD, PASSWORD_FIELD);
         click(SUBMIT_BUTTON);
 
-        String actualResult = getDriver().findElement(SUCCESSFULL_LOGIN_TEXT).getText();
+        String actualResult = getDriver().findElement(SUCCESSFUL_LOGIN_TEXT).getText();
 
         Assert.assertEquals(actualResult, expectedResult);
     }
@@ -99,5 +100,13 @@ public class ViacheslavAnisimovTest extends BaseTest {
         waitForGrayContainerDisappeared();
 
         Assert.assertTrue(getText(TEMP_TEXT_IN_HEADING).contains(SYMBOL_FAHRENHEIT));
+    }
+
+    @Test
+    public void testCurrentDateHourOnStartPage() {
+
+        openBaseURL();
+
+        Assert.assertEquals(getText(CURRENT_DATE_TIME).substring(0, 10), systemDate());
     }
 }
