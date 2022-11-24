@@ -589,4 +589,8 @@ public abstract class BaseTest {
             linksList.add(link.getText());
         } return linksList;
     }
+
+    public String getTitleNameConfirmed(By by){
+        return getDriver().findElement(by).getText();
+    }
 }
