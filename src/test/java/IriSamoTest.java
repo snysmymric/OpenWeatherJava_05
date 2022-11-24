@@ -2,6 +2,7 @@ import base.BaseTest;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 
 import java.text.SimpleDateFormat;
@@ -38,7 +39,7 @@ public class IriSamoTest extends BaseTest {
             By.xpath("//div[@id=\"weather-widget\"]//div[@class='chart-container']");
     private final By WEATHER_WIDGET_MAP =
             By.xpath("//div[@id=\"widget-map\"]");
-
+    @Ignore
     @Test
     public void test_Start_Weather_AllElementsExistsAndVisible() {
         openBaseURL();
