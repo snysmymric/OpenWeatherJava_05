@@ -22,6 +22,7 @@ public class Elena_STest extends BaseTest {
     private final  By FOR_BUSINESS_BUTTON = By.xpath("//div[@id='desktop-menu']//a[@class='marketplace']");
     private final  By SING_IN_BUTTON = By.xpath("//div[@id='desktop-menu']//a[@href='https://openweathermap.org/home/sign_in']");
     private final  By SUPPORT_BUTTON = By.xpath("//div[@id='support-dropdown']");
+    private final By HAMBURGER = By.id("hamburger");
 
     @Test
     public void testOpenWeatherStartPageOpened(){
@@ -70,6 +71,14 @@ public class Elena_STest extends BaseTest {
         click(LOGO_IMAGE);
 
         Assert.assertEquals(getCurrentURL(),BASE_URL);
+    }
+    @Test
+    public void test(){
+        changeWindowResolution(1020,800);
+        openBaseURL();
+
+        Assert.assertTrue(isElementExists(HAMBURGER));
+        Assert.assertTrue(isElementEnabled(HAMBURGER));
     }
 
 }

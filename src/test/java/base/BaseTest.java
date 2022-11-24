@@ -378,6 +378,7 @@ public abstract class BaseTest {
         return String.format("#%02x%02x%02x", hexValue1, hexValue2, hexValue3);
     }
 
+
     public static int daysInMonth(int month, int year) {
         int numDays;
 
@@ -612,5 +613,10 @@ public abstract class BaseTest {
         JavascriptExecutor executor = (JavascriptExecutor) getDriver();
         executor.executeScript("arguments[0].click();", Button);
     }
+    
+     public void changeWindowResolution(int width, int height){
+        getDriver().manage().window().setSize(new Dimension(width,height));
+    }
+
 
 }
