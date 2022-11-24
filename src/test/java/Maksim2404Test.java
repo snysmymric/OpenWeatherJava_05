@@ -18,6 +18,7 @@ public class Maksim2404Test extends BaseTest {
     final By GET_LOGO = By.xpath("//div[@id='desktop-menu']//a[@href='/weather-dashboard']");
     final By GET_NAME_METRIC = By.xpath("//div[@class='option']");
     final By SELECTED_IS_TRUE = By.xpath("//div[@id='selected']");
+    final By WIDGET_NOTIFICATION = By.xpath("//div[@id='weather-widget']//div[@class='widget-notification']");
 
     @Test
     public void testH2TextWhenSearchingCityCountry() {
@@ -85,5 +86,21 @@ public class Maksim2404Test extends BaseTest {
         Boolean actualMetricSelected = isDisplayed(SELECTED_IS_TRUE);
 
         Assert.assertTrue(actualMetricSelected);
+    }
+    @Test
+    public void testXButtonColorGreen () {
+
+        String name = "pref";
+        String expectedXButtonGreenColor = "rgba(120, 203, 191, 0.8)";
+
+        openBaseURL();
+        click(SEARCH_CITY_FIELD);
+        input(name,SEARCH_CITY_FIELD);
+        click(SEARCH_BUTTON);
+        waitElementToBeVisible(WIDGET_NOTIFICATION);
+
+        String actualXbottonGreenColor = backgroundColor(WIDGET_NOTIFICATION);
+
+        Assert.assertEquals(actualXbottonGreenColor,expectedXButtonGreenColor);
     }
 }
