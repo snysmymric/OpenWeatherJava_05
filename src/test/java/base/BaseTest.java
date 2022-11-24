@@ -303,6 +303,7 @@ public abstract class BaseTest {
         }
     }
 
+
     public void scrollToPageBottom() {
         JavascriptExecutor js = (JavascriptExecutor) getDriver();
         js.executeScript("window.scrollTo(0, document.body.scrollHeight)");
@@ -316,10 +317,10 @@ public abstract class BaseTest {
         return list.size();
     }
 
-    public  List<String> getElemntsText(By by) {
+    public List<String> getElemntsText(By by) {
         List<WebElement> elementtList = getListOfElements(by);
         List<String> textList = new ArrayList<>();
-        for(WebElement element : elementtList){
+        for (WebElement element : elementtList) {
             textList.add(element.getText());
         }
         return textList;
@@ -339,11 +340,12 @@ public abstract class BaseTest {
         }
         return active;
     }
-      public void waitElementToBeClickable(By by) {
+
+    public void waitElementToBeClickable(By by) {
         getWait20().until(ExpectedConditions.elementToBeClickable(by));
-    } 
-    
-    public void CopyAndPast(By by,By id) {
+    }
+
+    public void CopyAndPast(By by, By id) {
         Actions act = new Actions(getDriver());
         WebElement apiKeyFrom = getDriver().findElement(by);
         WebElement apiKeyWhere = getDriver().findElement(id);
@@ -364,7 +366,7 @@ public abstract class BaseTest {
         getWait20().until(ExpectedConditions.visibilityOfElementLocated(
                 By.className("owm-loader-container")));
     }
-    
+
     public String getCssStyleColor(By by) {
         String color = getDriver().findElement(by).getCssValue("color");
 
@@ -584,16 +586,19 @@ public abstract class BaseTest {
         getWait10().until(ExpectedConditions.visibilityOf(getDriver().findElement(by))).clear();
     }
 
-    public WebElement getElement(By by) { return getDriver().findElement(by); }
+    public WebElement getElement(By by) {
+        return getDriver().findElement(by);
+    }
 
-    public List<String> getLinksList(By xpath, By tagName){
+    public List<String> getLinksList(By xpath, By tagName) {
         List<String> linksList = new ArrayList<>();
         for (WebElement link : getElement(xpath).findElements(tagName)) {
             linksList.add(link.getText());
-        } return linksList;
+        }
+        return linksList;
     }
 
-    public String getTitleNameConfirmed(By by){
+    public String getTitleNameConfirmed(By by) {
         return getDriver().findElement(by).getText();
     }
 
@@ -619,4 +624,23 @@ public abstract class BaseTest {
     }
 
 
+
+public void clickAllElements(By by) {
+        List<WebElement> allElements = getDriver().findElements(by);
+        for (WebElement checkedElement : allElements) {
+            getWait20().until(ExpectedConditions.elementToBeClickable(checkedElement)).click();
+        }
+    }
+
+    public boolean checkingForUnselectedElements(By by) {
+        boolean evenOneIsUnchecked = false;
+        List<WebElement> allElements = getDriver().findElements(by);
+        for (WebElement checkbox : allElements) {
+            if (!checkbox.findElement(By.cssSelector("*, :after, :before")).isSelected()) {
+                evenOneIsUnchecked = true;
+            }
+        }
+
+        return evenOneIsUnchecked;
+    }
 }
