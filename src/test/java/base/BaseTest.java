@@ -3,6 +3,7 @@ package base;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.ITestContext;
 import org.testng.ITestResult;
@@ -18,6 +19,7 @@ import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 public abstract class BaseTest {
@@ -594,9 +596,21 @@ public abstract class BaseTest {
         return getDriver().findElement(by).getText();
     }
 
+    public void iterateWindows() {
+        Iterator<String> iter = getDriver().getWindowHandles().iterator();
+        iter.next();
+        getDriver().switchTo().window(iter.next());
+    }
+
+    public void selectOption(By by, String text) {
+        Select option = new Select(getDriver().findElement(by));
+        option.selectByValue(text);
+    }
+
     public void clickOnButton(By by) {
         WebElement Button = getDriver().findElement(by);
         JavascriptExecutor executor = (JavascriptExecutor) getDriver();
         executor.executeScript("arguments[0].click();", Button);
     }
+
 }
