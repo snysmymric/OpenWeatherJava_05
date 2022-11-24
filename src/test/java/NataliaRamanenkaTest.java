@@ -16,6 +16,8 @@ public class NataliaRamanenkaTest extends BaseTest {
     final static By WIDGET_MAP = By.xpath("//div[@id = 'widget-map']");
     final static By TIME_CONTANER = By.xpath("//a[@class = 'map-info-block']");
     final static By MAP = By.xpath("//div[@id = 'map']");
+    final static By OPEN_STREET_MAP = By.xpath("//a[@href = 'https://www.openstreetmap.org/copyright']");
+    final static By SEARCH_HEAD_OF_OPEN_STREET_MAP = By.xpath("//div[@id = 'content']//h1");
 
     @Test
     public void testGuideLinkAndTitle()  {
@@ -68,5 +70,17 @@ public class NataliaRamanenkaTest extends BaseTest {
         waitElementToBeVisible(MAP);
 
         Assert.assertTrue(isContainsTextInUrl(expectedPartialUrl));
+    }
+
+    @Test
+    public void testOpenStreetMapOpened_WhenClickOnIt(){
+        final String expectedUrl = "https://www.openstreetmap.org/copyright";
+
+        openBaseURL();
+        click(OPEN_STREET_MAP);
+        switchToAnotherWindow(getDriver());
+        waitElementToBeVisible(SEARCH_HEAD_OF_OPEN_STREET_MAP);
+
+        Assert.assertEquals(getCurrentURL(),expectedUrl);
     }
 }
