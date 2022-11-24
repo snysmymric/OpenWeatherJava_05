@@ -585,7 +585,7 @@ public abstract class BaseTest {
 
     public List<String> getLinksList(By xpath, By tagName){
         List<String> linksList = new ArrayList<>();
-        for (WebElement link : getElement(xpath).findElements(tagName)) {
+        for (WebElement link : getDriver().findElement(xpath).findElements(tagName)) {
             linksList.add(link.getText());
         } return linksList;
     }
