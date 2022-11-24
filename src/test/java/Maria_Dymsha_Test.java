@@ -12,6 +12,7 @@ public class Maria_Dymsha_Test extends BaseTest {
     private final By SEARCH_DROPDOWN_MENU = By.className("search-dropdown-menu");
     private final By PARIS_FR_CHOICE_IN_DROPDOWN_MENU = By.xpath("//ul[@class = 'search-dropdown-menu']/li/span[text() = 'Paris, FR ']");
 
+
     @Test
     public void testH2TagText_WhenSearchingCityCountry() {
         final String cityName = "Paris";
@@ -31,5 +32,19 @@ public class Maria_Dymsha_Test extends BaseTest {
         String actualCityCountryNames = getText(H2_CITY_COUNTRY_HEADER);
 
         Assert.assertEquals(actualCityCountryNames, expectedCityCountryNames);
+    }
+
+    @Test
+    public void testOpenWeatherStartPageOpened(){
+        String expectedResultTitle = "Сurrent weather and forecast - OpenWeatherMap";
+        String expectedResultUrl = "https://openweathermap.org/";
+
+        openBaseURL();
+
+        String actualResultTitle = getTitle();
+        String actualResultUrl = getCurrentURL();
+
+        Assert.assertEquals(actualResultTitle, expectedResultTitle);
+        Assert.assertEquals(actualResultUrl, expectedResultUrl);
     }
 }
