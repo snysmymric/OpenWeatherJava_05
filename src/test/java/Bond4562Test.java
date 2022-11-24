@@ -2,9 +2,9 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
+import org.testng.Reporter;
 import org.testng.annotations.Test;
 import base.BaseTest;
-
 import java.util.List;
 
 public class Bond4562Test extends BaseTest {
@@ -25,6 +25,8 @@ public class Bond4562Test extends BaseTest {
             "//div[@class='pagination-container']//a");
     private final By SEARCH_FOOTER = By.xpath(
             "//div[@id='footer-website']");
+    private final By SEARCH_DESKTOP_MENU_BUTTON = By.xpath(
+            "//div[@id='desktop-menu']/ul/li");
 
 
     @Test
@@ -79,6 +81,20 @@ public class Bond4562Test extends BaseTest {
         getListOfElements(SEARCH_PAGINATION).get(0).click();
 
         Assert.assertTrue(getWait10().until(ExpectedConditions.stalenessOf(verifyChangeNews.get(0))));
+    }
+
+    @Test
+    public void testDesktopMenuHave_12_Button() {
+
+        int expectedButton = 12;
+
+        Reporter.log("1)открываем базовую ссылку, ждем закрытия серого окна", true);
+        openBaseURL();
+        Reporter.log("2)находим и считываем кол-во кнопок", true);
+        int actualButton = getListSize(SEARCH_DESKTOP_MENU_BUTTON);
+        Reporter.log("3)кнопок = " + actualButton + "/" + expectedButton, true);
+
+        Assert.assertEquals(actualButton, expectedButton);
     }
 
 
