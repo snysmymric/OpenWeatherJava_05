@@ -19,6 +19,11 @@ public class DimaZadrutsiyTest extends BaseTest {
     private final By BUTTON_SEND_IN_DIFFERENT_WEATHER_MENU = By.xpath("//button[text()='Send']");
     private final By ERROR_MASSAGE = By.xpath("//span[text()='No results for Rrr']");
     private final By BUTTON_BACK_COLOR = By.xpath("//div[@class='widget-notification']");
+    private final By BUTTON_MARKETPLACE = By.xpath("//div[@id]//a[text()='Marketplace']");
+    private final By DESKTOP_MENU_HISTORY_BULK = By.xpath("//ul[@id='desktop-menu']//a[text()='History Bulk']");
+    private final By BUTTON_WEATHER_PARAMETERS = By.xpath("//span[text()='Weather Parameters:']");
+    private final By ELEMENTS_POP_UP_MENU_WEATHER_PARAMETERS = By
+            .xpath("//div[@class='owm-check-box-group columns']//label");
 
 
     @Test
@@ -113,5 +118,20 @@ public class DimaZadrutsiyTest extends BaseTest {
         String actualResult = backgroundColor(BUTTON_BACK_COLOR);
 
         Assert.assertEquals(actualResult, expectedResult);
+    }
+
+    @Test
+    public void testCheckingTheCheckboxeOfAListOfElements() {
+
+        openBaseURL();
+        click20(BUTTON_MARKETPLACE);
+        jumpToNextWindow();
+        click20(DESKTOP_MENU_HISTORY_BULK);
+        click20(BUTTON_WEATHER_PARAMETERS);
+        clickAllElements(ELEMENTS_POP_UP_MENU_WEATHER_PARAMETERS);
+
+        boolean actualResult = checkingForUnselectedElements(ELEMENTS_POP_UP_MENU_WEATHER_PARAMETERS);
+
+        Assert.assertTrue(actualResult);
     }
 }
