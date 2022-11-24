@@ -12,6 +12,7 @@ public class WeraStremedlowskaTest extends BaseTest {
             .xpath("//ul[@id='support-dropdown-menu']/li/a[@href='https://home.openweathermap.org/questions']");
     private final static By BREADCRUMB_TITLE = By.className("breadcrumb-title");
     private final By our_technology_link = By.cssSelector("a[href='/technology']");
+    private final By privacy_policy = By.cssSelector("a[href='https://openweather.co.uk/privacy-policy']");
 
     @Test
     public void testH1TagText_WhenMenuHowToStartIsClicked() {
@@ -34,6 +35,20 @@ public class WeraStremedlowskaTest extends BaseTest {
         openBaseURL();
         scrollByVisibleElement(our_technology_link);
         click(our_technology_link);
+
+        Assert.assertEquals(getCurrentURL(), expectedURL);
+        Assert.assertEquals(getTitle(), expectedTitle);
+    }
+
+    @Test
+    public void testPrivacyPolicyLinkVisibleAndClickable() {
+        final String expectedURL = "https://openweather.co.uk/privacy-policy";
+        final String expectedTitle = "Privacy policy - OpenWeatherMap";
+
+        openBaseURL();
+        scrollByVisibleElement(privacy_policy);
+        click(privacy_policy);
+        switchWindow();
 
         Assert.assertEquals(getCurrentURL(), expectedURL);
         Assert.assertEquals(getTitle(), expectedTitle);
