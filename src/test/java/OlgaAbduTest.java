@@ -1,4 +1,6 @@
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import base.BaseTest;
@@ -25,6 +27,11 @@ public class OlgaAbduTest extends BaseTest {
     public final By GENERATE_BUTTON = By.xpath("//input[@class='button-round dark']");
     public final By API_CREATED_MESSAGE = By.xpath("//div[contains(text(),'API key was created successfully')]");
     public final By API_TAB = By.xpath("//ul[@id='myTab']//a[@href='/api_keys']");
+    public final By FA_FA_REMOVE = By.cssSelector(".fa.fa-remove");
+    public final By API_WHOLE_TABLE_SIZE = By.xpath("//table[@class='material_table api-keys']/tbody/tr");
+    final String LOGIN = "jka59433@xcoxc.com";
+    final String PASSWORD = "Tester12#";
+    final String API_URL = "https://home.openweathermap.org/api_keys";
 
     @Test
     public void testSupportButtonClickable() {
@@ -49,9 +56,6 @@ public class OlgaAbduTest extends BaseTest {
 
     @Test
     public void testGenerateNewApiKey() {
-        final String LOGIN = "jka59433@xcoxc.com";
-        final String PASSWORD = "Tester12#";
-        final String API_URL = "https://home.openweathermap.org/api_keys";
 
         openBaseURL();
         click(SEARCH_SIGN_IN_BUTTON);
@@ -67,4 +71,27 @@ public class OlgaAbduTest extends BaseTest {
         click(GENERATE_BUTTON);
         Assert.assertTrue(isDisplayed(API_CREATED_MESSAGE));
     }
+
+    @Test(dependsOnMethods = "testGenerateNewApiKey")
+    public void testDeleteNewKeys() {
+
+        openBaseURL();
+        click(SEARCH_SIGN_IN_BUTTON);
+        input(LOGIN, ENTER_EMAIL_FIELD);
+        input(PASSWORD, ENTER_PASSWORD_FIELD);
+        click20(BUTTON_SUBMIT);
+        click(API_TAB);
+
+        final int size = getListOfElements(FA_FA_REMOVE).size();
+        for (int i = 0; i < size - 1; i++) {
+            click(FA_FA_REMOVE);
+
+            Alert alert = getWait10().until(ExpectedConditions.alertIsPresent());
+            alert.accept();
+        }
+        final int amountOfApisKeys = getListOfElements(API_WHOLE_TABLE_SIZE).size();
+
+        Assert.assertEquals(amountOfApisKeys, 1);
+    }
+
 }
