@@ -1,49 +1,27 @@
-//import org.openqa.selenium.By;
-//import org.openqa.selenium.support.ui.ExpectedConditions;
-//import org.openqa.selenium.support.ui.WebDriverWait;
-//import org.testng.Assert;
-//import org.testng.annotations.Ignore;
-//import org.testng.annotations.Test;
-//import base.BaseTest;
-//
-//@Ignore
-//public class DenSebrovskyTest extends BaseTest {
-//
-//    final static String BASE_URL = "https://openweathermap.org/";
-//    final static By SUPPORT_BUTTON = By.xpath("//div[@id='support-dropdown']");
-//    final static By SUPPORT_DROPDOWN_MENU = By.xpath("//ul[@id='support-dropdown-menu']");
-//
-//    private void openBaseURL() {
-//        getDriver().get(BASE_URL);
-//    }
-//
-//    private void waitForGrayFrameDisappear() {
-//        getWait20().until(ExpectedConditions.invisibilityOfElementLocated(By.className("owm-loader-container")));
-//    }
-//
-//    private void click(By by, WebDriverWait wait) {
-//        wait.until(ExpectedConditions.visibilityOfElementLocated(by));
-//        wait.until(ExpectedConditions.elementToBeClickable(by)).click();
-//    }
-//
-//    private void waitUntilElementIsVisible(By by, WebDriverWait wait) {
-//        wait.until(ExpectedConditions.visibilityOfElementLocated(by));
-//    }
-//
-//    @Test
-//    public void testSupportMenuIsClickable() {
-//        final int expectedSubmenuButtonsAmount = 3;
-//
-//        openBaseURL();
-//        waitForGrayFrameDisappear();
-//        click(SUPPORT_BUTTON, getWait10());
-//        waitUntilElementIsVisible(SUPPORT_DROPDOWN_MENU, getWait10());
-//        Assert.assertTrue(getDriver().findElement(SUPPORT_DROPDOWN_MENU).isDisplayed());
-//
-//        int actualSubmenuButtonsAmount = getDriver().findElements(By.xpath("//ul[@id='support-dropdown-menu']/*")).size();
-//        Assert.assertEquals(actualSubmenuButtonsAmount, expectedSubmenuButtonsAmount);
-//
-//        click(SUPPORT_BUTTON, getWait10());
-//        Assert.assertFalse(getDriver().findElement(SUPPORT_DROPDOWN_MENU).isDisplayed());
-//    }
-//}
+import org.openqa.selenium.By;
+import org.testng.Assert;
+import org.testng.annotations.Test;
+import base.BaseTest;
+
+public class DenSebrovskyTest extends BaseTest {
+
+    final static By SUPPORT_BUTTON = By.xpath("//div[@id='support-dropdown']");
+    final static By SUPPORT_DROPDOWN_MENU = By.xpath("//ul[@id='support-dropdown-menu']");
+    final static By SUBMENU_BUTTONS_AMOUNT = By.xpath("//ul[@id='support-dropdown-menu']/*");
+
+    @Test
+    public void testSupportMenuIsClickableAndHas3Submenues() {
+        final int expectedSubmenuButtonsAmount = 3;
+
+        openBaseURL();
+        click(SUPPORT_BUTTON);
+        waitElementToBeVisible(SUPPORT_DROPDOWN_MENU);
+        Assert.assertTrue(getDriver().findElement(SUPPORT_DROPDOWN_MENU).isDisplayed());
+
+        int actualSubmenuButtonsAmount = getDriver().findElements(SUBMENU_BUTTONS_AMOUNT).size();
+        Assert.assertEquals(actualSubmenuButtonsAmount, expectedSubmenuButtonsAmount);
+
+        click(SUPPORT_BUTTON);
+        Assert.assertFalse(getDriver().findElement(SUPPORT_DROPDOWN_MENU).isDisplayed());
+    }
+}
