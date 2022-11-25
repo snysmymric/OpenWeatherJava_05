@@ -3,6 +3,9 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import base.BaseTest;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class DimaZadrutsiyTest extends BaseTest {
 
@@ -24,7 +27,10 @@ public class DimaZadrutsiyTest extends BaseTest {
     private final By BUTTON_WEATHER_PARAMETERS = By.xpath("//span[text()='Weather Parameters:']");
     private final By ELEMENTS_POP_UP_MENU_WEATHER_PARAMETERS = By
             .xpath("//div[@class='owm-check-box-group columns']//label");
-
+    private final By SEARCH_FIELD_CREATE_NEW_HISTORY_BULK = By.xpath("//input[@id='firstSearch']");
+    private final By CHOOSE_CITY = By.xpath("//div[@class='pac-item']");
+    private final By ADD_LOCATION = By.xpath("//div[@class='map-container']//button[@class='button-round dark']");
+    private final By CITY_LIST = By.xpath("//tr/td[@contenteditable='true']");
 
     @Test
     public void testUpdatePage() {
@@ -133,5 +139,36 @@ public class DimaZadrutsiyTest extends BaseTest {
         boolean actualResult = checkingForUnselectedElements(ELEMENTS_POP_UP_MENU_WEATHER_PARAMETERS);
 
         Assert.assertTrue(actualResult);
+    }
+
+    @Test
+    public void testCreateNewHistoryBulk() {
+        final String CityName = "New York, NY, USA";
+        final String CityName2 = "Chernihiv, Chernihiv Oblast, Ukraine";
+        final String CityName3 = "Reykjavík, Iceland";
+
+        final List<String> expectedResult = new ArrayList<>();
+        expectedResult.add("New York ");
+        expectedResult.add("Chernihiv ");
+        expectedResult.add("Reykjavík ");
+
+        openBaseURL();
+        click20(BUTTON_MARKETPLACE);
+        jumpToNextWindow();
+        click20(DESKTOP_MENU_HISTORY_BULK);
+        click20(SEARCH_FIELD_CREATE_NEW_HISTORY_BULK);
+        input(CityName, SEARCH_FIELD_CREATE_NEW_HISTORY_BULK);
+        click20(CHOOSE_CITY);
+        click20(ADD_LOCATION);
+        input(CityName2, SEARCH_FIELD_CREATE_NEW_HISTORY_BULK);
+        click20(CHOOSE_CITY);
+        click20(ADD_LOCATION);
+        input(CityName3, SEARCH_FIELD_CREATE_NEW_HISTORY_BULK);
+        click20(CHOOSE_CITY);
+        click20(ADD_LOCATION);
+
+        List<String> actualResult = getListText(CITY_LIST);
+
+        Assert.assertEquals(actualResult, expectedResult);
     }
 }
