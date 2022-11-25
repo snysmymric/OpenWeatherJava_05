@@ -668,4 +668,14 @@ public void clickAllElements(By by) {
         return By.xpath(by.toString().substring(10, by.toString().length() - 2) + NumberInSequence + "]");
 
     }
+
+    public void clickByJS(WebElement element) {
+        JavascriptExecutor executor = (JavascriptExecutor)driver;
+        executor.executeScript("arguments[0].click();", element);
+    }
+
+    public void scrollToElement(WebElement element) {
+        Actions action = new Actions(driver);
+        action.scrollToElement(element).perform();
+    }
 }

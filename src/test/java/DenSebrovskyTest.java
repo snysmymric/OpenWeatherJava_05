@@ -14,6 +14,8 @@ public class DenSebrovskyTest extends BaseTest {
     private final By MENU_PRICING_BUTTON = By.xpath("//div[@id='desktop-menu']//a[@href='/price']");
     private final By FAQ_BUTTON = By.xpath("//a[@href='/faq#onecall']");
     private final By FAQ_H3_HEADER = By.xpath("//div[@class='col-sm-12']/section/h3");
+    private final By FAQ_CONTAINERS = By.xpath("//p[@class='question-heading']");
+    private final By OPENED_FAQ_CONTAINER_FIELD = By.xpath("//div[@class='col-sm-12']//div[@class='question-content']");
 
     @Test
     public void testSupportMenuIsClickableAndHas3Submenues() {
@@ -41,5 +43,25 @@ public class DenSebrovskyTest extends BaseTest {
         int actualH3HeadersAmount = getListSize(FAQ_H3_HEADER);
 
         Assert.assertEquals(actualH3HeadersAmount, expectedH3HeadersAmount);
+    }
+
+    @Test
+    public void test_CheckIfAllContainersAreClickable() {
+        openBaseURL();
+        click(MENU_PRICING_BUTTON);
+        click(FAQ_BUTTON);
+
+        List<WebElement> FAQContainers = getListOfElements(FAQ_CONTAINERS);
+        List<WebElement> FAQContainersInsideField = getListOfElements(OPENED_FAQ_CONTAINER_FIELD);
+
+        if (FAQContainers.size() == FAQContainersInsideField.size()) {
+            for (int i = 0; i < FAQContainers.size(); i++) {
+                scrollToElement(FAQContainers.get(i));
+                clickByJS(FAQContainers.get(i));
+                Assert.assertTrue(FAQContainersInsideField.get(i).isDisplayed());
+            }
+        } else {
+            Assert.fail();
+        }
     }
 }
