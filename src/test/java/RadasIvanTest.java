@@ -41,4 +41,18 @@ public class RadasIvanTest extends BaseTest {
 
         Assert.assertEquals(actualResult, expectedResult);
     }
+
+    @Test
+    public void testLinkStatisticalWeatherClickable() {
+        String expectedURL = "https://openweathermap.org/api/statistics-api";
+        String expectedHeaderText = "Statistical Weather Data API";
+
+        openBaseURL();
+
+        click(API);
+        clickOnButton(STATISTICAL_WEATHER_DATA_API);
+
+        Assert.assertEquals(getCurrentURL(), expectedURL);
+        Assert.assertEquals(getText(HEADER), expectedHeaderText);
+    }
 }
