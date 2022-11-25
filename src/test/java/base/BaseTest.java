@@ -647,4 +647,9 @@ public void clickAllElements(By by) {
     public void waitForElementToBeDisappeared(By by) {
         getWait10().until(ExpectedConditions.invisibilityOfElementLocated(by));
     }
+
+    public void waitURLToBeChanged(String url) {
+        getWait10().until(ExpectedConditions
+                .not(ExpectedConditions.urlToBe(url)));
+    }
 }
