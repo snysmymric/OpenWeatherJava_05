@@ -14,11 +14,6 @@ public class AndreyGolovTest extends BaseTest {
     final static By MORE_OPTIONS_BUTTON = By.className("more-options");
     final static By MORE_OPTIONS_PANEL = By.xpath("//div[@class = 'more-options']/following-sibling::div");
 
-    private By getByOfElementWithExactIndex(By by, int numberInSequence) {
-        String NumberInSequence = String.valueOf(numberInSequence);
-        return By.xpath(by.toString().substring(10, by.toString().length() - 2) + NumberInSequence + "]");
-    }
-
     private String getAttributeValueAfterClick(By by, String nameOfAttribute) {
         click(by);
         WebElement elementAfterClick = getDriver().findElement(by);
@@ -57,7 +52,7 @@ public class AndreyGolovTest extends BaseTest {
 
         for (int element : elementIndexes) {
             Assert.assertEquals(
-                    getAttributeValueAfterClick((getByOfElementWithExactIndex(FIRST_WEATHER_ICON_IN_POP_UP, element)), nameOfTestedAttribute),
+                    getAttributeValueAfterClick((getXPathOfElementWithExactIndex(FIRST_WEATHER_ICON_IN_POP_UP, element)), nameOfTestedAttribute),
                     expectedValueOfTestedAttribute
             );
         }
