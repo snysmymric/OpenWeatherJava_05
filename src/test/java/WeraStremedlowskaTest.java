@@ -1,30 +1,34 @@
 import org.openqa.selenium.By;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import base.BaseTest;
 
 public class WeraStremedlowskaTest extends BaseTest {
+    final String base_page_title = "Сurrent weather and forecast - OpenWeatherMap";
+
     private final By SUPPORT_DROPDOWN = By.id("support-dropdown");
     private final By SUPPORT_DROPDOWN_MENU = By.xpath("//ul[@id='support-dropdown-menu']/li");
     private final By SUBMENU_FAQ = By.xpath("//ul[@id='support-dropdown-menu']/li/a[@href='/faq']");
     private final By SUBMENU_HOW_TO_START = By.xpath("//ul[@id='support-dropdown-menu']/li/a[@href='/appid']");
     private final By SUBMENU_ASK_A_QUESTION = By
             .xpath("//ul[@id='support-dropdown-menu']/li/a[@href='https://home.openweathermap.org/questions']");
-    private final static By BREADCRUMB_TITLE = By.className("breadcrumb-title");
     private final By our_technology_link = By.cssSelector("a[href='/technology']");
     private final By privacy_policy = By.cssSelector("a[href='https://openweather.co.uk/privacy-policy']");
 
     @Test
     public void testH1TagText_WhenMenuHowToStartIsClicked() {
-        final String expectedResult = "How to start using professional collections";
+        final String expectedTitle = "How to start to work with Openweather API - OpenWeatherMap";
         final String expectedResultUrl = "https://openweathermap.org/appid";
 
         openBaseURL();
         click(SUPPORT_DROPDOWN);
         click(SUBMENU_HOW_TO_START);
+        waitURLToBeChanged(BASE_URL);
 
-        Assert.assertEquals(getDriver().getCurrentUrl(), expectedResultUrl);
-        Assert.assertEquals(getText(BREADCRUMB_TITLE), expectedResult);
+        Assert.assertNotEquals(base_page_title, getTitle());
+        Assert.assertEquals(getCurrentURL(), expectedResultUrl);
+        Assert.assertEquals(getTitle(), expectedTitle);
     }
 
     @Test
