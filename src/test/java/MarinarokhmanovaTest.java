@@ -16,6 +16,8 @@ public class MarinarokhmanovaTest extends BaseTest {
     final static By LOGO_OPEN_WEATHER =
             By.xpath("//img[@src='/themes/openweathermap/assets/img/logo_white_cropped.png']");
 
+    final static By HOME_GUIDE_BUTTON = By.xpath("//div[@class='container']//a[@href]");
+
     @Test
     public void testH2TagText_WhenSearchingCityCountry() throws InterruptedException {
 
@@ -62,5 +64,23 @@ public class MarinarokhmanovaTest extends BaseTest {
         click(LOGO_OPEN_WEATHER);
 
         Assert.assertEquals(getDriver().getCurrentUrl(), expectedResult);
+    }
+
+    @Test
+    public void testGuideVisibleAndClickableHomeBaseURLOpened () {
+
+        String expectedResult = "https://openweathermap.org/";
+
+        openBaseURL();
+
+        click(GUIDE_SEARCH_FIELD);
+        waitElementToBeVisible(HOME_GUIDE_BUTTON);
+        waitElementToBeClickable(HOME_GUIDE_BUTTON);
+        click(HOME_GUIDE_BUTTON);
+        getWait10();
+
+        String actualResult = getDriver().getCurrentUrl();
+
+        Assert.assertEquals(actualResult, expectedResult);
     }
 }
