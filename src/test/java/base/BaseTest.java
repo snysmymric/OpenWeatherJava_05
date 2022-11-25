@@ -109,6 +109,11 @@ public abstract class BaseTest {
         return element.getText();
     }
 
+    public boolean isTextContains(By by, String text) {
+
+        return getText(by).contains(text);
+    }
+
     public String getTextWaiting(By by) {
         getWait20().until(ExpectedConditions.visibilityOfElementLocated(by));
 
