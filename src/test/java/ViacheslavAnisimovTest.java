@@ -1,5 +1,6 @@
 import org.openqa.selenium.*;
 import org.testng.Assert;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import base.BaseTest;
 
@@ -102,6 +103,7 @@ public class ViacheslavAnisimovTest extends BaseTest {
         Assert.assertTrue(getText(TEMP_TEXT_IN_HEADING).contains(SYMBOL_FAHRENHEIT));
     }
 
+    @Ignore
     @Test
     public void testCurrentDateHourOnStartPage() {
 
