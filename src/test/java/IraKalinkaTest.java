@@ -37,7 +37,7 @@ public class IraKalinkaTest extends BaseTest {
        click(SUPPORT_LINK);
        Assert.assertEquals(getLinksList(DROPDOWN_MENU, TAG_NAME), expectedList);
     }
-    @Ignore
+
     @Test
     public void testCaptchaErrorMessage() {
         final String email = "test@test.com";
@@ -49,6 +49,7 @@ public class IraKalinkaTest extends BaseTest {
         click(SUPPORT_LINK);
         click(ASK_AQUESTION_LINK);
         iterateWindows();
+        waitElementToBeVisible(EMAIL_TEXTBOX);
         input(email, EMAIL_TEXTBOX);
         selectOption(SUBJECT_TEXTBOX,subject);
         input(messageText, MESSAGE_TEXTBOX);
@@ -56,7 +57,6 @@ public class IraKalinkaTest extends BaseTest {
 
         Assert.assertEquals(getText(ERROR_MESSAGE), expectedMessage);
     }
-
 }
 
 
