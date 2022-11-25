@@ -5,14 +5,10 @@ import org.testng.annotations.Test;
 import base.BaseTest;
 
 public class WeraStremedlowskaTest extends BaseTest {
-    final String base_page_title = "Сurrent weather and forecast - OpenWeatherMap";
+    private final String base_page_title = "Сurrent weather and forecast - OpenWeatherMap";
 
     private final By SUPPORT_DROPDOWN = By.id("support-dropdown");
-    private final By SUPPORT_DROPDOWN_MENU = By.xpath("//ul[@id='support-dropdown-menu']/li");
-    private final By SUBMENU_FAQ = By.xpath("//ul[@id='support-dropdown-menu']/li/a[@href='/faq']");
     private final By SUBMENU_HOW_TO_START = By.xpath("//ul[@id='support-dropdown-menu']/li/a[@href='/appid']");
-    private final By SUBMENU_ASK_A_QUESTION = By
-            .xpath("//ul[@id='support-dropdown-menu']/li/a[@href='https://home.openweathermap.org/questions']");
     private final By our_technology_link = By.cssSelector("a[href='/technology']");
     private final By privacy_policy = By.cssSelector("a[href='https://openweather.co.uk/privacy-policy']");
 
@@ -39,7 +35,9 @@ public class WeraStremedlowskaTest extends BaseTest {
         openBaseURL();
         scrollByVisibleElement(our_technology_link);
         click(our_technology_link);
+        waitURLToBeChanged(BASE_URL);
 
+        Assert.assertNotEquals(base_page_title, getTitle());
         Assert.assertEquals(getCurrentURL(), expectedURL);
         Assert.assertEquals(getTitle(), expectedTitle);
     }
