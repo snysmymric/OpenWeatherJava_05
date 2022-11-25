@@ -12,7 +12,8 @@ public class KristinaPereselkinaTest extends BaseTest {
     static final By H2_HEADER_PROFESSIONAL_COLLECTION = By.xpath("//h2[text()='Current weather and forecasts collection']");
     static final By COLLECTION_SUBSCRIPTION_PRICE = By.xpath("//div/table//th/h4/b");
     static final By BUTTON_SUBSCRIPTION = By.xpath("//div/table//th/a");
-    static final By COLLECTION_PRODUCTS = By.xpath("//div/table//td[1]/p");
+    static final By FREE_COLLECTION_PRODUCTS = By.xpath("//div/table//td[1]/p");
+    static final By STARTUP_COLLECTION_PRODUCTS = By.xpath(" //div/table//td[2]/p");
     static final By DISABLED_PRODUCTS_FREE_SUBSCRIPTION = By.xpath("//div/table//td[1]/p[@style='color:#e0e0e0;']");
     static private List<String> getProfessionalSubscriptionPlans() {
         List<String> expectedList = new ArrayList<>();
@@ -141,7 +142,7 @@ public class KristinaPereselkinaTest extends BaseTest {
         waitForGrayContainerDisappeared();
         click(A_HREF_PRICE);
 
-        List<String> actualList = getListText(COLLECTION_PRODUCTS);
+        List<String> actualList = getListText(FREE_COLLECTION_PRODUCTS);
 
         Assert.assertEquals(actualList, expectedList);
     }
@@ -168,6 +169,19 @@ public class KristinaPereselkinaTest extends BaseTest {
         click(A_HREF_PRICE);
 
         List<String> actualList = getListText(BUTTON_SUBSCRIPTION);
+
+        Assert.assertEquals(actualList, expectedList);
+    }
+
+    @Test
+    public void testStartupSubscriptionProducts() {
+        List<String> expectedList = getProfessionalCollectionProducts();
+
+        openBaseURL();
+        waitForGrayContainerDisappeared();
+        click(A_HREF_PRICE);
+
+        List<String> actualList = getListText(STARTUP_COLLECTION_PRODUCTS);
 
         Assert.assertEquals(actualList, expectedList);
     }
