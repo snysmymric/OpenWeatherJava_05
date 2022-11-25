@@ -1,5 +1,4 @@
 import org.openqa.selenium.By;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import base.BaseTest;
@@ -51,7 +50,9 @@ public class WeraStremedlowskaTest extends BaseTest {
         scrollByVisibleElement(privacy_policy);
         click(privacy_policy);
         switchWindow();
+        waitURLToBeChanged(BASE_URL);
 
+        Assert.assertNotEquals(base_page_title, getTitle());
         Assert.assertEquals(getCurrentURL(), expectedURL);
         Assert.assertEquals(getTitle(), expectedTitle);
     }
