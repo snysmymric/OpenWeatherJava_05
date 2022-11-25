@@ -3,6 +3,7 @@ import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import base.BaseTest;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -21,6 +22,8 @@ public class TaniaKunoTest extends BaseTest {
     final static By LABELS_IS_USER_FIELD = By.xpath("//div[@class = 'col-sm-8']//span//label");
     final static By CHECKBOX_IS_USER_FIELD = By.xpath("//div[@class = 'col-sm-8']//span//input");
     final static By TEXT_IS_USER_YES = By.xpath("//div[@id = 'prompt']");
+    final static By SUBMIT_BUTTON = By.xpath("//input[@value= 'Submit']");
+    final static By TEXT_RECAPTCHA_FAILED = By.xpath("//div[@class = 'help-block']");
 
     @Test
     public void testH2TagText_WhenSearchingCityCountry() {
@@ -118,6 +121,28 @@ public class TaniaKunoTest extends BaseTest {
 
         Assert.assertTrue(isDisplayed(LABELS_IS_USER_FIELD));
         Assert.assertEquals(actualLabels, expectedLabels);
+        Assert.assertEquals(actualText, expectedText);
+    }
+
+    @Test
+    public void testVerifyButtonSubmit_OnAskAQuestionForm() {
+        String buttonText = "Submit";
+        String expectedText = "reCAPTCHA verification failed, please try again.";
+
+        openBaseURL();
+        click(SUPPORT_MENU);
+        click(ASK_A_QUESTION_SUBMENU);
+        jumpToNextWindow();
+
+        Assert.assertTrue(
+                isDisplayed(
+                        By.xpath("//div[@class = 'container']//*[@* = '" + buttonText + "']")));
+
+        click(SUBMIT_BUTTON);
+        waitElementToBeVisible(TEXT_RECAPTCHA_FAILED);
+
+        String actualText = getText(TEXT_RECAPTCHA_FAILED);
+
         Assert.assertEquals(actualText, expectedText);
     }
 }
