@@ -19,6 +19,8 @@ public class Maksim2404Test extends BaseTest {
     final By GET_NAME_METRIC = By.xpath("//div[@class='option']");
     final By SELECTED_IS_TRUE = By.xpath("//div[@id='selected']");
     final By WIDGET_NOTIFICATION = By.xpath("//div[@id='weather-widget']//div[@class='widget-notification']");
+    final By OPEN_STREET_MAP = By.xpath("//div[@id='weather-widget']//a[@href='https://www.openstreetmap.org/copyright']");
+    final By CONFIRM_ELEMENT_IS_VISIBLE_OPEN_STREET_MAP = By.xpath("//div[@id='content']//h1");
 
     @Test
     public void testH2TextWhenSearchingCityCountry() {
@@ -102,5 +104,17 @@ public class Maksim2404Test extends BaseTest {
         String actualXbottonGreenColor = backgroundColor(WIDGET_NOTIFICATION);
 
         Assert.assertEquals(actualXbottonGreenColor,expectedXButtonGreenColor);
+    }
+    @Test
+    public void testWidgetMapAndLinkOpenStreetMapAreWorking() {
+
+        String expectedLinkIsClickableAndOpened = "https://www.openstreetmap.org/copyright";
+
+        openBaseURL();
+        click(OPEN_STREET_MAP);
+        jumpToNextWindow();
+        waitElementToBeVisible(CONFIRM_ELEMENT_IS_VISIBLE_OPEN_STREET_MAP);
+
+        Assert.assertEquals(getCurrentURL(),expectedLinkIsClickableAndOpened);
     }
 }
