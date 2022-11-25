@@ -1,4 +1,6 @@
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import base.BaseTest;
@@ -21,6 +23,8 @@ public class Maksim2404Test extends BaseTest {
     final By WIDGET_NOTIFICATION = By.xpath("//div[@id='weather-widget']//div[@class='widget-notification']");
     final By OPEN_STREET_MAP = By.xpath("//div[@id='weather-widget']//a[@href='https://www.openstreetmap.org/copyright']");
     final By CONFIRM_ELEMENT_IS_VISIBLE_OPEN_STREET_MAP = By.xpath("//div[@id='content']//h1");
+    final By SUBSCRIBE_FREE_BUTTON = By.xpath("//a[@href='https://home.openweathermap.org/users/sign_up']");
+    final By CONFIRM_SUBSCRIBE_FREE_LINK_OPENED = By.xpath("//h3[@class='first-child']");
 
     @Test
     public void testH2TextWhenSearchingCityCountry() {
@@ -116,5 +120,23 @@ public class Maksim2404Test extends BaseTest {
         waitElementToBeVisible(CONFIRM_ELEMENT_IS_VISIBLE_OPEN_STREET_MAP);
 
         Assert.assertEquals(getCurrentURL(),expectedLinkIsClickableAndOpened);
+    }
+    @Test
+    public void testSubscribeForFreeConfirmLinkIsClickableAndOpened() {
+
+        String expectedLinkSubscribeFreeWorks = "https://home.openweathermap.org/users/sign_up";
+
+        openBaseURL();
+        scrollByVisibleElement(SUBSCRIBE_FREE_BUTTON);
+
+        Assert.assertTrue(isDisplayed(SUBSCRIBE_FREE_BUTTON));
+
+        click(SUBSCRIBE_FREE_BUTTON);
+        jumpToNextWindow();
+
+        waitElementToBeVisible(CONFIRM_SUBSCRIBE_FREE_LINK_OPENED);
+
+        Assert.assertEquals(getCurrentURL(),expectedLinkSubscribeFreeWorks);
+
     }
 }
