@@ -14,7 +14,7 @@ public class NataliadylaiTest extends BaseTest {
     final static By MENU_GUIDE = By.xpath("//div[@id='desktop-menu']//a[contains (text(), 'Guide')]");
     final static By GUIDE_TITLE = By.xpath("//div/ul/li/a[@href = '/guide']");
     final static By LOGO = By.xpath("//img[@src='/themes/openweathermap/assets/img/logo_white_cropped.png']");
-
+    final static By MENU_DASHBOARD = By.xpath("//div[@id = 'desktop-menu']//a[@href = '/weather-dashboard']");
 
     @Test
     public void testH2TagText_WhenSearchCityCountry() {
@@ -59,4 +59,14 @@ public class NataliadylaiTest extends BaseTest {
 
         Assert.assertEquals(getDriver().getTitle(), expectedResultTitle);
     }
+
+    @Test
+    public void test_OpenWeatherDashboardPage_HappyPath(){
+        String expectedResult = "https://openweathermap.org/weather-dashboard";
+        openBaseURL();
+        click(MENU_DASHBOARD);
+
+        Assert.assertEquals(getDriver().getCurrentUrl(),expectedResult);
+    }
+
 }
