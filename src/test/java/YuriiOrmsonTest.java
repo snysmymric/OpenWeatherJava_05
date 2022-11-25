@@ -33,7 +33,7 @@ public class YuriiOrmsonTest extends BaseTest {
     private final By SPECIAL_PRODUCTS_SUB_HEADERS = By.xpath(
             "//section[@id = 'alerts']//tbody/tr/th/h4/a");
     private final By SPECIAL_PRODUCTS_GET_REQUEST = By.xpath(
-            "//section[@id = 'alerts']//tr/th[2]/h4[contains(text(), 'By request' )]");
+            "//section[@id = 'alerts']//tr/th[2]/h4[contains(text(), 'By request')]");
 
     static private List<String> getSpecialProductsSubHeaders() {
         List<String> expectedList = new ArrayList<>();
@@ -43,6 +43,16 @@ public class YuriiOrmsonTest extends BaseTest {
         expectedList.add("Road Risk API (advanced configuration)");
         expectedList.add("Global Precipitation Map - Forecast and historical data");
         expectedList.add("Weather Maps 2.0 with 1-hour step");
+
+        return expectedList;
+    }
+
+    static private List<String> getSpecialProductsByRequestHeaders() {
+        List<String> expectedList = new ArrayList<>();
+        expectedList.add("By request");
+        expectedList.add("By request");
+        expectedList.add("By request");
+        expectedList.add("By request");
 
         return expectedList;
     }
@@ -180,6 +190,7 @@ public class YuriiOrmsonTest extends BaseTest {
 
         Assert.assertEquals(actualList, expectedList);
     }
+
     @Test
     public void testSectionIdAlertsAnchorEl_countByRequest() {
         int expectedResult = 4;
@@ -190,6 +201,22 @@ public class YuriiOrmsonTest extends BaseTest {
         waitForGrayContainerDisappeared();
 
         int actualResult = countElements(SPECIAL_PRODUCTS_GET_REQUEST);
-        Assert.assertEquals(actualResult,expectedResult);
+
+        Assert.assertEquals(actualResult, expectedResult);
+    }
+
+    @Test
+    public void testSectionIdAlertsAnchorEl_GetRequestHeaders() {
+        List<String> expectedList = getSpecialProductsByRequestHeaders();
+
+        openBaseURL();
+
+        click(A_HREF_PRICE);
+        waitForGrayContainerDisappeared();
+
+        List<String> actualList = getListText(SPECIAL_PRODUCTS_GET_REQUEST);
+
+        Assert.assertEquals(actualList, expectedList);
+
     }
 }
