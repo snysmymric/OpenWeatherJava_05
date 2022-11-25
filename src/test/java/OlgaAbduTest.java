@@ -89,9 +89,5 @@ public class OlgaAbduTest extends BaseTest {
             Alert alert = getWait10().until(ExpectedConditions.alertIsPresent());
             alert.accept();
         }
-        final int amountOfApisKeys = getListOfElements(API_WHOLE_TABLE_SIZE).size();
-
-        Assert.assertEquals(amountOfApisKeys, 1);
     }
-
 }
