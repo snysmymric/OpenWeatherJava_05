@@ -8,11 +8,11 @@ import java.util.List;
 
 public class DenSebrovskyTest extends BaseTest {
 
-    final static By SUPPORT_BUTTON = By.xpath("//div[@id='support-dropdown']");
-    final static By SUPPORT_DROPDOWN_MENU = By.xpath("//ul[@id='support-dropdown-menu']");
-    final static By SUBMENU_BUTTONS_AMOUNT = By.xpath("//ul[@id='support-dropdown-menu']/*");
-    final static By MENU_PRICING_BUTTON = By.xpath("//div[@id='desktop-menu']//a[@href='/price']");
-    final static By FAQ_BUTTON = By.xpath("//a[@href='/faq#onecall']");
+    private final By SUPPORT_BUTTON = By.xpath("//div[@id='support-dropdown']");
+    private final By SUPPORT_DROPDOWN_MENU = By.xpath("//ul[@id='support-dropdown-menu']");
+    private final By SUBMENU_BUTTONS_AMOUNT = By.xpath("//ul[@id='support-dropdown-menu']/*");
+    private final By MENU_PRICING_BUTTON = By.xpath("//div[@id='desktop-menu']//a[@href='/price']");
+    private final By FAQ_BUTTON = By.xpath("//a[@href='/faq#onecall']");
     private final By FAQ_H3_HEADER = By.xpath("//div[@class='col-sm-12']/section/h3");
 
     @Test
@@ -38,8 +38,7 @@ public class DenSebrovskyTest extends BaseTest {
         openBaseURL();
         click(MENU_PRICING_BUTTON);
         click(FAQ_BUTTON);
-        List<WebElement> H3HeadersAmount = getDriver().findElements(FAQ_H3_HEADER);
-        int actualH3HeadersAmount = H3HeadersAmount.size();
+        int actualH3HeadersAmount = getListSize(FAQ_H3_HEADER);
 
         Assert.assertEquals(actualH3HeadersAmount, expectedH3HeadersAmount);
     }
