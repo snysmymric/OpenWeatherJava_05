@@ -653,8 +653,14 @@ public void clickAllElements(By by) {
                 .not(ExpectedConditions.urlToBe(url)));
     }
 
+    public void waitTitleToBeChanged(String title) {
+        getWait10().until(ExpectedConditions
+                .not(ExpectedConditions.titleIs(title)));
+                }
+
     public By getXPathOfElementWithExactIndex(By by, int numberInSequence) {
         String NumberInSequence = String.valueOf(numberInSequence);
         return By.xpath(by.toString().substring(10, by.toString().length() - 2) + NumberInSequence + "]");
+
     }
 }
