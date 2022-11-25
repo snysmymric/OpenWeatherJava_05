@@ -26,12 +26,15 @@ public class AlinaIvanovaTest extends BaseTest {
         final String expectedPageTitle = "OpenWeatherMap API guide - OpenWeatherMap";
 
         openBaseURL();
+        final String oldPageTitle = getTitle();
+
         click(MENU_GUIDE);
+        waitURLToBeChanged(BASE_URL);
+        waitTitleToBeChanged(oldPageTitle);
 
         String actualURL= getCurrentURL();
         String actualPageTitle = getTitle();
-        
-        getWait10();
+
         Assert.assertEquals(actualURL, expectedURL);
         Assert.assertEquals(actualPageTitle, expectedPageTitle);
     }
