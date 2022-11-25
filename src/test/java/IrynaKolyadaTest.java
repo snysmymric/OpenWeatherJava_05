@@ -3,6 +3,8 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import base.BaseTest;
 
+import java.util.List;
+
 public class IrynaKolyadaTest extends BaseTest {
     final static By H2_CITY_COUNTRY_HEADER = By.xpath("//div[@id = 'weather-widget']//h2");
     final static By SEARCH_CITY_FIELD = By.xpath("//div[@id = 'weather-widget']//input[@placeholder = 'Search city']");
@@ -13,7 +15,7 @@ public class IrynaKolyadaTest extends BaseTest {
     final static By PLACEHOLDER_FIELD = By.xpath("//div[@id='desktop-menu']//input[@type='text']");
     final static By PLACEHOLDER_VALUE = By.xpath("//div//input[@id='search_str']");
     final static By HAMBURGER_BUTTON_IMAGE = By.xpath("//nav/ul/li[@id='hamburger']/img");
-    final static By HAMBURGER_DROPDOWN_MENU = By.xpath("//ul[@id='mobile-menu']/li");
+    final static By HAMBURGER_DROPDOWN_MENU = By.xpath("//ul[@id='mobile-menu']/li/a");
 
     @Test
     public void testH2TagText_WhenSearchingCityCountry()  {
@@ -50,10 +52,9 @@ public class IrynaKolyadaTest extends BaseTest {
 
         openBaseURL();
         click(PLACEHOLDER_FIELD);
-        inputTextAndClickEnter(PLACEHOLDER_FIELD, city);
+        inputAndEnter(PLACEHOLDER_FIELD, city);
 
         Assert.assertEquals(getTextByAttribute(PLACEHOLDER_VALUE, "value"), city);
-
         Assert.assertTrue(getCurrentURL().contains(city));
     }
 
@@ -63,13 +64,18 @@ public class IrynaKolyadaTest extends BaseTest {
         int width = 1020;
         int heigth = 880;
         String attributeName = "src";
-        int numberOfButtonsOnHamburgerMenu =13;
+        int numberOfButtonsOnHamburgerMenu =12;
+        List<String> listOfHamburgerMenu = List.of("Guide", "API", "Dashboard", "Marketplace", "Pricing",
+                "Maps", "Our Initiatives", "Partners", "Blog", "For Business", "Ask a question", "Sign in");
+
         openBaseURL();
         getSmallSizeWindow(width, heigth);
 
         Assert.assertEquals(getTextByAttribute(HAMBURGER_BUTTON_IMAGE, attributeName), expectedResult);
         click(HAMBURGER_BUTTON_IMAGE);
 
-        Assert.assertEquals(getListSize(HAMBURGER_DROPDOWN_MENU),numberOfButtonsOnHamburgerMenu);
+        Assert.assertTrue(getListOfElements(HAMBURGER_DROPDOWN_MENU).size() > 0);
+        Assert.assertEquals(getListOfElements(HAMBURGER_DROPDOWN_MENU).size(),numberOfButtonsOnHamburgerMenu);
+        Assert.assertEquals(getListText(HAMBURGER_DROPDOWN_MENU),listOfHamburgerMenu);
     }
 }
