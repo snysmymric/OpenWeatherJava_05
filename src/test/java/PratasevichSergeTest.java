@@ -1,5 +1,4 @@
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import base.BaseTest;
@@ -27,6 +26,10 @@ public class PratasevichSergeTest extends BaseTest {
     final static By POST_FILTERS = By.xpath("//div[@class='post-filters']/form/ul");
     final static By SUB_MENU_BLOG = By.xpath("//li[@class='post-filters__item']");
     final static By ALL_SUB_MENUS_BLOG = By.xpath("//div[@class='post-filters']//li");
+    final static String BLOG_URL = "https://openweather.co.uk/blog";
+    final static By ALL_PAGE_NUMBER_BUTTONS_BLOG = By.xpath(
+            "//ul[@class='pagination']/li");
+    final static By SUB_MENU_ALL = By.xpath("//ul[@class='post-filters__items']//label[@for='all']");
 
     @Test
     public void testH2TagText_WhenSearchingCityCountry() throws InterruptedException {
@@ -115,5 +118,19 @@ public class PratasevichSergeTest extends BaseTest {
         List<String> actualSubMenuNames = getListText(ALL_SUB_MENUS_BLOG);
 
         Assert.assertEquals(actualSubMenuNames, expectedSubMenuNames);
+    }
+
+    @Test
+    public void testQuantityOFPageNumberButtonsOnSubMenuAll(){
+        int expectedQuantityOfPageNumberButtons = 13;
+
+        openBaseURL();
+        click(BLOG_MENU);
+        jumpToNextWindow();
+        click(SUB_MENU_ALL);
+        scrollByVisibleElement(ALL_PAGE_NUMBER_BUTTONS_BLOG);
+        int actualQuantityOfPageNumberButtons = getListSize(ALL_PAGE_NUMBER_BUTTONS_BLOG);
+
+        Assert.assertEquals(actualQuantityOfPageNumberButtons, expectedQuantityOfPageNumberButtons);
     }
 }
