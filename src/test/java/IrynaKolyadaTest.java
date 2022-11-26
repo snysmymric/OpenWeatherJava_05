@@ -1,4 +1,6 @@
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import base.BaseTest;
@@ -16,9 +18,10 @@ public class IrynaKolyadaTest extends BaseTest {
     final static By PLACEHOLDER_VALUE = By.xpath("//div//input[@id='search_str']");
     final static By HAMBURGER_BUTTON_IMAGE = By.xpath("//nav/ul/li[@id='hamburger']/img");
     final static By HAMBURGER_DROPDOWN_MENU = By.xpath("//ul[@id='mobile-menu']/li/a");
+    final static By ERROR_MESSAGE_EMPTY_PLACEHOLDER = By.xpath("//div[@class='row']/div/ul/li");
 
     @Test
-    public void testH2TagText_WhenSearchingCityCountry()  {
+    public void testH2TagText_WhenSearchingCityCountry() {
         String cityName = "Paris";
         String expectedResult = "Paris, FR";
 
@@ -36,7 +39,7 @@ public class IrynaKolyadaTest extends BaseTest {
     }
 
     @Test
-    public void testTextOfPlaceholderNavBar_homePage()  {
+    public void testTextOfPlaceholderNavBar_homePage() {
         final String expectedResult = "Weather in your city";
 
         openBaseURL();
@@ -64,7 +67,7 @@ public class IrynaKolyadaTest extends BaseTest {
         int width = 1020;
         int heigth = 880;
         String attributeName = "src";
-        int numberOfButtonsOnHamburgerMenu =12;
+        int numberOfButtonsOnHamburgerMenu = 12;
         List<String> listOfHamburgerMenu = List.of("Guide", "API", "Dashboard", "Marketplace", "Pricing",
                 "Maps", "Our Initiatives", "Partners", "Blog", "For Business", "Ask a question", "Sign in");
 
@@ -75,7 +78,22 @@ public class IrynaKolyadaTest extends BaseTest {
         click(HAMBURGER_BUTTON_IMAGE);
 
         Assert.assertTrue(getListOfElements(HAMBURGER_DROPDOWN_MENU).size() > 0);
-        Assert.assertEquals(getListOfElements(HAMBURGER_DROPDOWN_MENU).size(),numberOfButtonsOnHamburgerMenu);
-        Assert.assertEquals(getListText(HAMBURGER_DROPDOWN_MENU),listOfHamburgerMenu);
+        Assert.assertEquals(getListOfElements(HAMBURGER_DROPDOWN_MENU).size(), numberOfButtonsOnHamburgerMenu);
+        Assert.assertEquals(getListText(HAMBURGER_DROPDOWN_MENU), listOfHamburgerMenu);
+    }
+
+    @Test
+    public void testEmptyPlaceholderNavBar_homePage() {
+        String emptyFiled = "";
+        String defaultCity = "London, UK";
+        String attribute = "value";
+        String errorMessage = "To make it more precise put the city's name, comma, 2-letter country code (ISO3166). You will get all proper cities in chosen country.\n" +
+                "The order is important - the first is city name then comma then country. Example - London, GB or New York, US.";
+
+        openBaseURL();
+        inputAndEnter(PLACEHOLDER_FIELD,emptyFiled);
+
+        Assert.assertEquals(getTextByAttribute(PLACEHOLDER_VALUE,attribute),defaultCity);
+        Assert.assertEquals(getText(ERROR_MESSAGE_EMPTY_PLACEHOLDER), errorMessage);
     }
 }

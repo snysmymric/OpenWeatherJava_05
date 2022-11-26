@@ -1,6 +1,7 @@
 import base.BaseTest;
 import org.openqa.selenium.By;
 import org.testng.Assert;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 
 import java.util.ArrayList;
@@ -129,7 +130,7 @@ public class IvanRamin7Test extends BaseTest {
 
         Assert.assertEquals(getDriver().findElement(ERROR_CAPTCHA).getText(), captchaErrorTextExpectedResult);
     }
-
+     @Ignore
     @Test
     public void test_ConfirmUnitsAreSwitched(){
         final String expectedFahrenheits = "°F";
