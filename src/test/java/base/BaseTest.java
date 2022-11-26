@@ -626,7 +626,7 @@ public abstract class BaseTest {
         JavascriptExecutor executor = (JavascriptExecutor) getDriver();
         executor.executeScript("arguments[0].click();", Button);
     }
-    
+
      public void changeWindowResolution(int width, int height){
         getDriver().manage().window().setSize(new Dimension(width,height));
     }
@@ -686,10 +686,17 @@ public void clickAllElements(By by) {
         JavascriptExecutor js = (JavascriptExecutor) getDriver();
         js.executeScript("window.scrollTo(" + x + "," + y + ")");
     }
-    
+
     public void logger_Info(String str){
         final Logger logger = Logger.getLogger(Main.class.getName());
         logger.log(Level.INFO, String.valueOf(str));
     }
-    
+
+   public String getAttributeValueAfterClick(By by, String nameOfAttribute) {
+       click(by);
+       WebElement elementAfterClick = getDriver().findElement(by);
+
+       return elementAfterClick.getAttribute(nameOfAttribute);
+   }
+
 }

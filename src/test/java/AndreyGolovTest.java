@@ -14,13 +14,6 @@ public class AndreyGolovTest extends BaseTest {
     final static By MORE_OPTIONS_BUTTON = By.className("more-options");
     final static By MORE_OPTIONS_PANEL = By.xpath("//div[@class = 'more-options']/following-sibling::div");
 
-    private String getAttributeValueAfterClick(By by, String nameOfAttribute) {
-        click(by);
-        WebElement elementAfterClick = getDriver().findElement(by);
-
-        return elementAfterClick.getAttribute(nameOfAttribute);
-    }
-
     @Test
     public void testXButtonIsDisplayed() {
 
