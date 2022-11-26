@@ -20,7 +20,9 @@ public class ViacheslavAnisimovTest extends BaseTest {
     final static By SUCCESSFUL_LOGIN_TEXT = By.xpath("//div[@class='panel-body']");
     final static By FAHRENHEIT = By.xpath("//div[@class='option'][contains(text(), 'Imperial: °F, mph')]");
     final static By TEMP_TEXT_IN_HEADING = By.xpath("//span[@class='heading'][contains(text(), '°F')]");
-    final static By CURRENT_DATE_TIME = By.xpath("//div[@id='weather-widget']//span[@class='orange-text']");
+    final static By SEARCH_CITY_FIELD = By.xpath("//input[@placeholder='Search city']");
+    final static By SUB_NOT_FOUND = By.xpath("//div[@class='sub not-found notFoundOpen']");
+    final static By NO_RESULTS_FOR = By.xpath("//div[@class='widget-notification']/span");
 
     @Test
     public void testHamburgerMenuAndGuidePageTitle() {
@@ -103,12 +105,20 @@ public class ViacheslavAnisimovTest extends BaseTest {
         Assert.assertTrue(getText(TEMP_TEXT_IN_HEADING).contains(SYMBOL_FAHRENHEIT));
     }
 
-    @Ignore
     @Test
-    public void testCurrentDateHourOnStartPage() {
+    public void testEnterSearchCityFieldWrongData() {
+        final String wrongText = "Dsa";
+        final String expectedResult = "Not found. To make search more precise put the city's name, comma, 2-letter country code (ISO3166).";
+        final String expectedResult2 = "No results for Dsa";
 
         openBaseURL();
 
-        Assert.assertEquals(getText(CURRENT_DATE_TIME).substring(0, 10), systemDate());
+        inputAndEnter(SEARCH_CITY_FIELD, wrongText);
+
+        String actualResult = getText(SUB_NOT_FOUND);
+        String actualResult2 = getText(NO_RESULTS_FOR);
+
+        Assert.assertEquals(actualResult, expectedResult);
+        Assert.assertEquals(actualResult2, expectedResult2);
     }
 }
