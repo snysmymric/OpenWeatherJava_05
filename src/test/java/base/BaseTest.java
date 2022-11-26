@@ -317,7 +317,7 @@ public abstract class BaseTest {
         js.executeScript("window.scrollTo(0, document.body.scrollHeight)");
     }
 
-    public void clickByKeyEnter(By by){
+    public void clickByKeyEnter(By by) {
         getDriver().findElement(by).sendKeys(Keys.ENTER);
     }
 
@@ -627,13 +627,12 @@ public abstract class BaseTest {
         executor.executeScript("arguments[0].click();", Button);
     }
 
-     public void changeWindowResolution(int width, int height){
-        getDriver().manage().window().setSize(new Dimension(width,height));
+    public void changeWindowResolution(int width, int height) {
+        getDriver().manage().window().setSize(new Dimension(width, height));
     }
 
 
-
-public void clickAllElements(By by) {
+    public void clickAllElements(By by) {
         List<WebElement> allElements = getDriver().findElements(by);
         for (WebElement checkedElement : allElements) {
             getWait20().until(ExpectedConditions.elementToBeClickable(checkedElement)).click();
@@ -664,7 +663,7 @@ public void clickAllElements(By by) {
     public void waitTitleToBeChanged(String title) {
         getWait10().until(ExpectedConditions
                 .not(ExpectedConditions.titleIs(title)));
-                }
+    }
 
     public By getXPathOfElementWithExactIndex(By by, int numberInSequence) {
         String NumberInSequence = String.valueOf(numberInSequence);
@@ -673,7 +672,7 @@ public void clickAllElements(By by) {
     }
 
     public void clickByJS(WebElement element) {
-        JavascriptExecutor executor = (JavascriptExecutor)driver;
+        JavascriptExecutor executor = (JavascriptExecutor) driver;
         executor.executeScript("arguments[0].click();", element);
     }
 
@@ -682,22 +681,27 @@ public void clickAllElements(By by) {
         action.scrollToElement(element).perform();
     }
 
-   public void scrollByPixels(String x, String y) {
+    public void scrollByPixels(String x, String y) {
         JavascriptExecutor js = (JavascriptExecutor) getDriver();
         js.executeScript("window.scrollTo(" + x + "," + y + ")");
     }
 
-    public void logger_Info(String str){
+    public void logger_Info(String str) {
         final Logger logger = Logger.getLogger(Main.class.getName());
         logger.log(Level.INFO, String.valueOf(str));
     }
 
-   public String getAttributeValueAfterClick(By by, String nameOfAttribute) {
-       click(by);
-       WebElement elementAfterClick = getDriver().findElement(by);
+    public String getAttributeValueAfterClick(By by, String nameOfAttribute) {
+        click(by);
+        WebElement elementAfterClick = getDriver().findElement(by);
 
-       return elementAfterClick.getAttribute(nameOfAttribute);
-   }
+        return elementAfterClick.getAttribute(nameOfAttribute);
+    }
+
+    public void switchToSpecificWindows(int numberWindow) {
+        ArrayList<String> newWindow = new ArrayList<>(getDriver().getWindowHandles());
+        getDriver().switchTo().window(newWindow.get(numberWindow));
+    }
 
     public boolean checkIfAllElementsAreVisibleAndClickable(By by) {
         List<WebElement> list = getDriver().findElements(by);
@@ -713,5 +717,11 @@ public void clickAllElements(By by) {
         }
 
         return isAllElementsAreVisibleAndClickable;
+    }
+    
+    public ArrayList<String> returnsTheWindowIdList() {
+        ArrayList<String> idAllWindows = new ArrayList<>(getDriver().getWindowHandles());
+
+        return idAllWindows;
     }
 }
