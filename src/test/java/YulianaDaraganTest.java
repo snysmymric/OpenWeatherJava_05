@@ -21,6 +21,10 @@ public class YulianaDaraganTest extends BaseTest {
     final static By SIGN_IN_MENU = By.xpath(
             "//li[@class='user-li']/a[@href='https://openweathermap.org/home/sign_in']");
 
+    final static By DIFFERENT_WEATHER_BUTTON = By.xpath("//span[@class='control-el owm-switch']");
+    final static By ICONS_IN_DIFFERENT_WEATHER_POP_UP = By
+            .xpath("//div[@class='pop-up-content']//ul[@class = 'icons']/li");
+
     @Test
     public void testFillAskAQuestion_WithoutCapcha() {
         final String email = "tester@tester.com";
@@ -63,6 +67,22 @@ public class YulianaDaraganTest extends BaseTest {
         Assert.assertTrue(getElement(LOGO).isDisplayed());
         Assert.assertEquals(actualLogoImageLink, expectedLogoImageLink);
         Assert.assertEquals(getDriver().getCurrentUrl(), BASE_URL);
+    }
+
+    @Test
+    public void testCheckIfAllIconsAreShownAndClickableInDifferentWeatherPopUp() {
+        final int expectedIconsNumber = 9;
+
+        openBaseURL();
+        waitForGrayContainerDisappeared();
+
+        click(DIFFERENT_WEATHER_BUTTON);
+        getDriver().switchTo().activeElement();
+
+        int actualIconsNumber = seeAllElementAndCount(ICONS_IN_DIFFERENT_WEATHER_POP_UP);
+
+        Assert.assertEquals(actualIconsNumber,expectedIconsNumber);
+        Assert.assertTrue(checkIfAllElementsAreVisibleAndClickable(ICONS_IN_DIFFERENT_WEATHER_POP_UP));
     }
 }
 
