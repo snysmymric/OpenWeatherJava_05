@@ -20,21 +20,10 @@ public class OMalanovaTest extends BaseTest {
 
     @Test
     public void testCheckCorrectTemperatureConversion_WhenSwitchTempUnitButton(){
-        String cityName = "Paris";
-
         openBaseURL();
 
-        String oldH2Header = getText(H2_CITY_COUNTRY_HEADER);
-
-        click(SEARCH_CITY_FIELD);
-        input(cityName, SEARCH_CITY_FIELD);
-        click(SEARCH_BUTTON);
-        waitElementToBeVisible(SEARCH_DROPDOWN_MENU);
-        click(PARIS_FR_CHOICE_IN_DROPDOWN_MENU);
-        waitTextToBeChanged(H2_CITY_COUNTRY_HEADER, oldH2Header);
-
         String currentTempCstr = getText(TEMP);
-        int currentTempCint = Integer.parseInt(currentTempCstr.substring(0, currentTempCstr.length() - 2)) * 2 + 30;
+        int switchTempCtoF = Integer.parseInt(currentTempCstr.substring(0, currentTempCstr.length() - 2)) * 2 + 30;
 
         click(SWITCH_TEMP_F);
         waitForGrayContainerDisappeared();
@@ -42,7 +31,7 @@ public class OMalanovaTest extends BaseTest {
         String currentTempFstr = getText(TEMP);
         int currentTempFint = Integer.parseInt(currentTempFstr.substring(0, currentTempFstr.length() - 2));
 
-        boolean difference = (Math.abs(currentTempFint - currentTempCint) <= 1);
+        boolean difference = (Math.abs(currentTempFint - switchTempCtoF) <= 1);
 
         Assert.assertTrue(difference);
     }
