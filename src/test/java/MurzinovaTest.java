@@ -9,7 +9,8 @@ public class MurzinovaTest extends BaseTest {
     private final By GUIDE_LINK = By.xpath("//div[@id='desktop-menu']//a[@href='/guide']");
     private final By SIGN_IN_LINK = By.xpath(
             "//div[@id='desktop-menu']//a[@href='https://openweathermap.org/home/sign_in']");
-    private final By CREATE_AN_ACCOUNT_LINK = By.xpath("//p/a[@href='/users/sign_up']");
+    private final By CREATE_AN_ACCOUNT_LINK = By.xpath(
+            "//p/a[@href='/users/sign_up'][text()='Create an Account.']");
 
     @Test
     public void testRedirectingToAPIGuidePage() {
