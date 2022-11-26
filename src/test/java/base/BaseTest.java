@@ -11,6 +11,7 @@ import org.testng.Reporter;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
+import org.testng.reporters.jq.Main;
 import utils.ReportUtils;
 import utils.TestUtils;
 
@@ -21,6 +22,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public abstract class BaseTest {
     public final String BASE_URL = TestUtils.getBaseUrl();
@@ -678,4 +681,15 @@ public void clickAllElements(By by) {
         Actions action = new Actions(driver);
         action.scrollToElement(element).perform();
     }
+
+   public void scrollByPixels(String x, String y) {
+        JavascriptExecutor js = (JavascriptExecutor) getDriver();
+        js.executeScript("window.scrollTo(" + x + "," + y + ")");
+    }
+    
+    public void logger_Info(String str){
+        final Logger logger = Logger.getLogger(Main.class.getName());
+        logger.log(Level.INFO, String.valueOf(str));
+    }
+    
 }
