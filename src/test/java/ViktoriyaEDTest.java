@@ -20,6 +20,9 @@ public class ViktoriyaEDTest extends BaseTest {
     final static By SUPPORT_MENU_ASK_A_QUESTION = By.xpath("//ul[@id='support-dropdown-menu']//a[@target='_blank']");
     final static String[] SUBMENU_NAMES = {"FAQ", "How to start", "Ask a question"};
     final static By WIDGET_BUTTON = By.xpath("//div[@class='section-content']/ul/li/a[@href='/widgets-constructor']");
+    final static By YOUR_API_KEY_FIELD = By.id("api-key");
+    final static By YOUR_CITY_NAME_FIELD = By.id("city-name");
+    final static By SEARCH_CITY_BUTTON = By.id("search-city");
 
     @Test
     public void test_SupportMenuIsClickable() {
@@ -96,5 +99,40 @@ public class ViktoriyaEDTest extends BaseTest {
         click20(WIDGET_BUTTON);
 
         Assert.assertTrue(getCurrentURL().contains(expectedWidgetsPage));
+    }
+
+    @Test
+    public void test_VerifySelectYourCityFieldContainsChosenCity() {
+
+        final String key = "20cbbe5f82ae947874eb39f29f8ffbe1";
+        final String city = "Rome";
+
+        openBaseURL();
+        scrollToPageBottom();
+        click20(WIDGET_BUTTON);
+
+        click(YOUR_API_KEY_FIELD);
+        clear(YOUR_API_KEY_FIELD);
+        input(key, YOUR_API_KEY_FIELD);
+
+
+        click(YOUR_CITY_NAME_FIELD);
+
+        String oldCity = getDriver().findElement(By.xpath("//h2[@class='widget-left-menu__header']")).getText();
+
+        clear(YOUR_CITY_NAME_FIELD);
+        input(city, YOUR_CITY_NAME_FIELD);
+        click20(SEARCH_CITY_BUTTON);
+
+        waitTextToBeChanged(By.xpath("//h2[@class='widget-left-menu__header']"), oldCity);
+
+        List<WebElement> selectYourCityList = getListOfElements(By.xpath("//ul[@id='city-list']//span"));
+        Assert.assertTrue(selectYourCityList.size() == 5);
+
+        List<String> cityNameList = getElemntsText(By.xpath("//ul[@id='city-list']//span"));
+
+        for (int i = 0; i < cityNameList.size(); i++) {
+            Assert.assertTrue(cityNameList.get(i).contains(city));
+        }
     }
 }
