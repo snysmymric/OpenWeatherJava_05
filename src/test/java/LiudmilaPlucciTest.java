@@ -1,5 +1,7 @@
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import base.BaseTest;
@@ -15,9 +17,14 @@ public class LiudmilaPlucciTest extends BaseTest {
     private final By PARIS_FR_CHOICE_IN_DROPDOWN_MENU = By.xpath("//ul[@class=\"search-dropdown-menu\"]//li//span[text() = 'Paris, FR ']");
     private final By MENU_PRICING_BUTTON = By.xpath("//div[@id='desktop-menu']//a[@href='/price']");
     private final By BREADCRUMB_ENDPOINT = By.className("breadcrumb__leaf");
-    private final By FAQ_BUTTON = By.xpath("//a[@href='/faq#onecall']");
+    private final By FAQ_FROM_PRICING_PAGE = By.xpath("//a[@href='/faq#onecall']");
     private final By FAQ_H1_HEADER = By.xpath("//h1[@class='breadcrumb-title']");
     private final By FAQ_H3_HEADER = By.xpath("//div[@class='col-sm-12']/section/h3");
+    private final By OPENED_FAQ_CONTAINER_FIELD = By.xpath("//div[@class='col-sm-12']//div[@class='question-content']");
+    private final By FAQ_CONTAINERS = By.xpath("//p[@class='question-heading']");
+    private final By SUPPORT_BUTTON = By.xpath("//div[@id='support-dropdown']");
+    private final By FAQ_FROM_SUPPORT = By.xpath("//ul[@id='support-dropdown-menu']//a[@href='/faq']");
+
 
 
     @Test
@@ -65,7 +72,7 @@ public class LiudmilaPlucciTest extends BaseTest {
 
         openBaseURL();
         click(MENU_PRICING_BUTTON);
-        click(FAQ_BUTTON);
+        click(FAQ_FROM_PRICING_PAGE);
 
         String currentUrl = getDriver().getCurrentUrl();
         String currentH1Header = getText(FAQ_H1_HEADER);
@@ -82,9 +89,27 @@ public class LiudmilaPlucciTest extends BaseTest {
 
         openBaseURL();
         click(MENU_PRICING_BUTTON);
-        click(FAQ_BUTTON);
+        click(FAQ_FROM_PRICING_PAGE);
         int actualH3HeadersAmount = getListSize(FAQ_H3_HEADER);
 
         Assert.assertEquals(actualH3HeadersAmount, expectedH3HeadersAmount);
+    }
+    @Test
+    public void test_CheckIfAllContainersAreClickable() {
+        openBaseURL();
+        click(SUPPORT_BUTTON);
+        click(FAQ_FROM_SUPPORT);
+
+        List<WebElement> containerList = getListOfElements(FAQ_CONTAINERS);
+        List<WebElement> containerInnerList = getListOfElements(OPENED_FAQ_CONTAINER_FIELD);
+
+        if (containerList.size() == containerInnerList.size()) {
+
+            for (int i = 0; i < containerList.size(); i++) {
+                scrollToElement(containerList.get(i));
+                clickByJS(containerList.get(i));
+                Assert.assertTrue(containerInnerList.get(i).isDisplayed());
+            }
+        }
     }
 }
