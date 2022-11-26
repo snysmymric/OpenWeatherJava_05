@@ -24,6 +24,8 @@ public class YulianaDaraganTest extends BaseTest {
     final static By DIFFERENT_WEATHER_BUTTON = By.xpath("//span[@class='control-el owm-switch']");
     final static By ICONS_IN_DIFFERENT_WEATHER_POP_UP = By
             .xpath("//div[@class='pop-up-content']//ul[@class = 'icons']/li");
+    final static By  MORE_OPTIONS_DROPDOWN_LIST = By
+            .xpath("//div[@class='pop-up-container']//div[@class='more-options']");
 
     @Test
     public void testFillAskAQuestion_WithoutCapcha() {
@@ -83,6 +85,37 @@ public class YulianaDaraganTest extends BaseTest {
 
         Assert.assertEquals(actualIconsNumber,expectedIconsNumber);
         Assert.assertTrue(checkIfAllElementsAreVisibleAndClickable(ICONS_IN_DIFFERENT_WEATHER_POP_UP));
+    }
+
+    @Test
+    public void testMoreOptionsIsDisplayedAndClickable_WithStandardMethods() {
+        openBaseURL();
+        waitForGrayContainerDisappeared();
+
+        click(DIFFERENT_WEATHER_BUTTON);
+        getDriver().switchTo().activeElement();
+        Assert.assertTrue(getDriver().findElement(MORE_OPTIONS_DROPDOWN_LIST).isDisplayed()
+                && getDriver().findElement(MORE_OPTIONS_DROPDOWN_LIST).isEnabled());
+    }
+
+    @Test
+    public void testMoreOptionsIsDisplayedAndClickable_WithTextChecking() {
+        final String expectedTextBeforeClick = "More options";
+        final String expectedTextAfterClick = "Less options";
+
+        openBaseURL();
+        waitForGrayContainerDisappeared();
+        click(DIFFERENT_WEATHER_BUTTON);
+        getDriver().switchTo().activeElement();
+
+        String actualTextBeforeClick = getText(MORE_OPTIONS_DROPDOWN_LIST);
+
+        click(MORE_OPTIONS_DROPDOWN_LIST);
+
+        String actualTextAfterClick = getText(MORE_OPTIONS_DROPDOWN_LIST);
+
+        Assert.assertEquals(actualTextBeforeClick, expectedTextBeforeClick);
+        Assert.assertEquals(actualTextAfterClick,expectedTextAfterClick);
     }
 }
 
