@@ -18,6 +18,9 @@ public class SnegafalTest extends BaseTest {
             "Global weather provider",
             "Other");
 
+    private final List<String> EXPECTED_MORE_OPTIONS_HEADINGS = List.of(
+            "Temperature", "Wind", "Email", "Data source", "Any additional information");
+
     private final By DIFFERENT_WEATHER_POP_UP = By.xpath("//div[@class='pop-up-container']");
     private final By DIFFERENT_WEATHER_BUTTON = By.xpath("//span[contains(text(), 'Different')]");
     private final By MORE_OPTIONS_BUTTON = By.xpath("//div[@class='more-options']");
@@ -31,6 +34,7 @@ public class SnegafalTest extends BaseTest {
     private final By ACTIVE_WIND_OPTION = By.xpath("//div[@class='radio-buttons-switch']/div[@class='active']");
     private final By EMAIL_FIELD = By.xpath("//input[@type='email']");
     private final By ANY_ADDITIONAL_INFORMATION_TEXTAREA = By.xpath("//textarea[@class='owm_textarea']");
+    private final By MORE_OPTIONS_HEADINGS = By.xpath("//p[@class='heading']");
 
     @Test
     public void testOnlyOneIconIsHighlightedWhenDifferentWeatherPopupAppears() {
@@ -134,6 +138,17 @@ public class SnegafalTest extends BaseTest {
 
         Assert.assertEquals(getTextByAttribute(EMAIL_FIELD, "_value"), "");
         Assert.assertEquals(getTextByAttribute(ANY_ADDITIONAL_INFORMATION_TEXTAREA, "_value"), "");
+    }
+
+    @Test
+    public void testHeadingsNamesAfterClickingMoreOptionsInDifferentWeatherPopup() {
+        openBaseURL();
+        click(DIFFERENT_WEATHER_BUTTON);
+        waitElementToBeVisible(DIFFERENT_WEATHER_POP_UP);
+        click(MORE_OPTIONS_BUTTON);
+
+        Assert.assertEquals(getListSize(MORE_OPTIONS_HEADINGS), 5);
+        Assert.assertEquals(getListText(MORE_OPTIONS_HEADINGS), EXPECTED_MORE_OPTIONS_HEADINGS);
     }
 }
 
