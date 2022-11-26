@@ -29,6 +29,9 @@ public class MaxIaskoTest extends BaseTest {
     final static By SEARCH_REPEAT_PASSWORD_FIELD = By.xpath("//input[@id='user_password_confirmation']");
     final static By SEARCH_AGREEMENT_ACCEPTED_FIELD = By.xpath("//input[@id='agreement_is_accepted']");
     final static By SEARCH_CREATE_ACCOUNT_BUTTON = By.xpath("//div/input[@type='submit']");
+    final static By SEARCH_RECOVERY_DATA_LINK = By.xpath("//div[@class ='pwd-lost-q show']/a");
+    final static By SEARCH_SEND_BUTTON = By.xpath("//input[@id='user_email']");
+    final static By SEARCH_POPUP_MESSAGE = By.xpath("//div[@class='panel-body']");
 
     @Test
     public void testSearch30OrangeButtons() {
@@ -81,7 +84,7 @@ public class MaxIaskoTest extends BaseTest {
 
         Assert.assertEquals(getListText(SEARCH_ELEMENTS_CONTAINER), expectedLinkList);
 
-        Assert.assertTrue(isElementsListActive(SEARCH_ELEMENTS_CONTAINER));
+        Assert.assertTrue(checkIfAllElementsAreVisibleAndClickable(SEARCH_ELEMENTS_CONTAINER));
     }
 
     @Test
@@ -112,6 +115,7 @@ public class MaxIaskoTest extends BaseTest {
         final String pass = "&#KFHLx6d.)n+)z";
 
         openBaseURL();
+        
         click(SEARCH_SIGN_IN_LINK);
         jumpToNextWindow();
         click(SEARCH_CREATE_AN_ACCOUNT_LINK);
@@ -123,6 +127,24 @@ public class MaxIaskoTest extends BaseTest {
         click(SEARCH_AGREEMENT_ACCEPTED_FIELD);
 
         Assert.assertFalse(isElementEnabled(SEARCH_CREATE_ACCOUNT_BUTTON));
+    }
+
+    @Test
+    public void testDataRecoveringEmptyFields() {
+        final String email = "tester@gmail.com";
+        final String popUpMessage = "Invalid Email or password.";
+
+        openBaseURL();
+
+        click(SEARCH_SIGN_IN_LINK);
+        jumpToNextWindow();
+        click(SEARCH_RECOVERY_DATA_LINK);
+        jumpToNextWindow();
+        inputAndEnter(SEARCH_SEND_BUTTON, email);
+        jumpToNextWindow();
+        getText(SEARCH_POPUP_MESSAGE);
+
+        Assert.assertEquals(getText(SEARCH_POPUP_MESSAGE), popUpMessage);
     }
 }
 
