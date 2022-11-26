@@ -5,21 +5,18 @@ import org.testng.annotations.Test;
 import base.BaseTest;
 
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
 public class OMalanovaTest extends BaseTest {
-    private final By SEARCH_CITY_FIELD = By.xpath("//div[@id = 'weather-widget']//input[@placeholder = 'Search city']");
-    private final By SEARCH_BUTTON = By.xpath("//div[@id = 'weather-widget']//button[@type = 'submit']");
-    private final By H2_CITY_COUNTRY_HEADER = By.xpath("//div[@id = 'weather-widget']//h2");
-    private final By SEARCH_DROPDOWN_MENU = By.className("search-dropdown-menu");
-    private final By PARIS_FR_CHOICE_IN_DROPDOWN_MENU = By.xpath("//ul[@class = 'search-dropdown-menu']/li/span[text() = 'Paris, FR ']");
     private final By TEMP = By.xpath("//span[@class='heading']");
     private final By SWITCH_TEMP_F = By.xpath("//div[text()='Imperial: °F, mph']");
     private final By CURRENT_TIME = By.xpath("//div[@id='weather-widget']//span[@class='orange-text'][text()]");
 
     @Test
     public void testCheckCorrectTemperatureConversion_WhenSwitchTempUnitButton(){
+
         openBaseURL();
 
         String currentTempCstr = getText(TEMP);
@@ -44,14 +41,15 @@ public class OMalanovaTest extends BaseTest {
 
         List<LocalTime> expectedTimes = new ArrayList<>();
         for (int i = 0; i <= 4; i++) {
-            expectedTimes.add(LocalTime.parse(getText(CURRENT_TIME).substring(8, 13)).plusMinutes(i * 15));
+            expectedTimes.add(LocalTime.parse(LocalTime.parse(getText(CURRENT_TIME).substring(8, 13)).plusMinutes(i * 15).format(DateTimeFormatter.ofPattern("HH:mm"))));
+            
         }
 
         List<LocalTime> actualTimes = new ArrayList<>();
         int i = 4;
         while (i <= 64) {
             for (WebElement element : list) {
-                actualTimes.add(LocalTime.parse(element.getText().substring(i, i + 5)));
+                actualTimes.add(LocalTime.parse(LocalTime.parse(element.getText().substring(i, i + 5)).format(DateTimeFormatter.ofPattern("HH:mm"))));
             }
             i += 14;
         }
