@@ -2,6 +2,7 @@ import base.BaseTest;
 import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,11 +11,12 @@ public class KristinaPereselkinaTest extends BaseTest {
     static final By H2 = By.xpath("//h2[text()='Professional collections']");
     static final By PROFFESSIONAL_COLLECTION_NAMES = By.xpath("//h3/b");
     static final By H2_HEADER_PROFESSIONAL_COLLECTION = By.xpath("//h2[text()='Current weather and forecasts collection']");
-    static final By COLLECTION_SUBSCRIPTION_PRICE = By.xpath("//div/table//th/h4/b");
     static final By BUTTON_SUBSCRIPTION = By.xpath("//div/table//th/a");
     static final By FREE_COLLECTION_PRODUCTS = By.xpath("//div/table//td[1]/p");
     static final By STARTUP_COLLECTION_PRODUCTS = By.xpath(" //div/table//td[2]/p");
     static final By DISABLED_PRODUCTS_FREE_SUBSCRIPTION = By.xpath("//div/table//td[1]/p[@style='color:#e0e0e0;']");
+    static final By DISABLED_PRODUCTS_STARTUP_SUBSCRIPTION = By.xpath("//div/table//td[2]/p[@style='color:#e0e0e0;']");
+
     static private List<String> getProfessionalSubscriptionPlans() {
         List<String> expectedList = new ArrayList<>();
         expectedList.add("Free");
@@ -45,15 +47,6 @@ public class KristinaPereselkinaTest extends BaseTest {
 
         return expectedList;
     }
-    private List<String> getProfessionalSubscriptionPrices() {
-        List<String> expectedList = new ArrayList<>();
-        expectedList.add("40 USD");
-        expectedList.add("180 USD");
-        expectedList.add("470 USD");
-        expectedList.add("2000 USD");
-
-        return expectedList;
-    }
     private List<String> getSubscriptionButtons() {
         List<String> expectedList = new ArrayList<>();
         expectedList.add("Get API key");
@@ -68,6 +61,18 @@ public class KristinaPereselkinaTest extends BaseTest {
         List<String> expectedList = new ArrayList<>();
         expectedList.add("Hourly Forecast 4 days");
         expectedList.add("Daily Forecast 16 days");
+        expectedList.add("Climatic Forecast 30 days");
+        expectedList.add("Bulk Download");
+        expectedList.add("Historical maps");
+        expectedList.add("Global Precipitation Map - Historical data");
+        expectedList.add("Road Risk API (basic configuration)");
+
+        return expectedList;
+    }
+
+    private List<String> getDisabledProductsStartUpCollection() {
+        List<String> expectedList = new ArrayList<>();
+        expectedList.add("Hourly Forecast 4 days");
         expectedList.add("Climatic Forecast 30 days");
         expectedList.add("Bulk Download");
         expectedList.add("Historical maps");
@@ -120,15 +125,15 @@ public class KristinaPereselkinaTest extends BaseTest {
     }
 
     @Test
-    public void testProfessionalCollectionPrice() {
-        List<String> expectedList = getProfessionalSubscriptionPrices();
+    public void testProfessionalSubscriptionButtons() {
+        List<String> expectedList = getSubscriptionButtons();
 
         openBaseURL();
 
         waitForGrayContainerDisappeared();
         click(A_HREF_PRICE);
 
-        List<String> actualList = getListText(COLLECTION_SUBSCRIPTION_PRICE);
+        List<String> actualList = getListText(BUTTON_SUBSCRIPTION);
 
         Assert.assertEquals(actualList, expectedList);
     }
@@ -157,18 +162,20 @@ public class KristinaPereselkinaTest extends BaseTest {
         click(A_HREF_PRICE);
 
         List<String> actualList = getListText(DISABLED_PRODUCTS_FREE_SUBSCRIPTION);
-}
 
-   @Test
-    public void testProfessionalSubscriptionButtons() {
-        List<String> expectedList = getSubscriptionButtons();
+        Assert.assertEquals(actualList, expectedList);
+    }
+
+    @Test
+    public void testDisabledProductsStartUpSubscription() {
+        List<String> expectedList = getDisabledProductsStartUpCollection();
 
         openBaseURL();
 
         waitForGrayContainerDisappeared();
         click(A_HREF_PRICE);
 
-        List<String> actualList = getListText(BUTTON_SUBSCRIPTION);
+        List<String> actualList = getListText(DISABLED_PRODUCTS_STARTUP_SUBSCRIPTION);
 
         Assert.assertEquals(actualList, expectedList);
     }
