@@ -84,6 +84,16 @@ public class OlgaKhliupinaTest extends BaseTest {
    }
 
    @Test
+   public void testCheckTempInC_inDayList_whenSwitchTempToC() {
+      openBaseURL();
+      click(SWITCH_TEMP_C);
+      waitForGrayContainerDisappeared();
+
+      getListOfElements(DAY_LIST_VALUES)
+              .forEach(element -> Assert.assertTrue(isTextContains(DAY_LIST_VALUES, SYMBOL_TEMP_C)));
+   }
+
+   @Test
    public void testGithubIconExistsAfterClickNavigateToGithub() {
       final String expectedURL = "https://github.com/search?q=openweathermap&ref=cmdform";
 
