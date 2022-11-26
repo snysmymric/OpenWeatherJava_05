@@ -20,6 +20,9 @@ public class ViacheslavAnisimovTest extends BaseTest {
     final static By SUCCESSFUL_LOGIN_TEXT = By.xpath("//div[@class='panel-body']");
     final static By FAHRENHEIT = By.xpath("//div[@class='option'][contains(text(), 'Imperial: °F, mph')]");
     final static By TEMP_TEXT_IN_HEADING = By.xpath("//span[@class='heading'][contains(text(), '°F')]");
+    final static By DIFFERENT_WEATHER_BUTTON = By.xpath("//div[@id='weather-widget']//span[text()='Different Weather?']");
+    final static By DIFFERENT_WEATHER_POPUP_CLOSE_BUTTON = By.xpath("//div[@id=\"weather-widget\"]/div[3]/div/*[name()='svg']");
+    final static By POP_UP_CONTAINER = By.xpath("//div[@class='pop-up-container']");
     final static By SEARCH_CITY_FIELD = By.xpath("//input[@placeholder='Search city']");
     final static By SUB_NOT_FOUND = By.xpath("//div[@class='sub not-found notFoundOpen']");
     final static By NO_RESULTS_FOR = By.xpath("//div[@class='widget-notification']/span");
@@ -120,5 +123,23 @@ public class ViacheslavAnisimovTest extends BaseTest {
 
         Assert.assertEquals(actualResult, expectedResult);
         Assert.assertEquals(actualResult2, expectedResult2);
+    }
+
+    @Test
+    public void testXbuttonIsShownAndClickable() {
+
+        openBaseURL();
+        click(DIFFERENT_WEATHER_BUTTON);
+
+        Assert.assertTrue(isDisplayed(DIFFERENT_WEATHER_POPUP_CLOSE_BUTTON));
+        Assert.assertTrue(isDisplayed(POP_UP_CONTAINER));
+
+        waitElementToBeClickable(DIFFERENT_WEATHER_POPUP_CLOSE_BUTTON);
+
+        click(DIFFERENT_WEATHER_POPUP_CLOSE_BUTTON);
+
+        waitForElementToBeDisappeared(POP_UP_CONTAINER);
+
+        Assert.assertFalse(isElementExists(POP_UP_CONTAINER));
     }
 }
