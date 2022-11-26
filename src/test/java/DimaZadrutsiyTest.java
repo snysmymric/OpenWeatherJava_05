@@ -28,7 +28,7 @@ public class DimaZadrutsiyTest extends BaseTest {
     private final By ELEMENTS_POP_UP_MENU_WEATHER_PARAMETERS = By
             .xpath("//div[@class='owm-check-box-group columns']//label");
     private final By SEARCH_FIELD_CREATE_NEW_HISTORY_BULK = By.xpath("//input[@id='firstSearch']");
-    private final By CHOOSE_CITY = By.xpath("//div[@class='pac-item']");
+    private final By CHOOSE_CITY = By.className("pac-item");
     private final By ADD_LOCATION = By.xpath("//div[@class='map-container']//button[@class='button-round dark']");
     private final By CITY_LIST = By.xpath("//tr/td[@contenteditable='true']");
 
