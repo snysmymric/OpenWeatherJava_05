@@ -1,6 +1,7 @@
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.Color;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -28,6 +29,8 @@ public class SnegafalTest extends BaseTest {
     private final By ACTIVE_ICON_IN_DIFFERENT_WEATHER_POP_UP = By.className("activeIcon");
     private final By WIND_SWITCHER_RADIO_BUTTONS = By.xpath("//div[@class='radio-buttons-switch']/div");
     private final By ACTIVE_WIND_OPTION = By.xpath("//div[@class='radio-buttons-switch']/div[@class='active']");
+    private final By EMAIL_FIELD = By.xpath("//input[@type='email']");
+    private final By ANY_ADDITIONAL_INFORMATION_TEXTAREA = By.xpath("//textarea[@class='owm_textarea']");
 
     @Test
     public void testOnlyOneIconIsHighlightedWhenDifferentWeatherPopupAppears() {
@@ -114,6 +117,23 @@ public class SnegafalTest extends BaseTest {
         String chosenElementAfterClickingLessOptions = getTextWaiting(ACTIVE_WIND_OPTION);
 
         Assert.assertEquals(chosenElementAfterClickingLessOptions, chosenElementBeforeClickingLessOptions);
+    }
+
+    @Test
+    public void testEmailAndAdditionalInfoIsNotSavedAfterClickingOutOfDifferentWeatherPopup() {
+        openBaseURL();
+        click(DIFFERENT_WEATHER_BUTTON);
+        waitElementToBeVisible(DIFFERENT_WEATHER_POP_UP);
+        click(MORE_OPTIONS_BUTTON);
+        input("test@mail.ru", EMAIL_FIELD);
+        input("This is additional information", ANY_ADDITIONAL_INFORMATION_TEXTAREA);
+        Actions action = new Actions(getDriver());
+        action.moveByOffset(0, 0).click().build().perform();
+        waitForElementToBeDisappeared(DIFFERENT_WEATHER_POP_UP);
+        click(DIFFERENT_WEATHER_BUTTON);
+
+        Assert.assertEquals(getTextByAttribute(EMAIL_FIELD, "_value"), "");
+        Assert.assertEquals(getTextByAttribute(ANY_ADDITIONAL_INFORMATION_TEXTAREA, "_value"), "");
     }
 }
 
