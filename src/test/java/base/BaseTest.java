@@ -699,4 +699,19 @@ public void clickAllElements(By by) {
        return elementAfterClick.getAttribute(nameOfAttribute);
    }
 
+    public boolean checkIfAllElementsAreVisibleAndClickable(By by) {
+        List<WebElement> list = getDriver().findElements(by);
+        boolean isAllElementsAreVisibleAndClickable = false;
+
+        for (WebElement element: list) {
+            if(element.isEnabled() && element.isDisplayed()) {
+                isAllElementsAreVisibleAndClickable = true;
+            } else {
+                isAllElementsAreVisibleAndClickable = false;
+                break;
+            }
+        }
+
+        return isAllElementsAreVisibleAndClickable;
+    }
 }
