@@ -22,6 +22,13 @@ public class MaxIaskoTest extends BaseTest {
     final static By SEARCH_PASSWORD_FIELD = By.xpath("//input[@id='user_password']");
     final static By SEARCH_SUBMIT_BUTTON = By.xpath("//div/form/input[@value='Submit']");
     final static By SEARCH_ALERT_MESSAGE = By.xpath("//div[@class='panel-body']");
+    final static By SEARCH_CREATE_AN_ACCOUNT_LINK = By.xpath("//div/p/a[@href='/users/sign_up']");
+    final static By SEARCH_USERNAME_FIELD = By.xpath("//input[@id='user_username']");
+    final static By SEARCH_ENTER_EMAIL_FIELD = By.xpath("//input[@id='user_email']");
+    final static By SEARCH_PASSWORD1_FIELD = By.xpath("//input[@id='user_password']");
+    final static By SEARCH_REPEAT_PASSWORD_FIELD = By.xpath("//input[@id='user_password_confirmation']");
+    final static By SEARCH_AGREEMENT_ACCEPTED_FIELD = By.xpath("//input[@id='agreement_is_accepted']");
+    final static By SEARCH_CREATE_ACCOUNT_BUTTON = By.xpath("//div/input[@type='submit']");
 
     @Test
     public void testSearch30OrangeButtons() {
@@ -96,6 +103,26 @@ public class MaxIaskoTest extends BaseTest {
 
             Assert.assertEquals(getText(SEARCH_ALERT_MESSAGE), expectedAlertMessage);
         }
+    }
+
+    @Test
+    public void testRegistrationUnder16() {
+        final String user = "tester";
+        final String email = "tester@gmail.com";
+        final String pass = "&#KFHLx6d.)n+)z";
+
+        openBaseURL();
+        click(SEARCH_SIGN_IN_LINK);
+        jumpToNextWindow();
+        click(SEARCH_CREATE_AN_ACCOUNT_LINK);
+        jumpToNextWindow();
+        input(user, SEARCH_USERNAME_FIELD);
+        input(email, SEARCH_ENTER_EMAIL_FIELD);
+        input(pass, SEARCH_PASSWORD1_FIELD);
+        input(pass, SEARCH_REPEAT_PASSWORD_FIELD);
+        click(SEARCH_AGREEMENT_ACCEPTED_FIELD);
+
+        Assert.assertFalse(isElementEnabled(SEARCH_CREATE_ACCOUNT_BUTTON));
     }
 }
 
