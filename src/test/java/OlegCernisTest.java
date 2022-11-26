@@ -11,7 +11,7 @@ public class OlegCernisTest extends BaseTest {
     private final By SEARCH_BUTTON = By.xpath("//div[@id='weather-widget']//button[@type='submit']");
     private final By SEARCH_DROPDOWN_MENU = By.className("search-dropdown-menu");
     private final By MOLDOVA_MD_CHOICE_IN_DROPDOWN_MENU =
-             By.xpath("//ul[@class = 'search-dropdown-menu']/li/span[text() = 'Chisinau, MD ']");
+            By.xpath("//ul[@class = 'search-dropdown-menu']/li/span[text() = 'Chisinau, MD ']");
     private final By FAHRENHEIT = By.xpath("//div[text()= 'Imperial: °F, mph']");
     private final By METRIC = By.xpath("//div[text()= 'Metric: °C, m/s']");
     private final By CONFIRM_TEMP = By.xpath("//div[@class = 'current-temp']/span");
@@ -26,7 +26,7 @@ public class OlegCernisTest extends BaseTest {
         openBaseURL();
 
         final String oldH2Header = getText(H2_CITY_COUNTRY_HEADER);
-        
+
         click(SEARCH_CITY_FIELD);
         input(newCity, SEARCH_CITY_FIELD);
         click(SEARCH_BUTTON);
@@ -60,10 +60,23 @@ public class OlegCernisTest extends BaseTest {
         final String expectedLink = "https://openweathermap.org/weather-dashboard";
         openBaseURL();
 
-       scrollByVisibleElement(DASHBOARD_LINK);
+        scrollByVisibleElement(DASHBOARD_LINK);
         click(DASHBOARD_LINK);
 
         String actualLink = getDriver().getCurrentUrl();
         Assert.assertEquals(actualLink, expectedLink);
+    }
+
+    @Test
+    public void testIsLinkDashboardClickable() {
+        openBaseURL();
+        logger_Info("Link before click - " + getCurrentURL());
+        logger_Info("Title before click - " + getTitle());
+
+        scrollByPixels("0", "5200");
+        click(DASHBOARD_LINK);
+
+        logger_Info("Link after click - " + getCurrentURL());
+        logger_Info("Title after click - " + getTitle());
     }
 }
