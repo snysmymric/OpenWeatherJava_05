@@ -1,7 +1,12 @@
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import base.BaseTest;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class JulykanTest extends BaseTest {
 
@@ -20,6 +25,10 @@ public class JulykanTest extends BaseTest {
     final static By MORE_OPTIONS_BUTTON = By.xpath("//div[@class='more-options']");
     final static By MORE_OPTIONS_PANEL = By.xpath("//div[@class = 'more-options']/following-sibling::div");
     final static By LESS_OPTIONS_BUTTON = By.xpath("//div[@class='more-options']");
+    final static By PRICE_MENU_BUTTON = By.xpath("//div[@id='desktop-menu']//a[@href='/price']");
+    final static By TABLE_SUBSCRIPTIONS = By.xpath("//section[@id='current']/div/div/table");
+    final static By SUBSCRIPTIONS = By.xpath("//section[@id='current']/div/div/table/thead/tr/th/h3/b");
+
 
     @Test
     public void testH2TagText_WhenSearchingCityCountry() {
@@ -84,4 +93,25 @@ public class JulykanTest extends BaseTest {
 
         Assert.assertFalse(isDisplayed(MORE_OPTIONS_PANEL));
     }
+
+    @Test
+    public void testCurrentWeatherAndForecastsCollectionWhenClickPricing() {
+       final List<String> expectedText = Arrays.asList("Free", "Startup", "Developer", "Professional", "Enterprise");
+
+        openBaseURL();
+
+        click(PRICE_MENU_BUTTON);
+        waitElementToBeVisible(TABLE_SUBSCRIPTIONS);
+        List <String> subscriptionName = getDriver()
+                .findElements(SUBSCRIPTIONS)
+                .stream()
+                .map(element -> element.getText())
+                .collect(Collectors.toList());
+
+        Assert.assertEquals(subscriptionName, expectedText);
+
+
+
+    }
+
 }
