@@ -31,6 +31,10 @@ public class DimaZadrutsiyTest extends BaseTest {
     private final By CHOOSE_CITY = By.className("pac-item");
     private final By ADD_LOCATION = By.xpath("//div[@class='map-container']//button[@class='button-round dark']");
     private final By CITY_LIST = By.xpath("//tr/td[@contenteditable='true']");
+    private final By BUTTON_DOCUMENTATION = By.xpath("//a[text()='Documentation']");
+    private final By BUTTON_BUY_HISTORY_BULK = By.xpath("//a[text()='Buy History Bulk']");
+    private final By LOGO_ON_PAGE_CREATE_NEW_HISTORY_BULK = By.xpath("//a[@class='logo']");
+    private final By LOGO_SIGN_IN_TO_YOUR_ACCOUNT = By.xpath("//li[@class='logo']");
 
     @Test
     public void testUpdatePage() {
@@ -170,5 +174,32 @@ public class DimaZadrutsiyTest extends BaseTest {
         List<String> actualResult = getListText(CITY_LIST);
 
         Assert.assertEquals(actualResult, expectedResult);
+    }
+
+    @Test
+    public void testSwitchTo6DifferentWindows() {
+
+        final int expectedNumberOfOpenPages = 6;
+
+        openBaseURL();
+        click20(BUTTON_MARKETPLACE);
+        switchToSpecificWindows(1);
+        click20(BUTTON_DOCUMENTATION);
+        switchToSpecificWindows(2);
+        click20(BUTTON_BUY_HISTORY_BULK);
+        switchToSpecificWindows(3);
+        click20(LOGO_ON_PAGE_CREATE_NEW_HISTORY_BULK);
+        click20(LOGO_SIGN_IN_TO_YOUR_ACCOUNT);
+        switchToSpecificWindows(1);
+        click20(BUTTON_DOCUMENTATION);
+        switchToSpecificWindows(4);
+        click20(BUTTON_BUY_HISTORY_BULK);
+        switchToSpecificWindows(5);
+        click20(LOGO_ON_PAGE_CREATE_NEW_HISTORY_BULK);
+        click20(LOGO_SIGN_IN_TO_YOUR_ACCOUNT);
+
+        int actualNumberOfOpenPages = returnsTheWindowIdList().size();
+
+        Assert.assertEquals(actualNumberOfOpenPages, expectedNumberOfOpenPages);
     }
 }
