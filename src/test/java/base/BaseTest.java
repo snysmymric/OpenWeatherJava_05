@@ -724,4 +724,15 @@ public abstract class BaseTest {
 
         return idAllWindows;
     }
+
+    public List<String> getListOfHeadersWhenClickLinks (By byLink, By byHeader) {
+        List<String> elements = new ArrayList<>();
+
+        for (int i = 0; i < getListOfElements(byLink).size(); i++) {
+            getListOfElements(byLink).get(i).click();
+            elements.add(getListOfElements(byHeader).get(i).getText());
+        }
+
+        return elements;
+    }
 }
