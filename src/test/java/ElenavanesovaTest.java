@@ -12,6 +12,8 @@ public class ElenavanesovaTest extends BaseTest {
     final By PARIS_FR_CHOICE_IN_DROPDOWN_MENU =  By.xpath("//ul[@class = 'search-dropdown-menu']/li/span[text() = 'Paris, FR ']");
     final By SEARCH_GUIDE = By.xpath("//div//a[@href='/guide']");
     final By GUIDE_TITLE = By.className("breadcrumb-title");
+    final By GUIDE_HOME_BUTTON = By.xpath("//div[@class='container']//li//a[@href='/']");
+    final By GUIDE_HOME_GUIDE = By.xpath("//Li[@class='breadcrumb__leaf']");
 
     @Test
     public void testH2TagText_WhenSearchingCityCountry() {
@@ -37,7 +39,6 @@ public class ElenavanesovaTest extends BaseTest {
 
     @Test
     public void testOpenAndClickToGuide(){
-
         String expectedResult = "Guide";
         String expectedResult1 = "https://openweathermap.org/guide";
 
@@ -49,5 +50,28 @@ public class ElenavanesovaTest extends BaseTest {
 
         Assert.assertEquals(actualResul, expectedResult);
         Assert.assertEquals(actualResul1,expectedResult1);
+    }
+
+    @Test
+    public void  testTextHomeGuideButtonShown (){
+        String expectedButtonGuideHomeShown = "Home";
+        String expectedButtonGuideHomeShownGuide = "Guide";
+        openBaseURL();
+        click(SEARCH_GUIDE);
+
+        getCurrentURL();
+        Assert.assertNotEquals(getCurrentURL(),BASE_URL);
+
+        Assert.assertTrue(isElementExists(GUIDE_HOME_BUTTON));
+        Assert.assertTrue(isElementExists(GUIDE_HOME_GUIDE));
+
+        Assert.assertTrue(isDisplayed(GUIDE_HOME_BUTTON));
+        Assert.assertTrue(isDisplayed(GUIDE_HOME_GUIDE));
+
+        String actualButtonGuideHomeShow = getText(GUIDE_HOME_BUTTON);
+        String actualButtonGuideHomeGuideShow = getText(GUIDE_HOME_GUIDE);
+
+        Assert.assertEquals(actualButtonGuideHomeShow,expectedButtonGuideHomeShown);
+        Assert.assertEquals(actualButtonGuideHomeGuideShow,expectedButtonGuideHomeShownGuide);
     }
 }
