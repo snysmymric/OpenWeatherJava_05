@@ -27,6 +27,7 @@ public class OlgaKhliupinaTest extends BaseTest {
    final static By HISTORICAL_WEATHER_ICON = By.xpath("//div/a[@href='/history']");
    final static By SOCIAL_PANEL_ICONS = By.xpath("//div[@class='social']/a");
    final static By WEATHER_DATA_ICONS = By.xpath("//div/a[@class='stats white-text']");
+   final static By DAY_LIST_VALUES = By.xpath("//div[@class='day-list-values']/div/span");
 
    @Test
    public void testLinkAndTitle_WhenGoingToGuideMenu() {
@@ -70,6 +71,16 @@ public class OlgaKhliupinaTest extends BaseTest {
       waitForGrayContainerDisappeared();
 
       Assert.assertTrue(isTextContains(TEMP_UNIT_HEADING, SYMBOL_TEMP_C));
+   }
+
+   @Test
+   public void testCheckTempInF_inDayList_whenSwitchTempToF() {
+      openBaseURL();
+      click(SWITCH_TEMP_F);
+      waitForGrayContainerDisappeared();
+
+      getListOfElements(DAY_LIST_VALUES)
+              .forEach(element -> Assert.assertTrue(isTextContains(DAY_LIST_VALUES, SYMBOL_TEMP_F)));
    }
 
    @Test
