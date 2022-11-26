@@ -8,23 +8,23 @@ public class YanDadaelovTest extends BaseTest {
 
     private final By NAVIGATION_BAR_CONTAINER = By.xpath("//nav[@id='nav-website']");
     private final By NAVIGATION_BAR_ITEMS = By.xpath("//ul[@id='first-level-nav']");
-    public final By NAVIGATION_BAR_LOGO = By.xpath(("//li[@class='logo']/a/img"));
-    public final By NAVIGATION_BAR_SEARCH_PANEL = By.xpath(("//div[@id='desktop-menu']/form"));
-    public final By NAVIGATION_BAR_SEARCH_PANEL_INPUT = By.xpath(("//div[@id='desktop-menu']//input[@type='text']"));
-    public final By NAVIGATION_BAR_GUIDE = By.xpath(("//div[@id='desktop-menu']//a[@href='/guide']"));
-    public final By NAVIGATION_BAR_API = By.xpath(("//div[@id='desktop-menu']//a[@href='/api']"));
-    public final By NAVIGATION_BAR_DASHBOARD = By.xpath(("//div[@id='desktop-menu']//a[@href='/weather-dashboard'] "));
-    public final By NAVIGATION_BAR_MARKETPLACE = By.xpath((
+    private final By NAVIGATION_BAR_LOGO = By.xpath(("//li[@class='logo']/a/img"));
+    private final By NAVIGATION_BAR_SEARCH_PANEL = By.xpath(("//div[@id='desktop-menu']/form"));
+    private final By NAVIGATION_BAR_SEARCH_PANEL_INPUT = By.xpath(("//div[@id='desktop-menu']//input[@type='text']"));
+    private final By NAVIGATION_BAR_GUIDE = By.xpath(("//div[@id='desktop-menu']//a[@href='/guide']"));
+    private final By NAVIGATION_BAR_API = By.xpath(("//div[@id='desktop-menu']//a[@href='/api']"));
+    private final By NAVIGATION_BAR_DASHBOARD = By.xpath(("//div[@id='desktop-menu']//a[@href='/weather-dashboard'] "));
+    private final By NAVIGATION_BAR_MARKETPLACE = By.xpath((
             "//div[@id='desktop-menu']//a[contains(@href, 'marketplace')]"));
-    public final By NAVIGATION_BAR_PRICING = By.xpath(("//div[@id='desktop-menu']//a[@href='/price']"));
-    public final By NAVIGATION_BAR_MAPS = By.xpath(("//div[@id='desktop-menu']//a[@href='/weathermap']"));
-    public final By NAVIGATION_BAR_INITIATIVES = By.xpath(("//div[@id='desktop-menu']//a[@href='/our-initiatives']"));
-    public final By NAVIGATION_BAR_PARTNERS = By.xpath(("//div[@id='desktop-menu']//a[@href='/examples']"));
-    public final By NAVIGATION_BAR_BLOG = By.xpath(("//div[@id='desktop-menu']//a[contains(@href, 'blog')]"));
-    public final By NAVIGATION_BAR_FOR_BUSINESS = By.xpath(("//div[@id='desktop-menu']//a[@class='marketplace']"));
-    public final By NAVIGATION_BAR_SIGN_IN = By.xpath((
+    private final By NAVIGATION_BAR_PRICING = By.xpath(("//div[@id='desktop-menu']//a[@href='/price']"));
+    private final By NAVIGATION_BAR_MAPS = By.xpath(("//div[@id='desktop-menu']//a[@href='/weathermap']"));
+    private final By NAVIGATION_BAR_INITIATIVES = By.xpath(("//div[@id='desktop-menu']//a[@href='/our-initiatives']"));
+    private final By NAVIGATION_BAR_PARTNERS = By.xpath(("//div[@id='desktop-menu']//a[@href='/examples']"));
+    private final By NAVIGATION_BAR_BLOG = By.xpath(("//div[@id='desktop-menu']//a[contains(@href, 'blog')]"));
+    private final By NAVIGATION_BAR_FOR_BUSINESS = By.xpath(("//div[@id='desktop-menu']//a[@class='marketplace']"));
+    private final By NAVIGATION_BAR_SIGN_IN = By.xpath((
             "//div[@id='desktop-menu']//a[@href='https://openweathermap.org/home/sign_in']"));
-    public final By NAVIGATION_BAR_SUPPORT = By.xpath(("//div[@id='desktop-menu']//div"));
+    private final By NAVIGATION_BAR_SUPPORT = By.xpath(("//div[@id='desktop-menu']//div"));
 
 
     @Test
@@ -64,7 +64,7 @@ public class YanDadaelovTest extends BaseTest {
 
         openBaseURL();
 
-        for(By el : navigationBarElements) {
+        for (By el : navigationBarElements) {
             waitForElement(el);
             Assert.assertTrue(isDisplayed(el));
         }
