@@ -24,7 +24,7 @@ public class ViktoriyaEDTest extends BaseTest {
     final static By YOUR_CITY_NAME_FIELD = By.id("city-name");
     final static By SEARCH_CITY_BUTTON = By.id("search-city");
     final static By SELECT_UNITS_C = By.xpath("//h4/span[@id='metric'])");
-    final static By SELECT_UNITS_F = By.xpath("//h4/span[@id='imperial'])");
+    final static By SELECT_UNITS_F = By.id("imperial");
     final static By WIDGETS_4LEFT_TEMP_UNIT = By.xpath("//span[@class='weather-left-card__degree']");
     final static By WIDGETS_3MIDDLE_RIGHT_TEMP_UNIT = By.xpath("//span[@class='weather-left-card__degree']");
     final static By WIDGETS_4RIGHT_TEMP_UNIT = By.xpath("//td[contains(@class, 'weather-right-card__item weather-right-card__temperature')]/span");
@@ -168,18 +168,55 @@ public class ViktoriyaEDTest extends BaseTest {
         Assert.assertTrue(selectedCelsius.contains(rgbColor));
 
         List<String> widgetsTemp1 = getElemntsText(WIDGETS_4LEFT_TEMP_UNIT);
+        List<String> widgetsTemp2 = getElemntsText(WIDGETS_3MIDDLE_RIGHT_TEMP_UNIT);
+        List<String> widgetsTemp3 = getElemntsText(WIDGETS_4RIGHT_TEMP_UNIT);
+
+        widgetsTemp1.addAll(widgetsTemp2);
+        widgetsTemp1.addAll(widgetsTemp3);
+
+        Assert.assertTrue(widgetsTemp1.size() > 0);
+
         for (int i = 0; i < widgetsTemp1.size(); i++) {
             Assert.assertTrue(widgetsTemp1.get(i).equals(tempUnitC));
         }
+    }
 
-        List<String> widgetsTemp2 = getElemntsText(WIDGETS_3MIDDLE_RIGHT_TEMP_UNIT);
-        for (int i = 0; i < widgetsTemp2.size(); i++) {
-            Assert.assertTrue(widgetsTemp2.get(i).equals(tempUnitC));
-        }
+    @Test
+    public void test_VerifyTheWeatherUnitFahrenheit() {
 
-        List<String> widgetsTemp3 = getElemntsText(WIDGETS_4RIGHT_TEMP_UNIT);
-        for (int i = 0; i < widgetsTemp3.size(); i++) {
-            Assert.assertTrue(widgetsTemp3.get(i).equals(tempUnitC));
+        final String key = "20cbbe5f82ae947874eb39f29f8ffbe1";
+        final String city = "Rome";
+        final String tempUnitF = "°F";
+        final String rgbColor = "235, 110, 75";
+
+        openBaseURL();
+        scrollToPageBottom();
+        click20(WIDGET_BUTTON);
+
+        click(YOUR_API_KEY_FIELD);
+        clear(YOUR_API_KEY_FIELD);
+        input(key, YOUR_API_KEY_FIELD);
+
+        click(SELECT_UNITS_F);
+        WebElement tempUnitFahrenheit = getDriver().findElement(SELECT_UNITS_F);
+        Assert.assertTrue(tempUnitFahrenheit.getCssValue("color").contains(rgbColor));
+
+        click(YOUR_CITY_NAME_FIELD);
+        clear(YOUR_CITY_NAME_FIELD);
+        input(city, YOUR_CITY_NAME_FIELD);
+        click20(SEARCH_CITY_BUTTON);
+
+        List<String> widgetsTempF = getElemntsText(WIDGETS_4LEFT_TEMP_UNIT);
+        List<String> widgetsTempF1 = getElemntsText(WIDGETS_3MIDDLE_RIGHT_TEMP_UNIT);
+        List<String> widgetsTempF2 = getElemntsText(WIDGETS_4RIGHT_TEMP_UNIT);
+
+        widgetsTempF.addAll(widgetsTempF1);
+        widgetsTempF.addAll(widgetsTempF2);
+
+        Assert.assertTrue(widgetsTempF.size() > 0);
+
+        for (int i = 0; i < widgetsTempF.size(); i++) {
+            Assert.assertTrue(widgetsTempF.get(i).equals(tempUnitF));
         }
     }
 }
