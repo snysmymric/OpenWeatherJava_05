@@ -3,7 +3,6 @@ import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import base.BaseTest;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,6 +16,8 @@ public class ElNov686Test extends BaseTest {
             .xpath("//ul[@class = 'search-dropdown-menu']/li/span[text ()= 'Paris, FR ']");
     private final By H2_CITYNAME_HEADER = By.xpath("//div[@id = 'weather-widget']//h2");
     private final By H3 = By.xpath("//h3");
+    private final By GUIDE = By.xpath("//div[@id='desktop-menu']//a[normalize-space()='Guide']");
+    private final By GUIDE_H1 = By.xpath("//h1[normalize-space()='Weather data in a fast and easy-to-use way']");
 
 
     @Test
@@ -119,6 +120,27 @@ public class ElNov686Test extends BaseTest {
         }
 
         Assert.assertFalse(texts.size() == 0);
+    }
+
+    @Test
+    public void testVerifyGuidePageHeadersInWeatherbody() {
+        final List<String> expectedResultH2 = new ArrayList<>();
+        expectedResultH2.add("OpenWeather products");
+        expectedResultH2.add("Dedicated weather products");
+        expectedResultH2.add("Openweather NWP model");
+        expectedResultH2.add("How to start using Weather API");
+
+        openBaseURL();
+
+        click(GUIDE);
+        jumpToNextWindow();
+        isElementExists(By.xpath("//h1[normalize-space()='Weather data in a fast and easy-to-use way']"));
+
+        List<String> headersH2 = getElemntsText(By.tagName("h2"));
+
+        Assert.assertEquals(headersH2.size(), expectedResultH2.size());
+        Assert.assertTrue(isElementExists(GUIDE_H1));
+
     }
 }
 
