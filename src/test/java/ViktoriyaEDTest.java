@@ -23,6 +23,11 @@ public class ViktoriyaEDTest extends BaseTest {
     final static By YOUR_API_KEY_FIELD = By.id("api-key");
     final static By YOUR_CITY_NAME_FIELD = By.id("city-name");
     final static By SEARCH_CITY_BUTTON = By.id("search-city");
+    final static By SELECT_UNITS_C = By.xpath("//h4/span[@id='metric'])");
+    final static By SELECT_UNITS_F = By.xpath("//h4/span[@id='imperial'])");
+    final static By WIDGETS_4LEFT_TEMP_UNIT = By.xpath("//span[@class='weather-left-card__degree']");
+    final static By WIDGETS_3MIDDLE_RIGHT_TEMP_UNIT = By.xpath("//span[@class='weather-left-card__degree']");
+    final static By WIDGETS_4RIGHT_TEMP_UNIT = By.xpath("//td[contains(@class, 'weather-right-card__item weather-right-card__temperature')]/span");
 
     @Test
     public void test_SupportMenuIsClickable() {
@@ -133,6 +138,48 @@ public class ViktoriyaEDTest extends BaseTest {
 
         for (int i = 0; i < cityNameList.size(); i++) {
             Assert.assertTrue(cityNameList.get(i).contains(city));
+        }
+    }
+
+    @Test
+    public void test_VerifyTheWeatherUnitCelsius() {
+
+        final String key = "20cbbe5f82ae947874eb39f29f8ffbe1";
+        final String city = "Rome";
+        final String tempUnitC = "°C";
+        final String rgbColor = "235, 110, 75";
+
+        openBaseURL();
+        scrollToPageBottom();
+        click20(WIDGET_BUTTON);
+
+        click(YOUR_API_KEY_FIELD);
+        clear(YOUR_API_KEY_FIELD);
+        input(key, YOUR_API_KEY_FIELD);
+
+        click(YOUR_CITY_NAME_FIELD);
+        clear(YOUR_CITY_NAME_FIELD);
+        input(city, YOUR_CITY_NAME_FIELD);
+        click20(SEARCH_CITY_BUTTON);
+
+        WebElement tempUnitCelsius = getDriver().findElement(By.id("metric"));
+        String selectedCelsius = tempUnitCelsius.getCssValue("color");
+
+        Assert.assertTrue(selectedCelsius.contains(rgbColor));
+
+        List<String> widgetsTemp1 = getElemntsText(WIDGETS_4LEFT_TEMP_UNIT);
+        for (int i = 0; i < widgetsTemp1.size(); i++) {
+            Assert.assertTrue(widgetsTemp1.get(i).equals(tempUnitC));
+        }
+
+        List<String> widgetsTemp2 = getElemntsText(WIDGETS_3MIDDLE_RIGHT_TEMP_UNIT);
+        for (int i = 0; i < widgetsTemp2.size(); i++) {
+            Assert.assertTrue(widgetsTemp2.get(i).equals(tempUnitC));
+        }
+
+        List<String> widgetsTemp3 = getElemntsText(WIDGETS_4RIGHT_TEMP_UNIT);
+        for (int i = 0; i < widgetsTemp3.size(); i++) {
+            Assert.assertTrue(widgetsTemp3.get(i).equals(tempUnitC));
         }
     }
 }
