@@ -735,4 +735,22 @@ public abstract class BaseTest {
 
         return elements;
     }
+
+    public void clearDataInputField(By by){
+        getWait10().until(ExpectedConditions.visibilityOf(getDriver().findElement(by)));
+
+        getDriver().findElement(by).clear();
+    }
+
+    public String getBackgroundColor(By by){
+        getWait10().until(ExpectedConditions.visibilityOf(getDriver().findElement(by)));
+
+        return getDriver().findElement(by).getCssValue("background-color");
+    }
+
+    public String getFontSize(By by){
+        getWait10().until(ExpectedConditions.visibilityOf(getDriver().findElement(by)));
+
+        return getDriver().findElement(by).getCssValue("font-size");
+    }
 }
