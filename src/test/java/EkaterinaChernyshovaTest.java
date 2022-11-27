@@ -1,5 +1,7 @@
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import org.testng.Assert;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import base.BaseTest;
 
@@ -14,6 +16,7 @@ public class EkaterinaChernyshovaTest extends BaseTest {
     final static By IMPERIAL_TEMPERATURE_BUTTON = By.xpath("//div[@id = 'weather-widget']//div[text() = 'Imperial: °F, mph']");
     final static By METRIC_TEMPERATURE_BUTTON = By.xpath("//div[@id = 'weather-widget']//div[text() = 'Metric: °C, m/s']");
     final static By SYMBOL_C = By.xpath("//span[@class = 'heading']");
+    final static By GREEN_NOTIFICATION_BOTTON = By.xpath("//div[@class = 'widget-notification']");
 
 
     @Test
@@ -68,5 +71,23 @@ public class EkaterinaChernyshovaTest extends BaseTest {
         String actualResult = getText(SYMBOL_C).substring(getText(SYMBOL_C).length()-2);
 
         Assert.assertEquals(actualResult, expectedResult);
+    }
+
+
+    @Test
+    public void test_X_buttonColorGreen() {
+
+        String wrongCityName = "fgh";
+        String expectedNotificationBoxColor = "rgba(120, 203, 191, 0.8)";
+
+        openBaseURL();
+        click(SEARCH_CITY_FIELD);
+        input(wrongCityName, SEARCH_CITY_FIELD);
+        click(SEARCH_BUTTON);
+        waitElementToBeVisible(GREEN_NOTIFICATION_BOTTON);
+
+        String actualColorOfNotificationBox = backgroundColor(GREEN_NOTIFICATION_BOTTON);
+
+        Assert.assertEquals(actualColorOfNotificationBox, expectedNotificationBoxColor);
     }
 }
