@@ -5,6 +5,7 @@ import org.testng.annotations.Test;
 import base.BaseTest;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 public class VadimKachanovichTest extends BaseTest {
     private final By H2_CITY_COUNTRY_HEADER = By.xpath("//div[@id = 'weather-widget']//h2");
@@ -21,6 +22,9 @@ public class VadimKachanovichTest extends BaseTest {
     private final By GREY_CONTAINER_ICON_CURRENT_LOCATION = By.xpath("//div[@id='weather-widget']//div[@class = 'controls']//*[local-name()= 'svg']");
     private final By METRIC_UOM = By.xpath("//div[@id='weather-widget']//div[@class = 'switch-container']/div[contains(text(),'°C')]");
     private final By GREY_CONTAINER_AREA = By.xpath("//div[@id= 'weather-widget']/div[@class='grey-container']/*");
+    private final By SUBSCRIBE_FOR_FREE_BUTTON = By.xpath("//div[@class = 'footer-section']//a[text()='Subscribe for free']");
+    private final By PRIVACY_POLICY = By.xpath("//div[@class= 'sign-form']//div[contains(@style, 'text-align:')]/a[text()='Privacy Policy']");
+    private final By PRIVACY_POLICY_TITLE = By.xpath("//div[@class='topic']//h1[text()='Privacy policy']");
     @Test
     public void testWhenSearchingCityCountry()  {
         final String cityName = "Paris";
@@ -71,5 +75,25 @@ public class VadimKachanovichTest extends BaseTest {
             counter++;
         }
         Assert.assertEquals(counter, expectedDisplayed);
+    }
+    @Test
+    public void testSubscribeForFreeToPrivacyPage () {
+        final String expectedLink = "https://openweather.co.uk/privacy-policy";
+        final String expectedTitle = "Privacy policy";
+        openBaseURL();
+        scrollByVisibleElement(SUBSCRIBE_FOR_FREE_BUTTON);
+        click(SUBSCRIBE_FOR_FREE_BUTTON);
+        String originWindow = getDriver().getWindowHandle();
+        click(PRIVACY_POLICY);
+        Set<String> windowHandles = getDriver().getWindowHandles();
+        for (String element : windowHandles) {
+            if (!element.equals(originWindow)) {
+                getDriver().switchTo().window(element);
+            }
+        }
+        String actualPrivacyTextTitle = getText(PRIVACY_POLICY_TITLE);
+        String actualPrivacyURL = getCurrentURL();
+        Assert.assertEquals(actualPrivacyTextTitle, expectedTitle);
+        Assert.assertEquals(actualPrivacyURL, expectedLink);
     }
 }
