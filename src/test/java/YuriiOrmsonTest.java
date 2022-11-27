@@ -34,6 +34,10 @@ public class YuriiOrmsonTest extends BaseTest {
             "//section[@id = 'alerts']//tbody/tr/th/h4/a");
     private final By SPECIAL_PRODUCTS_GET_REQUEST = By.xpath(
             "//section[@id = 'alerts']//tr/th[2]/h4[contains(text(), 'By request')]");
+    private final By SOLAR_RADIATION_API_BODY_PSTYLE_1 = By.xpath(
+            "//section[@id = 'alerts']//tbody/tr[1]/th[1]/p[1]");
+    private final By SOLAR_RADIATION_API_BODY_PSTYLE_2 = By.xpath(
+            "//section[@id = 'alerts']//tbody/tr[1]/th[1]/p[2]");
 
     static private List<String> getSpecialProductsSubHeaders() {
         List<String> expectedList = new ArrayList<>();
@@ -217,6 +221,35 @@ public class YuriiOrmsonTest extends BaseTest {
         List<String> actualList = getListText(SPECIAL_PRODUCTS_GET_REQUEST);
 
         Assert.assertEquals(actualList, expectedList);
+    }
 
+    @Test
+    public void testSolarRadiationAPI_Body_H4PstyleFirst() {
+        String expectedResult = "was developed to evaluate solar energy performance at any point on the globe";
+
+        openBaseURL();
+
+        click(A_HREF_PRICE);
+        waitForGrayContainerDisappeared();
+
+        String actualResult = getText(SOLAR_RADIATION_API_BODY_PSTYLE_1);
+
+        Assert.assertEquals(actualResult, expectedResult);
+    }
+
+    @Test
+    public void testSolarRadiationAPI_Body_H4PstyleSecond() {
+        String expectedResult = "Current and forecast solar radiation data\n" +
+                "Unlimited locations around the globe\n" +
+                "1,000 API calls per day";
+
+        openBaseURL();
+
+        click(A_HREF_PRICE);
+        waitForGrayContainerDisappeared();
+
+        String actualResult = getText(SOLAR_RADIATION_API_BODY_PSTYLE_2);
+
+        Assert.assertEquals(actualResult, expectedResult);
     }
 }
