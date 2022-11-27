@@ -26,6 +26,7 @@ public class TaniaKunoTest extends BaseTest {
     final static By TEXT_RECAPTCHA_FAILED = By.xpath("//div[@class = 'help-block']");
     final static By WEATHER_MAPS = By.xpath("//a[@href = '/api#maps']");
     final static By HEADLINE_WEATHER_MAPS = By.xpath("//h1[@class = 'breadcrumb-title']");
+    final static By LINK_HOME = By.xpath("//ol[@class = 'breadcrumb pull-right hidden-xs']//a[text()= 'Home']");
 
     @Test
     public void testH2TagText_WhenSearchingCityCountry() {
@@ -176,5 +177,20 @@ public class TaniaKunoTest extends BaseTest {
         String actualHeadline = getText(HEADLINE_WEATHER_MAPS);
 
         Assert.assertEquals(actualHeadline, expectedHeadline);
+    }
+
+    @Test
+    public void testVerifyLinkHome_OnWeatherAPIPage() {
+        final String expectedCurrentLink = "https://openweathermap.org/";
+
+        openBaseURL();
+        scrollToPageBottom();
+        click(WEATHER_MAPS);
+        scrollToElement(LINK_HOME);
+        click(LINK_HOME);
+
+        String actualCurrentLink = getCurrentURL();
+
+        Assert.assertEquals(actualCurrentLink, expectedCurrentLink);
     }
 }
