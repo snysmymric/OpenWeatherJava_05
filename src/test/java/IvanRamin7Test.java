@@ -1,7 +1,6 @@
 import base.BaseTest;
 import org.openqa.selenium.By;
 import org.testng.Assert;
-import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 
 import java.util.ArrayList;
@@ -14,8 +13,9 @@ public class IvanRamin7Test extends BaseTest {
     private final By SEARCH_DROPDOWN_MENU = By.className("search-dropdown-menu");
     private final By PARIS_FR_CHOICE_FROM_DROPDOWN_MENU = By.xpath("//div[@id = 'weather-widget']//ul[@class = 'search-dropdown-menu']//span[text() = 'Paris, FR ']");
     private final By GUIDE_DESKTOP_MENU = By.xpath("//nav[@id = 'nav-website']//div[@id = 'desktop-menu']//a[@href = '/guide']");
-    private final By CELSIUS_FAHRENHEITS_SWITCH_FAHRENHEITS =  By.xpath("//div[@class='page-container']//div[text() = 'Imperial: °F, mph']");
-    private final By CELSIUS_FAHRENHEITS_SWITCH_CELSIUS = By.xpath("//div[@class='page-container']//div[text() = 'Metric: °C, m/s']");
+    private final By CELSIUS_FAHRENHEITS_SWITCH_FAHRENHEITS =  By.xpath("//div[@class='page-container']//div[@class = 'switch-container']/div[text() = 'Imperial: °F, mph']");
+    private final By CELSIUS_FAHRENHEITS_SWITCH_CELSIUS = By.xpath("//div[@class='page-container']//div[@class = 'switch-container']/div[text() = 'Metric: °C, m/s']");
+    private final By MAIN_PAGE_TEMPERATURE = By.xpath("//span[@class = 'heading']");
     private final By TEMPERATURE_UNDER_COUNTRY_NAME = By.xpath("//div[@class='section-content']//span[@class = 'heading']");
     private final By COOKIE_WARNING_TEXT = By.xpath("//div[@class = 'stick-footer-panel']//p[@class = 'stick-footer-panel__description']");
     private final By COOKIE_WARNING_ALLOW_ALL_BUTTON = By.xpath("//div[@class = 'stick-footer-panel']//button");
@@ -33,24 +33,24 @@ public class IvanRamin7Test extends BaseTest {
     private final By LOGO_MAIN = By.xpath("//img[@src='/themes/openweathermap/assets/img/logo_white_cropped.png']");
 
     @Test
-        public void testH2TagText_WhenSearchingCityCountry(){
-            final String cityName = "Paris";
-            final String expectedResult = "Paris, FR";
+    public void testH2TagText_WhenSearchingCityCountry(){
+        final String cityName = "Paris";
+        final String expectedResult = "Paris, FR";
 
-            openBaseURL();
+        openBaseURL();
 
-            String oldH2Header = getText(H_2_CITY_COUNTRY_HEADER);
-            click(SEARCH_CITY_FIELD);
-            input(cityName, SEARCH_CITY_FIELD);
-            click(SEARCH_BUTTON);
-            waitElementToBeVisible(SEARCH_DROPDOWN_MENU);
-            click(PARIS_FR_CHOICE_FROM_DROPDOWN_MENU);
-            waitTextToBeChanged(H_2_CITY_COUNTRY_HEADER, oldH2Header);
+        String oldH2Header = getText(H_2_CITY_COUNTRY_HEADER);
+        click(SEARCH_CITY_FIELD);
+        input(cityName, SEARCH_CITY_FIELD);
+        click(SEARCH_BUTTON);
+        waitElementToBeVisible(SEARCH_DROPDOWN_MENU);
+        click(PARIS_FR_CHOICE_FROM_DROPDOWN_MENU);
+        waitTextToBeChanged(H_2_CITY_COUNTRY_HEADER, oldH2Header);
 
-            String actualResult = getText(H_2_CITY_COUNTRY_HEADER);
+        String actualResult = getText(H_2_CITY_COUNTRY_HEADER);
 
-            Assert.assertEquals(actualResult, expectedResult);
-        }
+        Assert.assertEquals(actualResult, expectedResult);
+    }
 
     @Test
     public void test_ConfirmGuidePage() {
@@ -130,7 +130,7 @@ public class IvanRamin7Test extends BaseTest {
 
         Assert.assertEquals(getDriver().findElement(ERROR_CAPTCHA).getText(), captchaErrorTextExpectedResult);
     }
-     @Ignore
+
     @Test
     public void test_ConfirmUnitsAreSwitched(){
         final String expectedFahrenheits = "°F";
@@ -139,12 +139,14 @@ public class IvanRamin7Test extends BaseTest {
         openBaseURL();
 
         click(CELSIUS_FAHRENHEITS_SWITCH_FAHRENHEITS);
+        getWait10();
 
-        Assert.assertTrue(getDriver().findElement(CELSIUS_FAHRENHEITS_SWITCH_FAHRENHEITS).getText().contains(expectedFahrenheits));
+        Assert.assertTrue(getDriver().findElement(MAIN_PAGE_TEMPERATURE).getText().contains(expectedFahrenheits));
 
         click(CELSIUS_FAHRENHEITS_SWITCH_CELSIUS);
+        getWait10();
 
-        Assert.assertTrue(getDriver().findElement(CELSIUS_FAHRENHEITS_SWITCH_CELSIUS).getText().contains(expectedCelsius));
+        Assert.assertTrue(getDriver().findElement(MAIN_PAGE_TEMPERATURE).getText().contains(expectedCelsius));
     }
 
     @Test
