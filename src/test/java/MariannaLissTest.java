@@ -10,6 +10,8 @@ public class MariannaLissTest extends BaseTest {
     private final By SEARCH_BUTTON = By.xpath("//div[@id = 'weather-widget']//button[@type = 'submit']");
     private final By SEARCH_DROPDOWN_MENU = By.className("search-dropdown-menu");
     private final By PARIS_FR_CHOICE_IN_DROPDOWN_MENU = By.xpath("//ul[@class = 'search-dropdown-menu']/li/span[text() = 'Paris, FR ']");
+    final static By GITHUB_ICON = By.xpath("//img[@src='/themes/openweathermap/assets/img/owm_icons/icon_github.png']");
+    final static By GITHUB_LINK = By.xpath("//a[@href='https://github.com/search?q=openweathermap&ref=cmdform']");
 
     @Test
     public void testH2TagText_WhenSearchingCityCountry() {
@@ -30,5 +32,24 @@ public class MariannaLissTest extends BaseTest {
         String actualCityCountryNames = getText(H2_CITY_COUNTRY_HEADER);
 
         Assert.assertEquals(actualCityCountryNames, expectedCityCountryNames);
+    }
+
+    @Test
+    public void testClickIconInFooterAndOpenWebpageGithub() {
+        final String expectedResult = "https://github.com/search?q=openweathermap&ref=cmdform";
+
+        openBaseURL();
+        scrollToPageBottom();
+        click20(GITHUB_LINK);
+
+        Assert.assertTrue(isDisplayed(GITHUB_ICON));
+
+        click20(GITHUB_LINK);
+        switchToAnotherWindow(getDriver());
+
+        String actualResult = getDriver().getCurrentUrl();
+
+        Assert.assertEquals(actualResult, expectedResult);
+
     }
 }
