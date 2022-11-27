@@ -12,6 +12,7 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 import org.testng.reporters.jq.Main;
+import pages.MainPage;
 import utils.ReportUtils;
 import utils.TestUtils;
 
@@ -83,6 +84,20 @@ public abstract class BaseTest {
             Reporter.log("!!!!! Error !!!!! BaseURL page was NOT loaded. \n "
                     + "Cancel current run and Re-Run jobs\n", true);
         }
+    }
+
+    public MainPage openBaseURL_ReturnMainPage() {
+        getDriver().get(BASE_URL);
+        waitForGrayContainerDisappeared();
+
+        if (reloadPageIfElementNotFound(By.xpath("//div[@id = 'weather-widget']//h2"))) {
+            Reporter.log("BaseURL page was loaded successfully ", true);
+        } else {
+            Reporter.log("!!!!! Error !!!!! BaseURL page was NOT loaded. \n "
+                    + "Cancel current run and Re-Run jobs\n", true);
+        }
+
+        return new MainPage(getDriver());
     }
 
     private boolean reloadPageIfElementNotFound(By by) {
