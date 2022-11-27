@@ -4,13 +4,13 @@ import org.testng.annotations.Test;
 import base.BaseTest;
 
 public class MurzinovaTest extends BaseTest {
-
-    private final String BASE_URL = "https://openweathermap.org/";
     private final By GUIDE_LINK = By.xpath("//div[@id='desktop-menu']//a[@href='/guide']");
     private final By SIGN_IN_LINK = By.xpath(
             "//div[@id='desktop-menu']//a[@href='https://openweathermap.org/home/sign_in']");
     private final By CREATE_AN_ACCOUNT_LINK = By.xpath(
             "//p/a[@href='/users/sign_up'][text()='Create an Account.']");
+    private final By CLICK_HERE_TO_RECOVER_LINK = By.xpath("//a[@href='#'][text()='Click here to recover.']");
+    private final By RECOVERING_PASSWORD_FORM = By.xpath("//form[@class='simple_form form-inline']");
 
     @Test
     public void testRedirectingToAPIGuidePage() {
@@ -32,7 +32,6 @@ public class MurzinovaTest extends BaseTest {
         final String expectedResult = "https://home.openweathermap.org/users/sign_in";
 
         openBaseURL();
-
         click(SIGN_IN_LINK);
 
         String actualResult = getCurrentURL();
@@ -49,5 +48,14 @@ public class MurzinovaTest extends BaseTest {
 
         String actualResult = getCurrentURL();
         Assert.assertEquals(actualResult, expectedResult);
+    }
+
+    @Test
+    public void testClickHereToRecoverLinkIsClickable() {
+        openBaseURL();
+        click20(SIGN_IN_LINK);
+        click20(CLICK_HERE_TO_RECOVER_LINK);
+
+        Assert.assertTrue(isDisplayed(RECOVERING_PASSWORD_FORM));
     }
 }
