@@ -13,6 +13,7 @@ public class AndreyGolovTest extends BaseTest {
     final static By FIRST_WEATHER_ICON_IN_POP_UP = By.xpath("//div[@class = 'pop-up-container']//ul[@class = 'icons']//li[1]");
     final static By MORE_OPTIONS_BUTTON = By.className("more-options");
     final static By MORE_OPTIONS_PANEL = By.xpath("//div[@class = 'more-options']/following-sibling::div");
+    final static By EMAIL_TEXT_FIELD_POPUP = By.cssSelector("[type='email']");
 
     @Test
     public void testXButtonIsDisplayed() {
@@ -73,5 +74,26 @@ public class AndreyGolovTest extends BaseTest {
         getWait10().until(ExpectedConditions.visibilityOfElementLocated(MORE_OPTIONS_PANEL));
 
         Assert.assertEquals(getText(MORE_OPTIONS_BUTTON), expectedTextOnButtonAfterClick);
+    }
+
+    @Test
+    public void testEmailTextFieldOnPopUp() {
+
+        String testEmail = "test@test.com";
+
+        openBaseURL();
+        click(DIFFERENT_WEATHER_BUTTON);
+        click(MORE_OPTIONS_BUTTON);
+        getWait10().until(ExpectedConditions.visibilityOfElementLocated(MORE_OPTIONS_PANEL));
+        click(EMAIL_TEXT_FIELD_POPUP);
+        input(testEmail, EMAIL_TEXT_FIELD_POPUP);
+        String textInTextField = getElement(EMAIL_TEXT_FIELD_POPUP).getAttribute("value");
+
+        Assert.assertEquals(textInTextField, testEmail);
+
+        getElement(EMAIL_TEXT_FIELD_POPUP).clear();
+        textInTextField = getElement(EMAIL_TEXT_FIELD_POPUP).getAttribute("value");
+
+        Assert.assertTrue(textInTextField.isEmpty());
     }
 }
