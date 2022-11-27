@@ -11,6 +11,7 @@ public class AnnaAbgTest extends BaseTest {
     private final By SEARCH_BREADCRUMB_TITLE = By.xpath("//div[@class='col-sm-7']/h1");
     private final By APACHE_CAMEL_HYPERLINK = By.xpath("//a[@href='#apache']");
     private final By SEE_ON_WEBSITE_BUTTON = By.xpath("//a[@href='http://camel.apache.org/weather.html']");
+    private final By COLOR_AND_FONT = By.xpath("//div[@class='mobile-padding']/h1/span");
 
     @Test
     public void testThirtyOrangeButtons() {
@@ -55,7 +56,7 @@ public class AnnaAbgTest extends BaseTest {
     }
 
     @Test
-    public void testBreadcrumbTitle2() {
+    public void testBreadcrumbTitle_InnerText() {
 
         final String expectedTitle = "Partners and solutions";
 
@@ -82,5 +83,17 @@ public class AnnaAbgTest extends BaseTest {
         switchToAnotherWindow(getDriver());
 
         Assert.assertEquals(getCurrentURL(), expectedURL);
+    }
+
+    @Test
+    public void testOpenWeatherMainPageHeader_ColorAndFontSize() {
+
+        final String expectedColor = "rgba(0, 0, 0, 0)";
+        final String expectedFontSize = "45px";
+
+        openBaseURL();
+
+        Assert.assertEquals(getBackgroundColor(COLOR_AND_FONT),expectedColor);
+        Assert.assertEquals(getFontSize(COLOR_AND_FONT), expectedFontSize);
     }
 }
