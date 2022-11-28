@@ -26,6 +26,9 @@ public class MainPage extends FooterMenuPage {
     @FindBy(xpath = "//ul[@class = 'search-dropdown-menu']/li/span[text() = 'Paris, FR ']")
     private WebElement parisFRChoiceInDropdownMenu;
 
+    @FindBy(xpath = "//div[@class='mobile-padding']/h1/span")
+    private WebElement colorAndFontSizeOfH1Header;
+
     public MainPage(WebDriver driver) {
         super(driver);
     }
@@ -76,5 +79,15 @@ public class MainPage extends FooterMenuPage {
         waitTextToBeChanged(h2CityCountryHeader, oldText);
 
         return this;
+    }
+
+    public String getColor() {
+
+        return getBackgroundColor(colorAndFontSizeOfH1Header);
+    }
+
+    public String getFontSize() {
+
+        return getFontSize(colorAndFontSizeOfH1Header);
     }
 }

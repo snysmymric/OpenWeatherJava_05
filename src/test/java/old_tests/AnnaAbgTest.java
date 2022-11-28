@@ -87,6 +87,7 @@ public class AnnaAbgTest extends BaseTest {
         Assert.assertEquals(getCurrentURL(), expectedURL);
     }
 
+
     @Test
     public void testOpenWeatherMainPageHeader_ColorAndFontSize() {
 
@@ -95,7 +96,7 @@ public class AnnaAbgTest extends BaseTest {
 
         openBaseURL();
 
-        Assert.assertEquals(getBackgroundColor(COLOR_AND_FONT),expectedColor);
+        Assert.assertEquals(getBackgroundColor(COLOR_AND_FONT), expectedColor);
         Assert.assertEquals(getFontSize(COLOR_AND_FONT), expectedFontSize);
     }
 }

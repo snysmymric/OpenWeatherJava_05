@@ -50,4 +50,21 @@ public class MainTest extends BaseTest {
 
         Assert.assertEquals(newCityCountryNames, expectedCityCountryNames);
     }
+
+    @Test
+    public void testH1HeaderColorAndFontSize() {
+
+        final String expectedColor = "rgba(0, 0, 0, 0)";
+        final String expectedFontSize = "45px";
+
+        openBaseURL_ReturnMainPage();
+
+        MainPage mainPage = new MainPage(getDriver());
+
+        String h1HeaderColor = mainPage.getColor();
+        String h1HeaderFontSize = mainPage.getFontSize();
+
+        Assert.assertEquals(h1HeaderColor, expectedColor);
+        Assert.assertEquals(h1HeaderFontSize, expectedFontSize);
+    }
 }

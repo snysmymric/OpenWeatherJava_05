@@ -9,6 +9,9 @@ public abstract class TopMenuPage extends BasePage {
     @FindBy(xpath = "//div[@id = 'desktop-menu']//a[@href='/guide']")
     private WebElement guideMenu;
 
+    @FindBy(xpath = "//div[@id='desktop-menu']//a[@href='/examples']")
+    private WebElement partnersMenu;
+
     public TopMenuPage(WebDriver driver) {
         super(driver);
     }
@@ -17,5 +20,11 @@ public abstract class TopMenuPage extends BasePage {
         click(guideMenu);
 
         return new GuidePage(getDriver());
+    }
+
+    public PartnersPage clickPartnersMenu() {
+        click(partnersMenu);
+
+        return new PartnersPage(getDriver());
     }
 }

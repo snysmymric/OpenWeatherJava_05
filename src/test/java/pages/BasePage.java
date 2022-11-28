@@ -1,5 +1,6 @@
 package pages;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -83,5 +84,31 @@ public abstract class BasePage {
                 .not(ExpectedConditions.textToBePresentInElement(element, text)));
     }
 
+    protected void switchToAnotherWindow(WebDriver driver) {
+        String originalWindow = driver.getWindowHandle();
+
+        for (String windowHandle : driver.getWindowHandles()) {
+            if (!originalWindow.equals(windowHandle)) {
+                driver.switchTo().window(windowHandle);
+                break;
+            }
+        }
+    }
+
+    protected void clearDataInputField(WebElement element) {
+        getWait10().until(ExpectedConditions.visibilityOf(element)).click();
+    }
+
+    protected String getBackgroundColor(WebElement element) {
+        getWait10().until(ExpectedConditions.visibilityOf(element));
+
+        return element.getCssValue("background-color");
+    }
+
+    protected String getFontSize(WebElement element) {
+        getWait10().until(ExpectedConditions.visibilityOf(element));
+
+        return element.getCssValue("font-size");
+    }
 
 }

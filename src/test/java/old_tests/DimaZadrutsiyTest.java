@@ -2,6 +2,7 @@ package old_tests;
 
 import org.openqa.selenium.By;
 import org.testng.Assert;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import base.BaseTest;
 
@@ -147,6 +148,7 @@ public class DimaZadrutsiyTest extends BaseTest {
         Assert.assertTrue(actualResult);
     }
 
+    @Ignore
     @Test
     public void testCreateNewHistoryBulk() {
         final String CityName = "New York, NY, USA";
