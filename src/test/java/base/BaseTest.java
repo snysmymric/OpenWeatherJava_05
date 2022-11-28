@@ -768,4 +768,14 @@ public abstract class BaseTest {
 
         return getDriver().findElement(by).getCssValue("font-size");
     }
+
+    public String getExternalPageTitle() {
+
+        return getDriver().getTitle();
+    }
+
+    public String getExternalPageURL() {
+
+        return getDriver().getCurrentUrl();
+    }
 }
