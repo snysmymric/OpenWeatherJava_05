@@ -19,25 +19,9 @@ public class PartnersPage extends FooterMenuPage {
         super(driver);
     }
 
-    public String getTitle() {
-
-        return getDriver().getTitle();
-    }
-
-    public String getCurrentURL() {
-
-        return getDriver().getCurrentUrl();
-    }
-
     public String getText_InnerText() {
 
         return getText(searchBreadcrumbTitle);
-    }
-
-    public PartnersPage waitElementToBeVisible() {
-        wait20ElementToBeVisible(searchBreadcrumbTitle);
-
-        return this;
     }
 
     public PartnersPage clickApacheCamelHyperLink() {
@@ -46,15 +30,13 @@ public class PartnersPage extends FooterMenuPage {
         return this;
     }
 
-    public PartnersPage clickOnSeeOnWebsiteButton() {
+    public PartnersPage clickSeeOnWebsiteButton() {
         click20(seeOnWebsiteButton);
 
         return this;
     }
 
-    public PartnersPage switchToAnotherWindow() {
-        switchToAnotherWindow(getDriver());
-
-        return this;
+    public void switchToPartnerWindow() {
+        switchToAnotherWindow();
     }
 }

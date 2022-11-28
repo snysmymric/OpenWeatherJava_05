@@ -1,6 +1,5 @@
 package pages;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -48,9 +47,27 @@ public abstract class BasePage {
         return actions;
     }
 
+    protected void wait10ElementToBeVisible(WebElement element) {
+        getWait10().until(ExpectedConditions.visibilityOf(element));
+    }
+
+    protected void wait20ElementToBeVisible(WebElement element) {
+        getWait20().until(ExpectedConditions.visibilityOf(element));
+    }
+
+    protected WebElement wait10ElementToBeClickable(WebElement element) {
+
+        return getWait10().until(ExpectedConditions.elementToBeClickable(element));
+    }
+
+    protected WebElement wait20ElementToBeClickable(WebElement element) {
+
+        return getWait20().until(ExpectedConditions.elementToBeClickable(element));
+    }
+
     protected String getText(WebElement element) {
         if (!element.getText().isEmpty()) {
-            getWait10().until(ExpectedConditions.visibilityOf(element));
+            wait10ElementToBeVisible(element);
         }
 
         return element.getText();
@@ -58,25 +75,16 @@ public abstract class BasePage {
 
     protected void click(WebElement element) {
         wait10ElementToBeVisible(element);
-        getWait10().until(ExpectedConditions.elementToBeClickable(element)).click();
+        wait10ElementToBeClickable(element).click();
     }
 
     protected void click20(WebElement element) {
         wait20ElementToBeVisible(element);
-        getWait20().until(ExpectedConditions.elementToBeClickable(element)).click();
+        wait20ElementToBeClickable(element).click();
     }
 
     protected void input(String text, WebElement element) {
-
         element.sendKeys(text);
-    }
-
-    protected void wait20ElementToBeVisible(WebElement element) {
-        getWait20().until(ExpectedConditions.visibilityOf(element));
-    }
-
-    protected void wait10ElementToBeVisible(WebElement element) {
-        getWait20().until(ExpectedConditions.visibilityOf(element));
     }
 
     protected void waitTextToBeChanged(WebElement element, String text) {
@@ -84,31 +92,36 @@ public abstract class BasePage {
                 .not(ExpectedConditions.textToBePresentInElement(element, text)));
     }
 
-    protected void switchToAnotherWindow(WebDriver driver) {
-        String originalWindow = driver.getWindowHandle();
+    protected void switchToAnotherWindow() {
+        String originalWindow = getDriver().getWindowHandle();
 
-        for (String windowHandle : driver.getWindowHandles()) {
+        for (String windowHandle : getDriver().getWindowHandles()) {
             if (!originalWindow.equals(windowHandle)) {
-                driver.switchTo().window(windowHandle);
+                getDriver().switchTo().window(windowHandle);
                 break;
             }
         }
     }
 
-    protected void clearDataInputField(WebElement element) {
-        getWait10().until(ExpectedConditions.visibilityOf(element)).click();
-    }
-
     protected String getBackgroundColor(WebElement element) {
-        getWait10().until(ExpectedConditions.visibilityOf(element));
+        wait10ElementToBeVisible(element);
 
         return element.getCssValue("background-color");
     }
 
     protected String getFontSize(WebElement element) {
-        getWait10().until(ExpectedConditions.visibilityOf(element));
+        wait10ElementToBeVisible(element);
 
         return element.getCssValue("font-size");
     }
 
+    public String getTitle() {
+
+        return getDriver().getTitle();
+    }
+
+    public String getCurrentURL() {
+
+        return getDriver().getCurrentUrl();
+    }
 }

@@ -3,7 +3,6 @@ package tests;
 import base.BaseTest;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import pages.PartnersPage;
 
 public class PartnersTest extends BaseTest {
 
@@ -12,12 +11,12 @@ public class PartnersTest extends BaseTest {
 
         final String expectedCurrentURL = "https://openweathermap.org/examples";
 
-        String CurrentURL =
+        String currentURL =
                 openBaseURL_ReturnMainPage()
                         .clickPartnersMenu()
                         .getCurrentURL();
 
-        Assert.assertEquals(CurrentURL, expectedCurrentURL);
+        Assert.assertEquals(currentURL, expectedCurrentURL);
     }
 
     @Test
@@ -37,11 +36,9 @@ public class PartnersTest extends BaseTest {
 
         final String expectedTitle = "Partners and solutions";
 
-        openBaseURL_ReturnMainPage()
-                .clickPartnersMenu();
-
-        PartnersPage pP = new PartnersPage(getDriver());
-        String innerText = pP.getText_InnerText();
+        String innerText = openBaseURL_ReturnMainPage()
+                .clickPartnersMenu()
+                .getText_InnerText();
 
         Assert.assertEquals(innerText, expectedTitle);
     }
@@ -54,9 +51,9 @@ public class PartnersTest extends BaseTest {
         openBaseURL_ReturnMainPage()
                 .clickPartnersMenu()
                 .clickApacheCamelHyperLink()
-                .clickOnSeeOnWebsiteButton()
-                .switchToAnotherWindow();
+                .clickSeeOnWebsiteButton()
+                .switchToPartnerWindow();
 
-        Assert.assertEquals(getCurrentURL(), expectedURL);
+        Assert.assertEquals(getExternalPageURL(), expectedURL);
     }
 }

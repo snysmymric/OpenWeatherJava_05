@@ -2,6 +2,7 @@ package old_tests;
 
 import org.openqa.selenium.By;
 import org.testng.Assert;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import base.BaseTest;
 import java.util.ArrayList;
@@ -64,6 +65,7 @@ public class PratasevichSergeTest extends BaseTest {
         Assert.assertEquals(actualResult, expectedResult);
     }
 
+    @Ignore
     @Test
     public void testSignInUserIsLoggedInWithValidInput() {
         String email = "jka59433@xcoxc.com";
