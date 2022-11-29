@@ -143,6 +143,7 @@ public class ViktoriyaEDTest extends BaseTest {
         }
     }
 
+    @Ignore
     @Test
     public void test_VerifyTheWeatherUnitCelsius() {
 
@@ -183,6 +184,7 @@ public class ViktoriyaEDTest extends BaseTest {
         }
     }
 
+    @Ignore
     @Test
     public void test_VerifyTheWeatherUnitFahrenheit() {
 
