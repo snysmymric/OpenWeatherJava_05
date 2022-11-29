@@ -3,11 +3,14 @@ package old_tests;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+import org.testng.Reporter;
 import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import base.BaseTest;
 
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,6 +33,48 @@ public class ViktoriyaEDTest extends BaseTest {
     final static By WIDGETS_4LEFT_TEMP_UNIT = By.xpath("//span[@class='weather-left-card__degree']");
     final static By WIDGETS_3MIDDLE_RIGHT_TEMP_UNIT = By.xpath("//span[@class='weather-left-card__degree']");
     final static By WIDGETS_4RIGHT_TEMP_UNIT = By.xpath("//td[contains(@class, 'weather-right-card__item weather-right-card__temperature')]/span");
+
+    private boolean wait20ForTextNotToBeEmpty(WebElement element) {
+        while (element.getText() == null || element.getText().length() < 1) {
+            getWait20().until(ExpectedConditions.not(ExpectedConditions.textToBePresentInElement(element, "")));
+        }
+
+        return element.getText().length() > 0;
+    }
+
+    private String getLocation() {
+        String oldCity = "";
+        WebElement header = getDriver().findElement(By.xpath("//h2[@class='widget-left-menu__header']"));
+
+        if (wait20ForTextNotToBeEmpty(header)) {
+            oldCity = header.getText();
+        } else {
+            Reporter.log("OldCity was NOT found" + oldCity, true);
+        }
+
+        return oldCity;
+    }
+
+    private String getNewLocationInCitiesList(String cityCountry) {
+        getWait20().until(ExpectedConditions
+                .attributeToBe(
+                        By.xpath("//ul[@id = 'city-list']/li/label/input"), "value", cityCountry)
+        );
+
+        return getDriver().findElement(
+                By.xpath("//ul[@id = 'city-list']/li/label/input")).getAttribute("value");
+    }
+
+    private List<WebElement> getWidgets() {
+        List<WebElement> widgets = getDriver().findElements(By.xpath("//div[@class = 'widget-right__title']"));
+        List<WebElement> widgetsList2 = getDriver().findElements(By.xpath("//h2[@class = 'widget-right__title']"));
+        List<WebElement> widgetsList3 = getDriver().findElements(By.xpath("//h2[@class = 'widget-left-menu__header']"));
+
+        widgets.addAll(widgetsList2);
+        widgets.addAll(widgetsList3);
+
+        return widgets;
+    }
 
     @Test
     public void test_SupportMenuIsClickable() {
@@ -223,4 +268,44 @@ public class ViktoriyaEDTest extends BaseTest {
             Assert.assertTrue(widgetsTempF.get(i).equals(tempUnitF));
         }
     }
+    @Test
+    public void test_VerifyAllWidgetsHasChosenCity() {
+
+        final String key = "20cbbe5f82ae947874eb39f29f8ffbe1";
+        final String cityCountry = "Rome, IT";
+
+        openBaseURL();
+        scrollToPageBottom();
+        click20(WIDGET_BUTTON);
+
+        click20(YOUR_API_KEY_FIELD);
+        clear(YOUR_API_KEY_FIELD);
+        input(key, YOUR_API_KEY_FIELD);
+
+        String oldCity = getLocation();
+        Reporter.log("OldCity was found ------- " + oldCity, true);
+
+        click(YOUR_CITY_NAME_FIELD);
+        clear(YOUR_CITY_NAME_FIELD);
+        input(cityCountry, YOUR_CITY_NAME_FIELD);
+
+        click(SEARCH_CITY_BUTTON);
+
+        String newCityCountry = getNewLocationInCitiesList(cityCountry);
+        Reporter.log("CityCountry changed to ------- " + newCityCountry, true);
+
+        List<WebElement> allWidgets = getWidgets();
+
+        List<String> texts = new ArrayList<>();
+        for (WebElement element : allWidgets) {
+            texts.add(element.getText());
+        }
+
+        Reporter.log(String.valueOf(texts), true);
+
+        for (String cityCountryName : texts) {
+            Assert.assertEquals(cityCountryName, cityCountry);
+        }
+    }
 }
+
