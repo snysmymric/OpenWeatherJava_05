@@ -12,6 +12,9 @@ public abstract class TopMenuPage extends BasePage {
     @FindBy(xpath = "//div[@id='desktop-menu']//a[@href='/examples']")
     private WebElement partnersMenu;
 
+    @FindBy(xpath = "//div[@id='desktop-menu']//li/a[@href='/api']")
+    private WebElement apiMenu;
+
     public TopMenuPage(WebDriver driver) {
         super(driver);
     }
@@ -26,5 +29,11 @@ public abstract class TopMenuPage extends BasePage {
         click(partnersMenu);
 
         return new PartnersPage(getDriver());
+    }
+
+    public APIPage clickAPIMenu() {
+        click(apiMenu);
+
+        return new APIPage(getDriver());
     }
 }
