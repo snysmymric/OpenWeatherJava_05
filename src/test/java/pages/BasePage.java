@@ -126,7 +126,7 @@ public abstract class BasePage {
         return getDriver().getCurrentUrl();
     }
 
-    public int getListSize(List<WebElement> list) {
+    protected int getListSize(List<WebElement> list) {
 
         return list.size();
     }

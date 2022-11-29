@@ -6,22 +6,8 @@ import org.testng.annotations.Test;
 import base.BaseTest;
 
 public class KartavenkoPavelTest extends BaseTest {
-    private final static By API_LINK = By.xpath("//ul[@id='first-level-nav']//a[@href='/api']");
-    private final static By AMOUNT_OF_ORANGE_BUTTONS = By.xpath("//a[contains(@class,'orange')]");
     private final static By NAV_BAR_SEARCH_FIELD = By.xpath("//div//input[@name='q']");
     private final static By SEARCH_FIELD_WEATHER_IN_YOUR_CITY = By.id("search_str");
-
-    @Test
-    public void testThirtyOrangeButtons() {
-        final int expectedAmountOfButtons = 30;
-
-        openBaseURL();
-
-        click(API_LINK);
-        int actualAmountOfButtons = getListSize(AMOUNT_OF_ORANGE_BUTTONS);
-
-        Assert.assertEquals(actualAmountOfButtons, expectedAmountOfButtons);
-    }
 
     @Test
     public void testNavBarSearchField() {
