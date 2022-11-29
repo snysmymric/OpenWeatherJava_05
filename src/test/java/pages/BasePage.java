@@ -8,6 +8,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.util.List;
 
 public abstract class BasePage {
     private WebDriver driver;
@@ -123,5 +124,14 @@ public abstract class BasePage {
     public String getCurrentURL() {
 
         return getDriver().getCurrentUrl();
+    }
+
+    public int getListSize(List<WebElement> list) {
+
+        return list.size();
+    }
+
+    public String getAttributeOfElement(WebElement element, String attribute) {
+        return element.getAttribute(attribute);
     }
 }

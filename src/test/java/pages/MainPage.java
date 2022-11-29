@@ -33,6 +33,19 @@ public class MainPage extends FooterMenuPage {
     @FindBy(xpath = "//ul[@class = 'search-dropdown-menu']/li/span[@style='width: 140px;']")
     private List<WebElement> allChoicesInDropDownMenu;
 
+    @FindBy(xpath = "//div[@class = 'controls']//span")
+    private WebElement differentWeatherButton;
+
+    @FindBy(className = "pop-up-container")
+    private WebElement differentWeatherPopUpContainer;
+
+    @FindBy(xpath = "//ul[@class='icons']/*")
+    private WebElement differentWeatherIconsContainer;
+
+    @FindBy(xpath = "//ul[@class = 'icons']/*")
+    private List<WebElement> iconsList;
+
+
     public MainPage(WebDriver driver) {
         super(driver);
     }
@@ -96,5 +109,30 @@ public class MainPage extends FooterMenuPage {
     public String getFontSize() {
 
         return getFontSize(colorAndFontSizeOfH1Header);
+    }
+
+    public MainPage clickDifferentWeatherButton() {
+        click(differentWeatherButton);
+
+        return this;
+    }
+
+    public MainPage waitUntilDifferentWeatherPopUpIsVisible() {
+        getWait10().until(ExpectedConditions.visibilityOf(differentWeatherPopUpContainer));
+
+        return this;
+    }
+
+    public int getListSizeOfIconsOnDifferentWeatherPopUp() {
+        return getListSize(iconsList);
+    }
+
+    public List<WebElement> getListOfIconsOnDifferentWeatherPopUp() {
+        return iconsList;
+    }
+
+    public MainPage clickOnIconsOnDifferentWeatherPopUp(WebElement element) {
+        click(element);
+        return this;
     }
 }

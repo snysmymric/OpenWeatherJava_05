@@ -112,6 +112,7 @@ public class IvanRamin7Test extends BaseTest {
         Assert.assertEquals(actualResult, expectedResult);
     }
 
+    @Ignore
     @Test
     public void test_ErrorHandlingCaptcha() {
         final String userEmail = "user@gmail.com";

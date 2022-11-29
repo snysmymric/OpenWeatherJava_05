@@ -1,9 +1,12 @@
 package tests;
 
 import base.BaseTest;
+import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import pages.MainPage;
+
+import java.util.List;
 
 public class MainTest extends BaseTest {
 
@@ -66,5 +69,46 @@ public class MainTest extends BaseTest {
 
         Assert.assertEquals(h1HeaderColor, expectedColor);
         Assert.assertEquals(h1HeaderFontSize, expectedFontSize);
+    }
+
+
+    @Test
+    public void testDifferentWeatherPopUp_AmountOfIcons() {
+        final int expectedAmountOfIcons = 9;
+
+        openBaseURL_ReturnMainPage();
+
+        MainPage mainPage = new MainPage(getDriver());
+
+        int elements = mainPage
+                .clickDifferentWeatherButton()
+                .waitUntilDifferentWeatherPopUpIsVisible()
+                .getListSizeOfIconsOnDifferentWeatherPopUp();
+
+        Assert.assertEquals(elements, expectedAmountOfIcons);
+    }
+
+    @Test
+    public void testDifferentWeatherPopUp_EachIconBecomesActiveAfterClick() {
+        final String nameOfTestedAttribute = "class";
+        final String expectedValueOfTestedAttribute = "activeIcon";
+
+        openBaseURL_ReturnMainPage();
+
+        MainPage mainPage = new MainPage(getDriver());
+
+        List<WebElement> elements = mainPage
+                .clickDifferentWeatherButton()
+                .waitUntilDifferentWeatherPopUpIsVisible()
+                .getListOfIconsOnDifferentWeatherPopUp();
+
+        for (WebElement element : elements) {
+            Assert.assertEquals(
+                    mainPage
+                            .clickOnIconsOnDifferentWeatherPopUp(element)
+                            .getAttributeOfElement(element, nameOfTestedAttribute),
+                    expectedValueOfTestedAttribute
+            );
+        }
     }
 }

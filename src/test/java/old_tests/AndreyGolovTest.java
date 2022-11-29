@@ -4,9 +4,10 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import base.BaseTest;
-
+@Ignore
 public class AndreyGolovTest extends BaseTest {
     final static By DIFFERENT_WEATHER_BUTTON = By.xpath("//div[@class = 'controls']//span");
     final static By DIFFERENT_WEATHER_POP_UP = By.className("pop-up-container");
