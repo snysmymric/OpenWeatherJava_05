@@ -4,6 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import base.BaseTest;
 
@@ -123,6 +124,8 @@ public class Maksim2404Test extends BaseTest {
 
         Assert.assertEquals(getCurrentURL(),expectedLinkIsClickableAndOpened);
     }
+
+    @Ignore
     @Test
     public void testSubscribeForFreeConfirmLinkIsClickableAndOpened() {
 

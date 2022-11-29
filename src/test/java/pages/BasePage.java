@@ -126,12 +126,17 @@ public abstract class BasePage {
         return getDriver().getCurrentUrl();
     }
 
-    protected int getListSize(List<WebElement> list) {
+    protected void wait10UrlContains(String text) {
+        getWait10().until(ExpectedConditions.urlContains(text));
+    }
+
+    public int getListSize(List<WebElement> list) {
 
         return list.size();
     }
 
     public String getAttributeOfElement(WebElement element, String attribute) {
+
         return element.getAttribute(attribute);
     }
 
