@@ -35,6 +35,7 @@ public class IvanRamin7Test extends BaseTest {
     private final By ERROR_CAPTCHA = By.xpath("//div[@class = 'help-block']");
     private final By LOGO_MAIN = By.xpath("//img[@src='/themes/openweathermap/assets/img/logo_white_cropped.png']");
 
+    @Ignore
     @Test
     public void testH2TagText_WhenSearchingCityCountry(){
         final String cityName = "Paris";
@@ -55,6 +56,8 @@ public class IvanRamin7Test extends BaseTest {
         Assert.assertEquals(actualResult, expectedResult);
     }
 
+
+    @Ignore
     @Test
     public void test_ConfirmGuidePage() {
         final String urlGuidePageExpectedResult = "https://openweathermap.org/guide";
@@ -70,6 +73,7 @@ public class IvanRamin7Test extends BaseTest {
         Assert.assertEquals(titleGuideActualResult, titleGuideExpectedResult);
     }
 
+    @Ignore
     @Test
     public void test_ConfirmFarenheits() {
         final String fahrenheitExpectedResult = "°F";
@@ -81,6 +85,7 @@ public class IvanRamin7Test extends BaseTest {
         Assert.assertTrue(getText(TEMPERATURE_UNDER_COUNTRY_NAME).contains(fahrenheitExpectedResult));
     }
 
+    @Ignore
     @Test
     public void test_Cookies() {
         final String textExpectedResult = "We use cookies which are essential for the site to work." +
@@ -96,6 +101,7 @@ public class IvanRamin7Test extends BaseTest {
         Assert.assertEquals(getDriver().findElement(COOKIE_WARNING_MANAGE_COOKIES_BUTTON).getText(), manageCookiesButtonExpectedResult);
     }
 
+    @Ignore
     @Test
     public void test_SupportDropDown() {
         ArrayList<String> expectedResult = new ArrayList<>(Arrays.asList("FAQ", "How to start", "Ask a question"));
@@ -144,16 +150,17 @@ public class IvanRamin7Test extends BaseTest {
         openBaseURL();
 
         click(CELSIUS_FAHRENHEITS_SWITCH_FAHRENHEITS);
-        getWait10();
+        waitForGrayContainerDisappeared();
 
         Assert.assertTrue(getDriver().findElement(MAIN_PAGE_TEMPERATURE).getText().contains(expectedFahrenheits));
 
         click(CELSIUS_FAHRENHEITS_SWITCH_CELSIUS);
-        getWait10();
+        waitForGrayContainerDisappeared();
 
         Assert.assertTrue(getDriver().findElement(MAIN_PAGE_TEMPERATURE).getText().contains(expectedCelsius));
     }
 
+    @Ignore
     @Test
     public void test_urlNotChanged() {
         openBaseURL();
