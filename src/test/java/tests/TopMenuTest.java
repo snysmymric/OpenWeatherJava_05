@@ -5,7 +5,6 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import pages.APIPage;
 import pages.GuidePage;
-import pages.MainPage;
 
 public class TopMenuTest extends BaseTest {
     @Test
@@ -26,10 +25,7 @@ public class TopMenuTest extends BaseTest {
         final String expectedUrl = "https://openweathermap.org/guide";
         final String expectedTitle = "OpenWeatherMap API guide - OpenWeatherMap";
 
-        openBaseURL_ReturnMainPage();
-
-        MainPage mainPage = new MainPage(getDriver());
-        GuidePage guidePage = mainPage.clickGuideMenu();
+        GuidePage guidePage = openBaseURL_ReturnMainPage().clickGuideMenu();
 
         Assert.assertEquals(guidePage.getCurrentURL(), expectedUrl);
         Assert.assertEquals(guidePage.getTitle(), expectedTitle);
