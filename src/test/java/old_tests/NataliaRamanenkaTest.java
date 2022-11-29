@@ -2,6 +2,7 @@ package old_tests;
 
 import org.openqa.selenium.By;
 import org.testng.Assert;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import base.BaseTest;
 
@@ -47,6 +48,7 @@ public class NataliaRamanenkaTest extends BaseTest {
         Assert.assertEquals(getCurrentURL(),expectedUrl);
     }
 
+    @Ignore
     @Test
     public void testAskAQuestionVisibleAndClickable(){
         final String expectedUrl = "https://home.openweathermap.org/questions";
