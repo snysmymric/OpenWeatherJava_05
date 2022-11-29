@@ -40,7 +40,7 @@ public class MurzinovaTest extends BaseTest {
         String actualResult = getCurrentURL();
         Assert.assertEquals(actualResult, expectedResult);
     }
-
+    @Ignore
     @Test
     public void testCreateAnAccountLinkIsClickableRedirectionToCreateAnAccountPage() {
         final String expectedResult = "https://home.openweathermap.org/users/sign_up";

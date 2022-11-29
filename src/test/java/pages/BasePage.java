@@ -1,5 +1,7 @@
 package pages;
 
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -139,8 +141,13 @@ public abstract class BasePage {
 
         return element.getAttribute(attribute);
     }
-
+    
     protected boolean isDisplayed (WebElement element){
         return element.isDisplayed();
     }
+
+    protected void inputAndEnter(WebElement element, String text) {
+        getWait10().until(ExpectedConditions.visibilityOf(element));
+        element.sendKeys(text, Keys.ENTER);
+    }    
 }
