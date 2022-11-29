@@ -9,6 +9,7 @@ import base.BaseTest;
 import java.util.ArrayList;
 import java.util.List;
 
+@Ignore
 public class YuriiOrmsonTest extends BaseTest {
     private final By A_HREF_PRICE = By.xpath("//div[@id = 'desktop-menu']//a[@href = '/price']");
     private final By A_HREF_CURRENT_PROFESSIONAL_SUBSCRIPTIONS = By.xpath(
@@ -213,6 +214,7 @@ public class YuriiOrmsonTest extends BaseTest {
         Assert.assertEquals(actualResult, expectedResult);
     }
 
+    @Ignore
     @Test
     public void testSectionIdAlertsAnchorEl_GetRequestHeaders() {
         List<String> expectedList = getSpecialProductsByRequestHeaders();

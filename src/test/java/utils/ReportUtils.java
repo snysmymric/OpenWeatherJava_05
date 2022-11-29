@@ -9,19 +9,8 @@ import java.util.Date;
 
 public class ReportUtils {
 
-//    Reporter
-//    ITestContext
-//    ITestResult
-
     private final static String H_LINE = " ==========================================================================================\n";
     public final static String END_LINE = "\n______________________________________________________________________________________________________________________________";
-
-    private static String getCurrentDateTime() {
-        Date date = new Date();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("YYYY-MM-dd, hh:mma");
-
-        return dateFormat.format(date);
-    }
 
     private static String getTestStatus(ITestResult result) {
         int status = result.getStatus();
@@ -38,16 +27,14 @@ public class ReportUtils {
 
     private static String getTestRunTime(ITestResult result) {
         final long time = result.getEndMillis() - result.getStartMillis();
-        int minutes = (int) ((time/1000)/60);
-        int seconds = (int) (time/1000)%60;
 
-        return "" + minutes + " min " + seconds + " sec";
+        return DateTimeUtils.getTimeInMinSecFormat(time);
     }
 
     public static String getReportHeader(ITestContext context){
 
         String header = "\tTest Report\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t" + "\n";
-        String currentDate = "\tDate: " + getCurrentDateTime() + "\t\t\t\t\t\t\t\t\t\t\t\t\t\t" + "\n";
+        String currentDate = "\tDate: " + DateTimeUtils.getCurrentDateTime() + "\t\t\t\t\t\t\t\t\t\t\t\t\t\t" + "\n";
         String projectName = "\tProject: OpenWeatherJava_05" + "\n";
         String baseURL = "\tBASE_URL: " + TestUtils.getBaseUrl() + "\t\t\t\t\t\t\t\t\t\t\t" + "\n";
 

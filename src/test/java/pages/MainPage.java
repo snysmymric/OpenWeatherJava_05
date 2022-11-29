@@ -1,10 +1,11 @@
 package pages;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+
+import java.util.List;
 
 public class MainPage extends FooterMenuPage {
 
@@ -29,13 +30,15 @@ public class MainPage extends FooterMenuPage {
     @FindBy(xpath = "//div[@class='mobile-padding']/h1/span")
     private WebElement colorAndFontSizeOfH1Header;
 
+    @FindBy(xpath = "//ul[@class = 'search-dropdown-menu']/li/span[@style='width: 140px;']")
+    private List<WebElement> allChoicesInDropDownMenu;
+
     public MainPage(WebDriver driver) {
         super(driver);
     }
 
     public void waitForGrayContainerDisappeared() {
-        getWait20().until(ExpectedConditions.invisibilityOfElementLocated(
-                By.className("owm-loader-container")));
+        getWait20().until(ExpectedConditions.invisibilityOf(grayContainer));
     }
 
     public String getCityCountryName() {
@@ -68,9 +71,13 @@ public class MainPage extends FooterMenuPage {
         return this;
     }
 
-    public MainPage clickChoiceInDropDownList(String text) {
+    public MainPage clickChoiceInDropDownList(String cityCountry) {
         wait20ElementToBeVisible(searchDropdownMenu);
-        click(parisFRChoiceInDropdownMenu);
+        for (WebElement choice : allChoicesInDropDownMenu) {
+            if (choice.getText().equalsIgnoreCase(cityCountry)) {
+                click(choice);
+            }
+        }
 
         return this;
     }

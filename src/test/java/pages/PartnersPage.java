@@ -7,7 +7,7 @@ import org.openqa.selenium.support.FindBy;
 public class PartnersPage extends FooterMenuPage {
 
     @FindBy(xpath = "//div[@class='col-sm-7']/h1")
-    private WebElement searchBreadcrumbTitle;
+    private WebElement h1Header;
 
     @FindBy(xpath = "//a[@href='#apache']")
     private WebElement apacheCamelHyperlink;
@@ -19,9 +19,9 @@ public class PartnersPage extends FooterMenuPage {
         super(driver);
     }
 
-    public String getText_InnerText() {
+    public String getPageHeader() {
 
-        return getText(searchBreadcrumbTitle);
+        return getText(h1Header);
     }
 
     public PartnersPage clickApacheCamelHyperLink() {

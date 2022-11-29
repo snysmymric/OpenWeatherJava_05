@@ -7,7 +7,7 @@ import org.testng.annotations.Test;
 public class PartnersTest extends BaseTest {
 
     @Test
-    public void testPartnersAndSolutionsLinkPage() {
+    public void testPartnersMenuNavigatesToPartnersPage() {
 
         final String expectedCurrentURL = "https://openweathermap.org/examples";
 
@@ -20,7 +20,7 @@ public class PartnersTest extends BaseTest {
     }
 
     @Test
-    public void testBreadcrumbTitle() {
+    public void testPartnersPageTitle() {
 
         final String expectedTitle = "Partners and solutions - OpenWeatherMap";
 
@@ -32,19 +32,19 @@ public class PartnersTest extends BaseTest {
     }
 
     @Test
-    public void testBreadcrumbTitle_InnerText() {
+    public void testPartnersPageHeader() {
 
-        final String expectedTitle = "Partners and solutions";
+        final String expectedHeader = "Partners and solutions";
 
-        String innerText = openBaseURL_ReturnMainPage()
+        String actualHeader = openBaseURL_ReturnMainPage()
                 .clickPartnersMenu()
-                .getText_InnerText();
+                .getPageHeader();
 
-        Assert.assertEquals(innerText, expectedTitle);
+        Assert.assertEquals(actualHeader, expectedHeader);
     }
 
     @Test
-    public void testActiveHyperlinkButton_SeeOnTheWebsite() {
+    public void testSeeOnTheWebsiteButtonNavigatesToApacheWebsite() {
 
         final String expectedURL = "https://camel.apache.org/components/next/weather-component.html";
 

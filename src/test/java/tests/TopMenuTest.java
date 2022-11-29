@@ -5,17 +5,21 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import pages.APIPage;
 import pages.GuidePage;
+import pages.MainPage;
 
 public class TopMenuTest extends BaseTest {
+
     @Test
     public void testAPIMenuNavigatesToAPIPage() {
         final String expectedURL = "https://openweathermap.org/api";
 
         openBaseURL();
 
-        APIPage apiPage = new APIPage(getDriver());
+        MainPage mainPage = new MainPage(getDriver());
 
-        apiPage.clickAPIMenu();
+        mainPage.clickAPIMenu();
+
+        APIPage apiPage = new APIPage(getDriver());
 
         Assert.assertEquals(apiPage.getCurrentURL(), expectedURL);
     }
