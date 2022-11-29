@@ -134,4 +134,8 @@ public abstract class BasePage {
     public String getAttributeOfElement(WebElement element, String attribute) {
         return element.getAttribute(attribute);
     }
+
+    protected boolean isDisplayed (WebElement element){
+        return element.isDisplayed();
+    }
 }

@@ -21,6 +21,12 @@ public abstract class TopMenuPage extends BasePage {
     @FindBy(xpath = "//div[@id='desktop-menu']//a[@href='https://home.openweathermap.org/marketplace']")
     private WebElement marketplaceMenu;
 
+    @FindBy(xpath = "//div[@id='desktop-menu']//form[@role='search']")
+    private WebElement searchBoxTopMenu;
+
+    @FindBy(xpath = "//div[@id='desktop-menu']//input[@type='text']")
+    private WebElement searchFieldTopMenu;
+
     public TopMenuPage(WebDriver driver) {
         super(driver);
     }
@@ -53,5 +59,15 @@ public abstract class TopMenuPage extends BasePage {
         click(marketplaceMenu);
 
         return  new HomeMarketplacePage(getDriver());
+    }
+
+    public String getInnerTextOfPlaceholder (String attribute){
+
+        return getAttributeOfElement(searchFieldTopMenu,attribute);
+    }
+
+    public boolean placeholderIsDisplayed (){
+
+        return isDisplayed(searchBoxTopMenu);
     }
 }

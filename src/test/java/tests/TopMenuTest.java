@@ -65,4 +65,18 @@ public class TopMenuTest extends BaseTest {
 
         Assert.assertEquals(getTitle(), mapsTitle);
     }
+
+    @Test
+    public void testPlaceholderIsAvailable_TopMenu() {
+        final String expectedInnerTextOfPlaceholder = "Weather in your city";
+        final String attribute = "placeholder";
+
+        Assert.assertTrue(openBaseURL_ReturnMainPage().placeholderIsDisplayed());
+
+        String innerTextOfPlaceholder =
+                openBaseURL_ReturnMainPage().
+                        getInnerTextOfPlaceholder(attribute);
+
+        Assert.assertEquals(innerTextOfPlaceholder, expectedInnerTextOfPlaceholder);
+    }
 }
