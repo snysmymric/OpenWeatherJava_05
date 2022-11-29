@@ -7,13 +7,11 @@ import org.testng.annotations.Test;
 import base.BaseTest;
 
 public class ViacheslavAnisimovTest extends BaseTest {
-    final static String BASE_URL = "https://openweathermap.org/";
     final static String EMAIL = "jka59433@xcoxc.com";
     final static String PASSWORD = "Tester12#";
     final static String SYMBOL_FAHRENHEIT = "°F";
     final static By HAMBURGER_MENU = By.id("hamburger");
     final static By LINK_TO_GUIDE_IN_HAMBURGER_MENU = By.xpath("//ul[@id='mobile-menu']//a[@href='/guide']");
-    final static By LINK_TO_MARKETPLACE = By.linkText("Marketplace");
     final static By LINK_TO_HISTORY_WEATHER_DATA = By.xpath("//div[@id='footer-website']//a[@href='/api#history']");
     final static By LINK_SIGN_IN = By.xpath("//div[@id='desktop-menu']//li/a[@href='https://openweathermap.org/home/sign_in']");
     final static By ENTER_EMAIL_FIELD = By.xpath("//input[@id='user_email']");
@@ -29,6 +27,7 @@ public class ViacheslavAnisimovTest extends BaseTest {
     final static By SUB_NOT_FOUND = By.xpath("//div[@class='sub not-found notFoundOpen']");
     final static By NO_RESULTS_FOR = By.xpath("//div[@class='widget-notification']/span");
 
+    @Ignore
     @Test
     public void testHamburgerMenuAndGuidePageTitle() {
 
@@ -49,24 +48,7 @@ public class ViacheslavAnisimovTest extends BaseTest {
         Assert.assertEquals(actualResult2, expectedResult2);
     }
 
-    @Test
-    public void testMarketplaceMenuIsClickableOpenCustomWeatherProducts() {
-        final String expectedResult1 = "https://home.openweathermap.org/marketplace";
-        final String expectedResult2 = "Custom Weather Products";
-
-        openBaseURL();
-
-        click(LINK_TO_MARKETPLACE);
-        jumpToNextWindow();
-
-        String actualResult1 = getDriver().getCurrentUrl();
-        String actualResult2 = getDriver().findElement(By.cssSelector("h1")).getText();
-
-        Assert.assertEquals(actualResult1, expectedResult1);
-        Assert.assertEquals(actualResult2, expectedResult2);
-
-    }
-
+    @Ignore
     @Test
     public void testLinkHistoricalWeatherData() {
         String expectedResult = "https://openweathermap.org/api#history";
@@ -82,6 +64,7 @@ public class ViacheslavAnisimovTest extends BaseTest {
         Assert.assertEquals(actualResult, expectedResult);
     }
 
+    @Ignore
     @Test
     public void testSignInToYourAccount_HappyPath() {
         String expectedResult = "Signed in successfully.";
@@ -99,6 +82,7 @@ public class ViacheslavAnisimovTest extends BaseTest {
         Assert.assertEquals(actualResult, expectedResult);
     }
 
+    @Ignore
     @Test
     public void testChangeTempFahrenheitInHeadingAfterClickButtonF() {
 
@@ -110,6 +94,7 @@ public class ViacheslavAnisimovTest extends BaseTest {
         Assert.assertTrue(getText(TEMP_TEXT_IN_HEADING).contains(SYMBOL_FAHRENHEIT));
     }
 
+    @Ignore
     @Test
     public void testEnterSearchCityFieldWrongData() {
         final String wrongText = "Dsa";
@@ -127,6 +112,7 @@ public class ViacheslavAnisimovTest extends BaseTest {
         Assert.assertEquals(actualResult2, expectedResult2);
     }
 
+    @Ignore
     @Test
     public void testXbuttonIsShownAndClickable() {
 

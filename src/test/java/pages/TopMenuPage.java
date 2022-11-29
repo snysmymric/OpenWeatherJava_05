@@ -15,6 +15,9 @@ public abstract class TopMenuPage extends BasePage {
     @FindBy(xpath = "//div[@id='desktop-menu']//li/a[@href='/api']")
     private WebElement apiMenu;
 
+    @FindBy(xpath = "//div[@id='desktop-menu']//a[@href='https://home.openweathermap.org/marketplace']")
+    private WebElement marketplaceMenu;
+
     public TopMenuPage(WebDriver driver) {
         super(driver);
     }
@@ -35,5 +38,11 @@ public abstract class TopMenuPage extends BasePage {
         click(apiMenu);
 
         return new APIPage(getDriver());
+    }
+
+    public HomeMarketplacePage clickMarketplaceMenu() {
+        click(marketplaceMenu);
+
+        return  new HomeMarketplacePage(getDriver());
     }
 }
