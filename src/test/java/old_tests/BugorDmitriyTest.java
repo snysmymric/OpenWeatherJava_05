@@ -21,7 +21,6 @@ public class BugorDmitriyTest extends BaseTest {
     final static By HOW_TO_START = By.xpath("//ul[@class='dropdown-menu dropdown-visible']//li/a[@href='/appid']");
     final static By ASK_A_QUESTION = By.xpath("//ul[@class='dropdown-menu dropdown-visible']//a[text()='Ask a question']");
     final static By SUPPORT_DROPDOWN_MENU = By.xpath("//ul[@id='support-dropdown-menu']/*");
-    final static By DASHBOARD_MENU = By.xpath("//div[@id='footer-website']//div[@class='section-content']//ul//li//a[@href='/weather-dashboard']");
     final static By OPEN_WEATHER_FOR_BUSINESS_FOOTER_MENU = By.xpath("//div[@id='footer-website']//div[@class='section-content']//ul//li//a[@href='https://openweather.co.uk/']");
     
             @Test
@@ -89,18 +88,6 @@ public class BugorDmitriyTest extends BaseTest {
             Assert.assertEquals(actualResult3AskAQuestion, expectedResult3);
     }
 
-            @Test
-        public void testDashboardMenu(){
-
-            String expectedResult = "https://openweathermap.org/weather-dashboard";
-
-            openBaseURL();
-
-            scrollByVisibleElement(DASHBOARD_MENU);
-            click(DASHBOARD_MENU);
-
-            Assert.assertEquals(getCurrentURL(), expectedResult);
-    }
 
             @Test
         public void testOpenWeatherForBusiness(){
@@ -108,7 +95,6 @@ public class BugorDmitriyTest extends BaseTest {
             String expectedUrl = "https://openweather.co.uk/";
 
             openBaseURL();
-
             scrollByVisibleElement(OPEN_WEATHER_FOR_BUSINESS_FOOTER_MENU);
             click(OPEN_WEATHER_FOR_BUSINESS_FOOTER_MENU);
 
