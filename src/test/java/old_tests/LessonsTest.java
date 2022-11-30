@@ -33,4 +33,26 @@ public class LessonsTest extends BaseTest {
 
         Assert.assertEquals(actualCityCountryNames, expectedCityCountryNames);
     }
+
+    //////Conflicts
+    @Test
+    public void testH2TagText_WhenSearchingCityCountry10() {
+        final String cityName = "Paris";
+        final String expectedCityCountryNames = "Paris, FR";
+
+        openBaseURL();
+
+        final String oldH2Header = getText(H2_CITY_COUNTRY_HEADER);
+
+        click(SEARCH_CITY_FIELD);
+        input(cityName, SEARCH_CITY_FIELD);
+        click(SEARCH_BUTTON);
+        waitElementToBeVisible(SEARCH_DROPDOWN_MENU);
+        click(PARIS_FR_CHOICE_IN_DROPDOWN_MENU);
+        waitTextToBeChanged(H2_CITY_COUNTRY_HEADER, oldH2Header);
+
+        String actualCityCountryNames = getText(H2_CITY_COUNTRY_HEADER);
+
+        Assert.assertEquals(actualCityCountryNames, expectedCityCountryNames);
+    }
 }
