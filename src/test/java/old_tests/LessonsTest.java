@@ -35,15 +35,15 @@ public class LessonsTest extends BaseTest {
     }
     @Test
     public void testH2TagText_WhenSearchingCityCountry20() {
-        final String cityName = "Minsk";
+        final String townname = "Minsk";
         final String expectedCityCountryNames = "Minsk, BY";
-
+        
         openBaseURL();
 
         final String oldH2Header = getText(H2_CITY_COUNTRY_HEADER);
 
         click(SEARCH_CITY_FIELD);
-        input(cityName, SEARCH_CITY_FIELD);
+        input(townname, SEARCH_CITY_FIELD);
         click(SEARCH_BUTTON);
         waitElementToBeVisible(SEARCH_DROPDOWN_MENU);
         click(PARIS_FR_CHOICE_IN_DROPDOWN_MENU);
@@ -60,6 +60,12 @@ public class LessonsTest extends BaseTest {
 
         final String cityName = "Paris";
         final String expectedCityCountryNames = "Paris, FR";
+
+        String y = "3";
+        final int expectedCount = 1;
+        String fake = "";
+        String a = "";
+             
         String line = "_______________________";
         String task = "Задание №";
         int count = 1;
@@ -68,6 +74,7 @@ public class LessonsTest extends BaseTest {
         String a = "";
         
         openBaseURL();
+
 
         final String oldH2Header = getText(H2_CITY_COUNTRY_HEADER);
 
