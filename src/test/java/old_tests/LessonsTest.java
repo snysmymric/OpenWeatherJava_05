@@ -40,24 +40,32 @@ public class LessonsTest extends BaseTest {
 
         final String cityName = "Paris";
         final String expectedCityCountryNames = "Paris, FR";
-
-        openBaseURL();
-
+        final int expectedCount = 1;
         String fake = "";
         String a = "";
+        
+        openBaseURL();        
 
         final String oldH2Header = getText(H2_CITY_COUNTRY_HEADER);
 
         click(SEARCH_CITY_FIELD);
+
+        getDriver().findElement(SEARCH_CITY_FIELD).clear();
+
         input(cityName, SEARCH_CITY_FIELD);
+
         click(SEARCH_BUTTON);
+
         waitElementToBeVisible(SEARCH_DROPDOWN_MENU);
+
         click(PARIS_FR_CHOICE_IN_DROPDOWN_MENU);
+
         waitTextToBeChanged(H2_CITY_COUNTRY_HEADER, oldH2Header);
 
         String actualCityAndCountryNames = getText(H2_CITY_COUNTRY_HEADER);
 
         Assert.assertEquals(actualCityAndCountryNames, expectedCityCountryNames);
         Assert.assertTrue(expectedCityCountryNames.equals(""));
+        Assert.assertTrue(getText(H2_CITY_COUNTRY_HEADER).contains(cityName));
     }
 }
