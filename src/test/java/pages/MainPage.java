@@ -45,6 +45,14 @@ public class MainPage extends FooterMenuPage {
     @FindBy(xpath = "//ul[@class = 'icons']/*")
     private List<WebElement> iconsList;
 
+    @FindBy(xpath = "//div[@id='support-dropdown']")
+    private WebElement buttonSupport;
+
+    @FindBy(xpath = "//ul[@id='support-dropdown-menu']")
+    private WebElement supportDropDownMenu;
+
+    @FindBy(xpath = "//ul[@class='dropdown-menu dropdown-visible']//a[@href='/faq']")
+    private WebElement buttonFAQ;
 
     public MainPage(WebDriver driver) {
         super(driver);
@@ -133,6 +141,19 @@ public class MainPage extends FooterMenuPage {
 
     public MainPage clickOnIconsOnDifferentWeatherPopUp(WebElement element) {
         click(element);
+        return this;
+    }
+
+    public MainPage clickSupportButton() {
+
+        click(buttonSupport);
+
+        return this;
+    }
+
+    public MainPage clickFAQButton(){
+         click(buttonFAQ);
+
         return this;
     }
 }
