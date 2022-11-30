@@ -41,6 +41,8 @@ public class LessonsTest extends BaseTest {
         final String expectedCityCountryNames = "Paris, FR";
 
         openBaseURL();
+        
+        String a = "";
 
         final String oldH2Header = getText(H2_CITY_COUNTRY_HEADER);
 
@@ -53,6 +55,6 @@ public class LessonsTest extends BaseTest {
 
         String actualCityCountryNames = getText(H2_CITY_COUNTRY_HEADER);
 
-        Assert.assertEquals(actualCityCountryNames, expectedCityCountryNames);
+        Assert.assertTrue(expectedCityCountryNames.equals(""));
     }
 }
