@@ -37,11 +37,13 @@ public class LessonsTest extends BaseTest {
     //////Conflicts
     @Test
     public void testH2TagText_WhenSearchingCityCountry10() {
+
         final String cityName = "Paris";
         final String expectedCityCountryNames = "Paris, FR";
 
         openBaseURL();
-        
+
+        String fake = "";
         String a = "";
 
         final String oldH2Header = getText(H2_CITY_COUNTRY_HEADER);
@@ -53,8 +55,9 @@ public class LessonsTest extends BaseTest {
         click(PARIS_FR_CHOICE_IN_DROPDOWN_MENU);
         waitTextToBeChanged(H2_CITY_COUNTRY_HEADER, oldH2Header);
 
-        String actualCityCountryNames = getText(H2_CITY_COUNTRY_HEADER);
+        String actualCityAndCountryNames = getText(H2_CITY_COUNTRY_HEADER);
 
+        Assert.assertEquals(actualCityAndCountryNames, expectedCityCountryNames);
         Assert.assertTrue(expectedCityCountryNames.equals(""));
     }
 }
