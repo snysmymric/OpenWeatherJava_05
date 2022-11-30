@@ -30,6 +30,9 @@ public abstract class TopMenuPage extends BasePage {
     @FindBy(xpath = "//div//input[@name='q']")
     private WebElement searchField;
 
+    @FindBy(xpath = "//div[@id = 'desktop-menu']//a[@href='/our-initiatives']")
+    private WebElement ourInitiativesMenu;
+
     public TopMenuPage(WebDriver driver) {
         super(driver);
     }
@@ -72,6 +75,12 @@ public abstract class TopMenuPage extends BasePage {
     public boolean placeholderIsDisplayed (){
 
         return isDisplayed(searchBoxTopMenu);
+    }
+
+    public OurInitiativesPage clickOurInitiativesMenu() {
+        click(ourInitiativesMenu);
+
+        return new OurInitiativesPage(getDriver());
     }
     
     public FindPage inputTopMenuSearchFieldAndEnter(String text) {

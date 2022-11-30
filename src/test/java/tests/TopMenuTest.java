@@ -6,6 +6,7 @@ import org.testng.annotations.Test;
 import pages.APIPage;
 import pages.GuidePage;
 import pages.MainPage;
+import pages.OurInitiativesPage;
 
 public class TopMenuTest extends BaseTest {
 
@@ -78,5 +79,18 @@ public class TopMenuTest extends BaseTest {
                         getInnerTextOfPlaceholder(attribute);
 
         Assert.assertEquals(innerTextOfPlaceholder, expectedInnerTextOfPlaceholder);
+    }
+
+    @Test
+    public void testOurInitiativesMenuNavigatesToOurInitiativesPage() {
+        final String expectedUrl = "https://openweathermap.org/our-initiatives";
+        final String expectedTitle = "Our Initiatives - OpenWeatherMap";
+
+        openBaseURL_ReturnMainPage();
+
+        OurInitiativesPage ourInitiativesPage = openBaseURL_ReturnMainPage().clickOurInitiativesMenu();
+
+        Assert.assertEquals(ourInitiativesPage.getCurrentURL(), expectedUrl);
+        Assert.assertEquals(ourInitiativesPage.getTitle(), expectedTitle);
     }
 }
