@@ -30,6 +30,12 @@ public abstract class TopMenuPage extends BasePage {
     @FindBy(xpath = "//div//input[@name='q']")
     private WebElement searchField;
 
+    @FindBy(xpath = "//div[@id='support-dropdown']")
+    private WebElement supportMenu;
+
+    @FindBy(xpath = "//ul[@id='support-dropdown-menu']")
+    private WebElement supportDropdownMenu;
+
     @FindBy(xpath = "//div[@id = 'desktop-menu']//a[@href='/our-initiatives']")
     private WebElement ourInitiativesMenu;
 
@@ -87,5 +93,16 @@ public abstract class TopMenuPage extends BasePage {
         inputAndEnter(searchField, text);
 
         return new FindPage(getDriver());
+    }
+
+    public MainPage clickSupportMenu() {
+        click(supportMenu);
+
+        return new MainPage(getDriver());
+    }
+
+    public String getActualAttributeValue(String attribute) {
+
+        return getAttributeOfElement(supportDropdownMenu, attribute);
     }
 }

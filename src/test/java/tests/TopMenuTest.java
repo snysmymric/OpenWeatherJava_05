@@ -93,4 +93,23 @@ public class TopMenuTest extends BaseTest {
         Assert.assertEquals(ourInitiativesPage.getCurrentURL(), expectedUrl);
         Assert.assertEquals(ourInitiativesPage.getTitle(), expectedTitle);
     }
+
+    @Test
+    public void testSupportMenuIsClickable() {
+        final String attribute = "class";
+        final String expectedIfVisible = "dropdown-menu dropdown-visible";
+        final String expectedIfNotVisible = "dropdown-menu";
+
+        openBaseURL();
+
+        MainPage mainPage = new MainPage(getDriver());
+
+        mainPage.clickSupportMenu();
+
+        Assert.assertEquals(mainPage.getActualAttributeValue(attribute), expectedIfVisible);
+
+        mainPage.clickSupportMenu();
+
+        Assert.assertEquals(mainPage.getActualAttributeValue(attribute), expectedIfNotVisible);
+    }
 }
