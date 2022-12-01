@@ -16,4 +16,16 @@ public class APITest extends BaseTest {
 
         Assert.assertEquals(actualAmountOfButtons, expectedAmountOfButtons);
     }
+
+    @Test
+    public void testAPIPageHeader() {
+
+        final String expectedHeader = "Weather API";
+
+        String header = openBaseURL_ReturnMainPage()
+                .clickAPIMenu()
+                .getPageHeader();
+
+        Assert.assertEquals(header,expectedHeader);
+    }
 }
