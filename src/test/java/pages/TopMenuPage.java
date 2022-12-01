@@ -26,7 +26,7 @@ public abstract class TopMenuPage extends BasePage {
 
     @FindBy(xpath = "//div[@id='desktop-menu']//input[@type='text']")
     private WebElement searchFieldTopMenu;
-    
+
     @FindBy(xpath = "//div//input[@name='q']")
     private WebElement searchField;
 
@@ -39,8 +39,13 @@ public abstract class TopMenuPage extends BasePage {
     @FindBy(xpath = "//div[@id = 'desktop-menu']//a[@href='/our-initiatives']")
     private WebElement ourInitiativesMenu;
 
+
+    @FindBy(xpath = "//div[@id = 'desktop-menu']//a[@href = '/price']")
+    private WebElement pricingMenu;
+
     @FindBy(xpath = "//li[@class='logo']/a")
     private WebElement logo;
+
 
     public TopMenuPage(WebDriver driver) {
         super(driver);
@@ -73,21 +78,22 @@ public abstract class TopMenuPage extends BasePage {
     public HomeMarketplacePage clickMarketplaceMenu() {
         click(marketplaceMenu);
 
-        return  new HomeMarketplacePage(getDriver());
+        return new HomeMarketplacePage(getDriver());
     }
+
 
     public MainPage clickLogo() {
         click(logo);
 
         return new MainPage(getDriver());
     }
-    
-    public String getInnerTextOfPlaceholder (String attribute){
 
-        return getAttributeOfElement(searchFieldTopMenu,attribute);
+    public String getInnerTextOfPlaceholder(String attribute) {
+
+        return getAttributeOfElement(searchFieldTopMenu, attribute);
     }
 
-    public boolean placeholderIsDisplayed (){
+    public boolean isPlaceholderDisplayed() {
 
         return isDisplayed(searchBoxTopMenu);
     }
@@ -97,11 +103,18 @@ public abstract class TopMenuPage extends BasePage {
 
         return new OurInitiativesPage(getDriver());
     }
-    
+
     public FindPage inputTopMenuSearchFieldAndEnter(String text) {
         inputAndEnter(searchField, text);
 
         return new FindPage(getDriver());
+    }
+
+
+    public PricePage clickPricingMenu() {
+        click(pricingMenu);
+
+        return new PricePage(getDriver());
     }
 
     public MainPage clickSupportMenu() {
@@ -113,5 +126,6 @@ public abstract class TopMenuPage extends BasePage {
     public String getActualAttributeValue(String attribute) {
 
         return getAttributeOfElement(supportDropdownMenu, attribute);
+
     }
 }

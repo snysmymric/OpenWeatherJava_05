@@ -72,7 +72,7 @@ public class TopMenuTest extends BaseTest {
         final String expectedInnerTextOfPlaceholder = "Weather in your city";
         final String attribute = "placeholder";
 
-        Assert.assertTrue(openBaseURL_ReturnMainPage().placeholderIsDisplayed());
+        Assert.assertTrue(openBaseURL_ReturnMainPage().isPlaceholderDisplayed());
 
         String innerTextOfPlaceholder =
                 openBaseURL_ReturnMainPage().
