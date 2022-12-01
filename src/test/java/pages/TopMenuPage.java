@@ -39,6 +39,9 @@ public abstract class TopMenuPage extends BasePage {
     @FindBy(xpath = "//div[@id = 'desktop-menu']//a[@href='/our-initiatives']")
     private WebElement ourInitiativesMenu;
 
+    @FindBy(xpath = "//li[@class='logo']/a")
+    private WebElement logo;
+
     public TopMenuPage(WebDriver driver) {
         super(driver);
     }
@@ -71,6 +74,12 @@ public abstract class TopMenuPage extends BasePage {
         click(marketplaceMenu);
 
         return  new HomeMarketplacePage(getDriver());
+    }
+
+    public MainPage clickLogo() {
+        click(logo);
+
+        return new MainPage(getDriver());
     }
     
     public String getInnerTextOfPlaceholder (String attribute){

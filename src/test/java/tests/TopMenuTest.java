@@ -112,4 +112,15 @@ public class TopMenuTest extends BaseTest {
 
         Assert.assertEquals(mainPage.getActualAttributeValue(attribute), expectedIfNotVisible);
     }
+
+    @Test
+    public  void testCompanyLogoNavigatesToBaseURL() {
+        final String expectedURL = "https://openweathermap.org/";
+        final String expectedTitle = "Сurrent weather and forecast - OpenWeatherMap";
+
+        MainPage mainPage = openBaseURL_ReturnMainPage().clickLogo();
+
+        Assert.assertEquals(mainPage.getCurrentURL(), expectedURL);
+        Assert.assertEquals(mainPage.getTitle(), expectedTitle);
+    }
 }
