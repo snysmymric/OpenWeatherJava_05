@@ -109,4 +109,26 @@ public class TopMenuTest extends BaseTest {
         Assert.assertEquals(ourInitiativesPage.getCurrentURL(), expectedUrl);
         Assert.assertEquals(ourInitiativesPage.getTitle(), expectedTitle);
     }
+
+    @Test
+    public void testGuideMenuNavigatesToGuidePage() {
+        final String expectedUrl = "https://openweathermap.org/guide";
+        final String expectedTitle = "OpenWeatherMap API guide - OpenWeatherMap";
+
+        GuidePage guidePage =
+                openBaseURL_ReturnMainPage()
+                        .clickGuideMenu();
+        Assert.assertEquals(guidePage.getCurrentURL(), expectedUrl);
+        Assert.assertEquals(guidePage.getTitle(), expectedTitle);
+    }
+
+    @Test
+    public void testCountTopMenuButtons() {
+        int expectedButton = 12;
+        int actualCountTopMenuButtons =
+                openBaseURL_ReturnMainPage()
+                        .countTopMenuButtons();
+        Assert.assertEquals(actualCountTopMenuButtons, expectedButton);
+    }
+
 }

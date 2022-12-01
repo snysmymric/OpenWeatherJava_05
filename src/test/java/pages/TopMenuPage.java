@@ -4,6 +4,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
+import java.util.List;
+
 public abstract class TopMenuPage extends BasePage {
 
     @FindBy(xpath = "//div[@id = 'desktop-menu']//a[@href='/guide']")
@@ -48,6 +50,8 @@ public abstract class TopMenuPage extends BasePage {
     @FindBy(xpath = "//li[@class='logo']/a")
     private WebElement logo;
 
+    @FindBy(xpath = "//div[@id='desktop-menu']/ul/li")
+    private List<WebElement> topMenuButtons;
 
     public TopMenuPage(WebDriver driver) {
         super(driver);
@@ -115,6 +119,11 @@ public abstract class TopMenuPage extends BasePage {
         inputAndEnter(searchField, text);
 
         return new FindPage(getDriver());
+    }
+
+    public int countTopMenuButtons() {
+
+        return getListSize(topMenuButtons);
     }
 
     public PricePage clickPricingMenu() {
