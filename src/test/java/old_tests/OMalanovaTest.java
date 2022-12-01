@@ -1,5 +1,6 @@
 package old_tests;
 
+import org.testng.annotations.Ignore;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
@@ -12,6 +13,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+@Ignore
 public class OMalanovaTest extends BaseTest {
     private final By TEMP = By.xpath("//span[@class='heading']");
     private final By SWITCH_TEMP_F = By.xpath("//div[text()='Imperial: °F, mph']");
@@ -22,7 +24,6 @@ public class OMalanovaTest extends BaseTest {
     public void testCheckCorrectTemperatureConversion_WhenSwitchTempUnitButton(){
 
         openBaseURL();
-
         String currentTempCstr = getText(TEMP);
         int switchTempCtoF = Integer.parseInt(currentTempCstr.substring(0, currentTempCstr.length() - 2)) * 2 + 30;
 
