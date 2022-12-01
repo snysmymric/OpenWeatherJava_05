@@ -1,10 +1,12 @@
 package old_tests;
 
+import org.testng.annotations.Ignore;
 import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import base.BaseTest;
 
+@Ignore
 public class AikaTest extends BaseTest {
 
     private final By SUPPORT_MENU = By.id("support-dropdown");

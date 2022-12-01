@@ -2,9 +2,11 @@ package old_tests;
 
 import org.openqa.selenium.By;
 import org.testng.Assert;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import base.BaseTest;
 
+@Ignore
 public class Elena_STest extends BaseTest {
     private final   String GUID_URL = "https://openweathermap.org/guide";
     private final  By NAVIGATION_BAR = By.xpath("//nav[@id='nav-website']");

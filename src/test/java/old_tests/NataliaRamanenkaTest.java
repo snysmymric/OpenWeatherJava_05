@@ -6,6 +6,7 @@ import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import base.BaseTest;
 
+@Ignore
 public class NataliaRamanenkaTest extends BaseTest {
     final static By SEARCH_GUIDE_BUTTON = By.xpath(
             "//div[@id = 'desktop-menu']/ul/li/a[@href = '/guide']");

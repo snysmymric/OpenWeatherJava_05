@@ -2,10 +2,12 @@ package old_tests;
 
 import org.openqa.selenium.By;
 import org.testng.Assert;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import base.BaseTest;
 import java.util.List;
 
+@Ignore
 public class OlgaKhliupinaTest extends BaseTest {
 
    final static By SWITCH_TEMP_F = By.xpath("//div[text()='Imperial: °F, mph']");

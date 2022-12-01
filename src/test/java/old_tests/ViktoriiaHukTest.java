@@ -3,11 +3,13 @@ package old_tests;
 import base.BaseTest;
 import org.openqa.selenium.By;
 import org.testng.Assert;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Ignore
 public class ViktoriiaHukTest extends BaseTest {
     private static final By DESKTOP_MENU_API = By.linkText("API");
     private static final By DESKTOP_MENU_PARTNERS = By.xpath("//div[@id='desktop-menu']//a[@href = '/examples']");

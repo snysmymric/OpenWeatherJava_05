@@ -4,6 +4,7 @@ import base.BaseTest;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import pages.TechnologyPage;
+import pages.WeatherDashboardPage;
 
 public class FooterMenuTest extends BaseTest {
 
@@ -39,4 +40,14 @@ public class FooterMenuTest extends BaseTest {
         Assert.assertEquals(getExternalPageTitle(), expectedTitle);
     }
 
+    @Test
+    public void testWeatherDashboardLinkNabigatesToWeatherDashboardPage() {
+        final String expectedResult = "https://openweathermap.org/weather-dashboard";
+
+        WeatherDashboardPage weatherDashboardPage = openBaseURL_ReturnMainPage()
+                .scrollToWeatherDashboardFooterMenu()
+                .clickWeatherDashboardFooterMenu();
+
+        Assert.assertEquals(weatherDashboardPage.getCurrentURL(), expectedResult);
+    }
 }

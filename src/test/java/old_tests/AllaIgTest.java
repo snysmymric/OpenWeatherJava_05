@@ -2,10 +2,11 @@ package old_tests;
 
 import org.openqa.selenium.By;
 import org.testng.Assert;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import base.BaseTest;
 
-
+@Ignore
 public class AllaIgTest extends BaseTest {
     final static By MENU_GUIDE = By.xpath("//div/ul//li/a[@href='/guide']");
     final static By GUIDE_TITLE = By.className("breadcrumb-title");

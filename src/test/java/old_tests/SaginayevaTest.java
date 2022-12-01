@@ -3,8 +3,10 @@ package old_tests;
 import base.BaseTest;
 import org.openqa.selenium.By;
 import org.testng.Assert;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 
+@Ignore
 public class SaginayevaTest extends BaseTest {
     private final static String BASE_URL = "https://openweathermap.org/";
     private final By SEARCH_BUTTON = By.xpath("//div[@id = 'weather-widget']//button[@type = 'submit']");

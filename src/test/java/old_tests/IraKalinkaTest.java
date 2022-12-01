@@ -11,6 +11,7 @@ import base.BaseTest;
 import java.util.Iterator;
 import java.util.List;
 
+@Ignore
 public class IraKalinkaTest extends BaseTest {
 
     private final By SUPPORT_LINK = By.id("support-dropdown");

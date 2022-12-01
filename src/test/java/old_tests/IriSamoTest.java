@@ -4,11 +4,13 @@ import base.BaseTest;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+@Ignore
 public class IriSamoTest extends BaseTest {
     private final By WEATHER_WIDGET_ELEMENTS =
             By.xpath("//div[@id='weather-widget']//*");

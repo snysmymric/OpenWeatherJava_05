@@ -3,6 +3,7 @@ package old_tests;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import base.BaseTest;
 
@@ -10,6 +11,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Ignore
 public class JulykanTest extends BaseTest {
 
     final static String BASE_URL = "https://openweathermap.org/";

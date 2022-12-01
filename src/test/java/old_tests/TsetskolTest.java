@@ -4,8 +4,10 @@ import base.BaseTest;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 
+@Ignore
 public class TsetskolTest extends BaseTest {
     final static By SEARCH_CITY_FIELD=By.xpath("//div[@id = 'weather-widget']//input[@placeholder = 'Search city']");
     final static By SEARCH_BUTTON = By.xpath("//div[@id = 'weather-widget']//button[@type = 'submit']");

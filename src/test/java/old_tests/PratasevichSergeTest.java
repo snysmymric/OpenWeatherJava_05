@@ -8,6 +8,7 @@ import base.BaseTest;
 import java.util.ArrayList;
 import java.util.List;
 
+@Ignore
 public class PratasevichSergeTest extends BaseTest {
     final static String Base_URL = "https://openweathermap.org/";
     final static By H2_CITY_COUNTRY_HEADER = By.xpath("//div[@id='weather-widget']//h2");

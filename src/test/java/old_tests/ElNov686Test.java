@@ -3,12 +3,13 @@ package old_tests;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import base.BaseTest;
 import java.util.ArrayList;
 import java.util.List;
 
-
+@Ignore
 public class ElNov686Test extends BaseTest {
     private final By SEARCH_CITY_FIELD = By
             .xpath("//div[@id = 'weather-widget']//input[@placeholder = 'Search city']");

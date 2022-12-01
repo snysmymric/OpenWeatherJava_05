@@ -3,10 +3,12 @@ package old_tests;
 import base.BaseTest;
 import org.openqa.selenium.By;
 import org.testng.Assert;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 
 import java.util.List;
 
+@Ignore
 public class TchernomorTest extends BaseTest {
 
     private final By DIFFERENT_WEATHER_ITEM_BUTTON = By.xpath("//span[@class='control-el owm-switch']");

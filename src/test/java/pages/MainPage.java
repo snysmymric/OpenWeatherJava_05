@@ -1,5 +1,6 @@
 package pages;
 
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -45,15 +46,12 @@ public class MainPage extends FooterMenuPage {
     @FindBy(xpath = "//ul[@class = 'icons']/*")
     private List<WebElement> iconsList;
 
-    @FindBy(xpath = "//div[@id='support-dropdown']")
-    private WebElement buttonSupport;
-
-    @FindBy(xpath = "//ul[@id='support-dropdown-menu']")
-    private WebElement supportDropDownMenu;
+    @FindBy(id = "support-dropdown")
+    private WebElement supportMenu;
 
     @FindBy(xpath = "//ul[@class='dropdown-menu dropdown-visible']//a[@href='/faq']")
-    private WebElement buttonFAQ;
-    
+    private WebElement faqSupportSubmenu;
+
     @FindBy(xpath = "//div[@aria-label='Loading']")
     private WebElement seeLoading;
 
@@ -73,7 +71,7 @@ public class MainPage extends FooterMenuPage {
     private WebElement xButtonInDifferentWeatherContainer;
 
     @FindBy(xpath = "//span[text()='No results for Rrr']")
-    private WebElement noResultError;
+    private WebElement noResultsError;
 
     @FindBy(xpath = "//div[@class='widget-notification']")
     private WebElement errorButtonBackgroundColor;
@@ -150,34 +148,36 @@ public class MainPage extends FooterMenuPage {
     }
 
     public MainPage waitUntilDifferentWeatherPopUpIsVisible() {
-        getWait10().until(ExpectedConditions.visibilityOf(differentWeatherPopUpContainer));
+        wait10ElementToBeVisible(differentWeatherPopUpContainer);
 
         return this;
     }
 
-    public int getListSizeOfIconsOnDifferentWeatherPopUp() {
+    public int getAmountOfIconsOnDifferentWeatherPopUp() {
+
         return getListSize(iconsList);
     }
 
     public List<WebElement> getListOfIconsOnDifferentWeatherPopUp() {
+
         return iconsList;
     }
 
     public MainPage clickOnIconsOnDifferentWeatherPopUp(WebElement element) {
         click(element);
-        return this;
-    }
-
-    public MainPage clickSupportButton() {
-
-        click(buttonSupport);
 
         return this;
     }
 
-    public String getTextAttribute(String attribute) {
+    public MainPage clickSupportMenu() {
+        click(supportMenu);
 
-        return getAttributeOfElement(seeLoading, attribute);
+        return this;
+    }
+
+    public String getLoadingText(String attribute) {
+
+        return getAttribute(seeLoading, attribute);
     }
 
     public MainPage clickCityNorway() {
@@ -186,26 +186,33 @@ public class MainPage extends FooterMenuPage {
         return this;
     }
 
-    public MainPage clickFAQButton(){
-         click(buttonFAQ);
+    public MainPage clickFAQSupportSubmenu() {
+        click(faqSupportSubmenu);
+
+        return this;
+    }
+
+    public MainPage clickLocationButton() {
+        click20(locationButton);
 
         return this;
     }
 
     public MainPage scrollToOurTechnologyFooterMenu() {
         scrollByVisibleElement(getOurTechnologyFooterMenu());
-        
-        return this;
-   }
-   
-   public MainPage clickLocationButton() {
-        click20(locationButton);
 
         return this;
     }
 
-    public FooterMenuPage scrollToPrivacyPolicyFooterMenu() {
+    public MainPage scrollToPrivacyPolicyFooterMenu() {
         scrollByVisibleElement(getPrivacyPolicyFooterMenu());
+
+        return this;
+    }
+
+    public MainPage scrollToWeatherDashboardFooterMenu() {
+        JavascriptExecutor js = (JavascriptExecutor) getDriver();
+        js.executeScript("window.scrollTo(0, 5200)");
 
         return this;
     }
@@ -227,7 +234,7 @@ public class MainPage extends FooterMenuPage {
 
     public String getErrorText() {
 
-        return getText(noResultError);
+        return getText(noResultsError);
     }
 
     public String getErrorButtonBackgroundColor() {

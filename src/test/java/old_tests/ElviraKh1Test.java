@@ -4,10 +4,12 @@ import base.BaseTest;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 
 import java.util.List;
 
+@Ignore
 public class ElviraKh1Test extends BaseTest {
 
     private final By SUPPORT_MENU_ITEM = By.xpath("//div[@id='support-dropdown']");

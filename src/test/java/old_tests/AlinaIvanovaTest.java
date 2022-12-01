@@ -2,9 +2,11 @@ package old_tests;
 
 import org.openqa.selenium.By;
 import org.testng.Assert;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import base.BaseTest;
 
+@Ignore
 public class AlinaIvanovaTest extends BaseTest {
     private final By MENU_OUR_INITIATIVES = By.xpath("//div[@id= 'desktop-menu']//a[@href= '/our-initiatives']");
     private final By MENU_GUIDE = By.xpath("//div[@id= 'desktop-menu']//a[@href= '/guide']");

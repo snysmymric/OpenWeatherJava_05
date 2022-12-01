@@ -3,11 +3,13 @@ package old_tests;
 import base.BaseTest;
 import org.openqa.selenium.By;
 import org.testng.Assert;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Ignore
 public class KristinaPereselkinaTest extends BaseTest {
     static final By A_HREF_PRICE = By.xpath("//div[@id='desktop-menu']//a[@href='/price']");
     static final By H2 = By.xpath("//h2[text()='Professional collections']");

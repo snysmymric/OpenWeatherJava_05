@@ -2,11 +2,13 @@ package old_tests;
 
 import org.openqa.selenium.By;
 import org.testng.Assert;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import base.BaseTest;
 
 import java.util.List;
 
+@Ignore
 public class MaxIaskoTest extends BaseTest {
     final static By SEARCH_API_PAGE = By.xpath("//div[@id='desktop-menu']//a[text()='API']");
     final static By SEARCH_ORANGE_ELEMENT = By.xpath("//a[contains(@class, 'btn_block orange round')" +

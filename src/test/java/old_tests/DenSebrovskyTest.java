@@ -3,11 +3,13 @@ package old_tests;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import base.BaseTest;
 
 import java.util.List;
 
+@Ignore
 public class DenSebrovskyTest extends BaseTest {
 
     private final By SUPPORT_BUTTON = By.xpath("//div[@id='support-dropdown']");

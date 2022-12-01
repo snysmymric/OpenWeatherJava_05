@@ -3,12 +3,14 @@ package old_tests;
 import base.BaseTest;
 import org.openqa.selenium.By;
 import org.testng.Assert;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Ignore
 public class YuliaKonkovaTest extends BaseTest {
     final static String BASE_URL = "https://openweathermap.org/";
     final static By H2_CITY_NAME_HEADER = By.xpath("//div[@id='weather-widget']//h2");

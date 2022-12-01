@@ -4,9 +4,11 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.How;
 import org.testng.Assert;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import base.BaseTest;
 
+@Ignore
 public class DmswlpkTest extends BaseTest {
 
     private static final By DIFFERENT_WEATHER_POPUP_WINDOW = By.xpath("//div[@class='pop-up-container']");

@@ -8,7 +8,6 @@ public class PartnersTest extends BaseTest {
 
     @Test
     public void testPartnersMenuNavigatesToPartnersPage() {
-
         final String expectedCurrentURL = "https://openweathermap.org/examples";
 
         String currentURL =
@@ -21,7 +20,6 @@ public class PartnersTest extends BaseTest {
 
     @Test
     public void testPartnersPageTitle() {
-
         final String expectedTitle = "Partners and solutions - OpenWeatherMap";
 
         String title = openBaseURL_ReturnMainPage()
@@ -33,7 +31,6 @@ public class PartnersTest extends BaseTest {
 
     @Test
     public void testPartnersPageHeader() {
-
         final String expectedHeader = "Partners and solutions";
 
         String actualHeader = openBaseURL_ReturnMainPage()
@@ -45,7 +42,6 @@ public class PartnersTest extends BaseTest {
 
     @Test
     public void testSeeOnTheWebsiteButtonNavigatesToApacheWebsite() {
-
         final String expectedURL = "https://camel.apache.org/components/next/weather-component.html";
 
         openBaseURL_ReturnMainPage()

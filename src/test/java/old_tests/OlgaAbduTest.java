@@ -8,7 +8,7 @@ import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import base.BaseTest;
 
-
+@Ignore
 public class OlgaAbduTest extends BaseTest {
 
     private final By SEARCH_SUPPORT_BUTTON = By.xpath("//div[@id = 'support-dropdown']");

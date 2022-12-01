@@ -9,7 +9,7 @@ import base.BaseTest;
 import java.util.ArrayList;
 import java.util.List;
 
-
+@Ignore
 public class DimaZadrutsiyTest extends BaseTest {
 
     private final By LOGO = By.xpath("//li[@class='logo']");

@@ -56,7 +56,6 @@ public class MainTest extends BaseTest {
 
     @Test
     public void testH1HeaderColorAndFontSize() {
-
         final String expectedColor = "rgba(0, 0, 0, 0)";
         final String expectedFontSize = "45px";
 
@@ -83,7 +82,7 @@ public class MainTest extends BaseTest {
         int elements = mainPage
                 .clickDifferentWeatherButton()
                 .waitUntilDifferentWeatherPopUpIsVisible()
-                .getListSizeOfIconsOnDifferentWeatherPopUp();
+                .getAmountOfIconsOnDifferentWeatherPopUp();
 
         Assert.assertEquals(elements, expectedAmountOfIcons);
     }
@@ -106,7 +105,7 @@ public class MainTest extends BaseTest {
             Assert.assertEquals(
                     mainPage
                             .clickOnIconsOnDifferentWeatherPopUp(element)
-                            .getAttributeOfElement(element, nameOfTestedAttribute),
+                            .getAttribute(element, nameOfTestedAttribute),
                     expectedValueOfTestedAttribute
             );
         }
@@ -118,7 +117,7 @@ public class MainTest extends BaseTest {
 
         String actualTextWhenLoading = openBaseURL_ReturnMainPage()
                 .clickLogo()
-                .getTextAttribute("aria-label");
+                .getLoadingText("aria-label");
 
         Assert.assertEquals(actualTextWhenLoading, expectedTextWhenLoading);
     }

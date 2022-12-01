@@ -6,6 +6,7 @@ import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import base.BaseTest;
 
+@Ignore
 public class ViacheslavAnisimovTest extends BaseTest {
     final static String EMAIL = "jka59433@xcoxc.com";
     final static String PASSWORD = "Tester12#";

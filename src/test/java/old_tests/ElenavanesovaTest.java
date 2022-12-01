@@ -2,9 +2,11 @@ package old_tests;
 
 import org.openqa.selenium.By;
 import org.testng.Assert;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import base.BaseTest;
 
+@Ignore
 public class ElenavanesovaTest extends BaseTest {
     final String BASE_URL = "https://openweathermap.org/";
     final By H_2_CITY_NAME_HEADER = By.xpath( "//div[@id = 'weather-widget']//h2");

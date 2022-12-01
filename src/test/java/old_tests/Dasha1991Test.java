@@ -2,9 +2,11 @@ package old_tests;
 
 import org.openqa.selenium.By;
 import org.testng.Assert;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import base.BaseTest;
 
+@Ignore
 public class Dasha1991Test extends BaseTest {
 
      final static  By NAME_WEBSITE_H1 = By.xpath

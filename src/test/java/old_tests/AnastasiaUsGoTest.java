@@ -2,9 +2,11 @@ package old_tests;
 
 import org.openqa.selenium.By;
 import org.testng.Assert;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import base.BaseTest;
 
+@Ignore
 public class AnastasiaUsGoTest extends BaseTest {
 
     private final By SIGN_IN_LINK = By.xpath(

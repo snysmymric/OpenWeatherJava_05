@@ -8,6 +8,7 @@ import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import base.BaseTest;
 
+@Ignore
 public class Maksim2404Test extends BaseTest {
     final  By H2_CITY_COUNTRY_HEADER = By.xpath("//div[@id='weather-widget']//h2");
     final  By SEARCH_CITY_FIELD = By.xpath("//div[@id='weather-widget']//input[@placeholder='Search city']");

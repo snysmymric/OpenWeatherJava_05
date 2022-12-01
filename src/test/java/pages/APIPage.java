@@ -6,6 +6,7 @@ import org.openqa.selenium.support.FindBy;
 import java.util.List;
 
 public class APIPage extends FooterMenuPage {
+
     @FindBy(xpath = "//a[contains(@class,'orange')]")
     private List<WebElement> orangeButtons;
 

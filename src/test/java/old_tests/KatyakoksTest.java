@@ -6,6 +6,7 @@ import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import base.BaseTest;
 
+@Ignore
 public class KatyakoksTest extends BaseTest {
 
     final static By PARTNERS_MENU = By.xpath("//div[@id='desktop-menu']//a[@href='/examples']");

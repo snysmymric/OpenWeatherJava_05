@@ -27,7 +27,7 @@ public abstract class TopMenuPage extends BasePage {
     private WebElement supportMenu;
 
     @FindBy(xpath = "//ul[@id='support-dropdown-menu']/li/a[@href='/appid']")
-    private WebElement howToStartMenu;
+    private WebElement howToStartSupportSubmenu;
 
     @FindBy(xpath = "//div[@id='desktop-menu']//form[@role='search']")
     private WebElement searchBoxTopMenu;
@@ -93,26 +93,38 @@ public abstract class TopMenuPage extends BasePage {
         return new MainPage(getDriver());
     }
 
-    public HowToStartPage clickHowToStartMenu() {
-        click(howToStartMenu);
+    public PricePage clickPricingMenu() {
+        click(pricingMenu);
 
-        return new HowToStartPage(getDriver());
+        return new PricePage(getDriver());
     }
 
-    public String getInnerTextOfPlaceholder(String attribute) {
+    public MainPage clickSupportMenu() {
+        click(supportMenu);
 
-        return getAttributeOfElement(searchFieldTopMenu, attribute);
-    }
-
-    public boolean isPlaceholderDisplayed() {
-
-        return isDisplayed(searchBoxTopMenu);
+        return new MainPage(getDriver());
     }
 
     public OurInitiativesPage clickOurInitiativesMenu() {
         click(ourInitiativesMenu);
 
         return new OurInitiativesPage(getDriver());
+    }
+
+    public HowToStartPage clickHowToStartSupportSubmenu() {
+        click(howToStartSupportSubmenu);
+
+        return new HowToStartPage(getDriver());
+    }
+
+    public String getInnerTextOfPlaceholder(String attribute) {
+
+        return getAttribute(searchFieldTopMenu, attribute);
+    }
+
+    public boolean isPlaceholderDisplayed() {
+
+        return isDisplayedElement(searchBoxTopMenu);
     }
 
     public FindPage inputTopMenuSearchFieldAndEnter(String text) {
@@ -126,21 +138,9 @@ public abstract class TopMenuPage extends BasePage {
         return getListSize(topMenuButtons);
     }
 
-    public PricePage clickPricingMenu() {
-        click(pricingMenu);
+    public String getSupportMenuIsActiveValue(String attribute) {
 
-        return new PricePage(getDriver());
-    }
-
-    public MainPage clickSupportMenu() {
-        click(supportMenu);
-
-        return new MainPage(getDriver());
-    }
-
-    public String getActualAttributeValue(String attribute) {
-
-        return getAttributeOfElement(supportDropdownMenu, attribute);
+        return getAttribute(supportDropdownMenu, attribute);
 
     }
 }

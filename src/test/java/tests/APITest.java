@@ -19,7 +19,6 @@ public class APITest extends BaseTest {
 
     @Test
     public void testAPIPageHeader() {
-
         final String expectedHeader = "Weather API";
 
         String header = openBaseURL_ReturnMainPage()

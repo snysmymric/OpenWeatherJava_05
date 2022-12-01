@@ -9,7 +9,7 @@ import java.util.List;
 public class PricePage extends FooterMenuPage {
 
     @FindBy(xpath = "//section[@id = 'alerts']/h2")
-    private WebElement alerts_h2;
+    private WebElement alertsH2Header;
 
     @FindBy(xpath = "//section[@id = 'alerts']//tbody/tr/th/h4/a")
     private WebElement sectionAlertsSubHeadersOfFirstColumn;
@@ -27,7 +27,7 @@ public class PricePage extends FooterMenuPage {
     private WebElement pricingPageHeader;
 
     @FindBy(xpath = "//a[@class = 'btn_block transparent round']")
-    private List<WebElement> btnBlockTransparentRound;
+    private List<WebElement> transparentButtons;
 
     public PricePage(WebDriver driver) {
         super(driver);
@@ -35,6 +35,6 @@ public class PricePage extends FooterMenuPage {
 
     public int getTransparentButtonsAmount() {
 
-        return getListSize(btnBlockTransparentRound);
+        return getListSize(transparentButtons);
     }
 }

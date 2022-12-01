@@ -2,12 +2,14 @@ package old_tests;
 
 import org.openqa.selenium.By;
 import org.testng.Assert;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import base.BaseTest;
 
 import java.util.Arrays;
 import java.util.List;
 
+@Ignore
 public class ValentinKuprinTest extends BaseTest {
     final static By GRID_CONTAINER_API_ICONS = By.xpath("//div[@class='grid-container api-icons']//a");
     final static By H2_OUR_NEW_PROJECT_HEADER = By.xpath("//div[@class='section-content no-mobile-padding']//h2");

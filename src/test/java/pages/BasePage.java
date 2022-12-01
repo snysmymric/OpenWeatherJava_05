@@ -1,8 +1,6 @@
 package pages;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
-import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -21,7 +19,7 @@ public abstract class BasePage {
     private WebDriverWait webDriverWait10;
     private Actions actions;
 
-    public BasePage(WebDriver driver) {
+    protected BasePage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
     }
@@ -71,6 +69,11 @@ public abstract class BasePage {
         return getWait20().until(ExpectedConditions.elementToBeClickable(element));
     }
 
+    protected void wait10UrlContains(String text) {
+
+        getWait10().until(ExpectedConditions.urlContains(text));
+    }
+
     protected String getText(WebElement element) {
         if (!element.getText().isEmpty()) {
             wait10ElementToBeVisible(element);
@@ -89,76 +92,9 @@ public abstract class BasePage {
         wait20ElementToBeClickable(element).click();
     }
 
-    protected void input(String text, WebElement element) {
-        element.sendKeys(text);
-    }
+    protected boolean isDisplayedElement(WebElement element) {
 
-    protected void waitTextToBeChanged(WebElement element, String text) {
-        getWait10().until(ExpectedConditions
-                .not(ExpectedConditions.textToBePresentInElement(element, text)));
-    }
-
-    protected void switchToAnotherWindow() {
-        String originalWindow = getDriver().getWindowHandle();
-
-        for (String windowHandle : getDriver().getWindowHandles()) {
-            if (!originalWindow.equals(windowHandle)) {
-                getDriver().switchTo().window(windowHandle);
-                break;
-            }
-        }
-    }
-
-    protected String getBackgroundColor(WebElement element) {
-        wait10ElementToBeVisible(element);
-
-        return element.getCssValue("background-color");
-    }
-
-    protected String getFontSize(WebElement element) {
-        wait10ElementToBeVisible(element);
-
-        return element.getCssValue("font-size");
-    }
-
-    public String getTitle() {
-
-        return getDriver().getTitle();
-    }
-
-    public String getCurrentURL() {
-
-        return getDriver().getCurrentUrl();
-    }
-
-    protected void wait10UrlContains(String text) {
-        getWait10().until(ExpectedConditions.urlContains(text));
-    }
-
-    public int getListSize(List<WebElement> list) {
-
-        return list.size();
-    }
-
-    protected void scrollByVisibleElement(WebElement element) {
-        JavascriptExecutor js = (JavascriptExecutor) getDriver();
-        js.executeScript("arguments[0].scrollIntoView();", element);
-    }
-
-    public String getAttributeOfElement(WebElement element, String attribute) {
-        if (!element.getText().isEmpty()) {
-            wait10ElementToBeVisible(element);
-        }
-        return element.getAttribute(attribute);
-    }
-
-    protected boolean isDisplayed (WebElement element){
         return element.isDisplayed();
-    }
-
-    protected void inputAndEnter(WebElement element, String text) {
-        getWait10().until(ExpectedConditions.visibilityOf(element));
-        element.sendKeys(text, Keys.ENTER);
     }
 
     protected boolean allElementsVisibleAndClickable(List<WebElement> element) {
@@ -176,8 +112,68 @@ public abstract class BasePage {
         return elementsSize == count;
     }
 
-    protected boolean isDisplayedElement(WebElement element) {
+    protected void input(String text, WebElement element) {
+        element.sendKeys(text);
+    }
 
-        return element.isDisplayed();
+    protected void inputAndEnter(WebElement element, String text) {
+        getWait10().until(ExpectedConditions.visibilityOf(element));
+        element.sendKeys(text, Keys.ENTER);
+    }
+
+    protected void waitTextToBeChanged(WebElement element, String text) {
+        getWait10().until(ExpectedConditions
+                .not(ExpectedConditions.textToBePresentInElement(element, text)));
+    }
+
+    public String getAttribute(WebElement element, String attribute) {
+        if (!element.getText().isEmpty()) {
+            wait10ElementToBeVisible(element);
+        }
+
+        return element.getAttribute(attribute);
+    }
+
+    protected String getBackgroundColor(WebElement element) {
+        wait10ElementToBeVisible(element);
+
+        return element.getCssValue("background-color");
+    }
+
+    protected String getFontSize(WebElement element) {
+        wait10ElementToBeVisible(element);
+
+        return element.getCssValue("font-size");
+    }
+
+    public int getListSize(List<WebElement> list) {
+
+        return list.size();
+    }
+
+    protected void switchToAnotherWindow() {
+        String originalWindow = getDriver().getWindowHandle();
+
+        for (String windowHandle : getDriver().getWindowHandles()) {
+            if (!originalWindow.equals(windowHandle)) {
+                getDriver().switchTo().window(windowHandle);
+                break;
+            }
+        }
+    }
+
+    protected void scrollByVisibleElement(WebElement element) {
+        JavascriptExecutor js = (JavascriptExecutor) getDriver();
+        js.executeScript("arguments[0].scrollIntoView();", element);
+    }
+
+    public String getTitle() {
+
+        return getDriver().getTitle();
+    }
+
+    public String getCurrentURL() {
+
+        return getDriver().getCurrentUrl();
     }
 }

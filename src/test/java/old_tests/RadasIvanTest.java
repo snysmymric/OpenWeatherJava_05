@@ -8,6 +8,7 @@ import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import base.BaseTest;
 
+@Ignore
 public class RadasIvanTest extends BaseTest {
     private final By DIFFERENT_WEATHER = By.xpath("//span[@class='control-el owm-switch']");
 

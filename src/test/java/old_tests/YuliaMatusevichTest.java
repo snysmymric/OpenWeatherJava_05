@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+@Ignore
 public class YuliaMatusevichTest extends BaseTest {
     final static By FACEBOOK_LINK = By.xpath("//div[@class = 'social']/a[1]");
     final static By TWITTER_LINK = By.xpath("//div[@class = 'social']/a[2]");

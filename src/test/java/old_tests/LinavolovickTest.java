@@ -3,8 +3,10 @@ package old_tests;
 import base.BaseTest;
 import org.openqa.selenium.By;
 import org.testng.Assert;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 
+@Ignore
 public class LinavolovickTest extends BaseTest {
     private final String WEATHER_API_URL = "https://openweathermap.org/api#current";
     private final String WEATHER_API_URL2 = "https://openweathermap.org/api";

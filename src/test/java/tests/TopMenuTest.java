@@ -76,7 +76,7 @@ public class TopMenuTest extends BaseTest {
 
         HowToStartPage howToStartPage = openBaseURL_ReturnMainPage()
                 .clickSupportMenu()
-                .clickHowToStartMenu();
+                .clickHowToStartSupportSubmenu();
 
         Assert.assertNotEquals(basePageTitle, howToStartPage.getTitle());
         Assert.assertEquals(howToStartPage.getCurrentURL(), expectedUrl);
@@ -125,10 +125,11 @@ public class TopMenuTest extends BaseTest {
     @Test
     public void testCountTopMenuButtons() {
         int expectedButton = 12;
+
         int actualCountTopMenuButtons =
                 openBaseURL_ReturnMainPage()
                         .countTopMenuButtons();
+
         Assert.assertEquals(actualCountTopMenuButtons, expectedButton);
     }
-
 }

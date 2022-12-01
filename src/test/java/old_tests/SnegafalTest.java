@@ -6,11 +6,13 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.Color;
 import org.testng.Assert;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import base.BaseTest;
 import java.util.ArrayList;
 import java.util.List;
 
+@Ignore
 public class SnegafalTest extends BaseTest {
 
     private final List<String> EXPECTED_DATA_SOURCE_ITEMS = List.of(

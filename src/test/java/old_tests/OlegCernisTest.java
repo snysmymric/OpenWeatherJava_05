@@ -2,9 +2,11 @@ package old_tests;
 
 import org.openqa.selenium.By;
 import org.testng.Assert;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import base.BaseTest;
 
+@Ignore
 public class OlegCernisTest extends BaseTest {
 
     private final By SEARCH_CITY_FIELD = By.xpath("//div[@id='weather-widget']//input[@placeholder= 'Search city']");

@@ -6,6 +6,7 @@ import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import base.BaseTest;
 
+@Ignore
 public class MurzinovaTest extends BaseTest {
     private final By GUIDE_LINK = By.xpath("//div[@id='desktop-menu']//a[@href='/guide']");
     private final By SIGN_IN_LINK = By.xpath(

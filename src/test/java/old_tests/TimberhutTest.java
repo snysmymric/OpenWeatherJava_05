@@ -3,10 +3,12 @@ package old_tests;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import base.BaseTest;
 import java.util.List;
 
+@Ignore
 public class TimberhutTest extends BaseTest {
     final static By DIFFERENT_WEATHER_BUTTON = By.xpath("//span[@class='control-el owm-switch']");
     final static By MORE_OPTION_BUTTON = By.xpath("//div[@class='more-options']");

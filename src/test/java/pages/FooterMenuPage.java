@@ -12,6 +12,9 @@ public abstract class FooterMenuPage extends TopMenuPage {
     @FindBy(css = "a[href='https://openweather.co.uk/privacy-policy']")
     private WebElement privacyPolicyFooterMenu;
 
+    @FindBy (xpath="//div[@id='footer-website']//a[@href='/weather-dashboard']")
+    private WebElement weatherDashboardFooterMenu;
+
     public FooterMenuPage(WebDriver driver) {
         super(driver);
     }
@@ -23,8 +26,14 @@ public abstract class FooterMenuPage extends TopMenuPage {
     }
 
     public void clickPrivacyPolicyFooterMenu() {
-        click(privacyPolicyFooterMenu);
 
+        click(privacyPolicyFooterMenu);
+    }
+
+    public WeatherDashboardPage clickWeatherDashboardFooterMenu(){
+        click(weatherDashboardFooterMenu);
+
+        return new WeatherDashboardPage(getDriver());
     }
 
     protected WebElement getOurTechnologyFooterMenu() {

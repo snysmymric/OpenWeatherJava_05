@@ -5,9 +5,11 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import base.BaseTest;
 
+@Ignore
 public class SviatlanaPiletskayaTest extends BaseTest {
     private final By NAME_WEBSITE = By.xpath("//div[@class='section where-to']//span[@class= 'orange-text']");
     private final By DESCRIPTION_WEBSITE = By.xpath("//div[@class='section where-to']//span[@class= 'white-text']");

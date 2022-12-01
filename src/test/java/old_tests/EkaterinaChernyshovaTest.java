@@ -7,6 +7,7 @@ import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import base.BaseTest;
 
+@Ignore
 public class EkaterinaChernyshovaTest extends BaseTest {
 
     final static By H2_CITY_NAME_HEADER = By.xpath("//div[@id = 'weather-widget']//h2");

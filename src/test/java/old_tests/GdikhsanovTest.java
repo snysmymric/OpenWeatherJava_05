@@ -3,10 +3,12 @@ package old_tests;
 import base.BaseTest;
 import org.openqa.selenium.By;
 import org.testng.Assert;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import java.time.Year;
 import java.util.List;
 
+@Ignore
 public class GdikhsanovTest extends BaseTest {
 
     private final static String BASE_URL = "https://openweathermap.org/";
