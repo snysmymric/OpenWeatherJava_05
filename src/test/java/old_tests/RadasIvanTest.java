@@ -4,6 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import base.BaseTest;
 
@@ -32,7 +33,7 @@ public class RadasIvanTest extends BaseTest {
 
         Assert.assertEquals(actualResult, expectedNameTitle);
     }
-
+    @Ignore
     @Test
     public void testCurentDateAndTimeStartPage() {
         String expectedResult = systemDate();
