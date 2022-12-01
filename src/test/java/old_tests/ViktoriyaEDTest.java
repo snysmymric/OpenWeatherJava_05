@@ -153,6 +153,7 @@ public class ViktoriyaEDTest extends BaseTest {
         Assert.assertTrue(getCurrentURL().contains(expectedWidgetsPage));
     }
 
+    @Ignore
     @Test
     public void test_VerifySelectYourCityFieldContainsChosenCity() {
 

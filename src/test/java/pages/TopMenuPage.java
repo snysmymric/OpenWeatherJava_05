@@ -21,6 +21,12 @@ public abstract class TopMenuPage extends BasePage {
     @FindBy(xpath = "//div[@id='desktop-menu']//a[@href='https://home.openweathermap.org/marketplace']")
     private WebElement marketplaceMenu;
 
+    @FindBy(id = "support-dropdown")
+    private WebElement supportMenu;
+
+    @FindBy(xpath = "//ul[@id='support-dropdown-menu']/li/a[@href='/appid']")
+    private WebElement howToStartMenu;
+
     @FindBy(xpath = "//div[@id='desktop-menu']//form[@role='search']")
     private WebElement searchBoxTopMenu;
 
@@ -30,15 +36,11 @@ public abstract class TopMenuPage extends BasePage {
     @FindBy(xpath = "//div//input[@name='q']")
     private WebElement searchField;
 
-    @FindBy(xpath = "//div[@id='support-dropdown']")
-    private WebElement supportMenu;
-
     @FindBy(xpath = "//ul[@id='support-dropdown-menu']")
     private WebElement supportDropdownMenu;
 
     @FindBy(xpath = "//div[@id = 'desktop-menu']//a[@href='/our-initiatives']")
     private WebElement ourInitiativesMenu;
-
 
     @FindBy(xpath = "//div[@id = 'desktop-menu']//a[@href = '/price']")
     private WebElement pricingMenu;
@@ -81,11 +83,16 @@ public abstract class TopMenuPage extends BasePage {
         return new HomeMarketplacePage(getDriver());
     }
 
-
     public MainPage clickLogo() {
         click(logo);
 
         return new MainPage(getDriver());
+    }
+
+    public HowToStartPage clickHowToStartMenu() {
+        click(howToStartMenu);
+
+        return new HowToStartPage(getDriver());
     }
 
     public String getInnerTextOfPlaceholder(String attribute) {
@@ -109,7 +116,6 @@ public abstract class TopMenuPage extends BasePage {
 
         return new FindPage(getDriver());
     }
-
 
     public PricePage clickPricingMenu() {
         click(pricingMenu);

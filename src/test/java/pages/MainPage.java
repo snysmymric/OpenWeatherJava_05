@@ -192,8 +192,20 @@ public class MainPage extends FooterMenuPage {
         return this;
     }
 
+    public MainPage scrollToOurTechnologyFooterMenu() {
+        scrollByVisibleElement(getOurTechnologyFooterMenu());
+        
+        return this;
+   }
+   
    public MainPage clickLocationButton() {
         click20(locationButton);
+
+        return this;
+    }
+
+    public FooterMenuPage scrollToPrivacyPolicyFooterMenu() {
+        scrollByVisibleElement(getPrivacyPolicyFooterMenu());
 
         return this;
     }

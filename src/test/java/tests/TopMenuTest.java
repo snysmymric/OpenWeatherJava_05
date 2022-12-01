@@ -5,6 +5,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import pages.APIPage;
 import pages.GuidePage;
+import pages.HowToStartPage;
 import pages.MainPage;
 import pages.OurInitiativesPage;
 
@@ -65,6 +66,21 @@ public class TopMenuTest extends BaseTest {
         Assert.assertEquals(getCurrentURL().substring(0, 37), mapsUrl);
 
         Assert.assertEquals(getTitle(), mapsTitle);
+    }
+
+    @Test
+    public void testHowToStartMenuNavigatesToHowToStartPage() {
+        final String basePageTitle = "Сurrent weather and forecast - OpenWeatherMap";
+        final String expectedTitle = "How to start to work with Openweather API - OpenWeatherMap";
+        final String expectedUrl = "https://openweathermap.org/appid";
+
+        HowToStartPage howToStartPage = openBaseURL_ReturnMainPage()
+                .clickSupportMenu()
+                .clickHowToStartMenu();
+
+        Assert.assertNotEquals(basePageTitle, howToStartPage.getTitle());
+        Assert.assertEquals(howToStartPage.getCurrentURL(), expectedUrl);
+        Assert.assertEquals(howToStartPage.getTitle(), expectedTitle);
     }
 
     @Test

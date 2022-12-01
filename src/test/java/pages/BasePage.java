@@ -2,6 +2,8 @@ package pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -138,13 +140,18 @@ public abstract class BasePage {
         return list.size();
     }
 
+    protected void scrollByVisibleElement(WebElement element) {
+        JavascriptExecutor js = (JavascriptExecutor) getDriver();
+        js.executeScript("arguments[0].scrollIntoView();", element);
+    }
+
     public String getAttributeOfElement(WebElement element, String attribute) {
         if (!element.getText().isEmpty()) {
             wait10ElementToBeVisible(element);
         }
         return element.getAttribute(attribute);
     }
-    
+
     protected boolean isDisplayed (WebElement element){
         return element.isDisplayed();
     }
