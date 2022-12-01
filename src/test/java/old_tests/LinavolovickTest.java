@@ -3,6 +3,7 @@ package old_tests;
 import base.BaseTest;
 import org.openqa.selenium.By;
 import org.testng.Assert;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 
 public class LinavolovickTest extends BaseTest {
@@ -64,6 +65,7 @@ public class LinavolovickTest extends BaseTest {
         Assert.assertEquals(actualResult, expectedAPIsLink);
     }
 
+    @Ignore
     @Test
     public void testCreateNewAccountWithoutCaptchaError() {
         String username = "foma123";
