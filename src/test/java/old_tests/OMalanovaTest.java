@@ -19,7 +19,6 @@ public class OMalanovaTest extends BaseTest {
     private final By SWITCH_TEMP_F = By.xpath("//div[text()='Imperial: °F, mph']");
     private final By CURRENT_TIME = By.xpath("//div[@id='weather-widget']//span[@class='orange-text'][text()]");
 
-    @Ignore
     @Test
     public void testCheckCorrectTemperatureConversion_WhenSwitchTempUnitButton(){
 

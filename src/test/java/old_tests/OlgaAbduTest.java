@@ -4,6 +4,7 @@ import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import base.BaseTest;
 
@@ -35,6 +36,7 @@ public class OlgaAbduTest extends BaseTest {
     final String PASSWORD = "Tester12#";
     final String API_URL = "https://home.openweathermap.org/api_keys";
 
+    @Ignore
     @Test
     public void testSupportButtonClickable() {
 
@@ -74,6 +76,7 @@ public class OlgaAbduTest extends BaseTest {
         Assert.assertTrue(isDisplayed(API_CREATED_MESSAGE));
     }
 
+    @Ignore
     @Test(dependsOnMethods = "testGenerateNewApiKey")
     public void testDeleteNewKeys() {
 

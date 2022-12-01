@@ -10,6 +10,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class BasePage {
@@ -138,7 +139,9 @@ public abstract class BasePage {
     }
 
     public String getAttributeOfElement(WebElement element, String attribute) {
-
+        if (!element.getText().isEmpty()) {
+            wait10ElementToBeVisible(element);
+        }
         return element.getAttribute(attribute);
     }
     
@@ -149,5 +152,25 @@ public abstract class BasePage {
     protected void inputAndEnter(WebElement element, String text) {
         getWait10().until(ExpectedConditions.visibilityOf(element));
         element.sendKeys(text, Keys.ENTER);
-    }    
+    }
+
+    protected boolean allElementsVisibleAndClickable(List<WebElement> element) {
+        List<WebElement> allElements = new ArrayList<>(element);
+        int elementsSize = element.size();
+        int count = 0;
+
+        for (WebElement checkedElement : allElements) {
+            if (checkedElement.isEnabled() && checkedElement.isDisplayed()) {
+                checkedElement = wait10ElementToBeClickable(checkedElement);
+                count++;
+            }
+        }
+
+        return elementsSize == count;
+    }
+
+    protected boolean isDisplayedElement(WebElement element) {
+
+        return element.isDisplayed();
+    }
 }

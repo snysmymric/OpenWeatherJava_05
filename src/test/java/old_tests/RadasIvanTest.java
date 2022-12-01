@@ -33,6 +33,7 @@ public class RadasIvanTest extends BaseTest {
 
         Assert.assertEquals(actualResult, expectedNameTitle);
     }
+
     @Ignore
     @Test
     public void testCurentDateAndTimeStartPage() {

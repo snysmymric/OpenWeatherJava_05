@@ -111,4 +111,87 @@ public class MainTest extends BaseTest {
             );
         }
     }
+
+    @Test
+    public void testRefreshPage() {
+        final String expectedTextWhenLoading = "Loading";
+
+        String actualTextWhenLoading = openBaseURL_ReturnMainPage()
+                .clickLogo()
+                .getTextAttribute("aria-label");
+
+        Assert.assertEquals(actualTextWhenLoading, expectedTextWhenLoading);
+    }
+
+    @Test
+    public void testIconForCurrentLocation() {
+        final String cityName = "Norway";
+        final String expectedCityName = "London, GB";
+
+        String actualCityName = openBaseURL_ReturnMainPage()
+                .clickSearchCityField()
+                .inputSearchCriteria(cityName)
+                .clickSearchButton()
+                .clickCityNorway()
+                .clickLocationButton()
+                .getCityCountryName();
+
+        Assert.assertEquals(actualCityName, expectedCityName);
+    }
+
+    @Test
+    public void testAllIconsAreShownAndClickable() {
+
+        MainPage mainPage = openBaseURL_ReturnMainPage()
+                .clickDifferentWeatherButton();
+
+        Assert.assertTrue(mainPage.checkAllIconsAreVisibleAndClickable());
+    }
+
+    @Test
+    public void testIfXButtonDisplayed() {
+
+        MainPage mainPage = openBaseURL_ReturnMainPage()
+                .clickDifferentWeatherButton();
+
+        Assert.assertTrue(mainPage.isXButtonDisplayed());
+    }
+
+    @Test
+    public void testIfSendButtonDisplayed() {
+
+        MainPage mainPage = openBaseURL_ReturnMainPage()
+                .clickDifferentWeatherButton();
+
+        Assert.assertTrue(mainPage.isSendButtonDisplayed());
+    }
+
+    @Test
+    public void testErrorMessageWhenCityDoesNotExists() {
+        final String cityName = "Rrr";
+        final String expectedErrorText = "No results for Rrr";
+
+        String actualErrorText = openBaseURL_ReturnMainPage()
+                .clickSearchCityField()
+                .inputSearchCriteria(cityName)
+                .clickSearchButton()
+                .getErrorText();
+
+        Assert.assertEquals(actualErrorText, expectedErrorText);
+    }
+
+    @Test
+    public void testIfXButtonHasColorGreen() {
+        final String cityName = "Rrr";
+        final String expectedXButtonBackgroundColor = "rgba(120, 203, 191, 0.8)";
+
+        String actualXButtonBackgroundColor = openBaseURL_ReturnMainPage()
+                .clickSearchCityField()
+                .inputSearchCriteria(cityName)
+                .clickSearchButton()
+                .getErrorButtonBackgroundColor();
+
+        Assert.assertEquals(actualXButtonBackgroundColor, expectedXButtonBackgroundColor);
+    }
 }
+

@@ -3,7 +3,6 @@ package old_tests;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;;
-import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import base.BaseTest;
 
@@ -33,8 +32,6 @@ public class HappyStrawberryTest extends BaseTest {
 
 
     }
-
-    @Ignore
     @Test
     public void testFAQButtonIsClickable() {
         openBaseURL();

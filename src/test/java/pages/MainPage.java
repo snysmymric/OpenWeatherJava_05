@@ -53,6 +53,30 @@ public class MainPage extends FooterMenuPage {
 
     @FindBy(xpath = "//ul[@class='dropdown-menu dropdown-visible']//a[@href='/faq']")
     private WebElement buttonFAQ;
+    
+    @FindBy(xpath = "//div[@aria-label='Loading']")
+    private WebElement seeLoading;
+
+    @FindBy(xpath = "//span[text()='45.787, -87.904']")
+    private WebElement cityNorway;
+
+    @FindBy(xpath = "//div[@class='control-el']")
+    private WebElement locationButton;
+
+    @FindBy(xpath = "//ul[@class='icons']/li")
+    private List<WebElement> differentWeatherIcons;
+
+    @FindBy(xpath = "//button[text()='Send']")
+    private WebElement sendButtonInDifferentWeatherContainer;
+
+    @FindBy(xpath = "//div[@class='pop-up-container']//*[name()='path' and @fill='#8a8a8a']")
+    private WebElement xButtonInDifferentWeatherContainer;
+
+    @FindBy(xpath = "//span[text()='No results for Rrr']")
+    private WebElement noResultError;
+
+    @FindBy(xpath = "//div[@class='widget-notification']")
+    private WebElement errorButtonBackgroundColor;
 
     public MainPage(WebDriver driver) {
         super(driver);
@@ -151,9 +175,52 @@ public class MainPage extends FooterMenuPage {
         return this;
     }
 
+    public String getTextAttribute(String attribute) {
+
+        return getAttributeOfElement(seeLoading, attribute);
+    }
+
+    public MainPage clickCityNorway() {
+        click20(cityNorway);
+
+        return this;
+    }
+
     public MainPage clickFAQButton(){
          click(buttonFAQ);
 
         return this;
     }
+
+   public MainPage clickLocationButton() {
+        click20(locationButton);
+
+        return this;
+    }
+
+    public boolean checkAllIconsAreVisibleAndClickable() {
+
+        return allElementsVisibleAndClickable(differentWeatherIcons);
+    }
+
+    public boolean isSendButtonDisplayed() {
+
+        return isDisplayedElement(sendButtonInDifferentWeatherContainer);
+    }
+
+    public boolean isXButtonDisplayed() {
+
+        return isDisplayedElement(xButtonInDifferentWeatherContainer);
+    }
+
+    public String getErrorText() {
+
+        return getText(noResultError);
+    }
+
+    public String getErrorButtonBackgroundColor() {
+
+        return getBackgroundColor(errorButtonBackgroundColor);
+    }
 }
+

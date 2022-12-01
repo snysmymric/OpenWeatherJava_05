@@ -2,7 +2,6 @@ package old_tests;
 
 import org.openqa.selenium.By;
 import org.testng.Assert;
-import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import base.BaseTest;
 import java.util.List;
@@ -32,7 +31,6 @@ public class OlgaKhliupinaTest extends BaseTest {
    final static By WEATHER_DATA_ICONS = By.xpath("//div/a[@class='stats white-text']");
    final static By DAY_LIST_VALUES = By.xpath("//div[@class='day-list-values']/div/span");
 
-   @Ignore
    @Test
    public void testLinkAndTitle_WhenGoingToGuideMenu() {
       final String expectedUrl = "https://openweathermap.org/guide";

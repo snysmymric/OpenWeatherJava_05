@@ -268,6 +268,7 @@ public class ViktoriyaEDTest extends BaseTest {
             Assert.assertTrue(widgetsTempF.get(i).equals(tempUnitF));
         }
     }
+    @Ignore
     @Test
     public void test_VerifyAllWidgetsHasChosenCity() {
 
