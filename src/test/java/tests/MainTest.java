@@ -112,6 +112,35 @@ public class MainTest extends BaseTest {
     }
 
     @Test
+    public void testVerifyMetricSymbolIsShownInCurrentTemp () {
+
+        final String expectedMetricText = "Metric: °C, m/s";
+
+        MainPage mainPage = openBaseURL_ReturnMainPage();
+
+        String actualMetricText = mainPage.getTextMetric();
+
+        Assert.assertEquals(actualMetricText,expectedMetricText);
+
+        boolean actualMetricSelected = mainPage.MetricSelected();
+
+        Assert.assertTrue(actualMetricSelected);
+    }
+
+    @Test
+    public void testWidgetMapAndLinkOpenStreetMapAreWorking() {
+
+        String expectedLinkIsClickableAndOpened = "https://www.openstreetmap.org/copyright";
+
+        openBaseURL_ReturnMainPage().clickStreetMap();
+        MainPage mainPage = new MainPage(getDriver());
+
+        jumpToNextWindow();
+        mainPage.confirmElementOpenStreetMapVisible();
+
+        Assert.assertEquals(getCurrentURL(), expectedLinkIsClickableAndOpened);
+    }
+
     public void testRefreshPage() {
         final String expectedTextWhenLoading = "Loading";
 
