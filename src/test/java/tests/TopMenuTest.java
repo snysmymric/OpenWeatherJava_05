@@ -9,6 +9,8 @@ import pages.HowToStartPage;
 import pages.MainPage;
 import pages.OurInitiativesPage;
 
+import java.util.List;
+
 public class TopMenuTest extends BaseTest {
 
     @Test
@@ -111,9 +113,33 @@ public class TopMenuTest extends BaseTest {
     }
 
     @Test
+    public void testSupportMenuHasLinks() {
+        final List<String> expectedList = List.of("FAQ", "How to start", "Ask a question");
+        Assert.assertEquals(openBaseURL_ReturnMainPage().clickOnSupportMenu().getLinksList(), expectedList);
+    }
+    
+    @Test    
+    public void testSupportMenuIsClickable() {
+        final String attribute = "class";
+        final String expectedIfVisible = "dropdown-menu dropdown-visible";
+        final String expectedIfNotVisible = "dropdown-menu";
+
+        openBaseURL();
+
+        MainPage mainPage = new MainPage(getDriver());
+
+        mainPage.clickSupportMenu();
+
+        Assert.assertEquals(mainPage.getSupportMenuIsActiveValue(attribute), expectedIfVisible);
+
+        mainPage.clickSupportMenu();
+    }
+
+
     public void testGuideMenuNavigatesToGuidePage() {
         final String expectedUrl = "https://openweathermap.org/guide";
         final String expectedTitle = "OpenWeatherMap API guide - OpenWeatherMap";
+
 
         GuidePage guidePage =
                 openBaseURL_ReturnMainPage()

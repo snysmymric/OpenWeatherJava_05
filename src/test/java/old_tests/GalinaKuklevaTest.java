@@ -80,6 +80,7 @@ public class GalinaKuklevaTest extends BaseTest {
         Assert.assertTrue(actualResult, expectedResult);
     }
 
+    @Ignore
     @Test
     public void testNonCaptchaVerification() {
 

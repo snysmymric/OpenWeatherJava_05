@@ -4,6 +4,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
+import java.util.ArrayList;
+
 import java.util.List;
 
 public abstract class TopMenuPage extends BasePage {
@@ -44,11 +46,17 @@ public abstract class TopMenuPage extends BasePage {
     @FindBy(xpath = "//div[@id = 'desktop-menu']//a[@href='/our-initiatives']")
     private WebElement ourInitiativesMenu;
 
-    @FindBy(xpath = "//div[@id = 'desktop-menu']//a[@href = '/price']")
-    private WebElement pricingMenu;
+    @FindBy(id = "support-dropdown")
+    private WebElement supportDropDMenu;
+
+    @FindBy(xpath = "//li[@class='with-dropdown']//li/a")
+    private List<WebElement> supportMenuLinks;
 
     @FindBy(xpath = "//li[@class='logo']/a")
     private WebElement logo;
+
+    @FindBy(xpath = "//div[@id = 'desktop-menu']//a[@href = '/price']")
+    private WebElement pricingMenu;
 
     @FindBy(xpath = "//div[@id='desktop-menu']/ul/li")
     private List<WebElement> topMenuButtons;
@@ -131,6 +139,19 @@ public abstract class TopMenuPage extends BasePage {
         inputAndEnter(searchField, text);
 
         return new FindPage(getDriver());
+    }
+
+    public MainPage clickOnSupportMenu() {
+        click(supportDropDMenu);
+        return new MainPage(getDriver());
+    }
+
+    public List<String> getLinksList() {
+        List<String> linksList = new ArrayList<>();
+        for (WebElement link : supportMenuLinks) {
+            linksList.add(link.getText());
+        }
+        return linksList;
     }
 
     public int countTopMenuButtons() {
