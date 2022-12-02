@@ -85,18 +85,6 @@ public class MainPage extends FooterMenuPage {
     @FindBy(xpath = "//div[@class='current-temp']/span")
     private WebElement currentTempAndUnit;
 
-    @FindBy(xpath="//div[@class='option']")
-    private WebElement getNameMetric;
-
-    @FindBy(xpath="//div[@id='selected']")
-    private WebElement selectedIsTrue;
-
-    @FindBy(xpath="//div[@id='weather-widget']//a[@href='https://www.openstreetmap.org/copyright']")
-    private WebElement openStreetMap;
-
-    @FindBy(xpath="//div[@id='content']//h1")
-    private WebElement confirmElementIsVisibleOpenStreetMap;
-
     public MainPage(WebDriver driver) {
         super(driver);
     }
@@ -209,25 +197,6 @@ public class MainPage extends FooterMenuPage {
 
     public MainPage clickFAQSupportSubmenu() {
         click(faqSupportSubmenu);
-
-        return this;
-    }
-
-    public String getTextMetric() {
-
-        return getText(getNameMetric);
-    }
-    public boolean MetricSelected() {
-
-        return selectedIsTrue.isDisplayed();
-    }
-    public MainPage clickStreetMap() {
-        click(openStreetMap);
-
-        return this;
-    }
-    public MainPage confirmElementOpenStreetMapVisible() {
-        wait20ElementToBeVisible(confirmElementIsVisibleOpenStreetMap);
 
         return this;
     }

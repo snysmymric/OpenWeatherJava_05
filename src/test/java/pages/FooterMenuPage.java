@@ -1,14 +1,10 @@
 package pages;
 
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 public abstract class FooterMenuPage extends TopMenuPage {
-
-    @FindBy(xpath="//a[@href='https://home.openweathermap.org/users/sign_up']")
-    private WebElement subscribeFreeButton;
 
     @FindBy(css = "a[href='/technology']")
     private WebElement ourTechnologyFooterMenu;
@@ -21,19 +17,6 @@ public abstract class FooterMenuPage extends TopMenuPage {
 
     public FooterMenuPage(WebDriver driver) {
         super(driver);
-    }
-
-    public MainPage scrollToPageSubscribeFreeButton() {
-        JavascriptExecutor js = (JavascriptExecutor) getDriver();
-        js.executeScript("window.scrollTo(0, 5200)");
-
-        return new MainPage(getDriver());
-    }
-
-    public HomeSignUpPage clickSubscribeFreeButton() {
-        click(subscribeFreeButton);
-
-        return new HomeSignUpPage(getDriver());
     }
 
     public TechnologyPage clickOurTechnologyFooterMenu() {

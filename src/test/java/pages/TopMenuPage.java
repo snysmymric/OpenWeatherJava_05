@@ -48,28 +48,16 @@ public abstract class TopMenuPage extends BasePage {
     private WebElement ourInitiativesMenu;
 
     @FindBy(id = "support-dropdown")
-    private WebElement searchSupportButton;
-
-    @FindBy(xpath = "//ul[@id='support-dropdown-menu']/li/a[@href='/faq']")
-    private WebElement confirmFAQ;
-
-    @FindBy(xpath = "//ul[@id='support-dropdown-menu']/li/a[@href='/appid']")
-    private WebElement confirmHowToStart;
-
-    @FindBy(xpath = "//ul[@id='support-dropdown-menu']/li/a[@href='https://home.openweathermap.org/questions']")
-    private WebElement confirmAskAQuestion;
-
-    @FindBy(id = "support-dropdown")
     private WebElement supportDropDMenu;
 
     @FindBy(xpath = "//li[@class='with-dropdown']//li/a")
     private List<WebElement> supportMenuLinks;
 
-    @FindBy(xpath = "//div[@id = 'desktop-menu']//a[@href = '/price']")
-    private WebElement pricingMenu;
-
     @FindBy(xpath = "//li[@class='logo']/a")
     private WebElement logo;
+
+    @FindBy(xpath = "//div[@id = 'desktop-menu']//a[@href = '/price']")
+    private WebElement pricingMenu;
 
     @FindBy(xpath = "//div[@id='desktop-menu']/ul/li")
     private List<WebElement> topMenuButtons;
@@ -154,24 +142,8 @@ public abstract class TopMenuPage extends BasePage {
         return new FindPage(getDriver());
     }
 
-    public String getTextFAQ() {
-
-        return getText(confirmFAQ);
-    }
-
-    public String getTextHowToStart() {
-
-        return getText(confirmHowToStart);
-    }
-
-    public String getTextAskAQuestion() {
-
-        return getText(confirmAskAQuestion);
-    }
-
     public MainPage clickOnSupportMenu() {
         click(supportDropDMenu);
-
         return new MainPage(getDriver());
     }
 

@@ -113,32 +113,12 @@ public class TopMenuTest extends BaseTest {
     }
 
     @Test
-    public void testConfirmThatSupportHave3Types() {
-
-        final String expectedSupportFAQ = "FAQ";
-        final String expectedSupportHowToStart = "How to start";
-        final String expectedSupportAskAQuestion = "Ask a question";
-
-        openBaseURL_ReturnMainPage().clickSupportMenu();
-
-        MainPage mainPage = new MainPage(getDriver());
-
-        String actualSupportFAQ = mainPage.getTextFAQ();
-        String actualSupportHowToStart = mainPage.getTextHowToStart();
-        String actualSupportAskAQuestion = mainPage.getTextAskAQuestion();
-
-        Assert.assertEquals(actualSupportFAQ, expectedSupportFAQ);
-        Assert.assertEquals(actualSupportHowToStart, expectedSupportHowToStart);
-        Assert.assertEquals(actualSupportAskAQuestion, expectedSupportAskAQuestion);
-    }
-
-    @Test
     public void testSupportMenuHasLinks() {
         final List<String> expectedList = List.of("FAQ", "How to start", "Ask a question");
         Assert.assertEquals(openBaseURL_ReturnMainPage().clickOnSupportMenu().getLinksList(), expectedList);
     }
     
-    @Test
+    @Test    
     public void testSupportMenuIsClickable() {
         final String attribute = "class";
         final String expectedIfVisible = "dropdown-menu dropdown-visible";
@@ -155,10 +135,11 @@ public class TopMenuTest extends BaseTest {
         mainPage.clickSupportMenu();
     }
 
-    @Test
+
     public void testGuideMenuNavigatesToGuidePage() {
         final String expectedUrl = "https://openweathermap.org/guide";
         final String expectedTitle = "OpenWeatherMap API guide - OpenWeatherMap";
+
 
         GuidePage guidePage =
                 openBaseURL_ReturnMainPage()
