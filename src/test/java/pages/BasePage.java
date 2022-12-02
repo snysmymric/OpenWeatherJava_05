@@ -176,4 +176,14 @@ public abstract class BasePage {
 
         return getDriver().getCurrentUrl();
     }
+
+    public List<String> getTexts(List<WebElement> elements) {
+        List<String> texts = new ArrayList<>();
+
+        for (WebElement element : elements) {
+            texts.add(getText(element));
+        }
+
+        return texts;
+    }
 }

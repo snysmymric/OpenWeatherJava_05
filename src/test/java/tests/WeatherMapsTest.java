@@ -5,6 +5,9 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import pages.WeatherMapsPage;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class WeatherMapsTest extends BaseTest {
 
     @Test
@@ -24,5 +27,23 @@ public class WeatherMapsTest extends BaseTest {
 
         Assert.assertEquals(actualZoomIN, expectedZoomIN);
         Assert.assertEquals(actualZoomOUT, expectedZoomOut);
+    }
+
+    @Test
+    public void testWeatherControlLayersText() {
+        List<String> expectedLayersTexts = new ArrayList<>();
+        expectedLayersTexts.add("Temperature");
+        expectedLayersTexts.add("Pressure");
+        expectedLayersTexts.add("Wind speed");
+        expectedLayersTexts.add("Clouds");
+        expectedLayersTexts.add("Global Precipitation");
+
+        List<String> actualLayersTexts =
+                openBaseURL_ReturnMainPage()
+                        .clickMapsMenu()
+                        .getLayersTexts();
+
+        Assert.assertTrue(actualLayersTexts.size() > 0);
+        Assert.assertEquals(actualLayersTexts, expectedLayersTexts);
     }
 }

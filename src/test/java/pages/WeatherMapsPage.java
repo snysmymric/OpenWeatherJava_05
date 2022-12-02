@@ -3,6 +3,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
+import java.util.List;
+
 public class WeatherMapsPage extends TopMenuPage {
 
     public WeatherMapsPage(WebDriver driver) {
@@ -14,6 +16,9 @@ public class WeatherMapsPage extends TopMenuPage {
 
     @FindBy (xpath = "//a[@class='leaflet-control-zoom-out']")
     private WebElement zoomOutLoupe;
+
+    @FindBy (xpath ="//div[@id='map']//label/span")
+    private List<WebElement> weatherControlLayers;
 
     public WeatherMapsPage clickZoomInLoupe() {
         click(zoomInLoupe);
@@ -41,5 +46,10 @@ public class WeatherMapsPage extends TopMenuPage {
     public String getZoomTextIn() {
 
         return getText(zoomInLoupe);
+    }
+
+    public List<String> getLayersTexts() {
+
+        return getTexts(weatherControlLayers);
     }
 }
