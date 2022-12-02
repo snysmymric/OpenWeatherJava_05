@@ -33,6 +33,7 @@ public class OlgaKhliupinaTest extends BaseTest {
    final static By WEATHER_DATA_ICONS = By.xpath("//div/a[@class='stats white-text']");
    final static By DAY_LIST_VALUES = By.xpath("//div[@class='day-list-values']/div/span");
 
+   @Ignore
    @Test
    public void testLinkAndTitle_WhenGoingToGuideMenu() {
       final String expectedUrl = "https://openweathermap.org/guide";
@@ -47,6 +48,7 @@ public class OlgaKhliupinaTest extends BaseTest {
       Assert.assertEquals(actualResultTitle, expectedTitle);
    }
 
+   @Ignore
    @Test
    public  void testCheckUrlTitle_AfterClickOnLogo() {
       final String expectedURL = "https://openweathermap.org/";
@@ -59,6 +61,7 @@ public class OlgaKhliupinaTest extends BaseTest {
       Assert.assertEquals(getTitle(), expectedResultTitle);
    }
 
+   @Ignore
    @Test
    public void testChangingTempUnitInHeadingToF_WhenSwitchTempUnitButtonToF() {
       openBaseURL();
@@ -68,6 +71,7 @@ public class OlgaKhliupinaTest extends BaseTest {
       Assert.assertTrue(isTextContains(TEMP_UNIT_HEADING, SYMBOL_TEMP_F));
    }
 
+   @Ignore
    @Test
    public void testChangingTempUnitInHeadingToC_WhenSwitchTempUnitButtonToC() {
       openBaseURL();
@@ -77,6 +81,7 @@ public class OlgaKhliupinaTest extends BaseTest {
       Assert.assertTrue(isTextContains(TEMP_UNIT_HEADING, SYMBOL_TEMP_C));
    }
 
+   @Ignore
    @Test
    public void testCheckTempInF_inDayList_whenSwitchTempToF() {
       openBaseURL();

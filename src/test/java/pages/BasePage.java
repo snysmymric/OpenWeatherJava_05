@@ -186,4 +186,9 @@ public abstract class BasePage {
 
         return texts;
     }
+
+    protected boolean isTextContain(WebElement element, String text) {
+
+        return getText(element).contains(text);
+    }
 }

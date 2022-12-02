@@ -76,6 +76,15 @@ public class MainPage extends FooterMenuPage {
     @FindBy(xpath = "//div[@class='widget-notification']")
     private WebElement errorButtonBackgroundColor;
 
+    @FindBy(xpath = "//div[text()='Metric: °C, m/s']")
+    private WebElement metricButton;
+
+    @FindBy(xpath = "//div[text()='Imperial: °F, mph']")
+    private WebElement imperialButton;
+
+    @FindBy(xpath = "//div[@class='current-temp']/span")
+    private WebElement currentTempAndUnit;
+
     public MainPage(WebDriver driver) {
         super(driver);
     }
@@ -235,6 +244,28 @@ public class MainPage extends FooterMenuPage {
     public String getErrorText() {
 
         return getText(noResultsError);
+    }
+
+    public MainPage switchToMetric() {
+        click(metricButton);
+
+        return this;
+    }
+
+    public MainPage switchToImperial() {
+        click(imperialButton);
+
+        return this;
+    }
+
+    public boolean isTextContainC() {
+
+        return isTextContain(currentTempAndUnit, "°C");
+    }
+
+    public boolean isTextContainF() {
+
+        return isTextContain(currentTempAndUnit, "°F");
     }
 
     public String getErrorButtonBackgroundColor() {

@@ -157,6 +157,22 @@ public class MainTest extends BaseTest {
     }
 
     @Test
+    public void testTempUnitChangedToC_WhenSwitchingToMetric() {
+        MainPage mainPage = openBaseURL_ReturnMainPage().switchToMetric();
+        waitForGrayContainerDisappeared();
+
+        Assert.assertTrue(mainPage.isTextContainC());
+    }
+
+    @Test
+    public void testTempUnitChangedToF_WhenSwitchingToImperial() {
+        MainPage mainPage = openBaseURL_ReturnMainPage().switchToImperial();
+        waitForGrayContainerDisappeared();
+
+        Assert.assertTrue(mainPage.isTextContainF());
+    }
+
+    @Test
     public void testIfSendButtonDisplayed() {
 
         MainPage mainPage = openBaseURL_ReturnMainPage()
