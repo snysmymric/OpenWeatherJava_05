@@ -68,10 +68,9 @@ public abstract class FooterMenuPage extends TopMenuPage {
         return widgetsFooterMenu;
     }
 
-    public WidgetsPage clickWidgetsPageFooterMenu(){
+    public WidgetsPage clickWidgetsPageFooterMenu() {
         click(widgetsFooterMenu);
 
         return new WidgetsPage(getDriver());
     }
-
 }

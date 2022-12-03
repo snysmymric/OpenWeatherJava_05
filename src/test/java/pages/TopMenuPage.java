@@ -42,6 +42,9 @@ public abstract class TopMenuPage extends BasePage {
     @FindBy(xpath = "//div[@id='desktop-menu']/ul/li")
     private List<WebElement> topMenuButtons;
 
+    @FindBy(xpath = "//li[@class='user-li']//a" )
+    private WebElement signInMenuTopMenu;
+
     @FindBy(id = "support-dropdown")
     private WebElement supportMenu;
 
@@ -163,5 +166,11 @@ public abstract class TopMenuPage extends BasePage {
         click(dashboardMenu);
 
         return new MainPage(getDriver());
+    }
+
+    public HomeSignInPage clickSignInMenu() {
+        click(signInMenuTopMenu);
+
+        return new HomeSignInPage(getDriver());
     }
 }
