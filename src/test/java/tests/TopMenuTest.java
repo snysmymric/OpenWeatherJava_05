@@ -4,11 +4,7 @@ import base.BaseTest;
 import org.testng.Assert;
 import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
-import pages.APIPage;
-import pages.GuidePage;
-import pages.HowToStartPage;
-import pages.MainPage;
-import pages.OurInitiativesPage;
+import pages.*;
 
 import java.util.List;
 
@@ -206,5 +202,16 @@ public class TopMenuTest extends BaseTest {
                 .getCurrentURL();
 
         Assert.assertEquals(actualUrl, expectedUrl);
+    }
+
+    @Test
+    public void testDashboardMenuNavigatesToDashboardPage() {
+        final String expectedURL = "https://openweathermap.org/weather-dashboard";
+
+        String weatherDashboardURL = openBaseURL_ReturnMainPage()
+                .clickDashboardMenu()
+                .getCurrentURL();
+
+        Assert.assertEquals(weatherDashboardURL, expectedURL);
     }
 }

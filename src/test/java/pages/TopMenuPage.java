@@ -54,6 +54,10 @@ public abstract class TopMenuPage extends BasePage {
     @FindBy(xpath = "//ul[@id='support-dropdown-menu']/li/a[@href='/appid']")
     private WebElement howToStartSupportSubmenu;
 
+    @FindBy(xpath = "//div[@id='desktop-menu']//a[@href='/weather-dashboard']")
+    private WebElement dashboardMenu;
+
+
     public TopMenuPage(WebDriver driver) {
         super(driver);
     }
@@ -153,5 +157,11 @@ public abstract class TopMenuPage extends BasePage {
     public String getSupportMenuIsActiveValue(String attribute) {
 
         return getAttribute(supportMenu, attribute);
+    }
+
+    public MainPage clickDashboardMenu() {
+        click(dashboardMenu);
+
+        return new MainPage(getDriver());
     }
 }
