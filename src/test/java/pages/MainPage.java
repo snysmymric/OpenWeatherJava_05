@@ -266,6 +266,12 @@ public class MainPage extends FooterMenuPage {
         return isListContains("°C", getTexts(dayListValues));
     }
 
+    public MainPage scrollToAboutUsFooterMenu() {
+        scrollByVisibleElement(getAboutUsFooterMenu());
+
+        return this;
+        }
+
     public String getHeaderForDifferentWeatherContainer() {
 
         return getText(h3DialogTitle);

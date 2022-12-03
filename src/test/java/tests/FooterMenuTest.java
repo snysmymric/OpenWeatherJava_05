@@ -52,6 +52,19 @@ public class FooterMenuTest extends BaseTest {
     }
 
     @Test
+    public void testAboutUsFooterLinkNavigatesToAboutUsPage(){
+        final String expectedUrl = "https://openweathermap.org/about-us";
+
+        String actualUrl = openBaseURL_ReturnMainPage()
+                .scrollToAboutUsFooterMenu()
+                .clickOnAboutUsFooterMenu()
+                .waitForAboutUsPageHeaderBeVisible()
+                .getCurrentURL();
+
+        Assert.assertEquals(actualUrl, expectedUrl);
+    }    
+        
+    @Test
     public void testWidgetsFooterLinkNavigatesToWidgetsPage() {
         final String expectedURL = "https://openweathermap.org/widgets-constructor";
 

@@ -15,6 +15,9 @@ public abstract class FooterMenuPage extends TopMenuPage {
     @FindBy(css = "a[href='https://openweather.co.uk/privacy-policy']")
     private WebElement privacyPolicyFooterMenu;
 
+    @FindBy(xpath = "//a[@href = '/about-us']")
+    private WebElement aboutUsFooterMenu;
+
     @FindBy (xpath = "//div[@class='section-content']/ul/li/a[@href='/widgets-constructor']")
     private WebElement widgetsFooterMenu;
 
@@ -47,6 +50,17 @@ public abstract class FooterMenuPage extends TopMenuPage {
     protected WebElement getPrivacyPolicyFooterMenu() {
 
         return privacyPolicyFooterMenu;
+    }
+
+    protected WebElement getAboutUsFooterMenu() {
+
+        return aboutUsFooterMenu;
+    }
+
+    public AboutUsPage clickOnAboutUsFooterMenu() {
+        click20(aboutUsFooterMenu);
+
+        return new AboutUsPage(getDriver());
     }
 
     protected WebElement getWidgetFooterMenu() {
