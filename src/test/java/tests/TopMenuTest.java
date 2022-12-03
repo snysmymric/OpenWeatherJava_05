@@ -135,11 +135,10 @@ public class TopMenuTest extends BaseTest {
         mainPage.clickSupportMenu();
     }
 
-
+    @Test
     public void testGuideMenuNavigatesToGuidePage() {
         final String expectedUrl = "https://openweathermap.org/guide";
         final String expectedTitle = "OpenWeatherMap API guide - OpenWeatherMap";
-
 
         GuidePage guidePage =
                 openBaseURL_ReturnMainPage()
@@ -157,5 +156,16 @@ public class TopMenuTest extends BaseTest {
                         .countTopMenuButtons();
 
         Assert.assertEquals(actualCountTopMenuButtons, expectedButton);
+    }
+
+    @Test
+    public  void testCompanyLogoNavigatesToBaseURL() {
+        final String expectedURL = "https://openweathermap.org/";
+        final String expectedTitle = "Сurrent weather and forecast - OpenWeatherMap";
+
+        MainPage mainPage = openBaseURL_ReturnMainPage().clickLogo();
+
+        Assert.assertEquals(mainPage.getCurrentURL(), expectedURL);
+        Assert.assertEquals(mainPage.getTitle(), expectedTitle);
     }
 }
