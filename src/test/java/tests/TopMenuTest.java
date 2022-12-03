@@ -195,4 +195,16 @@ public class TopMenuTest extends BaseTest {
         Assert.assertEquals(mainPage.getCurrentURL(), expectedURL);
         Assert.assertEquals(mainPage.getTitle(), expectedTitle);
     }
+
+    @Test
+    public void testFAQSupportSubmenuNavigatesToFAQPage() {
+        final String expectedUrl = String.format(BASE_URL + "faq");
+
+        String actualUrl = openBaseURL_ReturnMainPage()
+                .clickSupportMenu()
+                .clickFAQSupportSubmenu()
+                .getCurrentURL();
+
+        Assert.assertEquals(actualUrl, expectedUrl);
+    }
 }
