@@ -23,4 +23,16 @@ public class FAQTest extends BaseTest {
 
         Assert.assertEquals(FAQPage.getFrequentlyAskedQuestionsHeader(), expectedResult);
     }
+
+    @Test
+    public void testTitle() {
+        final String expectedTitle = "Frequently Asked Questions - OpenWeatherMap";
+
+        String actualTitle = openBaseURL_ReturnMainPage()
+                .clickSupportMenu()
+                .clickFAQSupportSubmenu()
+                .getTitle();
+
+        Assert.assertEquals(actualTitle, expectedTitle);
+    }
 }
