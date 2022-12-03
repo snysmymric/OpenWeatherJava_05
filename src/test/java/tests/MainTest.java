@@ -213,5 +213,16 @@ public class MainTest extends BaseTest {
 
         Assert.assertTrue(mainPage.isDayListValuesContainsC());
     }
+
+    @Test
+    public void testDifferentWeatherButtonOpensDifferentWeatherContainer() {
+        String expectedHeader = "Different weather";
+
+        String actualHeader = openBaseURL_ReturnMainPage()
+                .clickDifferentWeatherButton()
+                .getHeaderForDifferentWeatherContainer();
+
+        Assert.assertEquals(actualHeader, expectedHeader);
+    }
 }
 

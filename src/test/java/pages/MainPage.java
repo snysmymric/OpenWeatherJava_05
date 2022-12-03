@@ -82,6 +82,9 @@ public class MainPage extends FooterMenuPage {
     @FindBy(xpath = "//div[@class='day-list-values']/div/span")
     private List<WebElement> dayListValues;
 
+    @FindBy(id = "dialogTitle")
+    private WebElement h3DialogTitle;
+
     public MainPage(WebDriver driver) {
         super(driver);
     }
@@ -261,5 +264,10 @@ public class MainPage extends FooterMenuPage {
     public boolean isDayListValuesContainsC() {
 
         return isListContains("°C", getTexts(dayListValues));
+    }
+
+    public String getHeaderForDifferentWeatherContainer() {
+
+        return getText(h3DialogTitle);
     }
 }
