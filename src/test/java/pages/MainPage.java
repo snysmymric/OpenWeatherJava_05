@@ -270,4 +270,9 @@ public class MainPage extends FooterMenuPage {
 
         return getText(h3DialogTitle);
     }
+
+    public boolean isDayListValuesContainsF() {
+
+        return isListContains("°F", getTexts(dayListValues));
+    }
 }

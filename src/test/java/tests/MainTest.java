@@ -224,5 +224,14 @@ public class MainTest extends BaseTest {
 
         Assert.assertEquals(actualHeader, expectedHeader);
     }
+
+    @Test
+    public void testCheckTempInF_inDayList_whenSwitchingToImperial() {
+        MainPage mainPage = openBaseURL_ReturnMainPage()
+                .switchToImperial();
+        mainPage.waitForGrayContainerDisappeared();
+
+        Assert.assertTrue(mainPage.isDayListValuesContainsF());
+    }
 }
 
