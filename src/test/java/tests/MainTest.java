@@ -204,5 +204,14 @@ public class MainTest extends BaseTest {
 
         Assert.assertEquals(actualXButtonBackgroundColor, expectedXButtonBackgroundColor);
     }
+
+    @Test
+    public void testCheckTempInC_inDayList_whenSwitchingToMetric() {
+        MainPage mainPage = openBaseURL_ReturnMainPage()
+                .switchToMetric();
+        mainPage.waitForGrayContainerDisappeared();
+
+        Assert.assertTrue(mainPage.isDayListValuesContainsC());
+    }
 }
 

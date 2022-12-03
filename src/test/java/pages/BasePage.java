@@ -190,4 +190,14 @@ public abstract class BasePage {
 
         return getText(element).contains(text);
     }
+
+    protected boolean isListContains(String text, List<String> list) {
+        boolean result = true;
+
+        for (String s : list) {
+            result = result && s.contains(text);
+        }
+
+        return result;
+    }
 }

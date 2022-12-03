@@ -79,6 +79,9 @@ public class MainPage extends FooterMenuPage {
     @FindBy(xpath = "//span[text()='45.787, -87.904']")
     private WebElement cityNorway;
 
+    @FindBy(xpath = "//div[@class='day-list-values']/div/span")
+    private List<WebElement> dayListValues;
+
     public MainPage(WebDriver driver) {
         super(driver);
     }
@@ -253,5 +256,10 @@ public class MainPage extends FooterMenuPage {
     public boolean isTextContainF() {
 
         return isTextContains("°F", currentTempAndUnit);
+    }
+
+    public boolean isDayListValuesContainsC() {
+
+        return isListContains("°C", getTexts(dayListValues));
     }
 }
