@@ -25,9 +25,6 @@ public class MainPage extends FooterMenuPage {
     @FindBy(className = "search-dropdown-menu")
     private WebElement searchDropdownMenu;
 
-    @FindBy(xpath = "//ul[@class = 'search-dropdown-menu']/li/span[text() = 'Paris, FR ']")
-    private WebElement parisFRChoiceInDropdownMenu;
-
     @FindBy(xpath = "//div[@class='mobile-padding']/h1/span")
     private WebElement colorAndFontSizeOfH1Header;
 
@@ -36,6 +33,18 @@ public class MainPage extends FooterMenuPage {
 
     @FindBy(xpath = "//div[@class = 'controls']//span")
     private WebElement differentWeatherButton;
+
+    @FindBy(xpath = "//div[@class='control-el']")
+    private WebElement locationButton;
+
+    @FindBy(xpath = "//div[text()='Metric: °C, m/s']")
+    private WebElement metricButton;
+
+    @FindBy(xpath = "//div[text()='Imperial: °F, mph']")
+    private WebElement imperialButton;
+
+    @FindBy(xpath = "//div[@class='current-temp']/span")
+    private WebElement currentTempAndUnit;
 
     @FindBy(className = "pop-up-container")
     private WebElement differentWeatherPopUpContainer;
@@ -46,20 +55,8 @@ public class MainPage extends FooterMenuPage {
     @FindBy(xpath = "//ul[@class = 'icons']/*")
     private List<WebElement> iconsList;
 
-    @FindBy(id = "support-dropdown")
-    private WebElement supportMenu;
-
-    @FindBy(xpath = "//ul[@class='dropdown-menu dropdown-visible']//a[@href='/faq']")
-    private WebElement faqSupportSubmenu;
-
     @FindBy(xpath = "//div[@aria-label='Loading']")
     private WebElement seeLoading;
-
-    @FindBy(xpath = "//span[text()='45.787, -87.904']")
-    private WebElement cityNorway;
-
-    @FindBy(xpath = "//div[@class='control-el']")
-    private WebElement locationButton;
 
     @FindBy(xpath = "//ul[@class='icons']/li")
     private List<WebElement> differentWeatherIcons;
@@ -76,14 +73,11 @@ public class MainPage extends FooterMenuPage {
     @FindBy(xpath = "//div[@class='widget-notification']")
     private WebElement errorButtonBackgroundColor;
 
-    @FindBy(xpath = "//div[text()='Metric: °C, m/s']")
-    private WebElement metricButton;
+    @FindBy(xpath = "//ul[@class = 'search-dropdown-menu']/li/span[text() = 'Paris, FR ']")
+    private WebElement parisFRChoiceInDropdownMenu;
 
-    @FindBy(xpath = "//div[text()='Imperial: °F, mph']")
-    private WebElement imperialButton;
-
-    @FindBy(xpath = "//div[@class='current-temp']/span")
-    private WebElement currentTempAndUnit;
+    @FindBy(xpath = "//span[text()='45.787, -87.904']")
+    private WebElement cityNorway;
 
     public MainPage(WebDriver driver) {
         super(driver);
@@ -100,12 +94,6 @@ public class MainPage extends FooterMenuPage {
 
     public MainPage clickSearchCityField() {
         click(searchCityField);
-
-        return this;
-    }
-
-    public MainPage inputSearchCriteria(String text) {
-        input(text, searchCityField);
 
         return this;
     }
@@ -134,6 +122,24 @@ public class MainPage extends FooterMenuPage {
         return this;
     }
 
+    public MainPage clickDifferentWeatherButton() {
+        click(differentWeatherButton);
+
+        return this;
+    }
+
+    public MainPage waitUntilDifferentWeatherPopUpIsVisible() {
+        wait10ElementToBeVisible(differentWeatherPopUpContainer);
+
+        return this;
+    }
+
+    public MainPage inputSearchCriteria(String text) {
+        input(text, searchCityField);
+
+        return this;
+    }
+
     public MainPage waitForCityCountryNameChanged(String oldText) {
         waitTextToBeChanged(h2CityCountryHeader, oldText);
 
@@ -150,18 +156,6 @@ public class MainPage extends FooterMenuPage {
         return getFontSize(colorAndFontSizeOfH1Header);
     }
 
-    public MainPage clickDifferentWeatherButton() {
-        click(differentWeatherButton);
-
-        return this;
-    }
-
-    public MainPage waitUntilDifferentWeatherPopUpIsVisible() {
-        wait10ElementToBeVisible(differentWeatherPopUpContainer);
-
-        return this;
-    }
-
     public int getAmountOfIconsOnDifferentWeatherPopUp() {
 
         return getListSize(iconsList);
@@ -172,14 +166,8 @@ public class MainPage extends FooterMenuPage {
         return iconsList;
     }
 
-    public MainPage clickOnIconsOnDifferentWeatherPopUp(WebElement element) {
+    public MainPage clickIconOnDifferentWeatherPopUp(WebElement element) {
         click(element);
-
-        return this;
-    }
-
-    public MainPage clickSupportMenu() {
-        click(supportMenu);
 
         return this;
     }
@@ -191,12 +179,6 @@ public class MainPage extends FooterMenuPage {
 
     public MainPage clickCityNorway() {
         click20(cityNorway);
-
-        return this;
-    }
-
-    public MainPage clickFAQSupportSubmenu() {
-        click(faqSupportSubmenu);
 
         return this;
     }
@@ -246,6 +228,11 @@ public class MainPage extends FooterMenuPage {
         return getText(noResultsError);
     }
 
+    public String getErrorButtonBackgroundColor() {
+
+        return getBackgroundColor(errorButtonBackgroundColor);
+    }
+
     public MainPage switchToMetric() {
         click(metricButton);
 
@@ -258,19 +245,13 @@ public class MainPage extends FooterMenuPage {
         return this;
     }
 
-    public boolean isTextContainC() {
+    public boolean isTextContainsC() {
 
-        return isTextContain(currentTempAndUnit, "°C");
+        return isTextContains("°C", currentTempAndUnit);
     }
 
     public boolean isTextContainF() {
 
-        return isTextContain(currentTempAndUnit, "°F");
-    }
-
-    public String getErrorButtonBackgroundColor() {
-
-        return getBackgroundColor(errorButtonBackgroundColor);
+        return isTextContains("°F", currentTempAndUnit);
     }
 }
-

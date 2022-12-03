@@ -11,7 +11,7 @@ import java.util.List;
 public class WeatherMapsTest extends BaseTest {
 
     @Test
-    public void testZoomLeafletControl () {
+    public void testZoomInOutControl () {
         String expectedZoomIN = "+";
         String expectedZoomOut = "-";
         String partialUrl = "http";
@@ -19,11 +19,11 @@ public class WeatherMapsTest extends BaseTest {
         WeatherMapsPage weatherMapsPage = openBaseURL_ReturnMainPage()
                 .clickMapsMenu()
                 .clickZoomInLoupe()
-                .waitUntilUrlContainsHttp(partialUrl)
+                .waitUntilUrlContains(partialUrl)
                 .clickZoomOutLoupe();
 
-        String actualZoomIN = weatherMapsPage.getZoomTextIn();
-        String actualZoomOUT = weatherMapsPage.getZoomTextOut();
+        String actualZoomIN = weatherMapsPage.getZoomInText();
+        String actualZoomOUT = weatherMapsPage.getZoomOutText();
 
         Assert.assertEquals(actualZoomIN, expectedZoomIN);
         Assert.assertEquals(actualZoomOUT, expectedZoomOut);
@@ -41,7 +41,7 @@ public class WeatherMapsTest extends BaseTest {
         List<String> actualLayersTexts =
                 openBaseURL_ReturnMainPage()
                         .clickMapsMenu()
-                        .getLayersTexts();
+                        .getMenusTexts();
 
         Assert.assertTrue(actualLayersTexts.size() > 0);
         Assert.assertEquals(actualLayersTexts, expectedLayersTexts);

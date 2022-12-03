@@ -12,7 +12,7 @@ public class FindTest extends BaseTest {
         final String attributeName = "value";
 
         String actualCityName = openBaseURL_ReturnMainPage()
-                .inputTopMenuSearchFieldAndEnter(expectedCityName)
+                .inputSearchCriteriaIntoSearchFieldAndEnter(expectedCityName)
                 .getSearchFieldValue(attributeName);
 
         Assert.assertEquals(actualCityName, expectedCityName);

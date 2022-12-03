@@ -69,8 +69,7 @@ public abstract class BasePage {
         return getWait20().until(ExpectedConditions.elementToBeClickable(element));
     }
 
-    protected void wait10UrlContains(String text) {
-
+    protected void waitForUrlContains(String text) {
         getWait10().until(ExpectedConditions.urlContains(text));
     }
 
@@ -97,14 +96,24 @@ public abstract class BasePage {
         return element.isDisplayed();
     }
 
-    protected boolean allElementsVisibleAndClickable(List<WebElement> element) {
-        List<WebElement> allElements = new ArrayList<>(element);
-        int elementsSize = element.size();
+    public List<String> getTexts(List<WebElement> elements) {
+        List<String> texts = new ArrayList<>();
+
+        for (WebElement element : elements) {
+            texts.add(getText(element));
+        }
+
+        return texts;
+    }
+
+    protected boolean allElementsVisibleAndClickable(List<WebElement> elements) {
+        List<WebElement> allElements = new ArrayList<>(elements);
+        int elementsSize = elements.size();
         int count = 0;
 
         for (WebElement checkedElement : allElements) {
             if (checkedElement.isEnabled() && checkedElement.isDisplayed()) {
-                checkedElement = wait10ElementToBeClickable(checkedElement);
+                wait10ElementToBeClickable(checkedElement);
                 count++;
             }
         }
@@ -177,17 +186,7 @@ public abstract class BasePage {
         return getDriver().getCurrentUrl();
     }
 
-    public List<String> getTexts(List<WebElement> elements) {
-        List<String> texts = new ArrayList<>();
-
-        for (WebElement element : elements) {
-            texts.add(getText(element));
-        }
-
-        return texts;
-    }
-
-    protected boolean isTextContain(WebElement element, String text) {
+    protected boolean isTextContains(String text, WebElement element) {
 
         return getText(element).contains(text);
     }

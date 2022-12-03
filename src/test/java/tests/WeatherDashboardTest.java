@@ -16,16 +16,4 @@ public class WeatherDashboardTest extends BaseTest {
 
         Assert.assertEquals(weatherDashboardPage.getCurrentURL(), expectedResult);
     }
-
-    @Test
-    public void testDashboardLinkWhitRapport() {
-
-//        WeatherDashboardPage weatherDashboardPage = openBaseURL_ReturnMainPage()
-//                .logger_Info("Link before click - " + getCurrentURL())
-//                .logger_Info("Title before click - " + getTitle())
-//                .scrollToDashboardLink()
-//                .clickDashboardMenu()
-//                .logger_Info("Link after click - " + getCurrentURL())
-//                .logger_Info("Title after click - " + getTitle());
-    }
 }

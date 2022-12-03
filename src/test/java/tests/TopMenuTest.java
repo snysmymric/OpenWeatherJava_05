@@ -2,6 +2,7 @@ package tests;
 
 import base.BaseTest;
 import org.testng.Assert;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import pages.APIPage;
 import pages.GuidePage;
@@ -40,11 +41,11 @@ public class TopMenuTest extends BaseTest {
 
         switchToAnotherWindow(getDriver());
 
-        Assert.assertEquals(getCurrentURL(), expectedURL);
+        Assert.assertEquals(getExternalPageURL(), expectedURL);
     }
 
     @Test
-    public void testLinkAndTitle_WhenGoingToGuideMenu() {
+    public void testGuideMenuNavigatesToGuidePage() {
         final String expectedUrl = "https://openweathermap.org/guide";
         final String expectedTitle = "OpenWeatherMap API guide - OpenWeatherMap";
 
@@ -115,9 +116,9 @@ public class TopMenuTest extends BaseTest {
     @Test
     public void testSupportMenuHasLinks() {
         final List<String> expectedList = List.of("FAQ", "How to start", "Ask a question");
-        Assert.assertEquals(openBaseURL_ReturnMainPage().clickOnSupportMenu().getLinksList(), expectedList);
+        Assert.assertEquals(openBaseURL_ReturnMainPage().clickSupportMenu().getLinksText(), expectedList);
     }
-    
+    @Ignore
     @Test    
     public void testSupportMenuIsClickable() {
         final String attribute = "class";
@@ -133,10 +134,36 @@ public class TopMenuTest extends BaseTest {
         Assert.assertEquals(mainPage.getSupportMenuIsActiveValue(attribute), expectedIfVisible);
 
         mainPage.clickSupportMenu();
+
+        Assert.assertEquals(mainPage.getSupportMenuIsActiveValue(attribute), expectedIfNotVisible);
     }
 
     @Test
-    public void testGuideMenuNavigatesToGuidePage() {
+    public void testPartnersMenuNavigatesToPartnersPage() {
+        final String expectedCurrentURL = "https://openweathermap.org/examples";
+
+        String currentURL =
+                openBaseURL_ReturnMainPage()
+                        .clickPartnersMenu()
+                        .getCurrentURL();
+
+        Assert.assertEquals(currentURL, expectedCurrentURL);
+    }
+
+    @Test
+    public void testPartnersPageTitle() {
+        final String expectedTitle = "Partners and solutions - OpenWeatherMap";
+
+        String title = openBaseURL_ReturnMainPage()
+                .clickPartnersMenu()
+                .getTitle();
+
+        Assert.assertEquals(title, expectedTitle);
+    }
+
+
+    @Test
+    public void testGuideMenuNavigatesToGuidePage1() {
         final String expectedUrl = "https://openweathermap.org/guide";
         final String expectedTitle = "OpenWeatherMap API guide - OpenWeatherMap";
 

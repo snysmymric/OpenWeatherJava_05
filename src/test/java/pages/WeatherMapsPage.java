@@ -7,9 +7,6 @@ import java.util.List;
 
 public class WeatherMapsPage extends TopMenuPage {
 
-    public WeatherMapsPage(WebDriver driver) {
-        super(driver);
-    }
     @FindBy (xpath = "//a[@class='leaflet-control-zoom-in']")
     private WebElement zoomInLoupe;
 
@@ -20,8 +17,11 @@ public class WeatherMapsPage extends TopMenuPage {
     private WebElement searchMapMenu;
 
     @FindBy (xpath ="//div[@id='map']//label/span")
-    private List<WebElement> weatherControlLayers;
+    private List<WebElement> weatherControlMenus;
 
+    public WeatherMapsPage(WebDriver driver) {
+        super(driver);
+    }
     public WeatherMapsPage clickZoomInLoupe() {
         click(zoomInLoupe);
 
@@ -34,24 +34,24 @@ public class WeatherMapsPage extends TopMenuPage {
         return this;
     }
 
-    public WeatherMapsPage waitUntilUrlContainsHttp(String text) {
-        wait10UrlContains(text);
+    public WeatherMapsPage waitUntilUrlContains(String text) {
+        waitForUrlContains(text);
 
         return this;
     }
 
-    public String getZoomTextOut() {
+    public String getZoomOutText() {
 
         return getText(zoomOutLoupe);
     }
 
-    public String getZoomTextIn() {
+    public String getZoomInText() {
 
         return getText(zoomInLoupe);
     }
 
-    public List<String> getLayersTexts() {
+    public List<String> getMenusTexts() {
 
-        return getTexts(weatherControlLayers);
+        return getTexts(weatherControlMenus);
     }
 }

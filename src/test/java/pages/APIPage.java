@@ -21,6 +21,7 @@ public class APIPage extends FooterMenuPage {
 
         return getListSize(orangeButtons);
     }
+
     public String getPageHeader() {
 
         return getText(apiPageHeader);

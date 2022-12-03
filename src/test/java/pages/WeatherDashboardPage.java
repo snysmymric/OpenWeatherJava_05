@@ -1,8 +1,6 @@
 package pages;
 
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
 import org.testng.reporters.jq.Main;
 import java.util.logging.Level;
 import java.util.logging.Logger;

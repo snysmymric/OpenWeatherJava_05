@@ -7,16 +7,14 @@ import org.openqa.selenium.support.FindBy;
 public class FAQPage extends FooterMenuPage {
 
     @FindBy(className = "breadcrumb__leaf")
-    private WebElement FrequentlyAskedQuestionsHeader;
-
+    private WebElement frequentlyAskedQuestionsHeader;
 
     public FAQPage(WebDriver driver) {
         super(driver);
     }
 
-
     public String getFrequentlyAskedQuestionsHeader() {
 
-        return getText(FrequentlyAskedQuestionsHeader);
+        return getText(frequentlyAskedQuestionsHeader);
     }
 }

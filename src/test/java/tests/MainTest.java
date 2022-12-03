@@ -70,9 +70,8 @@ public class MainTest extends BaseTest {
         Assert.assertEquals(h1HeaderFontSize, expectedFontSize);
     }
 
-
     @Test
-    public void testDifferentWeatherPopUp_AmountOfIcons() {
+    public void testAmountOfIcons_OnDifferentWeatherPopUp() {
         final int expectedAmountOfIcons = 9;
 
         openBaseURL_ReturnMainPage();
@@ -88,7 +87,7 @@ public class MainTest extends BaseTest {
     }
 
     @Test
-    public void testDifferentWeatherPopUp_EachIconBecomesActiveAfterClick() {
+    public void testEachIconBecomesActiveAfterClick_DifferentWeatherPopUp_() {
         final String nameOfTestedAttribute = "class";
         final String expectedValueOfTestedAttribute = "activeIcon";
 
@@ -104,7 +103,7 @@ public class MainTest extends BaseTest {
         for (WebElement element : elements) {
             Assert.assertEquals(
                     mainPage
-                            .clickOnIconsOnDifferentWeatherPopUp(element)
+                            .clickIconOnDifferentWeatherPopUp(element)
                             .getAttribute(element, nameOfTestedAttribute),
                     expectedValueOfTestedAttribute
             );
@@ -123,7 +122,7 @@ public class MainTest extends BaseTest {
     }
 
     @Test
-    public void testIconForCurrentLocation() {
+    public void testCurrentLocation() {
         final String cityName = "Norway";
         final String expectedCityName = "London, GB";
 
@@ -140,7 +139,6 @@ public class MainTest extends BaseTest {
 
     @Test
     public void testAllIconsAreShownAndClickable() {
-
         MainPage mainPage = openBaseURL_ReturnMainPage()
                 .clickDifferentWeatherButton();
 
@@ -149,7 +147,6 @@ public class MainTest extends BaseTest {
 
     @Test
     public void testIfXButtonDisplayed() {
-
         MainPage mainPage = openBaseURL_ReturnMainPage()
                 .clickDifferentWeatherButton();
 
@@ -161,7 +158,7 @@ public class MainTest extends BaseTest {
         MainPage mainPage = openBaseURL_ReturnMainPage().switchToMetric();
         waitForGrayContainerDisappeared();
 
-        Assert.assertTrue(mainPage.isTextContainC());
+        Assert.assertTrue(mainPage.isTextContainsC());
     }
 
     @Test
@@ -174,7 +171,6 @@ public class MainTest extends BaseTest {
 
     @Test
     public void testIfSendButtonDisplayed() {
-
         MainPage mainPage = openBaseURL_ReturnMainPage()
                 .clickDifferentWeatherButton();
 

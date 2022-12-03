@@ -6,17 +6,23 @@ import org.openqa.selenium.support.FindBy;
 
 public abstract class FooterMenuPage extends TopMenuPage {
 
+    @FindBy (xpath="//div[@id='footer-website']//a[@href='/weather-dashboard']")
+    private WebElement weatherDashboardFooterMenu;
+
     @FindBy(css = "a[href='/technology']")
     private WebElement ourTechnologyFooterMenu;
 
     @FindBy(css = "a[href='https://openweather.co.uk/privacy-policy']")
     private WebElement privacyPolicyFooterMenu;
 
-    @FindBy (xpath="//div[@id='footer-website']//a[@href='/weather-dashboard']")
-    private WebElement weatherDashboardFooterMenu;
-
     public FooterMenuPage(WebDriver driver) {
         super(driver);
+    }
+
+    public WeatherDashboardPage clickWeatherDashboardFooterMenu(){
+        click(weatherDashboardFooterMenu);
+
+        return new WeatherDashboardPage(getDriver());
     }
 
     public TechnologyPage clickOurTechnologyFooterMenu() {
@@ -28,12 +34,6 @@ public abstract class FooterMenuPage extends TopMenuPage {
     public void clickPrivacyPolicyFooterMenu() {
 
         click(privacyPolicyFooterMenu);
-    }
-
-    public WeatherDashboardPage clickWeatherDashboardFooterMenu(){
-        click(weatherDashboardFooterMenu);
-
-        return new WeatherDashboardPage(getDriver());
     }
 
     protected WebElement getOurTechnologyFooterMenu() {
