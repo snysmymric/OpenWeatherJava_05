@@ -50,4 +50,16 @@ public class FooterMenuTest extends BaseTest {
 
         Assert.assertEquals(weatherDashboardPage.getCurrentURL(), expectedResult);
     }
+
+    @Test
+    public void testWidgetsFooterLinkNavigatesToWidgetsPage() {
+        final String expectedURL = "https://openweathermap.org/widgets-constructor";
+
+        final String actualURL = openBaseURL_ReturnMainPage()
+                .scrollToWeatherDashboardFooterMenu()
+                .clickWidgetsPageFooterMenu()
+                .getCurrentURL();
+
+        Assert.assertEquals(actualURL, expectedURL);
+    }
 }
