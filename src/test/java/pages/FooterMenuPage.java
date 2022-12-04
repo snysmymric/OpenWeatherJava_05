@@ -4,6 +4,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
+import java.util.List;
+
 public abstract class FooterMenuPage extends TopMenuPage {
 
     @FindBy (xpath="//div[@id='footer-website']//a[@href='/weather-dashboard']")
@@ -20,6 +22,12 @@ public abstract class FooterMenuPage extends TopMenuPage {
 
     @FindBy (xpath = "//div[@class='section-content']/ul/li/a[@href='/widgets-constructor']")
     private WebElement widgetsFooterMenu;
+
+    @FindBy(className = "social")
+    private WebElement socialPanelFooterMenu;
+
+    @FindBy(xpath = "//div[@class='social']/a")
+    private List<WebElement> socialPanelIconsFooterMenu;
 
     public FooterMenuPage(WebDriver driver) {
         super(driver);
@@ -72,5 +80,15 @@ public abstract class FooterMenuPage extends TopMenuPage {
         click(widgetsFooterMenu);
 
         return new WidgetsPage(getDriver());
+    }
+
+    public boolean isSocialPanelDisplayed() {
+
+        return isDisplayedElement(socialPanelFooterMenu);
+    }
+
+    public int getSocialPanelSize() {
+
+        return getListSize(socialPanelIconsFooterMenu);
     }
 }

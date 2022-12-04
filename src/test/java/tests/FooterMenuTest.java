@@ -3,6 +3,7 @@ package tests;
 import base.BaseTest;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import pages.MainPage;
 import pages.TechnologyPage;
 import pages.WeatherDashboardPage;
 
@@ -74,5 +75,15 @@ public class FooterMenuTest extends BaseTest {
                 .getCurrentURL();
 
         Assert.assertEquals(actualURL, expectedURL);
+    }
+
+    @Test
+    public void testSocialPanelExistsAndHasIcons() {
+        final int expectedQuantity = 6;
+
+        MainPage mainPage = openBaseURL_ReturnMainPage();
+
+        Assert.assertTrue(mainPage.isSocialPanelDisplayed());
+        Assert.assertEquals(mainPage.getSocialPanelSize(), expectedQuantity);
     }
 }
