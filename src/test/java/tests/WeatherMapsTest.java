@@ -11,7 +11,7 @@ import java.util.List;
 public class WeatherMapsTest extends BaseTest {
 
     @Test
-    public void testZoomInOutControl () {
+    public void testZoomInOutControl() {
         String expectedZoomIN = "+";
         String expectedZoomOut = "-";
         String partialUrl = "http";
@@ -45,5 +45,22 @@ public class WeatherMapsTest extends BaseTest {
 
         Assert.assertTrue(actualLayersTexts.size() > 0);
         Assert.assertEquals(actualLayersTexts, expectedLayersTexts);
+    }
+
+    @Test
+    public void testButtonLoop_MapPage() {
+        String locationROME = "Rome, Italy";
+
+         WeatherMapsPage weatherMapsPage = openBaseURL_ReturnMainPage()
+                .clickMapsMenu()
+                .clickNominatimSearchButton();
+
+        Assert.assertTrue(weatherMapsPage.isLoopDisplayBlockDisplayed());
+
+        String oldUrl = String.valueOf(weatherMapsPage
+                .clickLoopDisplayBlock()
+                .inputSearchCriteriaIntoSearchFieldAndEnter(locationROME));
+
+        Assert.assertNotEquals(oldUrl, getDriver().getCurrentUrl());
     }
 }
