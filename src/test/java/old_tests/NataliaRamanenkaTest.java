@@ -36,20 +36,6 @@ public class NataliaRamanenkaTest extends BaseTest {
         Assert.assertEquals(getTitle(), expectedTitle);
     }
 
-    @Ignore
-    @Test
-    public void testAskAQuestionVisibleAndClickable(){
-        final String expectedUrl = "https://home.openweathermap.org/questions";
-
-        openBaseURL();
-        scrollByVisibleElement(ASK_A_QUESTION);
-        click(ASK_A_QUESTION);
-        switchToAnotherWindow(getDriver());
-        waitElementToBeVisible(SEARCH_HEAD_OF_ASK_A_QUESTION);
-
-        Assert.assertEquals(getCurrentURL(),expectedUrl);
-    }
-
     @Test
     public void testMapOpened_WhenClickOnTimeContaner(){
         final String expectedPartialUrl = "https://openweathermap.org/weathermap?basemap=" +

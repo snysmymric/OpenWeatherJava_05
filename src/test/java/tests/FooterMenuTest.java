@@ -125,7 +125,7 @@ public class FooterMenuTest extends BaseTest {
         Assert.assertEquals(getCurrentURL(), weatherStationsUrl);
         Assert.assertEquals(getTitle(), weatherStationsTitle);
     }
-    
+
     @Test
     public void testDownloadOpenWeatherAppTextOnFooterMenu() {
         final String expectedText = "Download OpenWeather app";
@@ -136,5 +136,18 @@ public class FooterMenuTest extends BaseTest {
                 .getTextDownloadOpenWeatherApp();
 
         Assert.assertEquals(textDownloadOpenWeatherApp, expectedText);
+    }
+
+    @Test
+    public void testAskQuestionFooterLinkNavigatesToHomeAskQuestionPage(){
+        final String expectedUrl = "https://home.openweathermap.org/questions";
+
+        String actualUrl = openBaseURL_ReturnMainPage()
+                .scrollToAskQuestionFooterMenu()
+                .clickOnAskQuestionFooterMenu()
+                .waitForAskQuestionPageHeaderBeVisible()
+                .getCurrentURL();
+
+        Assert.assertEquals(actualUrl, expectedUrl);
     }
 }

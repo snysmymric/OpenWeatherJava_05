@@ -44,6 +44,9 @@ public abstract class FooterMenuPage extends TopMenuPage {
     @FindBy(xpath = ".//p[text()='Download OpenWeather app']")
     private WebElement textDownloadOpenWeatherApp;
 
+    @FindBy(xpath = "//div[@id = 'footer-website']//a[@href = 'https://home.openweathermap.org/questions']")
+    private WebElement askQuestionFooterMenu;
+
     public FooterMenuPage(WebDriver driver) {
         super(driver);
     }
@@ -137,7 +140,7 @@ public abstract class FooterMenuPage extends TopMenuPage {
 
         return new WeatherStationsPage(getDriver());
     }
-    
+
     public String getTextDownloadOpenWeatherApp() {
 
         return getText(textDownloadOpenWeatherApp);
@@ -146,5 +149,17 @@ public abstract class FooterMenuPage extends TopMenuPage {
     public boolean textDownloadOpenWeatherAppIsDisplayed() {
 
         return isDisplayedElement(textDownloadOpenWeatherApp);
+    }
+
+    protected WebElement getAskQuestionFooterMenu() {
+
+        return askQuestionFooterMenu;
+    }
+
+    public HomeAskQuestionPage clickOnAskQuestionFooterMenu() {
+        click20(askQuestionFooterMenu);
+        switchToAnotherWindow();
+
+        return new HomeAskQuestionPage(getDriver());
     }
 }

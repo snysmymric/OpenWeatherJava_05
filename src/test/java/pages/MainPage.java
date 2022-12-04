@@ -361,4 +361,10 @@ public class MainPage extends FooterMenuPage {
 
         return this;
     }
+
+    public MainPage scrollToAskQuestionFooterMenu() {
+        scrollByVisibleElement(getAskQuestionFooterMenu());
+
+        return this;
+    }
 }
