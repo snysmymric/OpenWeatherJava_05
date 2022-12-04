@@ -5,6 +5,7 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.Color;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -191,6 +192,11 @@ public abstract class BasePage {
         return getText(element).contains(text);
     }
 
+    protected String getBackgroundColorInHEX(WebElement element) {
+
+        return Color.fromString(getBackgroundColor(element)).asHex();
+    }
+    
     protected boolean isListContains(String text, List<String> list) {
         boolean result = true;
 

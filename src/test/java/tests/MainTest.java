@@ -206,6 +206,22 @@ public class MainTest extends BaseTest {
     }
 
     @Test
+    public void testOnlyOneIconHighlighted_WhenDifferentWeatherContainerAppears() {
+        openBaseURL_ReturnMainPage();
+
+        MainPage mainPage = new MainPage(getDriver());
+
+        int activeIcon = mainPage.clickDifferentWeatherButton()
+                .waitUntilDifferentWeatherPopUpIsVisible()
+                .countActiveIconsInDifferentWeatherContainer();
+
+        final String activeIconColor = mainPage.getActiveIconBackgroundColorInHEX();
+
+        Assert.assertEquals(activeIcon, 1);
+        Assert.assertEquals(activeIconColor, "#ececed");
+    }
+      
+    @Test
     public void testCheckTempInC_inDayList_whenSwitchingToMetric() {
         MainPage mainPage = openBaseURL_ReturnMainPage()
                 .switchToMetric();

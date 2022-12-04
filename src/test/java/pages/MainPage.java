@@ -79,6 +79,12 @@ public class MainPage extends FooterMenuPage {
     @FindBy(xpath = "//span[text()='45.787, -87.904']")
     private WebElement cityNorway;
 
+    @FindBy(className = "activeIcon")
+    private List<WebElement> activeIconsInDifferentWeatherContainer;
+
+    @FindBy(className = "activeIcon")
+    private WebElement activeIcon;
+    
     @FindBy(xpath = "//div[@class='day-list-values']/div/span")
     private List<WebElement> dayListValues;
 
@@ -264,6 +270,16 @@ public class MainPage extends FooterMenuPage {
         return isTextContains("°F", currentTempAndUnit);
     }
 
+    public int countActiveIconsInDifferentWeatherContainer() {
+
+        return getListSize(activeIconsInDifferentWeatherContainer);
+    }
+
+    public String getActiveIconBackgroundColorInHEX() {
+
+        return getBackgroundColorInHEX(activeIcon);
+    }
+        
     public boolean isDayListValuesContainsC() {
 
         return isListContains("°C", getTexts(dayListValues));
