@@ -47,6 +47,9 @@ public abstract class FooterMenuPage extends TopMenuPage {
     @FindBy(xpath = "//div[@id = 'footer-website']//a[@href = 'https://home.openweathermap.org/questions']")
     private WebElement askQuestionFooterMenu;
 
+    @FindBy(xpath = "//div[@class='section-content']//a[@href='/price']")
+    private WebElement pricingFooterMenu;
+
     public FooterMenuPage(WebDriver driver) {
         super(driver);
     }
@@ -161,5 +164,11 @@ public abstract class FooterMenuPage extends TopMenuPage {
         switchToAnotherWindow();
 
         return new HomeAskQuestionPage(getDriver());
+    }
+
+    public PricePage clickPricingFooterMenu() {
+        click20(pricingFooterMenu);
+
+        return new PricePage(getDriver());
     }
 }
