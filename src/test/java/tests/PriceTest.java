@@ -19,7 +19,7 @@ public class PriceTest extends BaseTest {
 
     @Test
     public void testH1BreadcrumbTitle_WhenOpenPricingPage() {
-        String expectedHeader = "Pricing";
+        final String expectedHeader = "Pricing";
 
         String actualHeader = openBaseURL_ReturnMainPage()
                 .clickPricingMenu()

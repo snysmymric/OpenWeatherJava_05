@@ -214,4 +214,15 @@ public class TopMenuTest extends BaseTest {
 
         Assert.assertEquals(weatherDashboardURL, expectedURL);
     }
+
+    @Test
+    public void testPricingMenuNavigatesToPricePage() {
+        final String expectedPriceURL = "https://openweathermap.org/price";
+
+        String actualPriceURL = openBaseURL_ReturnMainPage()
+                .clickPricingMenu()
+                .getCurrentURL();
+
+        Assert.assertEquals(actualPriceURL, expectedPriceURL);
+    }
 }
