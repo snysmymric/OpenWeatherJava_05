@@ -36,7 +36,7 @@ public abstract class FooterMenuPage extends TopMenuPage {
     private WebElement githubIconFooterMenu;
 
     @FindBy(xpath = "//a[@href='https://github.com/search?q=openweathermap&ref=cmdform']")
-    private WebElement githubIconLinkFootermenu;
+    private WebElement githubIconLinkFooterMenu;
 
     @FindBy(xpath = "//div[@id='footer-website']//a[@href='/stations']")
     private WebElement connectYourWeatherStationFooterMenu;
@@ -123,15 +123,13 @@ public abstract class FooterMenuPage extends TopMenuPage {
     }
 
     public MainPage clickToGithubIcon() {
-        click20(githubIconLinkFootermenu);
+        click20(githubIconLinkFooterMenu);
 
         return  new MainPage(getDriver());
     }
 
-    public MainPage switchToGithubWebsite() {
+    public void switchToGithubWebsite() {
         switchToAnotherWindow();
-
-        return new MainPage(getDriver());
     }
 
     public WeatherStationsPage clickConnectYourWeatherStationFooterMenu() {
