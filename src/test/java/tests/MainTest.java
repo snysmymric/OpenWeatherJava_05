@@ -5,7 +5,7 @@ import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import pages.MainPage;
-
+import utils.DateTimeUtils;
 import java.util.List;
 
 public class MainTest extends BaseTest {
@@ -233,5 +233,13 @@ public class MainTest extends BaseTest {
 
         Assert.assertTrue(mainPage.isDayListValuesContainsF());
     }
-}
 
+    @Test
+    public void testCurrentDateAndTimeOnMainPage() {
+        String expectedTime = DateTimeUtils.getSystemDate();
+
+        String actualTime = openBaseURL_ReturnMainPage().getActualTime();
+
+        Assert.assertEquals(actualTime, expectedTime);
+    }
+}

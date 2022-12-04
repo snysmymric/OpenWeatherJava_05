@@ -85,6 +85,9 @@ public class MainPage extends FooterMenuPage {
     @FindBy(id = "dialogTitle")
     private WebElement h3DialogTitle;
 
+    @FindBy(xpath = "//div[@id='weather-widget']//span[@Class='orange-text']")
+    private WebElement currentTime;
+
     public MainPage(WebDriver driver) {
         super(driver);
     }
@@ -270,7 +273,7 @@ public class MainPage extends FooterMenuPage {
         scrollByVisibleElement(getAboutUsFooterMenu());
 
         return this;
-        }
+    }
 
     public String getHeaderForDifferentWeatherContainer() {
 
@@ -286,5 +289,10 @@ public class MainPage extends FooterMenuPage {
         scrollByVisibleElement(getGithubIconFooterMenu());
 
         return new MainPage(getDriver());
+    }
+
+    public String getActualTime() {
+
+        return getText(currentTime).substring(0, 10);
     }
 }
