@@ -29,6 +29,12 @@ public abstract class FooterMenuPage extends TopMenuPage {
     @FindBy(xpath = "//div[@class='social']/a")
     private List<WebElement> socialPanelIconsFooterMenu;
 
+    @FindBy(xpath = "//img[@src='/themes/openweathermap/assets/img/owm_icons/icon_github.png']")
+    private WebElement githubIconFooterMenu;
+
+    @FindBy(xpath = "//a[@href='https://github.com/search?q=openweathermap&ref=cmdform']")
+    private WebElement githubIconLinkFootermenu;
+
     public FooterMenuPage(WebDriver driver) {
         super(driver);
     }
@@ -90,5 +96,27 @@ public abstract class FooterMenuPage extends TopMenuPage {
     public int getSocialPanelSize() {
 
         return getListSize(socialPanelIconsFooterMenu);
+    }
+
+    public WebElement getGithubIconFooterMenu() {
+
+        return githubIconFooterMenu;
+    }
+
+    public boolean isGithubIconDisplayed() {
+
+        return isDisplayedElement(githubIconFooterMenu);
+    }
+
+    public MainPage clickToGithubIcon() {
+        click20(githubIconLinkFootermenu);
+
+        return  new MainPage(getDriver());
+    }
+
+    public MainPage switchToGithubWebsite() {
+        switchToAnotherWindow();
+
+        return new MainPage(getDriver());
     }
 }

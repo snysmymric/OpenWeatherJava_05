@@ -86,4 +86,17 @@ public class FooterMenuTest extends BaseTest {
         Assert.assertTrue(mainPage.isSocialPanelDisplayed());
         Assert.assertEquals(mainPage.getSocialPanelSize(), expectedQuantity);
     }
+
+    @Test
+    public void testGithubIconExistsAndNavigateToGithub() {
+        final String expectedURL = "https://github.com/search?q=openweathermap&ref=cmdform";
+
+        MainPage mainPage = openBaseURL_ReturnMainPage().scrollByGithubIcon();
+
+        Assert.assertTrue(mainPage.isGithubIconDisplayed());
+
+        mainPage.clickToGithubIcon().switchToGithubWebsite();
+
+        Assert.assertEquals(getExternalPageURL(), expectedURL);
+    }
 }

@@ -281,4 +281,10 @@ public class MainPage extends FooterMenuPage {
 
         return isListContains("°F", getTexts(dayListValues));
     }
+
+    public MainPage scrollByGithubIcon() {
+        scrollByVisibleElement(getGithubIconFooterMenu());
+
+        return new MainPage(getDriver());
+    }
 }
