@@ -1,12 +1,16 @@
 package pages;
 
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Point;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.testng.reporters.jq.Main;
 
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class MainPage extends FooterMenuPage {
 
@@ -93,6 +97,9 @@ public class MainPage extends FooterMenuPage {
 
     @FindBy(xpath = "//div[@id='weather-widget']//span[@Class='orange-text']")
     private WebElement currentTime;
+
+    @FindBy (xpath="//div[@id='footer-website']//a[@href='/weather-dashboard']")
+    private WebElement weatherDashboardFooterMenu;
 
     public MainPage(WebDriver driver) {
         super(driver);
@@ -335,5 +342,23 @@ public class MainPage extends FooterMenuPage {
     public String getActualTime() {
 
         return getText(currentTime).substring(0, 10);
+    }
+
+    public MainPage scrollByCoordinatesToWeatherDashboardFooterMenu() {
+        JavascriptExecutor js = (JavascriptExecutor) getDriver();
+        Point point = weatherDashboardFooterMenu.getLocation();
+        int xCoord = point.getX();
+        int yCoord = point.getY();
+        getWait20();
+        js.executeScript("window.scrollTo(" + xCoord + "," + (yCoord - 200) + ")");
+
+        return this;
+    }
+
+    public MainPage logger_Info(String str) {
+        final Logger logger = Logger.getLogger(Main.class.getName());
+        logger.log(Level.INFO, String.valueOf(str));
+
+        return this;
     }
 }

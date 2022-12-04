@@ -16,4 +16,18 @@ public class WeatherDashboardTest extends BaseTest {
 
         Assert.assertEquals(weatherDashboardPage.getCurrentURL(), expectedResult);
     }
+
+    @Test
+    public void testDashboardLinkWhitReport() {
+        final String expectedLink = "https://openweathermap.org/weather-dashboard";
+
+        WeatherDashboardPage weatherDashboardPage = openBaseURL_ReturnMainPage()
+                .logger_Info("Link before click - " + getCurrentURL())
+                .logger_Info("Title before click - " + getTitle())
+                .scrollByCoordinatesToWeatherDashboardFooterMenu()
+                .clickWeatherDashboardFooterMenu()
+                .logger_Info("Link after click - " + getCurrentURL())
+                .logger_Info("Title after click - " + getTitle());
+        Assert.assertEquals(weatherDashboardPage.getCurrentURL(), expectedLink);
+    }
 }

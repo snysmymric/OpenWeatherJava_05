@@ -733,7 +733,7 @@ public abstract class BaseTest {
 
         return isAllElementsAreVisibleAndClickable;
     }
-    
+
     public ArrayList<String> returnsTheWindowIdList() {
         ArrayList<String> idAllWindows = new ArrayList<>(getDriver().getWindowHandles());
 
