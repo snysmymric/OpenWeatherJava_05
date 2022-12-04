@@ -99,4 +99,16 @@ public class FooterMenuTest extends BaseTest {
 
         Assert.assertEquals(getExternalPageURL(), expectedURL);
     }
+
+    @Test
+    public void testDownloadOpenWeatherAppTextOnFooterMenu() {
+        final String expectedText = "Download OpenWeather app";
+
+        Assert.assertTrue(openBaseURL_ReturnMainPage().textDownloadOpenWeatherAppIsDisplayed());
+
+        String textDownloadOpenWeatherApp = openBaseURL_ReturnMainPage()
+                .getTextDownloadOpenWeatherApp();
+
+        Assert.assertEquals(textDownloadOpenWeatherApp, expectedText);
+    }
 }
