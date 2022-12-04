@@ -16,4 +16,15 @@ public class PriceTest extends BaseTest {
 
         Assert.assertEquals(actualTransparentButtons, expectedTransparentButtons);
     }
+
+    @Test
+    public void testH1BreadcrumbTitle_WhenOpenPricingPage() {
+        String expectedHeader = "Pricing";
+
+        String actualHeader = openBaseURL_ReturnMainPage()
+                .clickPricingMenu()
+                .getHeaderText();
+
+        Assert.assertEquals(actualHeader, expectedHeader);
+    }
 }

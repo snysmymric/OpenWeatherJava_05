@@ -37,4 +37,9 @@ public class PricePage extends FooterMenuPage {
 
         return getListSize(transparentButtons);
     }
+
+    public String getHeaderText() {
+
+        return getText(pricingPageHeader);
+    }
 }
