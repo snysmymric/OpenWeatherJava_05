@@ -325,6 +325,13 @@ public class MainPage extends FooterMenuPage {
         return new MainPage(getDriver());
     }
 
+    public MainPage scrollToPageBottom() {
+        JavascriptExecutor js = (JavascriptExecutor) getDriver();
+        js.executeScript("window.scrollTo(0, document.body.scrollHeight)");
+
+        return this;
+    }
+    
     public String getActualTime() {
 
         return getText(currentTime).substring(0, 10);

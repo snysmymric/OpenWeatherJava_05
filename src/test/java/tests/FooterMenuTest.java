@@ -114,6 +114,19 @@ public class FooterMenuTest extends BaseTest {
     }
 
     @Test
+    public void testConnectYourWeatherStationFooterLinkNavigatesToWeatherStationsPage () {
+        final String weatherStationsUrl = "https://openweathermap.org/stations";
+        final String weatherStationsTitle = "Weather Stations - OpenWeatherMap";
+
+        openBaseURL_ReturnMainPage()
+                .scrollToPageBottom()
+                .clickConnectYourWeatherStationFooterMenu();
+
+        Assert.assertEquals(getCurrentURL(), weatherStationsUrl);
+        Assert.assertEquals(getTitle(), weatherStationsTitle);
+    }
+    
+    @Test
     public void testDownloadOpenWeatherAppTextOnFooterMenu() {
         final String expectedText = "Download OpenWeather app";
 
