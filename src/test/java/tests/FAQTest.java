@@ -35,4 +35,16 @@ public class FAQTest extends BaseTest {
 
         Assert.assertEquals(actualTitle, expectedTitle);
     }
+
+    @Test
+    public void test_CheckH3HeadersAmount() {
+        final int expectedH3HeadersAmount = 10;
+
+        int actualH3HeadersAmount = openBaseURL_ReturnMainPage().
+                clickSupportMenu().
+                clickFAQSupportSubmenu().
+                getH3HeadersAmount();
+
+        Assert.assertEquals(actualH3HeadersAmount, expectedH3HeadersAmount);
+    }
 }
