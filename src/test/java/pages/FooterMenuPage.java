@@ -23,6 +23,9 @@ public abstract class FooterMenuPage extends TopMenuPage {
     @FindBy (xpath = "//div[@class='section-content']/ul/li/a[@href='/widgets-constructor']")
     private WebElement widgetsFooterMenu;
 
+    @FindBy (xpath="//a[@href='https://apps.apple.com/gb/app/openweather/id1535923697'] [@target='_blank']")
+    private WebElement downloadOnTheAppStoreLink;
+
     @FindBy(className = "social")
     private WebElement socialPanelFooterMenu;
 
@@ -89,6 +92,11 @@ public abstract class FooterMenuPage extends TopMenuPage {
         click(widgetsFooterMenu);
 
         return new WidgetsPage(getDriver());
+    }
+
+    protected WebElement getDownloadOnTheAppStoreLink() {
+
+        return downloadOnTheAppStoreLink;
     }
 
     public boolean isSocialPanelDisplayed() {

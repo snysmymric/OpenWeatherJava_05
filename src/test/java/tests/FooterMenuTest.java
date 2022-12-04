@@ -78,6 +78,19 @@ public class FooterMenuTest extends BaseTest {
     }
 
     @Test
+    public void testDownloadOnTheAppStoreLinkNavigatesToAppStore() {
+        final String expectedDownloadOnTheAppStoreLink =
+                "https://apps.apple.com/gb/app/openweather/id1535923697";
+
+        openBaseURL_ReturnMainPage()
+                .scrollToDownloadOnTheAppStoreLink()
+                .clickDownloadOnTheAppStoreLink()
+                .switchToAppStorePage();
+
+        Assert.assertEquals(getExternalPageURL(), expectedDownloadOnTheAppStoreLink);
+    }
+
+    @Test
     public void testSocialPanelExistsAndHasIcons() {
         final int expectedQuantity = 6;
 

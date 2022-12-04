@@ -301,6 +301,24 @@ public class MainPage extends FooterMenuPage {
         return isListContains("°F", getTexts(dayListValues));
     }
 
+    public MainPage clickDownloadOnTheAppStoreLink() {
+        click20(getDownloadOnTheAppStoreLink());
+
+        return this;
+    }
+
+    public MainPage switchToAppStorePage() {
+        switchToAnotherWindow();
+
+        return this;
+    }
+
+    public MainPage scrollToDownloadOnTheAppStoreLink() {
+        scrollByVisibleElement(getDownloadOnTheAppStoreLink());
+
+        return this;
+    }
+
     public MainPage scrollByGithubIcon() {
         scrollByVisibleElement(getGithubIconFooterMenu());
 
