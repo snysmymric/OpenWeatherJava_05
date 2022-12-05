@@ -241,6 +241,11 @@ public abstract class BasePage {
 
     abstract HomeSignInPage signOut();
 
+    protected boolean currentUrlIsContainsText(String text) {
+
+        return getDriver().getCurrentUrl().contains(text);
+    }
+
     protected void clickAllElements(List<WebElement> elements) {
         List<WebElement> allElements = new ArrayList<>(elements);
 

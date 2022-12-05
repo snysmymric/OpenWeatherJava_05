@@ -210,4 +210,11 @@ public abstract class TopMenuPage extends BasePage {
         }
         return urlList;
     }
+
+    public MainPage clickAndClearSearchFieldTopMenu(){
+        click(searchFieldTopMenu);
+        clear(searchFieldTopMenu);
+       return new MainPage(getDriver());
+    }
+
 }
