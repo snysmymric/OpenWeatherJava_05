@@ -6,6 +6,7 @@ import org.testng.annotations.Test;
 import pages.MainPage;
 import pages.TechnologyPage;
 import pages.WeatherDashboardPage;
+import pages.WidgetsPage;
 
 public class FooterMenuTest extends BaseTest {
 
@@ -67,14 +68,17 @@ public class FooterMenuTest extends BaseTest {
 
     @Test
     public void testWidgetsFooterLinkNavigatesToWidgetsPage() {
+        final String basePageTitle = "Сurrent weather and forecast - OpenWeatherMap";
         final String expectedURL = "https://openweathermap.org/widgets-constructor";
+        final String expectedTitle = "Weather widgets constructor - OpenWeatherMap";
 
-        final String actualURL = openBaseURL()
+        WidgetsPage widgetsPage = openBaseURL()
                 .scrollToWeatherDashboardFooterMenu()
-                .clickWidgetsPageFooterMenu()
-                .getCurrentURL();
+                .clickWidgetsPageFooterMenu();
 
-        Assert.assertEquals(actualURL, expectedURL);
+        Assert.assertNotEquals(basePageTitle, widgetsPage.getTitle());
+        Assert.assertEquals(widgetsPage.getCurrentURL(), expectedURL);
+        Assert.assertEquals(widgetsPage.getTitle(), expectedTitle);
     }
 
     @Test
