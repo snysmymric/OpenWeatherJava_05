@@ -54,19 +54,20 @@ public class TopMenuTest extends BaseTest {
     }
 
     @Test
-    public void testMapsMenuNavigatesToWeatherMapsPage_IriSamo () {
-//        final String mapsUrl = "https://openweathermap.org/weathermap";
-//        final String mapsTitle = "Interactive weather maps - OpenWeatherMap";
-//
-//        openBaseURL();
-//
-//        MainPage mainPage = new MainPage(getDriver());
-//
-//        mainPage.clickMapsMenu();
-//
-//        Assert.assertEquals(getCurrentURL().substring(0, 37), mapsUrl);
-//
-//        Assert.assertEquals(getTitle(), mapsTitle);
+    public void testMapsMenuNavigatesToWeatherMapsPage() {
+        final String mapsUrl = "https://openweathermap.org/weathermap";
+        final String mapsTitle = "Interactive weather maps - OpenWeatherMap";
+
+        WeatherMapsPage weatherMapsPage =
+                openBaseURL()
+                        .clickMapsMenu();
+
+        String actualMapsUrl = weatherMapsPage.getCurrentURL().substring(0, 37);
+        String actualMapsTitle = weatherMapsPage.getTitle();
+
+        Assert.assertNotEquals(actualMapsUrl, BASE_URL);
+        Assert.assertEquals(actualMapsUrl, mapsUrl);
+        Assert.assertEquals(actualMapsTitle, mapsTitle);
     }
 
     @Test
