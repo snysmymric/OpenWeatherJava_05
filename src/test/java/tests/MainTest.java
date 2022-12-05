@@ -220,7 +220,7 @@ public class MainTest extends BaseTest {
         Assert.assertEquals(activeIcon, 1);
         Assert.assertEquals(activeIconColor, "#ececed");
     }
-      
+
     @Test
     public void testCheckTempInC_inDayList_whenSwitchingToMetric() {
         MainPage mainPage = openBaseURL()
@@ -257,5 +257,19 @@ public class MainTest extends BaseTest {
         String actualTime = openBaseURL().getActualTime();
 
         Assert.assertEquals(actualTime, expectedTime);
+    }
+
+    @Test
+    public void testCheckTextInTheBottomOfThePage() {
+        final String expectedResult = "We use cookies which are essential for the site to work. We also use non-essential "
+                + "cookies to help us improve our services. Any data collected is anonymised. You can allow all cookies"
+                + " or manage them individually.";
+
+        String actualResultTextPanel = openBaseURL_ReturnMainPage()
+                .waitForFooterPanelToBeVisible()
+                .waitForElementToBeVisible()
+                .getBottomPanelText();
+
+        Assert.assertEquals(actualResultTextPanel, expectedResult);
     }
 }

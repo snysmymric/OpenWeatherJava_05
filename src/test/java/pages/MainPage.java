@@ -98,6 +98,21 @@ public class MainPage extends FooterMenuPage {
     @FindBy(xpath = "//div[@id='weather-widget']//span[@Class='orange-text']")
     private WebElement currentTime;
 
+    @FindBy(xpath = "//div[@class='stick-footer-panel__container']")
+    private WebElement footerPanelContainer;
+
+    @FindBy(xpath = "//div[@class='stick-footer-panel__container']")
+    private WebElement bottomPanel;
+
+    @FindBy(xpath = "//button[@type='button' and text()='Allow all']")
+    private WebElement allowAllButton;
+
+    @FindBy(xpath = "//a[@href='/cookies-settings' and text()=' Manage cookies ']")
+    private WebElement manageButton;
+
+    @FindBy(xpath = "//p[@class='stick-footer-panel__description']")
+    private WebElement textPanel;
+
     @FindBy (xpath="//div[@id='footer-website']//a[@href='/weather-dashboard']")
     private WebElement weatherDashboardFooterMenu;
 
@@ -326,10 +341,29 @@ public class MainPage extends FooterMenuPage {
 
         return this;
     }
-    
+
     public String getActualTime() {
 
         return getText(currentTime).substring(0, 10);
+    }
+
+    public MainPage waitForFooterPanelToBeVisible() {
+        wait20ElementToBeVisible(footerPanelContainer);
+        wait20ElementToBeVisible(bottomPanel);
+
+        return this;
+    }
+
+    public MainPage waitForElementToBeVisible() {
+        wait20ElementToBeVisible(allowAllButton);
+        wait20ElementToBeVisible(manageButton);
+
+        return this;
+    }
+
+    public String getBottomPanelText() {
+
+        return getText(textPanel);
     }
 
     public MainPage scrollByCoordinatesToWeatherDashboardFooterMenu() {
