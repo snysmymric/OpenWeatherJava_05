@@ -79,15 +79,15 @@ public class FooterMenuTest extends BaseTest {
 
     @Test
     public void testDownloadOnTheAppStoreLinkNavigatesToAppStore() {
-        final String expectedDownloadOnTheAppStoreLink =
+        final String expectedAppStoreURL =
                 "https://apps.apple.com/gb/app/openweather/id1535923697";
 
         openBaseURL()
                 .scrollToDownloadOnTheAppStoreLink()
-                .clickDownloadOnTheAppStoreLink()
+                .clickDownloadOnTheAppStoreLinkFooterMenu()
                 .switchToAppStorePage();
 
-        Assert.assertEquals(getExternalPageURL(), expectedDownloadOnTheAppStoreLink);
+        Assert.assertEquals(getExternalPageURL(), expectedAppStoreURL);
     }
 
     @Test
