@@ -177,4 +177,15 @@ public class FooterMenuTest extends BaseTest {
 
         Assert.assertEquals(technologyPage.getStoreIconsSize(), expectedResult);
     }
+
+    @Test
+    public void testGetItOnGooglePlayIconTextExistAndNavigate() {
+        final String expectedGooglePlayURL = "https://play.google.com/store/apps/details?id=uk.co.openweather";
+
+        openBaseURL()
+                .scrollToDownloadOnFooterMenuGooglePlayStore()
+                .clickDownloadGooglePlayLinkFooterMenu()
+                .switchToAppStorePage();
+        Assert.assertEquals(getExternalPageURL(), expectedGooglePlayURL);
+    }
 }

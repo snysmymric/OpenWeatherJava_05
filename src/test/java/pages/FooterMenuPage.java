@@ -53,6 +53,9 @@ public abstract class FooterMenuPage extends TopMenuPage {
     @FindBy(xpath = "//div[@style='display: flex; flex-direction: row;']/a")
     private List<WebElement> storeIcons;
 
+    @FindBy(xpath = "//img[@alt='Get it on Google Play']")
+    private WebElement iconGooglePlay;
+
     public FooterMenuPage(WebDriver driver) {
         super(driver);
     }
@@ -188,5 +191,16 @@ public abstract class FooterMenuPage extends TopMenuPage {
     public int getStoreIconsSize() {
 
         return getListSize(storeIcons);
+    }
+
+    public WebElement getDownloadGooglePlayLinkFooterMenu() {
+
+        return iconGooglePlay;
+    }
+
+    public MainPage clickDownloadGooglePlayLinkFooterMenu() {
+        click20(iconGooglePlay);
+
+        return new MainPage(getDriver());
     }
 }

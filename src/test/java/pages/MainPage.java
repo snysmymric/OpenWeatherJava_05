@@ -395,4 +395,10 @@ public class MainPage extends FooterMenuPage {
 
         return this;
     }
+
+    public MainPage scrollToDownloadOnFooterMenuGooglePlayStore() {
+        scrollByVisibleElement(getDownloadOnTheAppStoreLinkFooterMenu());
+
+        return new MainPage(getDriver());
+    }
 }
