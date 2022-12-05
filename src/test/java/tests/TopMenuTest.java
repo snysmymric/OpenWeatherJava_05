@@ -42,11 +42,13 @@ public class TopMenuTest extends BaseTest {
 
     @Test
     public void testGuideMenuNavigatesToGuidePage() {
+        final String basePageTitle = "Сurrent weather and forecast - OpenWeatherMap";
         final String expectedUrl = "https://openweathermap.org/guide";
         final String expectedTitle = "OpenWeatherMap API guide - OpenWeatherMap";
 
         GuidePage guidePage = openBaseURL().clickGuideMenu();
 
+        Assert.assertNotEquals(basePageTitle, guidePage.getTitle());
         Assert.assertEquals(guidePage.getCurrentURL(), expectedUrl);
         Assert.assertEquals(guidePage.getTitle(), expectedTitle);
     }
