@@ -367,4 +367,10 @@ public class MainPage extends FooterMenuPage {
 
         return this;
     }
+
+    public MainPage scrollToWidgetsFooterMenu() {
+        scrollByVisibleElement(getWidgetFooterMenu());
+
+        return this;
+    }
 }

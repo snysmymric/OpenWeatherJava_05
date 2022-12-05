@@ -1,14 +1,12 @@
 package pages;
 
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.Color;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Reporter;
 
 import java.time.Duration;
 import java.util.ArrayList;
@@ -205,5 +203,38 @@ public abstract class BasePage {
         }
 
         return result;
+    }
+
+    public void clear(WebElement element) {
+
+        element.clear();
+    }
+
+    protected void inputText(WebElement element, String text) {
+        click(element);
+        clear(element);
+        input(text, element);
+    }
+
+    protected void waitForTextNotToBeEmpty(WebElement element) {
+        while (element.getText() == null || element.getText().length() < 1) {
+            getWait20().until(ExpectedConditions.not(ExpectedConditions.textToBePresentInElement(element, "")));
+        }
+    }
+
+    protected List<String> getListText(List<WebElement> list) {
+        if (list.size() > 0) {
+            getWait20().until(ExpectedConditions.visibilityOfAllElements(list));
+            List<String> textList = new ArrayList<>();
+            for (WebElement element : list) {
+                if (element.isEnabled() && element.isDisplayed()) {
+                    textList.add(element.getText());
+                }
+            }
+
+            return textList;
+        }
+
+        return new ArrayList<>();
     }
 }

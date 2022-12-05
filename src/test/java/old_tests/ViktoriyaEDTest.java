@@ -76,6 +76,7 @@ public class ViktoriyaEDTest extends BaseTest {
         return widgets;
     }
 
+@Ignore
     @Test
     public void test_SupportMenuIsClickable() {
         openBaseURL();
@@ -90,6 +91,7 @@ public class ViktoriyaEDTest extends BaseTest {
                 SUPPORT_DROPDOWN, "class").equals("dropdown-menu"));
     }
 
+    @Ignore
     @Test
     public void test_SupportMenuHas3Submenus() {
 
@@ -106,6 +108,7 @@ public class ViktoriyaEDTest extends BaseTest {
         }
     }
 
+    @Ignore
     @Test
     public void test_SupportMenuSubmenusAreClickableAndRedirectedToTheRightPage() {
 
@@ -132,6 +135,7 @@ public class ViktoriyaEDTest extends BaseTest {
         Assert.assertTrue(getCurrentURL().contains("https://home.openweathermap.org/questions"));
     }
 
+    @Ignore
     @Test
     public void test_VerifyPopupWindowIsShownWhenClickingDifferentWeatherButton() {
 
@@ -141,6 +145,7 @@ public class ViktoriyaEDTest extends BaseTest {
         Assert.assertTrue(getDriver().findElement(DIFFERENT_WEATHER_POP_UP).isDisplayed());
     }
 
+    @Ignore
     @Test
     public void test_WidgetsIsClickableAndRedirectsUserToTheWidgetsPage() {
 
