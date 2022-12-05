@@ -219,13 +219,15 @@ public class TopMenuTest extends BaseTest {
 
     @Test
     public void testPricingMenuNavigatesToPricePage() {
+        final String basePageTitle = "Сurrent weather and forecast - OpenWeatherMap";
         final String expectedPriceURL = "https://openweathermap.org/price";
+        final String expectedPricingTitle = "Pricing - OpenWeatherMap";
 
-        String actualPriceURL = openBaseURL()
-                .clickPricingMenu()
-                .getCurrentURL();
+        PricePage pricePage = openBaseURL().clickPricingMenu();
 
-        Assert.assertEquals(actualPriceURL, expectedPriceURL);
+        Assert.assertNotEquals(basePageTitle, pricePage.getTitle());
+        Assert.assertEquals(pricePage.getCurrentURL(), expectedPriceURL);
+        Assert.assertEquals(pricePage.getTitle(),expectedPricingTitle);
     }
 
     @Test
