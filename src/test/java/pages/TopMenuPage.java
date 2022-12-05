@@ -5,6 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class TopMenuPage extends BasePage {
@@ -192,4 +193,21 @@ public abstract class TopMenuPage extends BasePage {
         return getText(signInMenuTopMenu);
     }
 
+    public List<String> clickAllMenus() {
+        String mainWindow = getDriver().getWindowHandle();
+        List<String> urlList = new ArrayList<>();
+
+        for (int i = 0; i < topMenuButtons.size() - 1; i++) {
+            click(topMenuButtons.get(i));
+            if (getDriver().getWindowHandles().size() > 1) {
+                switchToAnotherWindow();
+                urlList.add(getCurrentURL());
+                getDriver().close();
+                getDriver().switchTo().window(mainWindow);
+            } else {
+                urlList.add(getCurrentURL());
+            }
+        }
+        return urlList;
+    }
 }

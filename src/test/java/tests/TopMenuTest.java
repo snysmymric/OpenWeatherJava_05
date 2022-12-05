@@ -227,4 +227,20 @@ public class TopMenuTest extends BaseTest {
 
         Assert.assertEquals(actualPriceURL, expectedPriceURL);
     }
+
+    @Test
+    public void testEachTopMenuNavigatesToCorrespondingPage() {
+        List<String> expectedURLs = List.of(
+                "https://openweathermap.org/guide", "https://openweathermap.org/api",
+                "https://openweathermap.org/weather-dashboard", "https://home.openweathermap.org/marketplace",
+                "https://openweathermap.org/price",
+                "https://openweathermap.org/weathermap?basemap=map&cities=true&layer=temperature&lat=30&lon=-20&zoom=5",
+                "https://openweathermap.org/our-initiatives", "https://openweathermap.org/examples",
+                "https://openweather.co.uk/blog/category/weather", "https://openweather.co.uk/",
+                "https://home.openweathermap.org/users/sign_in");
+
+        List<String> actualURLs = openBaseURL().clickAllMenus();
+
+        Assert.assertEquals(actualURLs, expectedURLs);
+    }
 }
