@@ -193,7 +193,7 @@ public abstract class BasePage {
 
         return Color.fromString(getBackgroundColor(element)).asHex();
     }
-    
+
     protected boolean isListContains(String text, List<String> list) {
         boolean result = true;
 
@@ -240,4 +240,29 @@ public abstract class BasePage {
     abstract HomePage signIn();
 
     abstract HomeSignInPage signOut();
+
+    protected void clickAllElements(List<WebElement> elements) {
+        List<WebElement> allElements = new ArrayList<>(elements);
+
+        for (WebElement checkedElement : allElements) {
+            if (checkedElement.isEnabled() && checkedElement.isDisplayed()) {
+                wait10ElementToBeVisible(checkedElement);
+                wait10ElementToBeClickable(checkedElement).click();
+            }
+        }
+    }
+
+    protected boolean checkingForUnselectedElements(List<WebElement> elements) {
+        List<WebElement> allElements = new ArrayList<>(elements);
+        int elementsSize = elements.size();
+        int count = 0;
+
+        for (WebElement checkbox : allElements) {
+            if (!checkbox.findElement(By.cssSelector("*, :after, :before")).isSelected()) {
+                count++;
+            }
+        }
+
+        return elementsSize == count;
+    }
 }

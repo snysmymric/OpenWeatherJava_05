@@ -11,6 +11,9 @@ public class HomeMarketplacePage extends HomeFooterMenuPage {
     @FindBy(className = "button-round")
     private List<WebElement> allButtons;
 
+    @FindBy(xpath = "//ul[@id='desktop-menu']//a[@href='/history_bulks/new']")
+    private WebElement historyBulkMenu;
+
     public HomeMarketplacePage(WebDriver driver) {
         super(driver);
     }
@@ -31,4 +34,9 @@ public class HomeMarketplacePage extends HomeFooterMenuPage {
         return allElementsVisibleAndClickable(allButtons);
     }
 
+    public HomeHistoryBulksNewPage clickHistoryBulkMenu() {
+        click(historyBulkMenu);
+
+        return new HomeHistoryBulksNewPage(getDriver());
+    }
 }
