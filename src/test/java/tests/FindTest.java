@@ -11,7 +11,7 @@ public class FindTest extends BaseTest {
         final String expectedCityName = "Rome";
         final String attributeName = "value";
 
-        String actualCityName = openBaseURL_ReturnMainPage()
+        String actualCityName = openBaseURL()
                 .inputSearchCriteriaIntoSearchFieldAndEnter(expectedCityName)
                 .getSearchFieldValue(attributeName);
 

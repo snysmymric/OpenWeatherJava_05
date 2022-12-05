@@ -37,7 +37,7 @@ public class MainTest extends BaseTest {
         final String cityName = "Paris";
         final String expectedCityCountryNames = "Paris, FR";
 
-        openBaseURL_ReturnMainPage();
+        openBaseURL();
 
         MainPage mainPage = new MainPage(getDriver());
 
@@ -59,7 +59,7 @@ public class MainTest extends BaseTest {
         final String expectedColor = "rgba(0, 0, 0, 0)";
         final String expectedFontSize = "45px";
 
-        openBaseURL_ReturnMainPage();
+        openBaseURL();
 
         MainPage mainPage = new MainPage(getDriver());
 
@@ -74,7 +74,7 @@ public class MainTest extends BaseTest {
     public void testAmountOfIcons_OnDifferentWeatherPopUp() {
         final int expectedAmountOfIcons = 9;
 
-        openBaseURL_ReturnMainPage();
+        openBaseURL();
 
         MainPage mainPage = new MainPage(getDriver());
 
@@ -91,7 +91,7 @@ public class MainTest extends BaseTest {
         final String nameOfTestedAttribute = "class";
         final String expectedValueOfTestedAttribute = "activeIcon";
 
-        openBaseURL_ReturnMainPage();
+        openBaseURL();
 
         MainPage mainPage = new MainPage(getDriver());
 
@@ -114,7 +114,7 @@ public class MainTest extends BaseTest {
     public void testRefreshPage() {
         final String expectedTextWhenLoading = "Loading";
 
-        String actualTextWhenLoading = openBaseURL_ReturnMainPage()
+        String actualTextWhenLoading = openBaseURL()
                 .clickLogo()
                 .getLoadingText("aria-label");
 
@@ -126,7 +126,7 @@ public class MainTest extends BaseTest {
         final String cityName = "Norway";
         final String expectedCityName = "London, GB";
 
-        String actualCityName = openBaseURL_ReturnMainPage()
+        String actualCityName = openBaseURL()
                 .clickSearchCityField()
                 .inputSearchCriteria(cityName)
                 .clickSearchButton()
@@ -139,7 +139,7 @@ public class MainTest extends BaseTest {
 
     @Test
     public void testAllIconsAreShownAndClickable() {
-        MainPage mainPage = openBaseURL_ReturnMainPage()
+        MainPage mainPage = openBaseURL()
                 .clickDifferentWeatherButton();
 
         Assert.assertTrue(mainPage.checkAllIconsAreVisibleAndClickable());
@@ -147,7 +147,7 @@ public class MainTest extends BaseTest {
 
     @Test
     public void testIfXButtonDisplayed() {
-        MainPage mainPage = openBaseURL_ReturnMainPage()
+        MainPage mainPage = openBaseURL()
                 .clickDifferentWeatherButton();
 
         Assert.assertTrue(mainPage.isXButtonDisplayed());
@@ -155,7 +155,7 @@ public class MainTest extends BaseTest {
 
     @Test
     public void testTempUnitChangedToC_WhenSwitchingToMetric() {
-        MainPage mainPage = openBaseURL_ReturnMainPage().switchToMetric();
+        MainPage mainPage = openBaseURL().switchToMetric();
         waitForGrayContainerDisappeared();
 
         Assert.assertTrue(mainPage.isTextContainsC());
@@ -163,7 +163,7 @@ public class MainTest extends BaseTest {
 
     @Test
     public void testTempUnitChangedToF_WhenSwitchingToImperial() {
-        MainPage mainPage = openBaseURL_ReturnMainPage().switchToImperial();
+        MainPage mainPage = openBaseURL().switchToImperial();
         waitForGrayContainerDisappeared();
 
         Assert.assertTrue(mainPage.isTextContainF());
@@ -171,7 +171,7 @@ public class MainTest extends BaseTest {
 
     @Test
     public void testIfSendButtonDisplayed() {
-        MainPage mainPage = openBaseURL_ReturnMainPage()
+        MainPage mainPage = openBaseURL()
                 .clickDifferentWeatherButton();
 
         Assert.assertTrue(mainPage.isSendButtonDisplayed());
@@ -182,7 +182,7 @@ public class MainTest extends BaseTest {
         final String cityName = "Rrr";
         final String expectedErrorText = "No results for Rrr";
 
-        String actualErrorText = openBaseURL_ReturnMainPage()
+        String actualErrorText = openBaseURL()
                 .clickSearchCityField()
                 .inputSearchCriteria(cityName)
                 .clickSearchButton()
@@ -196,7 +196,7 @@ public class MainTest extends BaseTest {
         final String cityName = "Rrr";
         final String expectedXButtonBackgroundColor = "rgba(120, 203, 191, 0.8)";
 
-        String actualXButtonBackgroundColor = openBaseURL_ReturnMainPage()
+        String actualXButtonBackgroundColor = openBaseURL()
                 .clickSearchCityField()
                 .inputSearchCriteria(cityName)
                 .clickSearchButton()
@@ -207,7 +207,7 @@ public class MainTest extends BaseTest {
 
     @Test
     public void testOnlyOneIconHighlighted_WhenDifferentWeatherContainerAppears() {
-        openBaseURL_ReturnMainPage();
+        openBaseURL();
 
         MainPage mainPage = new MainPage(getDriver());
 
@@ -223,7 +223,7 @@ public class MainTest extends BaseTest {
       
     @Test
     public void testCheckTempInC_inDayList_whenSwitchingToMetric() {
-        MainPage mainPage = openBaseURL_ReturnMainPage()
+        MainPage mainPage = openBaseURL()
                 .switchToMetric();
         mainPage.waitForGrayContainerDisappeared();
 
@@ -234,7 +234,7 @@ public class MainTest extends BaseTest {
     public void testDifferentWeatherButtonOpensDifferentWeatherContainer() {
         String expectedHeader = "Different weather";
 
-        String actualHeader = openBaseURL_ReturnMainPage()
+        String actualHeader = openBaseURL()
                 .clickDifferentWeatherButton()
                 .getHeaderForDifferentWeatherContainer();
 
@@ -243,7 +243,7 @@ public class MainTest extends BaseTest {
 
     @Test
     public void testCheckTempInF_inDayList_whenSwitchingToImperial() {
-        MainPage mainPage = openBaseURL_ReturnMainPage()
+        MainPage mainPage = openBaseURL()
                 .switchToImperial();
         mainPage.waitForGrayContainerDisappeared();
 
@@ -254,7 +254,7 @@ public class MainTest extends BaseTest {
     public void testCurrentDateAndTimeOnMainPage() {
         String expectedTime = DateTimeUtils.getSystemDate();
 
-        String actualTime = openBaseURL_ReturnMainPage().getActualTime();
+        String actualTime = openBaseURL().getActualTime();
 
         Assert.assertEquals(actualTime, expectedTime);
     }

@@ -10,7 +10,7 @@ public class PartnersTest extends BaseTest {
     public void testPartnersPageHeader() {
         final String expectedHeader = "Partners and solutions";
 
-        String actualHeader = openBaseURL_ReturnMainPage()
+        String actualHeader = openBaseURL()
                 .clickPartnersMenu()
                 .getPageHeader();
 
@@ -21,7 +21,7 @@ public class PartnersTest extends BaseTest {
     public void testSeeOnTheWebsiteButtonNavigatesToApacheWebsite() {
         final String expectedURL = "https://camel.apache.org/components/next/weather-component.html";
 
-        openBaseURL_ReturnMainPage()
+        openBaseURL()
                 .clickPartnersMenu()
                 .clickApacheCamelHyperLink()
                 .clickSeeOnWebsiteButton()

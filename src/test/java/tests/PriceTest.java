@@ -10,7 +10,7 @@ public class PriceTest extends BaseTest {
     public void testBtnBlock_AmountOfTransparentButtons() {
         final int expectedTransparentButtons = 19;
 
-        int actualTransparentButtons = openBaseURL_ReturnMainPage()
+        int actualTransparentButtons = openBaseURL()
                 .clickPricingMenu()
                 .getTransparentButtonsAmount();
 
@@ -21,7 +21,7 @@ public class PriceTest extends BaseTest {
     public void testH1BreadcrumbTitle_WhenOpenPricingPage() {
         final String expectedHeader = "Pricing";
 
-        String actualHeader = openBaseURL_ReturnMainPage()
+        String actualHeader = openBaseURL()
                 .clickPricingMenu()
                 .getHeaderText();
 

@@ -10,7 +10,7 @@ public class APITest extends BaseTest {
     public void testCheckAllOrangeButtons() {
         final int expectedAmountOfButtons = 30;
 
-        int actualAmountOfButtons = openBaseURL_ReturnMainPage()
+        int actualAmountOfButtons = openBaseURL()
                 .clickAPIMenu()
                 .getOrangeButtonsAmount();
 
@@ -21,7 +21,7 @@ public class APITest extends BaseTest {
     public void testAPIPageHeader() {
         final String expectedHeader = "Weather API";
 
-        String header = openBaseURL_ReturnMainPage()
+        String header = openBaseURL()
                 .clickAPIMenu()
                 .getPageHeader();
 

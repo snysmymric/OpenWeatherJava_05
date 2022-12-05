@@ -6,7 +6,6 @@ import org.openqa.selenium.support.Color;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.Reporter;
 
 import java.time.Duration;
 import java.util.ArrayList;
@@ -237,4 +236,8 @@ public abstract class BasePage {
 
         return new ArrayList<>();
     }
+
+    abstract HomePage signIn();
+
+    abstract HomeSignInPage signOut();
 }

@@ -16,7 +16,7 @@ public class WeatherMapsTest extends BaseTest {
         String expectedZoomOut = "-";
         String partialUrl = "http";
 
-        WeatherMapsPage weatherMapsPage = openBaseURL_ReturnMainPage()
+        WeatherMapsPage weatherMapsPage = openBaseURL()
                 .clickMapsMenu()
                 .clickZoomInLoupe()
                 .waitUntilUrlContains(partialUrl)
@@ -39,7 +39,7 @@ public class WeatherMapsTest extends BaseTest {
         expectedLayersTexts.add("Global Precipitation");
 
         List<String> actualLayersTexts =
-                openBaseURL_ReturnMainPage()
+                openBaseURL()
                         .clickMapsMenu()
                         .getMenusTexts();
 
@@ -51,7 +51,7 @@ public class WeatherMapsTest extends BaseTest {
     public void testButtonLoop_MapPage() {
         String locationROME = "Rome, Italy";
 
-         WeatherMapsPage weatherMapsPage = openBaseURL_ReturnMainPage()
+         WeatherMapsPage weatherMapsPage = openBaseURL()
                 .clickMapsMenu()
                 .clickNominatimSearchButton();
 

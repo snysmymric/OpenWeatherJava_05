@@ -10,7 +10,7 @@ public class HomeMarketplaceTest extends BaseTest {
     public void testAllButtonsAreVisibleAndClickable() {
 
         final boolean areAllButtonsVisibleAndClickable =
-                openBaseURL_ReturnMainPage()
+                openBaseURL()
                         .clickMarketplaceMenu()
                         .switchToMarketplaceWindow()
                         .areAllButtonsVisibleAndClickable();

@@ -1,10 +1,10 @@
 package pages;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public abstract class TopMenuPage extends BasePage {
@@ -42,7 +42,7 @@ public abstract class TopMenuPage extends BasePage {
     @FindBy(xpath = "//div[@id='desktop-menu']/ul/li")
     private List<WebElement> topMenuButtons;
 
-    @FindBy(xpath = "//li[@class='user-li']//a" )
+    @FindBy(xpath = "//li[@class='user-li']/a" )
     private WebElement signInMenuTopMenu;
 
     @FindBy(id = "support-dropdown")
@@ -173,4 +173,23 @@ public abstract class TopMenuPage extends BasePage {
 
         return new HomeSignInPage(getDriver());
     }
+
+    public HomePage signIn() {
+        clickSignInMenu().signInRegularUser();
+
+        return new HomePage(getDriver());
+    }
+
+    public HomeSignInPage signOut() {
+        click(getDriver().findElement(By.id("user-dropdown")));
+        click(getDriver().findElement(By.xpath("//a[@href='/users/sign_out']")));
+
+        return new HomeSignInPage(getDriver());
+    }
+
+    public String getSignInTopMenuText() {
+
+        return getText(signInMenuTopMenu);
+    }
+
 }

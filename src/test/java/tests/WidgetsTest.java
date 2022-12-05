@@ -15,7 +15,7 @@ public class WidgetsTest extends BaseTest {
         final String key = "20cbbe5f82ae947874eb39f29f8ffbe1";
         final String city = "Rome";
 
-        WidgetsPage widgetPage = openBaseURL_ReturnMainPage()
+        WidgetsPage widgetPage = openBaseURL()
                 .scrollToWidgetsFooterMenu()
                 .clickWidgetsPageFooterMenu();
 

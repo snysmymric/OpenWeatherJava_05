@@ -11,7 +11,7 @@ public class GuideTest extends BaseTest {
     public void testHomeGuideNavigatesToBaseURL() {
         final String expectedURL = "https://openweathermap.org/";
 
-        GuidePage guidePage = openBaseURL_ReturnMainPage()
+        GuidePage guidePage = openBaseURL()
                 .clickGuideMenu()
                 .clickHomeGuide();
 

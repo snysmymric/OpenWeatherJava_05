@@ -12,7 +12,7 @@ public class FAQTest extends BaseTest {
     public void testFAQButtonIsClickable() {
         final String expectedResult = "Frequently Asked Questions";
 
-        openBaseURL_ReturnMainPage();
+        openBaseURL();
 
         MainPage mainPage = new MainPage(getDriver());
 
@@ -28,7 +28,7 @@ public class FAQTest extends BaseTest {
     public void testTitle() {
         final String expectedTitle = "Frequently Asked Questions - OpenWeatherMap";
 
-        String actualTitle = openBaseURL_ReturnMainPage()
+        String actualTitle = openBaseURL()
                 .clickSupportMenu()
                 .clickFAQSupportSubmenu()
                 .getTitle();
@@ -40,7 +40,7 @@ public class FAQTest extends BaseTest {
     public void test_CheckH3HeadersAmount() {
         final int expectedH3HeadersAmount = 10;
 
-        int actualH3HeadersAmount = openBaseURL_ReturnMainPage().
+        int actualH3HeadersAmount = openBaseURL().
                 clickSupportMenu().
                 clickFAQSupportSubmenu().
                 getH3HeadersAmount();
