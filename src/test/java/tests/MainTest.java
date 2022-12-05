@@ -3,6 +3,7 @@ package tests;
 import base.BaseTest;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import pages.MainPage;
 import utils.DateTimeUtils;
@@ -265,7 +266,7 @@ public class MainTest extends BaseTest {
                 + "cookies to help us improve our services. Any data collected is anonymised. You can allow all cookies"
                 + " or manage them individually.";
 
-        String actualResultTextPanel = openBaseURL_ReturnMainPage()
+        String actualResultTextPanel = openBaseURL()
                 .waitForFooterPanelToBeVisible()
                 .waitForElementToBeVisible()
                 .getBottomPanelText();

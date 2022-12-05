@@ -114,7 +114,7 @@ public class FooterMenuTest extends BaseTest {
     }
 
     @Test
-    public void testPricingFooterLinkNavigatesToPricePage(){
+    public void testPricingFooterLinkNavigatesToPricePage() {
         final String expectedURL = "https://openweathermap.org/price";
 
         String actualUrl = openBaseURL()
@@ -126,7 +126,7 @@ public class FooterMenuTest extends BaseTest {
     }
 
     @Test
-    public void testConnectYourWeatherStationFooterLinkNavigatesToWeatherStationsPage () {
+    public void testConnectYourWeatherStationFooterLinkNavigatesToWeatherStationsPage() {
 //        final String weatherStationsUrl = "https://openweathermap.org/stations";
 //        final String weatherStationsTitle = "Weather Stations - OpenWeatherMap";
 //
@@ -151,7 +151,7 @@ public class FooterMenuTest extends BaseTest {
     }
 
     @Test
-    public void testAskQuestionFooterLinkNavigatesToHomeAskQuestionPage(){
+    public void testAskQuestionFooterLinkNavigatesToHomeAskQuestionPage() {
         final String expectedUrl = "https://home.openweathermap.org/questions";
 
         String actualUrl = openBaseURL()
@@ -161,5 +161,16 @@ public class FooterMenuTest extends BaseTest {
                 .getCurrentURL();
 
         Assert.assertEquals(actualUrl, expectedUrl);
+    }
+
+    @Test
+    public void testStorePanelHasTwoIcons() {
+        final int expectedResult = 2;
+
+        TechnologyPage technologyPage = openBaseURL()
+                .scrollToOurTechnologyFooterMenu()
+                .clickOurTechnologyFooterMenu();
+
+        Assert.assertEquals(technologyPage.getStoreIconsSize(), expectedResult);
     }
 }

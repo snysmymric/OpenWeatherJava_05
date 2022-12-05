@@ -8,7 +8,7 @@ import java.util.List;
 
 public abstract class FooterMenuPage extends TopMenuPage {
 
-    @FindBy (xpath="//div[@id='footer-website']//a[@href='/weather-dashboard']")
+    @FindBy(xpath = "//div[@id='footer-website']//a[@href='/weather-dashboard']")
     private WebElement weatherDashboardFooterMenu;
 
     @FindBy(css = "a[href='/technology']")
@@ -20,10 +20,10 @@ public abstract class FooterMenuPage extends TopMenuPage {
     @FindBy(xpath = "//a[@href = '/about-us']")
     private WebElement aboutUsFooterMenu;
 
-    @FindBy (xpath = "//div[@class='section-content']/ul/li/a[@href='/widgets-constructor']")
+    @FindBy(xpath = "//div[@class='section-content']/ul/li/a[@href='/widgets-constructor']")
     private WebElement widgetsFooterMenu;
 
-    @FindBy (xpath="//a[@href='https://apps.apple.com/gb/app/openweather/id1535923697'] [@target='_blank']")
+    @FindBy(xpath = "//a[@href='https://apps.apple.com/gb/app/openweather/id1535923697'] [@target='_blank']")
     private WebElement downloadOnTheAppStoreLinkFooterMenu;
 
     @FindBy(className = "social")
@@ -50,11 +50,14 @@ public abstract class FooterMenuPage extends TopMenuPage {
     @FindBy(xpath = "//div[@class='section-content']//a[@href='/price']")
     private WebElement pricingFooterMenu;
 
+    @FindBy(xpath = "//div[@style='display: flex; flex-direction: row;']/a")
+    private List<WebElement> storeIcons;
+
     public FooterMenuPage(WebDriver driver) {
         super(driver);
     }
 
-    public WeatherDashboardPage clickWeatherDashboardFooterMenu(){
+    public WeatherDashboardPage clickWeatherDashboardFooterMenu() {
         click(weatherDashboardFooterMenu);
 
         return new WeatherDashboardPage(getDriver());
@@ -131,7 +134,7 @@ public abstract class FooterMenuPage extends TopMenuPage {
     public MainPage clickToGithubIcon() {
         click20(githubIconLinkFooterMenu);
 
-        return  new MainPage(getDriver());
+        return new MainPage(getDriver());
     }
 
     public void switchToGithubWebsite() {
@@ -153,17 +156,17 @@ public abstract class FooterMenuPage extends TopMenuPage {
 
         return isDisplayedElement(textDownloadOpenWeatherApp);
     }
-    
+
     public MainPage clickDownloadOnTheAppStoreLinkFooterMenu() {
         click20(downloadOnTheAppStoreLinkFooterMenu);
 
-        return  new MainPage(getDriver());
+        return new MainPage(getDriver());
     }
 
     public void switchToAppStorePage() {
         switchToAnotherWindow();
     }
-        
+
     protected WebElement getAskQuestionFooterMenu() {
 
         return askQuestionFooterMenu;
@@ -180,5 +183,10 @@ public abstract class FooterMenuPage extends TopMenuPage {
         click20(pricingFooterMenu);
 
         return new PricePage(getDriver());
+    }
+
+    public int getStoreIconsSize() {
+
+        return getListSize(storeIcons);
     }
 }
