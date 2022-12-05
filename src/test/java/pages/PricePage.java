@@ -29,6 +29,9 @@ public class PricePage extends FooterMenuPage {
     @FindBy(xpath = "//section[@id = 'alerts']//tbody/tr[1]/th[1]/p[2]")
     private WebElement sectionAlertsBodyOfFirstCellInFirstRowPartTwo;
 
+    @FindBy(xpath = "//section[@id='current']/div/div/table/thead/tr/th/h3/b")
+    private List<WebElement> weatherAndForecastsCollections;
+
     public PricePage(WebDriver driver) {
         super(driver);
     }
@@ -41,5 +44,10 @@ public class PricePage extends FooterMenuPage {
     public String getHeaderText() {
 
         return getText(pricingPageHeader);
+    }
+
+    public List<String> getCollectionsNames() {
+
+        return getTexts(weatherAndForecastsCollections);
     }
 }
