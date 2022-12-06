@@ -3,6 +3,7 @@ package pages;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import java.util.List;
 
@@ -58,6 +59,9 @@ public abstract class FooterMenuPage extends TopMenuPage {
 
     @FindBy(xpath = "//div[@class='horizontal-section my-5']/div/span[2]")
     private WebElement copirightSign;
+
+    @FindBy(xpath = "//div[@class = 'social']//img[contains(@src, 'facebook')]")
+    private WebElement iconFacebook;
 
     public FooterMenuPage(WebDriver driver) {
         super(driver);
@@ -210,5 +214,16 @@ public abstract class FooterMenuPage extends TopMenuPage {
         click20(iconGooglePlay);
 
         return new MainPage(getDriver());
+    }
+
+    public MainPage clickFacebookIcon(){
+        click20(iconFacebook);
+
+        return new MainPage(getDriver());
+    }
+
+    public void switchToFacebookWebsite() {
+        switchToAnotherWindow();
+        getWait20().until(ExpectedConditions.numberOfWindowsToBe(2));
     }
 }

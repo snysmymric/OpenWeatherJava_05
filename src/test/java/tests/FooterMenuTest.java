@@ -198,4 +198,16 @@ public class FooterMenuTest extends BaseTest {
 
         Assert.assertEquals(actualCopyright,expectedCopyright);
     }
+
+    @Test
+    public void testFacebookIcon_IfCorrespondingFacebookWebpageOpens() {
+        final String expectedFacebookURLPart = "facebook.com";
+
+        openBaseURL()
+                .scrollToPageBottom()
+                .clickFacebookIcon()
+                .switchToFacebookWebsite();
+
+        Assert.assertTrue((getExternalPageURL().contains(expectedFacebookURLPart)));
+    }
 }
