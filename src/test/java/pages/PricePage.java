@@ -50,4 +50,9 @@ public class PricePage extends FooterMenuPage {
 
         return getTexts(weatherAndForecastsCollections);
     }
+
+    public String getAlertsH2Header() {
+
+        return getText(alertsH2Header);
+    }
 }

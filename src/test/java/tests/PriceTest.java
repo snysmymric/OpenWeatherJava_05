@@ -41,4 +41,15 @@ public class PriceTest extends BaseTest {
 
         Assert.assertEquals(collectionsNames, expectedNames);
     }
+
+    @Test
+    public void testH2AlertsAnchorEl_WhenOpenPricingPage() {
+        final String expectedAlertsH2Header = "Special products";
+
+        String actualAlertsH2Header = openBaseURL()
+                .clickPricingMenu()
+                .getAlertsH2Header();
+
+        Assert.assertEquals(actualAlertsH2Header, expectedAlertsH2Header);
+    }
 }
