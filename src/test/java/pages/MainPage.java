@@ -4,6 +4,7 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.reporters.jq.Main;
@@ -116,9 +117,14 @@ public class MainPage extends FooterMenuPage {
     @FindBy (xpath="//div[@id='footer-website']//a[@href='/weather-dashboard']")
     private WebElement weatherDashboardFooterMenu;
 
+    @FindBy(xpath = "//div[@class='more-options']")
+    private WebElement moreOptionsDropDown;
+
+    @FindBy(xpath = "//input[@type='number']")
+    private WebElement temperatureInputInDifferentWeatherContainer;
+
     @FindBy(xpath="//a[text()='Bulks']")
     private WebElement bulkLink;
-
 
     public MainPage(WebDriver driver) {
         super(driver);
@@ -396,6 +402,24 @@ public class MainPage extends FooterMenuPage {
 
     public MainPage scrollToWidgetsFooterMenu() {
         scrollByVisibleElement(getWidgetFooterMenu());
+
+        return this;
+    }
+
+    public MainPage clickMoreOptionsDropDown() {
+        click20(moreOptionsDropDown);
+
+        return this;
+    }
+
+    public int getTemperatureValueInDifferentWeatherContainer() {
+
+        return convertStringToInt(getAttribute(temperatureInputInDifferentWeatherContainer,
+                "_value"));
+    }
+
+    public MainPage clickUpKeyInTemperatureInput() {
+        clickAKey(temperatureInputInDifferentWeatherContainer, Keys.ARROW_UP);
 
         return this;
     }

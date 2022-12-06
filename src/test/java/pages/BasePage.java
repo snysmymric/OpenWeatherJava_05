@@ -280,4 +280,14 @@ public abstract class BasePage {
 
         return elementsSize == count;
     }
+
+    protected void clickAKey(WebElement element, Keys key) {
+        getWait10().until(ExpectedConditions.visibilityOf(element));
+        element.sendKeys(key);
+    }
+
+    protected static int convertStringToInt(String text) {
+
+        return Integer.parseInt(text);
+    }
 }

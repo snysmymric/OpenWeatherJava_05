@@ -273,4 +273,23 @@ public class MainTest extends BaseTest {
 
         Assert.assertEquals(actualResultTextPanel, expectedResult);
     }
+
+    @Test
+    public void testTemperatureValueIncreasedByOne_WhenClickingUp() {
+        openBaseURL();
+
+        MainPage mainPage = new MainPage(getDriver());
+
+        int temperatureValueInContainer = mainPage
+                .clickDifferentWeatherButton()
+                .waitUntilDifferentWeatherPopUpIsVisible()
+                .clickMoreOptionsDropDown()
+                .getTemperatureValueInDifferentWeatherContainer();
+
+        mainPage.clickUpKeyInTemperatureInput();
+
+        int increasedTemperatureValueInContainer = mainPage.getTemperatureValueInDifferentWeatherContainer();
+
+        Assert.assertEquals(increasedTemperatureValueInContainer - temperatureValueInContainer, 1);
+    }
 }
