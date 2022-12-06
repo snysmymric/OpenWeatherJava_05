@@ -117,25 +117,22 @@ public class TopMenuTest extends BaseTest {
         final List<String> expectedList = List.of("FAQ", "How to start", "Ask a question");
         Assert.assertEquals(openBaseURL().clickSupportMenu().getLinksText(), expectedList);
     }
-    @Ignore
-    @Test    
+
+    @Test
     public void testSupportMenuIsClickable() {
-        final String attribute = "class";
         final String expectedIfVisible = "dropdown-menu dropdown-visible";
         final String expectedIfNotVisible = "dropdown-menu";
 
-        openBaseURL();
+        MainPage mainPage = openBaseURL().clickSupportMenu();
 
-        MainPage mainPage = new MainPage(getDriver());
-
-        mainPage.clickSupportMenu();
-
-        Assert.assertEquals(mainPage.getSupportMenuIsActiveValue(attribute), expectedIfVisible);
+        Assert.assertTrue(mainPage.isDisplayedSupportDropdownContainer());
+        Assert.assertEquals(mainPage.getSupportMenuIsActiveValue(), expectedIfVisible);
 
         mainPage.clickSupportMenu();
 
-        Assert.assertEquals(mainPage.getSupportMenuIsActiveValue(attribute), expectedIfNotVisible);
+        Assert.assertEquals(mainPage.getSupportMenuIsActiveValue(), expectedIfNotVisible);
     }
+
 
     @Test
     public void testPartnersMenuNavigatesToPartnersPage() {

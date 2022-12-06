@@ -61,6 +61,8 @@ public abstract class TopMenuPage extends BasePage {
     @FindBy(xpath = "//div[@id='desktop-menu']//a[@href='/weather-dashboard']")
     private WebElement dashboardMenu;
 
+    @FindBy(xpath = "//li[@class='with-dropdown']//ul")
+    private WebElement supportDropdownTopMenu;
 
     public TopMenuPage(WebDriver driver) {
         super(driver);
@@ -158,9 +160,9 @@ public abstract class TopMenuPage extends BasePage {
         return getTexts(supportMenuLinks);
     }
 
-    public String getSupportMenuIsActiveValue(String attribute) {
+    public String getSupportMenuIsActiveValue() {
 
-        return getAttribute(supportMenu, attribute);
+        return getAttribute(supportDropdownTopMenu, "class");
     }
 
     public MainPage clickDashboardMenu() {
@@ -216,5 +218,11 @@ public abstract class TopMenuPage extends BasePage {
         clear(searchFieldTopMenu);
        return new MainPage(getDriver());
     }
+
+    public boolean isDisplayedSupportDropdownContainer() {
+
+        return isDisplayedElement(supportDropdownTopMenu);
+    }
+
 
 }
