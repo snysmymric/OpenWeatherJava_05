@@ -18,7 +18,7 @@ public class PricePage extends FooterMenuPage {
     private WebElement alertsH2Header;
 
     @FindBy(xpath = "//section[@id = 'alerts']//tbody/tr/th/h4/a")
-    private WebElement sectionAlertsSubHeadersOfFirstColumn;
+    private List<WebElement> sectionAlertsSubHeadersOfFirstColumn;
 
     @FindBy(xpath = "//section[@id = 'alerts']//tr/th[2]/h4[contains(text(), 'By request')]")
     private WebElement sectionAlertsSubHeadersOfSecondColumn;
@@ -54,5 +54,10 @@ public class PricePage extends FooterMenuPage {
     public String getAlertsH2Header() {
 
         return getText(alertsH2Header);
+    }
+
+    public List<String> getSectionAlertsSubHeadersOfFirstColumn() {
+
+        return getTexts(sectionAlertsSubHeadersOfFirstColumn);
     }
 }

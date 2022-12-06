@@ -52,4 +52,17 @@ public class PriceTest extends BaseTest {
 
         Assert.assertEquals(actualAlertsH2Header, expectedAlertsH2Header);
     }
+
+    @Test
+    public void testSectionIdAlertsAnchorEl_SubHeadersOfSection() {
+        final List<String> expectedAlertsH4 = Arrays.asList("Solar Radiation API", "Solar Radiation API - Historical data",
+                "Global Weather Alerts Push notifications", "Road Risk API (advanced configuration)",
+                "Global Precipitation Map - Forecast and historical data", "Weather Maps 2.0 with 1-hour step");
+
+        List<String> actualAlertsH4 = openBaseURL()
+                .clickPricingMenu()
+                .getSectionAlertsSubHeadersOfFirstColumn();
+
+        Assert.assertEquals(actualAlertsH4, expectedAlertsH4);
+    }
 }
