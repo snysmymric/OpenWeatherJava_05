@@ -7,6 +7,7 @@ import pages.MainPage;
 import pages.TechnologyPage;
 import pages.WeatherDashboardPage;
 import pages.WidgetsPage;
+import pages.WeatherStationsPage;
 import java.util.List;
 
 public class FooterMenuTest extends BaseTest {
@@ -132,15 +133,20 @@ public class FooterMenuTest extends BaseTest {
 
     @Test
     public void testConnectYourWeatherStationFooterLinkNavigatesToWeatherStationsPage() {
-//        final String weatherStationsUrl = "https://openweathermap.org/stations";
-//        final String weatherStationsTitle = "Weather Stations - OpenWeatherMap";
-//
-//        openBaseURL()
-//                .scrollToPageBottom()
-//                .clickConnectYourWeatherStationFooterMenu();
-//
-//        Assert.assertEquals(getCurrentURL(), weatherStationsUrl);
-//        Assert.assertEquals(getTitle(), weatherStationsTitle);
+        final String weatherStationsUrl = "https://openweathermap.org/stations";
+        final String weatherStationsTitle = "Weather Stations - OpenWeatherMap";
+
+        WeatherStationsPage weatherStationsPage =
+                openBaseURL()
+                        .scrollToPageBottom()
+                        .clickConnectYourWeatherStationFooterMenu();
+
+        String actualWeatherStationsUrl = weatherStationsPage.getCurrentURL();
+        String actualWeatherStationsTitle = weatherStationsPage.getTitle();
+
+        Assert.assertNotEquals(weatherStationsUrl, BASE_URL);
+        Assert.assertEquals(actualWeatherStationsUrl, weatherStationsUrl);
+        Assert.assertEquals(actualWeatherStationsTitle, weatherStationsTitle);
     }
 
     @Test
