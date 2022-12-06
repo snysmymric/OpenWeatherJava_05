@@ -188,4 +188,14 @@ public class FooterMenuTest extends BaseTest {
                 .switchToAppStorePage();
         Assert.assertEquals(getExternalPageURL(), expectedGooglePlayURL);
     }
+
+    @Test
+    public void testCopyrightPhraseOnFooterMenu(){
+        final String expectedCopyright = "© 2012 — 2022 OpenWeather ® All rights reserved";
+        String actualCopyright = openBaseURL()
+                .scrollToWidgetsFooterMenu()
+                .getCopyrightSign();
+
+        Assert.assertEquals(actualCopyright,expectedCopyright);
+    }
 }
