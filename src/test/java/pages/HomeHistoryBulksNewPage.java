@@ -34,4 +34,14 @@ public class HomeHistoryBulksNewPage extends HomeMarketplacePage{
 
         return checkingForUnselectedElements(weatherParametersElements);
     }
+
+    public HomeHistoryBulksNewPage uncheckNotAllWeatherParameters(String textContains) {
+        for (WebElement element : weatherParametersElements) {
+            if (!element.getText().toLowerCase().contains(textContains)) {
+                element.click();
+            }
+        }
+
+        return this;
+    }
 }

@@ -20,4 +20,19 @@ public class HomeHistoryBulksNewTest extends BaseTest {
 
         Assert.assertTrue(allCheckmarksAreNotSelected);
     }
+
+    @Test
+    public void testUncheckAllCheckmarkInTheListOfWeatherParameters_NegativeScenario() {
+        final String containsTheGivenCharactersTheSelectedElement = "s";
+
+        boolean AllCheckmarksAreNotSelected = openBaseURL()
+                .clickMarketplaceMenu()
+                .switchToMarketplaceWindow()
+                .clickHistoryBulkMenu()
+                .clickWeatherParametersButton()
+                .uncheckNotAllWeatherParameters(containsTheGivenCharactersTheSelectedElement)
+                .allCheckmarksAreNotSelectedInTheWeatherParameters();
+
+        Assert.assertFalse(AllCheckmarksAreNotSelected);
+    }
 }

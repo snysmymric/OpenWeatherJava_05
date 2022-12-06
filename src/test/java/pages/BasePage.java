@@ -280,6 +280,8 @@ public abstract class BasePage {
         for (WebElement checkbox : allElements) {
             if (!checkbox.findElement(By.cssSelector("*, :after, :before")).isSelected()) {
                 count++;
+            } else {
+                System.out.println(checkbox.getText());
             }
         }
 
