@@ -5,6 +5,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class FooterMenuPage extends TopMenuPage {
@@ -225,5 +226,27 @@ public abstract class FooterMenuPage extends TopMenuPage {
     public void switchToFacebookWebsite() {
         switchToAnotherWindow();
         getWait20().until(ExpectedConditions.numberOfWindowsToBe(2));
+    }
+
+    public boolean clickAllIconsAndValidateDomains() {
+        String mainWindow = getDriver().getWindowHandle();
+        List<String> currentURLs = new ArrayList<>();
+
+        for (int i = 0; i < socialPanelIconsFooterMenu.size(); i++) {
+            click(socialPanelIconsFooterMenu.get(i));
+            if (getDriver().getWindowHandles().size() > 1) {
+                switchToAnotherWindow();
+                currentURLs.add(getCurrentURL());
+                getDriver().close();
+                getDriver().switchTo().window(mainWindow);
+            } else {
+                currentURLs.add(getCurrentURL());
+            }
+        }
+
+        final List<String> expectedDomains = List.of("www.facebook.com", "twitter.com", "www.linkedin.com", "medium.com",
+                "t.me", "github.com");
+
+        return isListContains(expectedDomains, currentURLs);
     }
 }

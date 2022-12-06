@@ -204,6 +204,16 @@ public abstract class BasePage {
         return result;
     }
 
+    protected boolean isListContains(List<String> shortList, List<String> longList) {
+        boolean result = true;
+
+        for (int i = 0; i < shortList.size(); i++) {
+            result = result && longList.get(i).contains(shortList.get(i));
+        }
+
+        return result;
+    }
+
     public void clear(WebElement element) {
 
         element.clear();

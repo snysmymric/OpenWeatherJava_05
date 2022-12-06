@@ -7,6 +7,7 @@ import pages.MainPage;
 import pages.TechnologyPage;
 import pages.WeatherDashboardPage;
 import pages.WidgetsPage;
+import java.util.List;
 
 public class FooterMenuTest extends BaseTest {
 
@@ -209,5 +210,15 @@ public class FooterMenuTest extends BaseTest {
                 .switchToFacebookWebsite();
 
         Assert.assertTrue((getExternalPageURL().contains(expectedFacebookURLPart)));
+    }
+
+    @Test
+    public void testSocialPanelIconsNavigateToTheirWebSites() {
+
+        boolean actualDomains = openBaseURL()
+                .scrollByGithubIcon()
+                .clickAllIconsAndValidateDomains();
+
+        Assert.assertTrue(actualDomains);
     }
 }
