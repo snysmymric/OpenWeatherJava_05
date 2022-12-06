@@ -47,4 +47,16 @@ public class FAQTest extends BaseTest {
 
         Assert.assertEquals(actualH3HeadersAmount, expectedH3HeadersAmount);
     }
+
+    @Test
+    public void testAllFAQInnerDescriptionIsDisplayed() {
+        final int expectedOpenedFAQAmount = 59;
+
+        int actualOpenedFAQAmount = openBaseURL()
+                .clickSupportMenu()
+                .clickFAQSupportSubmenu()
+                .getOpenedFAQAmount();
+
+        Assert.assertEquals(actualOpenedFAQAmount, expectedOpenedFAQAmount);
+    }
 }

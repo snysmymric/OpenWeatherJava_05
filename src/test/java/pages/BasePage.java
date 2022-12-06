@@ -84,6 +84,11 @@ public abstract class BasePage {
         wait10ElementToBeClickable(element).click();
     }
 
+    protected void clickByJavaScript(WebElement element) {
+        JavascriptExecutor executor = (JavascriptExecutor) driver;
+        executor.executeScript("arguments[0].click();", element);
+    }
+
     protected void click20(WebElement element) {
         wait20ElementToBeVisible(element);
         wait20ElementToBeClickable(element).click();
