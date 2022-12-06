@@ -116,6 +116,10 @@ public class MainPage extends FooterMenuPage {
     @FindBy (xpath="//div[@id='footer-website']//a[@href='/weather-dashboard']")
     private WebElement weatherDashboardFooterMenu;
 
+    @FindBy(xpath="//a[text()='Bulks']")
+    private WebElement bulkLink;
+
+
     public MainPage(WebDriver driver) {
         super(driver);
     }
@@ -400,5 +404,26 @@ public class MainPage extends FooterMenuPage {
         scrollByVisibleElement(getDownloadOnTheAppStoreLinkFooterMenu());
 
         return new MainPage(getDriver());
+    }
+
+    public WebElement getBulkLink() {
+
+        return bulkLink;
+        }
+    public MainPage scrollToBulkLink() {
+
+        if (isDisplayedElement(bulkLink)) {
+            wait20ElementToBeVisible(bulkLink);
+            }
+        scrollByVisibleElement(bulkLink);
+
+        return this;
+        }
+
+    public BulkPage clickBulks() {
+        JavascriptExecutor executor = (JavascriptExecutor) getDriver();
+        executor.executeScript("arguments[0].click()", bulkLink);
+
+        return new BulkPage(getDriver());
     }
 }
