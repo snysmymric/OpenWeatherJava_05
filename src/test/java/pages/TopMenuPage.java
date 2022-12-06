@@ -64,6 +64,12 @@ public abstract class TopMenuPage extends BasePage {
     @FindBy(xpath = "//li[@class='with-dropdown']//ul")
     private WebElement supportDropdownTopMenu;
 
+    @FindBy(xpath = "//nav/ul/li[@id='hamburger']/img")
+    private WebElement hamburgerIconTopMenu;
+
+    @FindBy(xpath = "//ul[@id='mobile-menu']/li/a")
+    private List <WebElement> hamburgerDropdownTopMenu;
+
     public TopMenuPage(WebDriver driver) {
         super(driver);
     }
@@ -224,5 +230,27 @@ public abstract class TopMenuPage extends BasePage {
         return isDisplayedElement(supportDropdownTopMenu);
     }
 
+    public MainPage getWindowWithHamburgerMenu(int width, int height) {
+        setNewDimensionOfWindow(width, height);
 
+        return new MainPage(getDriver());
+    }
+
+    public MainPage clickHamburgerMenuIcon(){
+        click(hamburgerIconTopMenu);
+
+        return new MainPage(getDriver());
+    }
+
+    public boolean IsDispalyedHamburgerIcon(){
+        return isDisplayedElement(hamburgerIconTopMenu);
+    }
+
+    public int getNumberOfOptionsHamburgerMenu(){
+        return getListSize(hamburgerDropdownTopMenu);
+    }
+
+    public List<String> getHamburgerMenuList (){
+        return getListText(hamburgerDropdownTopMenu);
+    }
 }

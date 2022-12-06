@@ -243,4 +243,22 @@ public class TopMenuTest extends BaseTest {
 
         Assert.assertEquals(actualURLs, expectedURLs);
     }
+
+    @Test
+    public void testHamburgerMenuIsAvailableAndHasOptions_TopMenu() {
+        final int width = 1020;
+        final int height = 880;
+        final int expectedNumberOfOptionsHamburgerMenu = 12;
+        List<String> expectedHamburgerMenuList = List.of("Guide", "API", "Dashboard", "Marketplace", "Pricing",
+                "Maps", "Our Initiatives", "Partners", "Blog", "For Business", "Ask a question", "Sign in");
+
+        MainPage mainPage = openBaseURL()
+                .getWindowWithHamburgerMenu(width,height)
+                .clickHamburgerMenuIcon();
+
+        Assert.assertTrue(mainPage.IsDispalyedHamburgerIcon());
+        Assert.assertTrue(mainPage.getNumberOfOptionsHamburgerMenu() > 0);
+        Assert.assertEquals(mainPage.getNumberOfOptionsHamburgerMenu(), expectedNumberOfOptionsHamburgerMenu);
+        Assert.assertEquals(mainPage.getHamburgerMenuList(), expectedHamburgerMenuList);
+    }
 }

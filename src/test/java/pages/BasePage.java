@@ -297,4 +297,8 @@ public abstract class BasePage {
 
         return Integer.parseInt(text);
     }
+
+    protected void setNewDimensionOfWindow(int width, int height){
+        getDriver().manage().window().setSize(new Dimension(width, height));
+    }
 }
