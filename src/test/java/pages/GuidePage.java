@@ -9,6 +9,9 @@ public class GuidePage extends FooterMenuPage {
     @FindBy(xpath = "//div[@class='container']//li/a[@href = '/']")
     private WebElement homeGuideButton;
 
+    @FindBy(xpath = "//p/a[@href= '/api/road-risk']")
+    private WebElement roadRiskAPILink;
+
     public GuidePage(WebDriver driver) {
         super(driver);
     }
@@ -17,5 +20,11 @@ public class GuidePage extends FooterMenuPage {
         click(homeGuideButton);
 
         return this;
+    }
+
+    public RoadRiskAPIPage clickRoadRiskAPILink(){
+        click(roadRiskAPILink);
+
+        return new RoadRiskAPIPage(getDriver());
     }
 }
