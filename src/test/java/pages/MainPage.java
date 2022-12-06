@@ -126,6 +126,9 @@ public class MainPage extends FooterMenuPage {
     @FindBy(xpath="//a[text()='Bulks']")
     private WebElement bulkLink;
 
+    @FindBy(xpath = "//div[@class = 'widget-notification']")
+    private WebElement notificationMessage;
+
     public MainPage(WebDriver driver) {
         super(driver);
     }
@@ -449,5 +452,15 @@ public class MainPage extends FooterMenuPage {
         executor.executeScript("arguments[0].click()", bulkLink);
 
         return new BulkPage(getDriver());
+    }
+
+    public boolean isLocationButtonDisplayed(){
+
+        return isDisplayedElement(locationButton);
+    }
+
+    public String getNotificationMessage(){
+
+        return getText(notificationMessage);
     }
 }

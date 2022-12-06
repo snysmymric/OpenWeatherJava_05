@@ -292,4 +292,16 @@ public class MainTest extends BaseTest {
 
         Assert.assertEquals(increasedTemperatureValueInContainer - temperatureValueInContainer, 1);
     }
+    @Test
+    public void testLocationButtonIsDisplayedandClicabl(){
+        final String expectedNotificationMessage  = "Location unavailable. Displaying default location: London";
+
+        Assert.assertTrue(openBaseURL().isLocationButtonDisplayed());
+
+        String actualNotificationMessage = openBaseURL()
+                .clickLocationButton()
+                .getNotificationMessage();
+
+        Assert.assertEquals(actualNotificationMessage,expectedNotificationMessage);
+    }
 }
