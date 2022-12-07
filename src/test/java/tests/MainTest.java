@@ -334,4 +334,24 @@ public class MainTest extends BaseTest {
         Assert.assertEquals(mainPage.getHeader1Text(), expectedHeader1);
         Assert.assertEquals(mainPage.getHeader2Text(), expectedHeader2);
     }
+
+    @Test
+    public void testDataSourceOptionsNames() {
+        final List<String> expectedDataSourceOptionsNames = List.of(
+                "Personal feelings",
+                "Own weather station or devices",
+                "Local weather provider",
+                "Global weather provider",
+                "Other");
+
+        List<String> dataSourceOptionsTexts = openBaseURL()
+                .clickDifferentWeatherButton()
+                .waitUntilDifferentWeatherPopUpIsVisible()
+                .clickMoreOptionsDropDown()
+                .clickDataSourceDropDown()
+                .clickAllDataSourceOptions()
+                .getDataSourceOptionsTexts();
+
+        Assert.assertEquals(dataSourceOptionsTexts, expectedDataSourceOptionsNames);
+    }
 }

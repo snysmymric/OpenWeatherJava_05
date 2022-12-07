@@ -139,6 +139,12 @@ public class MainPage extends FooterMenuPage {
     @FindBy(xpath = "//span[@class = 'white-text']")
     private WebElement mainPageHeader2;
 
+    @FindBy(xpath = "//div[@class='dropdown-selector']")
+    private WebElement dataSourceDropDown;
+
+    @FindBy(xpath = "//div[@class='owm-selector open']//ul[@class='dropdown-menu']/li")
+    private List<WebElement> dataSourceOptions;
+
     public static final String RANDOM_TEXT = TestUtils.getRandomName();
 
     public MainPage(WebDriver driver) {
@@ -510,5 +516,25 @@ public class MainPage extends FooterMenuPage {
     public String getHeader2Text() {
 
         return getText(mainPageHeader2);
+    }
+
+    public MainPage clickDataSourceDropDown() {
+        click(dataSourceDropDown);
+
+        return this;
+    }
+
+    public List<String> getDataSourceOptionsTexts() {
+
+        return getListText(dataSourceOptions);
+    }
+
+    public MainPage clickAllDataSourceOptions() {
+        for (int i = 0; i < dataSourceOptions.size(); i++) {
+            click(dataSourceOptions.get(i));
+            click(dataSourceDropDown);
+        }
+
+        return this;
     }
 }
