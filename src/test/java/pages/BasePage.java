@@ -324,4 +324,21 @@ public abstract class BasePage {
         Select option = new Select(element);
         option.selectByValue(text);
     }
+
+    public boolean isListEqualsExpectedList(List<String> list, List<String> expectedList) {
+        boolean equals = false;
+        if (list.size() == expectedList.size()) {
+            int count = 0;
+            for (int i = 0; i < expectedList.size(); i++) {
+                if (list.get(i).equals(expectedList.get(i))) {
+                    count++;
+                }
+            }
+            if (count == expectedList.size()) {
+                equals = true;
+            }
+        }
+
+        return equals;
+    }
 }
