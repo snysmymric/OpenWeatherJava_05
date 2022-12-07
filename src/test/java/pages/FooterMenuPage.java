@@ -183,8 +183,14 @@ public abstract class FooterMenuPage extends TopMenuPage {
         return askQuestionFooterMenu;
     }
 
-    public HomeAskQuestionPage clickOnAskQuestionFooterMenu() {
+    public FooterMenuPage clickOnAskQuestionFooterMenu() {
+        wait10ElementToBeClickable(askQuestionFooterMenu);
         click20(askQuestionFooterMenu);
+
+        return this;
+    }
+
+    public HomeAskQuestionPage switchToHomeAskQuestionPage() {
         switchToAnotherWindow();
 
         return new HomeAskQuestionPage(getDriver());

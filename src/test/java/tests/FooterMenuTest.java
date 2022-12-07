@@ -3,11 +3,8 @@ package tests;
 import base.BaseTest;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import pages.MainPage;
-import pages.TechnologyPage;
-import pages.WeatherDashboardPage;
-import pages.WidgetsPage;
-import pages.WeatherStationsPage;
+import pages.*;
+
 import java.util.List;
 
 public class FooterMenuTest extends BaseTest {
@@ -163,15 +160,18 @@ public class FooterMenuTest extends BaseTest {
 
     @Test
     public void testAskQuestionFooterLinkNavigatesToHomeAskQuestionPage() {
+        final String basePageTitle = "Сurrent weather and forecast - OpenWeatherMap";
+        final String expectedTitle = "Members";
         final String expectedUrl = "https://home.openweathermap.org/questions";
 
-        String actualUrl = openBaseURL()
+        HomeAskQuestionPage homeAskQuestionPage = openBaseURL()
                 .scrollToAskQuestionFooterMenu()
                 .clickOnAskQuestionFooterMenu()
-                .waitForAskQuestionPageHeaderBeVisible()
-                .getCurrentURL();
+                .switchToHomeAskQuestionPage();
 
-        Assert.assertEquals(actualUrl, expectedUrl);
+        Assert.assertNotEquals(basePageTitle, homeAskQuestionPage.getTitle());
+        Assert.assertEquals(homeAskQuestionPage.getCurrentURL(), expectedUrl);
+        Assert.assertEquals(homeAskQuestionPage.getTitle(), expectedTitle);
     }
 
     @Test

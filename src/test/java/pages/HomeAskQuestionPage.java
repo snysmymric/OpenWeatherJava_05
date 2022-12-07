@@ -6,9 +6,6 @@ import org.openqa.selenium.support.FindBy;
 
 public class HomeAskQuestionPage extends FooterMenuPage {
 
-    @FindBy(xpath = "//h4[@class = 'headline']")
-    private WebElement askQuestionPageHeader;
-
     @FindBy(id = "question_form_email")
     private WebElement emailTextbox;
 
@@ -26,12 +23,6 @@ public class HomeAskQuestionPage extends FooterMenuPage {
 
     public HomeAskQuestionPage(WebDriver driver) {
         super(driver);
-    }
-
-    public HomeAskQuestionPage waitForAskQuestionPageHeaderBeVisible(){
-        wait10ElementToBeVisible(askQuestionPageHeader);
-
-        return new HomeAskQuestionPage(getDriver());
     }
 
     public HomeAskQuestionPage inputTextInEmailTextbox(String text) {
