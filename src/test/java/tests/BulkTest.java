@@ -3,6 +3,7 @@ package tests;
 import base.BaseTest;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import pages.BulkPage;
 
 
 public class BulkTest extends BaseTest {
@@ -17,6 +18,22 @@ public class BulkTest extends BaseTest {
 
         Assert.assertEquals(actualH2Header, expectedH2Header);
     }
- }
 
+    @Test
+    public void testBulkFilesAPIRequests() {
 
+        final String expextedCurrentAndForecastBulkRequest =
+                "https://bulk.openweathermap.org/snapshot/{BULK_FILE_NAME}?appid={API key}";
+        final String expectedSevenDaysArchiveBulkRequest =
+                "https://bulk.openweathermap.org/archive/{BULK_FILE_NAME}?appid={API key}";
+
+        BulkPage bulkPage = openBaseURL()
+                            .scrollToBulkLink()
+                            .clickBulks();
+        String currentAndForecastBulkRequest = bulkPage.getBulkFilesRequests().get(0);
+        String sevenDaysArchiveBulkRequest = bulkPage.getBulkFilesRequests().get(1);
+
+        Assert.assertEquals(currentAndForecastBulkRequest,expextedCurrentAndForecastBulkRequest);
+        Assert.assertEquals(sevenDaysArchiveBulkRequest,expectedSevenDaysArchiveBulkRequest);
+    }
+}
