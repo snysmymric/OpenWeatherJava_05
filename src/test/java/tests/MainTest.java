@@ -304,4 +304,22 @@ public class MainTest extends BaseTest {
 
         Assert.assertEquals(actualNotificationMessage,expectedNotificationMessage);
     }
+
+    @Test
+    public void testAPIIconsAreDisplayed_SectionOrangeBackgroundWhiteText() {
+        int expectedAPIIconsQuantity = 5;
+        List<String> expectedAPIIconsNames = List.of("current\nweather\n(current)", "hourly\nforecast\n(4 days)",
+                "daily\nforecast\n(16 days)", "climatic\nforecast\n(30 days)", "historical\nweather\n(1 month, 1 year)");
+
+        boolean apiIconsDisplayed = openBaseURL()
+                .scrollByCurrentWeatherIcon()
+                .isAPIIconsDisplayed();
+
+        Assert.assertTrue(apiIconsDisplayed);
+
+        MainPage mainPage = new MainPage(getDriver());
+
+        Assert.assertEquals(mainPage.getAPIIconsQuantity(), expectedAPIIconsQuantity);
+        Assert.assertEquals(mainPage.apiIconsNames(), expectedAPIIconsNames);
+    }
 }

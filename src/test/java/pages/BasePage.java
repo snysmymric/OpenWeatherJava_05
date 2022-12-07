@@ -219,6 +219,16 @@ public abstract class BasePage {
         return result;
     }
 
+    protected boolean isElementsInListDisplayed( List<WebElement> list) {
+        boolean result = true;
+
+        for (WebElement element : list) {
+            result = result && element.isDisplayed();
+        }
+
+        return result;
+    }
+
     public void clear(WebElement element) {
 
         element.clear();

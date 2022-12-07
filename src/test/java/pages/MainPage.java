@@ -129,6 +129,12 @@ public class MainPage extends FooterMenuPage {
     @FindBy(xpath = "//div[@class = 'widget-notification']")
     private WebElement notificationMessage;
 
+    @FindBy(xpath = "//div/a[@class='stats white-text']")
+    private List<WebElement> apiIcons;
+
+    @FindBy(xpath = "//div/a[@href='/current']")
+     private WebElement currentWeatherIcon;
+
     public MainPage(WebDriver driver) {
         super(driver);
     }
@@ -462,5 +468,26 @@ public class MainPage extends FooterMenuPage {
     public String getNotificationMessage(){
 
         return getText(notificationMessage);
+    }
+
+    public boolean isAPIIconsDisplayed() {
+
+        return isElementsInListDisplayed(apiIcons);
+    }
+
+    public MainPage scrollByCurrentWeatherIcon() {
+        scrollByVisibleElement(currentWeatherIcon);
+
+        return this;
+    }
+
+    public int getAPIIconsQuantity() {
+
+        return getListSize(apiIcons);
+    }
+
+    public List<String> apiIconsNames() {
+
+        return getTexts(apiIcons);
     }
 }
