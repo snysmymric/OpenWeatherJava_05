@@ -70,4 +70,18 @@ public class HomeSignInTest extends BaseTest {
 
         Assert.assertEquals(actualLinksTexts, expectedLinksTexts);
     }
+
+    @Test
+    public void testExpectedH2TitlesList() {
+        List<String> expectedResult = List.of("Historical weather for any location", "Weather Dashboard",
+                "Agricultural Dashboard and Agro API");
+
+        openBaseURL().signIn();
+
+        HomeSignInPage homeSignInPage = new HomeSignInPage(getDriver());
+
+        Assert.assertEquals(homeSignInPage.listH2TitlesSighInPage(), expectedResult);
+
+        homeSignInPage.signOut();
+    }
 }

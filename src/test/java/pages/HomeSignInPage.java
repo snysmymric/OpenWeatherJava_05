@@ -77,4 +77,9 @@ public class HomeSignInPage extends FooterMenuPage {
 
         return getListSize(h2Title);
     }
+
+    public List<String> listH2TitlesSighInPage() {
+
+        return getTexts(h2Title);
+    }
 }
