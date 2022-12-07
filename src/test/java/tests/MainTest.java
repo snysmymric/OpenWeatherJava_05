@@ -322,4 +322,15 @@ public class MainTest extends BaseTest {
         Assert.assertEquals(mainPage.getAPIIconsQuantity(), expectedAPIIconsQuantity);
         Assert.assertEquals(mainPage.getAPIIconsNames(), expectedAPIIconsNames);
     }
+
+    @Test
+    public void testHeadersMainPage() {
+        final String expectedHeader1 = "OpenWeather";
+        final String expectedHeader2 = "Weather forecasts, nowcasts and history in a fast and elegant way";
+
+        MainPage mainPage = openBaseURL();
+
+        Assert.assertEquals(mainPage.getHeader1Text(), expectedHeader1);
+        Assert.assertEquals(mainPage.getHeader2Text(), expectedHeader2);
+    }
 }

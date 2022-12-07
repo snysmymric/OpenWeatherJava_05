@@ -135,6 +135,12 @@ public class MainPage extends FooterMenuPage {
     @FindBy(xpath = "//div/a[@href='/current']")
      private WebElement currentWeatherIcon;
 
+    @FindBy(xpath = "//div[@class = 'mobile-padding']/h1")
+    private WebElement mainPageHeader1;
+
+    @FindBy(xpath = "//span[@class = 'white-text']")
+    private WebElement mainPageHeader2;
+
     public MainPage(WebDriver driver) {
         super(driver);
     }
@@ -489,5 +495,15 @@ public class MainPage extends FooterMenuPage {
     public List<String> getAPIIconsNames() {
 
         return getTexts(apiIcons);
+    }
+
+    public String getHeader1Text() {
+
+        return getText(mainPageHeader1);
+    }
+
+    public String getHeader2Text() {
+
+        return getText(mainPageHeader2);
     }
 }
