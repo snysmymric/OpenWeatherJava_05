@@ -22,6 +22,18 @@ public class GuideTest extends BaseTest {
     }
 
     @Test
+    public void testDedicatedWeatherSolarRadiationApiIsClickableAndLinkIsOpened() {
+        final String expectedUrl = "https://openweathermap.org/api/solar-radiation";
+        final String expectedTitle = "Solar radiation API - OpenWeatherMap";
+
+        GuidePage solarRadiationPage = openBaseURL().clickGuideMenu().scrollToDedicatedWeatherProducts().
+                clickSolarRadiationLink();
+
+        Assert.assertEquals(solarRadiationPage.getCurrentURL(), expectedUrl);
+        Assert.assertEquals(solarRadiationPage.getTitle(), expectedTitle);
+    }
+  
+    @Test
     public void testRoadRiskAPILink_NavigatesTo_RoadRiskAPIPage(){
 
         final String expectedURL = "https://openweathermap.org/api/road-risk";
