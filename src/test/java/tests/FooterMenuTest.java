@@ -54,15 +54,18 @@ public class FooterMenuTest extends BaseTest {
 
     @Test
     public void testAboutUsFooterLinkNavigatesToAboutUsPage() {
+        final String basePageTitle = "Сurrent weather and forecast - OpenWeatherMap";
+        final String expectedTitle = "About us - OpenWeatherMap";
         final String expectedUrl = "https://openweathermap.org/about-us";
 
-        String actualUrl = openBaseURL()
+        AboutUsPage aboutUsPage = openBaseURL()
                 .scrollToAboutUsFooterMenu()
                 .clickOnAboutUsFooterMenu()
-                .waitForAboutUsPageHeaderBeVisible()
-                .getCurrentURL();
+                .waitForAboutUsPageHeaderBeVisible();
 
-        Assert.assertEquals(actualUrl, expectedUrl);
+        Assert.assertNotEquals(basePageTitle, aboutUsPage.getTitle());
+        Assert.assertEquals(aboutUsPage.getCurrentURL(), expectedUrl);
+        Assert.assertEquals(aboutUsPage.getTitle(), expectedTitle);
     }
 
     @Test
