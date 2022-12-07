@@ -7,6 +7,7 @@ import pages.*;
 
 import java.util.List;
 
+
 public class FooterMenuTest extends BaseTest {
 
     @Test
@@ -181,11 +182,11 @@ public class FooterMenuTest extends BaseTest {
     public void testStorePanelHasTwoIcons() {
         final int expectedResult = 2;
 
-        TechnologyPage technologyPage = openBaseURL()
-                .scrollToOurTechnologyFooterMenu()
-                .clickOurTechnologyFooterMenu();
+        FooterMenuPage footerMenuPage = openBaseURL()
+                .scrollToDownloadOnFooterMenuGooglePlayStore()
+                .clickDownloadGooglePlayLinkFooterMenu();
 
-        Assert.assertEquals(technologyPage.getStoreIconsSize(), expectedResult);
+        Assert.assertEquals(footerMenuPage.getStoreIconsSize(), expectedResult);
     }
 
     @Test
