@@ -5,10 +5,12 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.Color;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public abstract class BasePage {
@@ -310,5 +312,16 @@ public abstract class BasePage {
 
     protected void setNewDimensionOfWindow(int width, int height){
         getDriver().manage().window().setSize(new Dimension(width, height));
+    }
+
+    protected void iterateWindows() {
+        Iterator<String> iter = getDriver().getWindowHandles().iterator();
+        iter.next();
+        getDriver().switchTo().window(iter.next());
+    }
+
+    public void selectOption(WebElement element, String text) {
+        Select option = new Select(element);
+        option.selectByValue(text);
     }
 }

@@ -70,6 +70,9 @@ public abstract class TopMenuPage extends BasePage {
     @FindBy(xpath = "//ul[@id='mobile-menu']/li/a")
     private List <WebElement> hamburgerDropdownTopMenu;
 
+    @FindBy(xpath = "//div[@id='desktop-menu']//li/a[@href='https://home.openweathermap.org/questions']")
+    private WebElement askQuestionSupportSubmenu;
+
     public TopMenuPage(WebDriver driver) {
         super(driver);
     }
@@ -253,6 +256,13 @@ public abstract class TopMenuPage extends BasePage {
     public List<String> getHamburgerMenuList (){
         return getListText(hamburgerDropdownTopMenu);
     }
+
+
+    public HomeAskQuestionPage clickAskQuestionSupportSubmenu() {
+        click(askQuestionSupportSubmenu);
+        iterateWindows();
+        return new HomeAskQuestionPage(getDriver());
+   }
     
       public FindPage inputRomeIntoSearchFieldAndEnter() {
         inputAndEnter(searchFieldTopMenu, "Rome");
