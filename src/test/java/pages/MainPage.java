@@ -8,6 +8,7 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.reporters.jq.Main;
+import utils.TestUtils;
 
 import java.util.List;
 import java.util.logging.Level;
@@ -72,11 +73,8 @@ public class MainPage extends FooterMenuPage {
     @FindBy(xpath = "//div[@class='pop-up-container']//*[name()='path' and @fill='#8a8a8a']")
     private WebElement xButtonInDifferentWeatherContainer;
 
-    @FindBy(xpath = "//span[text()='No results for Rrr']")
-    private WebElement noResultsError;
-
     @FindBy(xpath = "//div[@class='widget-notification']")
-    private WebElement errorButtonBackgroundColor;
+    private WebElement resultErrorWidget;
 
     @FindBy(xpath = "//ul[@class = 'search-dropdown-menu']/li/span[text() = 'Paris, FR ']")
     private WebElement parisFRChoiceInDropdownMenu;
@@ -140,6 +138,8 @@ public class MainPage extends FooterMenuPage {
 
     @FindBy(xpath = "//span[@class = 'white-text']")
     private WebElement mainPageHeader2;
+
+    public static final String RANDOM_TEXT = TestUtils.getRandomName();
 
     public MainPage(WebDriver driver) {
         super(driver);
@@ -287,12 +287,12 @@ public class MainPage extends FooterMenuPage {
 
     public String getErrorText() {
 
-        return getText(noResultsError);
+        return getText(resultErrorWidget);
     }
 
     public String getErrorButtonBackgroundColor() {
 
-        return getBackgroundColor(errorButtonBackgroundColor);
+        return getBackgroundColor(resultErrorWidget);
     }
 
     public MainPage switchToMetric() {

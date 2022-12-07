@@ -3,11 +3,12 @@ package tests;
 import base.BaseTest;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
-import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import pages.MainPage;
 import utils.DateTimeUtils;
 import java.util.List;
+
+import static pages.MainPage.RANDOM_TEXT;
 
 public class MainTest extends BaseTest {
 
@@ -180,8 +181,8 @@ public class MainTest extends BaseTest {
 
     @Test
     public void testErrorMessageWhenCityDoesNotExists() {
-        final String cityName = "Rrr";
-        final String expectedErrorText = "No results for Rrr";
+        final String cityName = RANDOM_TEXT;
+        final String expectedErrorText = "No results for " + cityName;
 
         String actualErrorText = openBaseURL()
                 .clickSearchCityField()
@@ -194,7 +195,7 @@ public class MainTest extends BaseTest {
 
     @Test
     public void testIfXButtonHasColorGreen() {
-        final String cityName = "Rrr";
+        final String cityName = RANDOM_TEXT;
         final String expectedXButtonBackgroundColor = "rgba(120, 203, 191, 0.8)";
 
         String actualXButtonBackgroundColor = openBaseURL()
