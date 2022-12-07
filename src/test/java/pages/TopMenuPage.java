@@ -253,4 +253,10 @@ public abstract class TopMenuPage extends BasePage {
     public List<String> getHamburgerMenuList (){
         return getListText(hamburgerDropdownTopMenu);
     }
+    
+      public FindPage inputRomeIntoSearchFieldAndEnter() {
+        inputAndEnter(searchFieldTopMenu, "Rome");
+
+        return new FindPage(getDriver());
+    }
 }

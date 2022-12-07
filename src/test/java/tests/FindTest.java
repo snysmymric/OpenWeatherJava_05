@@ -2,8 +2,11 @@ package tests;
 
 import base.BaseTest;
 import org.testng.Assert;
+import org.testng.Reporter;
 import org.testng.annotations.Test;
 import pages.FindPage;
+
+import java.util.List;
 
 public class FindTest extends BaseTest {
 
@@ -35,5 +38,15 @@ public class FindTest extends BaseTest {
         Assert.assertNotEquals(baseUrl, getDriver().getCurrentUrl());
         Assert.assertEquals(actualCityNameSearchField_FindPage, cityName);
         Assert.assertTrue(findPage.IsContainsCurrentUrlCityName(cityName));
+    }
+
+    @Test
+    public void testInputCityInSearchFieldTopMenu_CreateListWithChosenCities() {
+
+        boolean cityNames = openBaseURL()
+                .inputRomeIntoSearchFieldAndEnter()
+                .isCreatedCityNamesListContainsRome();
+
+        Assert.assertTrue(cityNames);
     }
 }
