@@ -1,9 +1,16 @@
 package tests;
 
 import base.BaseTest;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import pages.HomePage;
+import pages.HomeSignInPage;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class HomeSignInTest extends BaseTest {
 
@@ -32,5 +39,18 @@ public class HomeSignInTest extends BaseTest {
                 .getMessage();
 
         Assert.assertEquals(actualSignOutMessage, "You need to sign in or sign up before continuing.");
+    }
+
+    @Test
+    public void testH2TitlesAmount() {
+        int expectedH2TitlesAmount = 3;
+
+        openBaseURL().signIn();
+
+        HomeSignInPage homeSignInPage = new HomeSignInPage(getDriver());
+
+        Assert.assertEquals(homeSignInPage.getH2Titles(), expectedH2TitlesAmount);
+
+        homeSignInPage.signOut();
     }
 }

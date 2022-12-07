@@ -193,6 +193,7 @@ public class FooterMenuTest extends BaseTest {
                 .scrollToDownloadOnFooterMenuGooglePlayStore()
                 .clickDownloadGooglePlayLinkFooterMenu()
                 .switchToAppStorePage();
+
         Assert.assertEquals(getExternalPageURL(), expectedGooglePlayURL);
     }
 

@@ -5,6 +5,9 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.testng.Reporter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class HomeSignInPage extends FooterMenuPage {
 
     @FindBy(id = "user_email")
@@ -22,11 +25,14 @@ public class HomeSignInPage extends FooterMenuPage {
     @FindBy(xpath = "//h3")
     private WebElement h3Header;
 
+    @FindBy(xpath = "//h2")
+    private List<WebElement> h2Title;
+
     public HomeSignInPage(WebDriver driver) {
         super(driver);
     }
 
-    public String getWelcomeMassage(){
+    public String getWelcomeMassage() {
 
         return getText(h3Header);
     }
@@ -65,5 +71,10 @@ public class HomeSignInPage extends FooterMenuPage {
         Reporter.log("DO NOT FORGET SIGN OUT", true);
 
         return new HomePage(getDriver());
+    }
+
+    public int getH2Titles() {
+
+        return getListSize(h2Title);
     }
 }
