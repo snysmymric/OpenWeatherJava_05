@@ -52,5 +52,22 @@ public class HomeSignInTest extends BaseTest {
         Assert.assertEquals(homeSignInPage.getH2Titles(), expectedH2TitlesAmount);
 
         homeSignInPage.signOut();
+     }
+        
+    @Test
+    public void testNamesUserDropdownMenuLinks() {
+        List<String> expectedLinksTexts = new ArrayList<>();
+        expectedLinksTexts.add("My services");
+        expectedLinksTexts.add("My API keys");
+        expectedLinksTexts.add("My payments");
+        expectedLinksTexts.add("My profile");
+        expectedLinksTexts.add("Logout");
+
+        List<String> actualLinksTexts = openBaseURL()
+                .signIn()
+                .clickUserDropdown()
+                .getTextUserDropDownMenuLInks();
+
+        Assert.assertEquals(actualLinksTexts, expectedLinksTexts);
     }
 }
