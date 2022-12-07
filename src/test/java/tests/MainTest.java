@@ -320,6 +320,6 @@ public class MainTest extends BaseTest {
         MainPage mainPage = new MainPage(getDriver());
 
         Assert.assertEquals(mainPage.getAPIIconsQuantity(), expectedAPIIconsQuantity);
-        Assert.assertEquals(mainPage.apiIconsNames(), expectedAPIIconsNames);
+        Assert.assertEquals(mainPage.getAPIIconsNames(), expectedAPIIconsNames);
     }
 }

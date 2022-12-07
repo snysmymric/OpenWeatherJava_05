@@ -486,7 +486,7 @@ public class MainPage extends FooterMenuPage {
         return getListSize(apiIcons);
     }
 
-    public List<String> apiIconsNames() {
+    public List<String> getAPIIconsNames() {
 
         return getTexts(apiIcons);
     }
