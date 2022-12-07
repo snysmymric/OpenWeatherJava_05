@@ -148,10 +148,6 @@ public abstract class FooterMenuPage extends TopMenuPage {
         return new MainPage(getDriver());
     }
 
-    public void switchToGithubWebsite() {
-        switchToAnotherWindow();
-    }
-
     public WeatherStationsPage clickConnectYourWeatherStationFooterMenu() {
         click(connectYourWeatherStationFooterMenu);
 
@@ -172,10 +168,6 @@ public abstract class FooterMenuPage extends TopMenuPage {
         click20(downloadOnTheAppStoreLinkFooterMenu);
 
         return new MainPage(getDriver());
-    }
-
-    public void switchToAppStorePage() {
-        switchToAnotherWindow();
     }
 
     protected WebElement getAskQuestionFooterMenu() {
@@ -227,11 +219,6 @@ public abstract class FooterMenuPage extends TopMenuPage {
         click20(iconFacebook);
 
         return new MainPage(getDriver());
-    }
-
-    public void switchToFacebookWebsite() {
-        switchToAnotherWindow();
-        getWait20().until(ExpectedConditions.numberOfWindowsToBe(2));
     }
 
     public boolean clickAllIconsAndValidateDomains() {

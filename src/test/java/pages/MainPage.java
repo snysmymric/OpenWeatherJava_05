@@ -149,6 +149,11 @@ public class MainPage extends FooterMenuPage {
         getWait20().until(ExpectedConditions.invisibilityOf(grayContainer));
     }
 
+    public void switchToExternalPage() {
+        switchToAnotherWindow();
+        getWait20().until(ExpectedConditions.numberOfWindowsToBe(2));
+    }
+
     public String getCityCountryName() {
 
         return getText(h2CityCountryHeader);

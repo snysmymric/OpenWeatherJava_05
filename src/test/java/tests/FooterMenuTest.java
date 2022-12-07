@@ -27,19 +27,19 @@ public class FooterMenuTest extends BaseTest {
 
     @Test
     public void testPrivacyPolicyFooterLinkNavigatesToPrivacyPolicyWeb() {
-//        final String basePageTitle = "Сurrent weather and forecast - OpenWeatherMap";
-//        final String expectedURL = "https://openweather.co.uk/privacy-policy";
-//        final String expectedTitle = "Privacy policy - OpenWeatherMap";
-//
-//        openBaseURL()
-//                .scrollToPrivacyPolicyFooterMenu()
-//                .clickPrivacyPolicyFooterMenu();
-//
-//        switchToAnotherWindow(getDriver());
-//
-//        Assert.assertNotEquals(basePageTitle, getExternalPageTitle());
-//        Assert.assertEquals(getExternalPageURL(), expectedURL);
-//        Assert.assertEquals(getExternalPageTitle(), expectedTitle);
+        final String basePageTitle = "Сurrent weather and forecast - OpenWeatherMap";
+        final String expectedURL = "https://openweather.co.uk/privacy-policy";
+        final String expectedTitle = "Privacy policy - OpenWeatherMap";
+
+        openBaseURL()
+                .scrollToPrivacyPolicyFooterMenu()
+                .clickPrivacyPolicyFooterMenu();
+
+        new MainPage(getDriver()).switchToExternalPage();
+
+        Assert.assertNotEquals(basePageTitle, getExternalPageTitle());
+        Assert.assertEquals(getExternalPageURL(), expectedURL);
+        Assert.assertEquals(getExternalPageTitle(), expectedTitle);
     }
 
     @Test
@@ -92,7 +92,7 @@ public class FooterMenuTest extends BaseTest {
         openBaseURL()
                 .scrollToDownloadOnTheAppStoreLink()
                 .clickDownloadOnTheAppStoreLinkFooterMenu()
-                .switchToAppStorePage();
+                .switchToExternalPage();
 
         Assert.assertEquals(getExternalPageURL(), expectedAppStoreURL);
     }
@@ -115,7 +115,7 @@ public class FooterMenuTest extends BaseTest {
 
         Assert.assertTrue(mainPage.isGithubIconDisplayed());
 
-        mainPage.clickToGithubIcon().switchToGithubWebsite();
+        mainPage.clickToGithubIcon().switchToExternalPage();
 
         Assert.assertEquals(getExternalPageURL(), expectedURL);
     }
@@ -196,7 +196,7 @@ public class FooterMenuTest extends BaseTest {
         openBaseURL()
                 .scrollToDownloadOnFooterMenuGooglePlayStore()
                 .clickDownloadGooglePlayLinkFooterMenu()
-                .switchToAppStorePage();
+                .switchToExternalPage();
 
         Assert.assertEquals(getExternalPageURL(), expectedGooglePlayURL);
     }
@@ -218,7 +218,7 @@ public class FooterMenuTest extends BaseTest {
         openBaseURL()
                 .scrollToPageBottom()
                 .clickFacebookIcon()
-                .switchToFacebookWebsite();
+                .switchToExternalPage();
 
         Assert.assertTrue((getExternalPageURL().contains(expectedFacebookURLPart)));
     }
