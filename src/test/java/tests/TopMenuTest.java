@@ -260,4 +260,20 @@ public class TopMenuTest extends BaseTest {
         Assert.assertEquals(mainPage.getNumberOfOptionsHamburgerMenu(), expectedNumberOfOptionsHamburgerMenu);
         Assert.assertEquals(mainPage.getHamburgerMenuList(), expectedHamburgerMenuList);
     }
+
+    @Test
+    public void testHamburgerMenuHasLogo() {
+        final int width = 1020;
+        final int height = 880;
+        final String expectedUrl = "https://openweathermap.org/";
+
+        MainPage mainPage = openBaseURL()
+                .getWindowWithHamburgerMenu(width,height);
+
+        Assert.assertTrue(mainPage.isDispalyedLogoIcon());
+
+        mainPage.clickLogo();
+
+        Assert.assertEquals(mainPage.getCurrentURL(),expectedUrl);
+    }
 }

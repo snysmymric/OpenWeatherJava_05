@@ -269,4 +269,8 @@ public abstract class TopMenuPage extends BasePage {
 
         return new FindPage(getDriver());
     }
+
+    public boolean isDispalyedLogoIcon() {
+        return isDisplayedElement(logo);
+    }
 }
