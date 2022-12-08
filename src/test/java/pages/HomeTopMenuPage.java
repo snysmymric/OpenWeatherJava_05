@@ -6,10 +6,15 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.testng.Reporter;
 
-public abstract class HomeTopMenuPage extends BasePage {
+import java.util.List;
+
+public abstract class HomeTopMenuPage extends FooterMenuPage {
 
     @FindBy(xpath = "//li[@class='user-li']/a" )
     private WebElement signInMenuTopMenu;
+
+    @FindBy(xpath = "//ul[@id='myTab']/li")
+    private List<WebElement> navTabLinks;
 
     public HomeTopMenuPage(WebDriver driver) {super(driver);}
 
@@ -34,5 +39,10 @@ public abstract class HomeTopMenuPage extends BasePage {
                 .clickSubmitButton();
 
         return new HomePage(getDriver());
+    }
+
+    public int getNavTabLinksAmount() {
+
+        return getListSize(navTabLinks);
     }
 }

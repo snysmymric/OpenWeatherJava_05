@@ -6,7 +6,7 @@ import org.openqa.selenium.support.FindBy;
 
 import java.util.List;
 
-public class HomePage extends FooterMenuPage {
+public class HomePage extends HomeTopMenuPage {
 
     @FindBy(xpath = "//div[@class = 'panel-body']")
     WebElement signedInMessage;
