@@ -5,6 +5,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
+import java.util.List;
+
 public class GuidePage extends FooterMenuPage {
 
     @FindBy(xpath = "//div[@class='container']//li/a[@href = '/']")
@@ -18,6 +20,9 @@ public class GuidePage extends FooterMenuPage {
 
     @FindBy(xpath = "//p/a[@href= '/api/road-risk']")
     private WebElement roadRiskAPILink;
+
+    @FindBy(xpath = "//a[text()='Learn more']")
+    private List<WebElement> buttonsLearnMoreList;
 
     public GuidePage(WebDriver driver) {
         super(driver);
@@ -46,4 +51,10 @@ public class GuidePage extends FooterMenuPage {
 
         return new RoadRiskAPIPage(getDriver());
     }
+
+    public int getButtonsLearnMoreAmount() {
+
+        return getListSize(buttonsLearnMoreList);
+    }
+
 }

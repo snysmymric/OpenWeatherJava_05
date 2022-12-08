@@ -32,9 +32,9 @@ public class GuideTest extends BaseTest {
         Assert.assertEquals(solarRadiationPage.getCurrentURL(), expectedUrl);
         Assert.assertEquals(solarRadiationPage.getTitle(), expectedTitle);
     }
-  
+
     @Test
-    public void testRoadRiskAPILink_NavigatesTo_RoadRiskAPIPage(){
+    public void testRoadRiskAPILink_NavigatesTo_RoadRiskAPIPage() {
 
         final String expectedURL = "https://openweathermap.org/api/road-risk";
         final String expectedTitle = "Road Risk - OpenWeatherMap";
@@ -45,13 +45,24 @@ public class GuideTest extends BaseTest {
                 .clickGuideMenu()
                 .getCurrentURL();
 
-                new GuidePage(getDriver()).clickRoadRiskAPILink();
-                Assert.assertNotEquals(oldURL, getDriver().getCurrentUrl());
+        new GuidePage(getDriver()).clickRoadRiskAPILink();
+        Assert.assertNotEquals(oldURL, getDriver().getCurrentUrl());
 
-                String actualURL = roadRiskAPIPage.getCurrentURL();
-                String actualTitle = roadRiskAPIPage.getTitle();
+        String actualURL = roadRiskAPIPage.getCurrentURL();
+        String actualTitle = roadRiskAPIPage.getTitle();
 
-                Assert.assertEquals(actualURL, expectedURL);
-                Assert.assertEquals(actualTitle, expectedTitle);
+        Assert.assertEquals(actualURL, expectedURL);
+        Assert.assertEquals(actualTitle, expectedTitle);
+    }
+
+    @Test
+    public void testOrangeButtonLearnMoreAmount() {
+        final int expectedOrangeButtonLearnMoreAmount = 5;
+
+        int actualOrangeButtonLearnMoreAmount = openBaseURL()
+                .clickGuideMenu()
+                .getButtonsLearnMoreAmount();
+
+        Assert.assertEquals(actualOrangeButtonLearnMoreAmount, expectedOrangeButtonLearnMoreAmount);
     }
 }
