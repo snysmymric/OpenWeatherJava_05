@@ -17,6 +17,9 @@ public class HomePage extends FooterMenuPage {
     @FindBy(xpath = "//ul[@id='user-dropdown-menu']/li")
     List<WebElement> userDropdownMenuLinks;
 
+    @FindBy(xpath = "//ul[@id='myTab']//a[@href='/api_keys']")
+    private WebElement apiKeysTab;
+
     public HomePage(WebDriver driver) {
         super(driver);
     }
@@ -35,5 +38,11 @@ public class HomePage extends FooterMenuPage {
     public List<String> getTextUserDropDownMenuLInks() {
 
         return getListText(userDropdownMenuLinks);
+    }
+
+    public HomeAPIKeysPage clickAPIKeysTab() {
+        click(apiKeysTab);
+
+        return new HomeAPIKeysPage(getDriver());
     }
 }
