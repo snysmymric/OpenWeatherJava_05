@@ -1,15 +1,12 @@
 package tests;
 
 import base.BaseTest;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import pages.HomePage;
 import pages.HomeSignInPage;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class HomeSignInTest extends BaseTest {
@@ -52,8 +49,8 @@ public class HomeSignInTest extends BaseTest {
         Assert.assertEquals(homeSignInPage.getH2Titles(), expectedH2TitlesAmount);
 
         homeSignInPage.signOut();
-     }
-        
+    }
+
     @Test
     public void testNamesUserDropdownMenuLinks() {
         List<String> expectedLinksTexts = new ArrayList<>();
@@ -81,6 +78,20 @@ public class HomeSignInTest extends BaseTest {
         HomeSignInPage homeSignInPage = new HomeSignInPage(getDriver());
 
         Assert.assertEquals(homeSignInPage.listH2TitlesSighInPage(), expectedResult);
+
+        homeSignInPage.signOut();
+    }
+
+    @Test
+    public void testOrangeButtonsClickableAndVisible() {
+        int expectedResult = 6;
+
+        openBaseURL().signIn();
+
+        HomeSignInPage homeSignInPage = new HomeSignInPage(getDriver());
+        int actualResult = homeSignInPage.orangeButtonsSignIn();
+
+        Assert.assertEquals(actualResult, expectedResult);
 
         homeSignInPage.signOut();
     }

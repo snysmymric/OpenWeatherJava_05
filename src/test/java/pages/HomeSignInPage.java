@@ -5,7 +5,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.testng.Reporter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class HomeSignInPage extends FooterMenuPage {
@@ -27,6 +26,9 @@ public class HomeSignInPage extends FooterMenuPage {
 
     @FindBy(xpath = "//h2")
     private List<WebElement> h2Title;
+
+    @FindBy(className = "btn_like")
+    private List<WebElement> orangeButtons;
 
     public HomeSignInPage(WebDriver driver) {
         super(driver);
@@ -81,5 +83,11 @@ public class HomeSignInPage extends FooterMenuPage {
     public List<String> listH2TitlesSighInPage() {
 
         return getTexts(h2Title);
+    }
+
+    public int orangeButtonsSignIn() {
+        allElementsVisibleAndClickable(orangeButtons);
+
+        return getListSize(orangeButtons);
     }
 }
