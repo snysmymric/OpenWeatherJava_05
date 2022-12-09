@@ -372,4 +372,33 @@ public class MainTest extends BaseTest {
 
         Assert.assertEquals(dataSourceDropDownTextAfter, dataSourceDropDownTextBefore);
     }
+
+    @Test
+    public void testEmailAndAdditionalInfoIsNotSavedAfterClickingOutOfContainer() {
+        MainPage mainPage = new MainPage(getDriver());
+
+        String emailText = openBaseURL()
+                .clickDifferentWeatherButton()
+                .waitUntilDifferentWeatherPopUpIsVisible()
+                .clickMoreOptionsDropDown()
+                .inputTextInEmailTextbox()
+                .getEmailTextboxText();
+
+        String anyAdditionalInfoText = mainPage
+                .inputTextInAnyAdditionalInfoTextarea()
+                .getAnyAdditionalInfoText();
+
+        String emailTextAfterClosingContainer = mainPage
+                .clickOutOfDifferentWeatherContainer()
+                .clickDifferentWeatherButton()
+                .waitUntilDifferentWeatherPopUpIsVisible()
+                .clickMoreOptionsDropDown()
+                .getEmailTextboxText();
+
+        String anyAdditionalInfoTextAfterClosingContainer = mainPage
+                .getAnyAdditionalInfoText();
+
+        Assert.assertNotEquals(emailTextAfterClosingContainer, emailText);
+        Assert.assertNotEquals(anyAdditionalInfoTextAfterClosingContainer, anyAdditionalInfoText);
+    }
 }

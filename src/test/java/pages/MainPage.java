@@ -5,6 +5,7 @@ import org.openqa.selenium.Point;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.reporters.jq.Main;
@@ -145,6 +146,12 @@ public class MainPage extends FooterMenuPage {
 
     @FindBy(xpath = "//div[@class='owm-selector open']//ul[@class='dropdown-menu']/li")
     private List<WebElement> dataSourceOptions;
+
+    @FindBy(xpath = "//input[@type='email']")
+    private WebElement emailTextbox;
+
+    @FindBy(xpath = "//textarea[@class='owm_textarea']")
+    private WebElement anyAdditionalInfoTextarea;
 
     public static final String RANDOM_TEXT = TestUtils.getRandomName();
 
@@ -563,5 +570,36 @@ public class MainPage extends FooterMenuPage {
     public String getDataSourceDropDownText() {
 
         return getText(dataSourceDropDown);
+    }
+
+    public MainPage inputTextInEmailTextbox() {
+        String randomEmail = TestUtils.getRandomName(7) + "@gmail.com";
+        input(randomEmail, emailTextbox);
+
+        return this;
+    }
+
+    public String getEmailTextboxText() {
+
+        return getAttribute(emailTextbox, "_value");
+    }
+
+    public MainPage inputTextInAnyAdditionalInfoTextarea() {
+        input(TestUtils.getRandomName(9), anyAdditionalInfoTextarea);
+
+        return this;
+    }
+
+    public String getAnyAdditionalInfoText() {
+
+        return getAttribute(anyAdditionalInfoTextarea, "_value");
+    }
+
+    public MainPage clickOutOfDifferentWeatherContainer() {
+        Actions action = new Actions(getDriver());
+        action.moveByOffset(0, 0).click().build().perform();
+        getWait10().until(ExpectedConditions.invisibilityOf(differentWeatherPopUpContainer));
+
+        return this;
     }
 }
