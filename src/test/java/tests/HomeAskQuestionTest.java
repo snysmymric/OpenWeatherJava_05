@@ -27,4 +27,19 @@ public class HomeAskQuestionTest extends BaseTest {
 
         Assert.assertEquals(actualMessage, expectedMessage);
     }
+
+    @Test
+    public void testAskQuestionYesRadioButtonMessage() {
+        String expectedMessage =
+                "Please enter your account email in our system - it will help us process your request faster";
+
+        String actualMessage = openBaseURL()
+                .clickSupportMenu()
+                .clickAskQuestionSupportSubmenu()
+                .clickYesRadioButton()
+                .getRadioButtonText();
+        
+        Assert.assertEquals(actualMessage, expectedMessage);
+
+    }
 }
