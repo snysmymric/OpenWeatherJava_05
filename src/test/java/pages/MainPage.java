@@ -537,4 +537,15 @@ public class MainPage extends FooterMenuPage {
 
         return this;
     }
+
+    public MainPage clickFirstDataSourceOption() {
+        click(dataSourceOptions.get(0));
+
+        return this;
+    }
+
+    public String getDataSourceDropDownText() {
+
+        return getText(dataSourceDropDown);
+    }
 }

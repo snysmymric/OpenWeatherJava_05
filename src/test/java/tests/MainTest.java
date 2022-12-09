@@ -354,4 +354,24 @@ public class MainTest extends BaseTest {
 
         Assert.assertEquals(dataSourceOptionsTexts, expectedDataSourceOptionsNames);
     }
+
+    @Test
+    public void testChosenDataSourceOptionIsSavedAfterClickingLessOptionsDropDown() {
+        String dataSourceDropDownTextBefore = openBaseURL()
+                .clickDifferentWeatherButton()
+                .waitUntilDifferentWeatherPopUpIsVisible()
+                .clickMoreOptionsDropDown()
+                .clickDataSourceDropDown()
+                .clickFirstDataSourceOption()
+                .getDataSourceDropDownText();
+
+        MainPage mainPage = new MainPage(getDriver());
+
+        String dataSourceDropDownTextAfter = mainPage
+                .clickMoreOptionsDropDown()
+                .clickMoreOptionsDropDown()
+                .getDataSourceDropDownText();
+
+        Assert.assertEquals(dataSourceDropDownTextAfter, dataSourceDropDownTextBefore);
+    }
 }
