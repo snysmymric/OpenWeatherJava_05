@@ -4,6 +4,8 @@ import base.BaseTest;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import java.util.List;
+
 public class PartnersTest extends BaseTest {
 
     @Test
@@ -28,5 +30,41 @@ public class PartnersTest extends BaseTest {
                 .switchToPartnerWindow();
 
         Assert.assertEquals(getExternalPageURL(), expectedURL);
+    }
+
+    @Test
+    public void testAreRightLinksShowed(){
+        final List<String> expectedRightSideLinks = List.of(
+                "Google Weather-Based Campaign Management with OpenWeatherMap API"
+                ,"Google Maps JavaScript API based on OpenWeatherMap API"
+                ,"OpenWeather current weather data in Mozilla's IoT project"
+                ,"Ubuntu"
+                ,"Android"
+                ,"Leaflet"
+                ,"Java"
+                ,"Go (golang)"
+                ,"JavaScript"
+                ,"CMS"
+                ,"Raspberry Pi"
+                ,"Python"
+                ,"PHP"
+                ,"Apache Camel"
+                ,"Desktop"
+                ,"Mobile applications"
+                ,"Big library on GitHub"
+        );
+
+        List<String> actualRightSideLinks = openBaseURL()
+                .clickPartnersMenu()
+                .getRightSideLinksText();
+
+        Assert.assertEquals(actualRightSideLinks, expectedRightSideLinks);
+
+
+
+
+
+
+
     }
 }

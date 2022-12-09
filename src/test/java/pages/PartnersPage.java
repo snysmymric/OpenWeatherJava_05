@@ -4,6 +4,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
+import java.util.List;
+
 public class PartnersPage extends FooterMenuPage {
 
     @FindBy(xpath = "//div[@class='col-sm-7']/h1")
@@ -14,6 +16,9 @@ public class PartnersPage extends FooterMenuPage {
 
     @FindBy(xpath = "//a[@href='http://camel.apache.org/weather.html']")
     private WebElement seeOnWebsiteButton;
+
+    @FindBy(xpath = "//div[@class = 'doc-container']//li")
+    private List<WebElement> rightSideLinks;
 
     public PartnersPage(WebDriver driver) {
         super(driver);
@@ -38,5 +43,9 @@ public class PartnersPage extends FooterMenuPage {
 
     public void switchToPartnerWindow() {
         switchToAnotherWindow();
+    }
+
+    public List<String> getRightSideLinksText(){
+        return getTexts(rightSideLinks);
     }
 }
