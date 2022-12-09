@@ -20,8 +20,11 @@ public class PricePage extends FooterMenuPage {
     @FindBy(xpath = "//section[@id = 'alerts']//tbody/tr/th/h4/a")
     private List<WebElement> sectionAlertsSubHeadersOfFirstColumn;
 
-    @FindBy(xpath = "//section[@id = 'alerts']//tr/th[2]/h4[contains(text(), 'By request')]")
-    private WebElement sectionAlertsSubHeadersOfSecondColumn;
+    @FindBy(xpath = "//section[@id='alerts']//h4[text()='By request']")
+    private List<WebElement> sectionAlertsSubHeadersOfSecondColumn;
+
+    @FindBy(xpath = "//section[@id='alerts']//h4[@class = 'before-buttons' and @id = 'solar_radiation']")
+    private  WebElement sectionAlertsSubHeadersOfSecondColumnFirstSubHeader;
 
     @FindBy(xpath = "//section[@id = 'alerts']//tbody/tr[1]/th[1]/p[1]")
     private WebElement sectionAlertsBodyOfFirstCellInFirstRowPartOne;
@@ -59,5 +62,16 @@ public class PricePage extends FooterMenuPage {
     public List<String> getSectionAlertsSubHeadersOfFirstColumn() {
 
         return getTexts(sectionAlertsSubHeadersOfFirstColumn);
+    }
+
+    public int getByRequestSubHeadersAmount() {
+
+        return getListSize(sectionAlertsSubHeadersOfSecondColumn);
+    }
+
+    public PricePage waitGetRequestToBeChanged(String oldHeader) {
+        waitTextToBeChanged(sectionAlertsSubHeadersOfSecondColumnFirstSubHeader, oldHeader);
+
+        return this;
     }
 }

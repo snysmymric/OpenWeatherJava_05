@@ -65,4 +65,17 @@ public class PriceTest extends BaseTest {
 
         Assert.assertEquals(actualAlertsH4, expectedAlertsH4);
     }
+
+    @Test
+    public void testSectionIdAlertsAnchorEl_countByRequest() {
+        final int expectedByRequestAmount = 4;
+        final String oldSubHeader = "By request";
+
+        int actualByRequestAmount = openBaseURL()
+                .clickPricingMenu()
+                .waitGetRequestToBeChanged(oldSubHeader)
+                .getByRequestSubHeadersAmount();
+
+        Assert.assertEquals(actualByRequestAmount, expectedByRequestAmount);
+    }
 }
