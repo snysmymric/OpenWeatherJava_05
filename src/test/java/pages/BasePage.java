@@ -341,4 +341,8 @@ public abstract class BasePage {
 
         return equals;
     }
+
+    public void goBack() {
+        getDriver().navigate().back();
+    }
 }

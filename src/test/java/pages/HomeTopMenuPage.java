@@ -6,6 +6,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.testng.Reporter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class HomeTopMenuPage extends FooterMenuPage {
@@ -44,5 +45,21 @@ public abstract class HomeTopMenuPage extends FooterMenuPage {
     public int getNavTabLinksAmount() {
 
         return getListSize(navTabLinks);
+    }
+
+    public List<String> clickNavTabLinks() {
+        List<String> urlList = new ArrayList<>();
+        urlList.add(getCurrentURL());
+
+        for (int i = 1; i < navTabLinks.size(); i++) {
+            click(navTabLinks.get(i));
+            urlList.add(getCurrentURL());
+
+            if(i == 6) {
+                goBack();
+            }
+        }
+
+        return urlList;
     }
 }
