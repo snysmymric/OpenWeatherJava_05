@@ -78,4 +78,18 @@ public class PriceTest extends BaseTest {
 
         Assert.assertEquals(actualByRequestAmount, expectedByRequestAmount);
     }
+
+    @Test
+    public void testBtnBlock_HeaderOfTransparentButtons() {
+        final List<String> expectedHeaderButtons = Arrays.asList("Get API key", "Subscribe", "Subscribe", "Subscribe",
+                "Subscribe", "Get access", "Get access", "Get access", "Get access", "Get access",
+                "Get access", "Get", "Get", "Subscribe", "Subscribe", "Get", "Get access",
+                "Get access", "Learn more");
+
+        List<String> actualHeaderButtons = openBaseURL()
+                .clickPricingMenu()
+                .getHeadersTransparentButtons();
+
+        Assert.assertEquals(actualHeaderButtons, expectedHeaderButtons);
+    }
 }

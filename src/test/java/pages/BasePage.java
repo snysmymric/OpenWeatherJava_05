@@ -342,6 +342,17 @@ public abstract class BasePage {
         return equals;
     }
 
+
+    public List<String> getTrimTexts(List<WebElement> elements) {
+        List<String> texts = new ArrayList<>();
+
+        for (WebElement element : elements) {
+            texts.add(getText(element).trim());
+        }
+
+        return texts;
+    }
+
     public void goBack() {
         getDriver().navigate().back();
     }

@@ -74,4 +74,9 @@ public class PricePage extends FooterMenuPage {
 
         return this;
     }
+
+    public List<String> getHeadersTransparentButtons() {
+
+        return getTrimTexts(transparentButtons);
+    }
 }
