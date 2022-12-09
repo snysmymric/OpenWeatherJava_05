@@ -30,6 +30,9 @@ public class HomeSignInPage extends FooterMenuPage {
     @FindBy(className = "btn_like")
     private List<WebElement> orangeButtons;
 
+    @FindBy(xpath = "//ul[@class='nav nav-tabs pull-left']//a")
+    private List<WebElement> navTabs;
+
     public HomeSignInPage(WebDriver driver) {
         super(driver);
     }
@@ -89,5 +92,16 @@ public class HomeSignInPage extends FooterMenuPage {
         allElementsVisibleAndClickable(orangeButtons);
 
         return getListSize(orangeButtons);
+    }
+
+    public int navTabs() {
+        allElementsVisibleAndClickable(navTabs);
+
+        return getListSize(navTabs);
+    }
+
+    public List<String> listNavTabElements() {
+
+        return getTexts(navTabs);
     }
 }

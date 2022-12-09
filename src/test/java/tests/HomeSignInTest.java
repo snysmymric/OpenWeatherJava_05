@@ -95,4 +95,22 @@ public class HomeSignInTest extends BaseTest {
 
         homeSignInPage.signOut();
     }
+
+    @Test
+    public void testNavTabsClickableAndVisible() {
+        int expectedNavTabElements = 9;
+        List<String> expectedResultListElements = List.of("New Products", "Services", "API keys",
+                "Billing plans", "Payments", "Block logs", "My orders", "My profile", "Ask a question");
+
+
+        openBaseURL().signIn();
+
+        HomeSignInPage homeSignInPage = new HomeSignInPage(getDriver());
+        int actualResultNavTabElements = homeSignInPage.navTabs();
+
+        Assert.assertEquals(expectedNavTabElements, actualResultNavTabElements);
+        Assert.assertEquals(expectedResultListElements, homeSignInPage.listNavTabElements());
+
+        homeSignInPage.signOut();
+    }
 }
