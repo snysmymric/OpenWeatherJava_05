@@ -10,6 +10,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.reporters.jq.Main;
 import utils.TestUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -487,9 +488,19 @@ public class MainPage extends FooterMenuPage {
         return getText(notificationMessage);
     }
 
-    public boolean isAPIIconsDisplayed() {
+    public List<WebElement> getDisplayedAPIIcons() {
+        List<WebElement> displayedIcons = new ArrayList<>();
 
-        return isElementsInListDisplayed(apiIcons);
+        for(WebElement element: apiIcons) {
+            if(isDisplayedElement(element) && element.isEnabled()) {
+                displayedIcons.add(element);
+            } else {
+                getWait20().until(ExpectedConditions.visibilityOf(element));
+                displayedIcons.add(element);
+            }
+        }
+
+        return displayedIcons;
     }
 
     public MainPage scrollByCurrentWeatherIcon() {
@@ -498,9 +509,14 @@ public class MainPage extends FooterMenuPage {
         return this;
     }
 
+    public List<WebElement> getApiIcons() {
+
+        return apiIcons;
+    }
+
     public int getAPIIconsQuantity() {
 
-        return getListSize(apiIcons);
+        return getListSize(getDisplayedAPIIcons());
     }
 
     public List<String> getAPIIconsNames() {
