@@ -28,6 +28,9 @@ public class WidgetsPage extends FooterMenuPage {
     @FindBy(xpath = "//div[@id=\"cities\"]/ul/li[1]/label/span")
     private WebElement cityFromSelectYourCityList;
 
+    @FindBy(xpath= "//*[@id='error-key']")
+    private WebElement apiKeyErrorMessage;
+
     public WidgetsPage(WebDriver driver) {
         super(driver);
     }
@@ -68,5 +71,10 @@ public class WidgetsPage extends FooterMenuPage {
         }
 
         return getListText(selectYourCity);
+    }
+
+    public String getErrorMessage() {
+
+        return getText(apiKeyErrorMessage);
     }
 }
