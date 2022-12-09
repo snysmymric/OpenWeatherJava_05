@@ -174,10 +174,10 @@ public abstract class TopMenuPage extends BasePage {
         return getAttribute(supportDropdownTopMenu, "class");
     }
 
-    public MainPage clickDashboardMenu() {
+    public WeatherDashboardPage clickDashboardMenu() {
         click(dashboardMenu);
 
-        return new MainPage(getDriver());
+        return new WeatherDashboardPage(getDriver());
     }
 
     public HomeSignInPage clickSignInMenu() {
