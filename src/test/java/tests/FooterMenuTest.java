@@ -5,7 +5,6 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import pages.*;
 
-import java.util.List;
 
 
 public class FooterMenuTest extends BaseTest {
@@ -17,7 +16,7 @@ public class FooterMenuTest extends BaseTest {
         final String expectedTitle = "Weather model - OpenWeatherMap";
 
         TechnologyPage technologyPage = openBaseURL()
-                .scrollToOurTechnologyFooterMenu()
+                .scrollToFooterMenu()
                 .clickOurTechnologyFooterMenu();
 
         Assert.assertNotEquals(basePageTitle, technologyPage.getTitle());
@@ -32,7 +31,7 @@ public class FooterMenuTest extends BaseTest {
         final String expectedTitle = "Privacy policy - OpenWeatherMap";
 
         openBaseURL()
-                .scrollToPrivacyPolicyFooterMenu()
+                .scrollToFooterMenu()
                 .clickPrivacyPolicyFooterMenu();
 
         new MainPage(getDriver()).switchToExternalPage();
@@ -47,7 +46,7 @@ public class FooterMenuTest extends BaseTest {
         final String expectedResult = "https://openweathermap.org/weather-dashboard";
 
         WeatherDashboardPage weatherDashboardPage = openBaseURL()
-                .scrollToWeatherDashboardFooterMenu()
+                .scrollToFooterMenu()
                 .clickWeatherDashboardFooterMenu();
 
         Assert.assertEquals(weatherDashboardPage.getCurrentURL(), expectedResult);
@@ -60,7 +59,7 @@ public class FooterMenuTest extends BaseTest {
         final String expectedUrl = "https://openweathermap.org/about-us";
 
         AboutUsPage aboutUsPage = openBaseURL()
-                .scrollToAboutUsFooterMenu()
+                .scrollToFooterMenu()
                 .clickOnAboutUsFooterMenu()
                 .waitForAboutUsPageHeaderBeVisible();
 
@@ -76,7 +75,7 @@ public class FooterMenuTest extends BaseTest {
         final String expectedTitle = "Weather widgets constructor - OpenWeatherMap";
 
         WidgetsPage widgetsPage = openBaseURL()
-                .scrollToWeatherDashboardFooterMenu()
+                .scrollToFooterMenu()
                 .clickWidgetsPageFooterMenu();
 
         Assert.assertNotEquals(basePageTitle, widgetsPage.getTitle());
@@ -90,7 +89,7 @@ public class FooterMenuTest extends BaseTest {
                 "https://apps.apple.com/gb/app/openweather/id1535923697";
 
         openBaseURL()
-                .scrollToDownloadOnTheAppStoreLink()
+                .scrollToFooterMenu()
                 .clickDownloadOnTheAppStoreLinkFooterMenu()
                 .switchToExternalPage();
 
@@ -111,7 +110,7 @@ public class FooterMenuTest extends BaseTest {
     public void testGithubIconExistsAndNavigateToGithub() {
         final String expectedURL = "https://github.com/search?q=openweathermap&ref=cmdform";
 
-        MainPage mainPage = openBaseURL().scrollByGithubIcon();
+        MainPage mainPage = openBaseURL().scrollToFooterMenu();
 
         Assert.assertTrue(mainPage.isGithubIconDisplayed());
 
@@ -125,7 +124,7 @@ public class FooterMenuTest extends BaseTest {
         final String expectedURL = "https://openweathermap.org/price";
 
         String actualUrl = openBaseURL()
-                .scrollToWeatherDashboardFooterMenu()
+                .scrollToFooterMenu()
                 .clickPricingFooterMenu()
                 .getCurrentURL();
 
@@ -139,7 +138,7 @@ public class FooterMenuTest extends BaseTest {
 
         WeatherStationsPage weatherStationsPage =
                 openBaseURL()
-                        .scrollToPageBottom()
+                        .scrollToFooterMenu()
                         .clickConnectYourWeatherStationFooterMenu();
 
         String actualWeatherStationsUrl = weatherStationsPage.getCurrentURL();
@@ -169,7 +168,7 @@ public class FooterMenuTest extends BaseTest {
         final String expectedUrl = "https://home.openweathermap.org/questions";
 
         HomeAskQuestionPage homeAskQuestionPage = openBaseURL()
-                .scrollToAskQuestionFooterMenu()
+                .scrollToFooterMenu()
                 .clickOnAskQuestionFooterMenu()
                 .switchToHomeAskQuestionPage();
 
@@ -183,7 +182,7 @@ public class FooterMenuTest extends BaseTest {
         final int expectedResult = 2;
 
         FooterMenuPage footerMenuPage = openBaseURL()
-                .scrollToDownloadOnFooterMenuGooglePlayStore()
+                .scrollToFooterMenu()
                 .clickDownloadGooglePlayLinkFooterMenu();
 
         Assert.assertEquals(footerMenuPage.getStoreIconsSize(), expectedResult);
@@ -194,7 +193,7 @@ public class FooterMenuTest extends BaseTest {
         final String expectedGooglePlayURL = "https://play.google.com/store/apps/details?id=uk.co.openweather";
 
         openBaseURL()
-                .scrollToDownloadOnFooterMenuGooglePlayStore()
+                .scrollToFooterMenu()
                 .clickDownloadGooglePlayLinkFooterMenu()
                 .switchToExternalPage();
 
@@ -205,7 +204,7 @@ public class FooterMenuTest extends BaseTest {
     public void testCopyrightPhraseOnFooterMenu(){
         final String expectedCopyright = "© 2012 — 2022 OpenWeather ® All rights reserved";
         String actualCopyright = openBaseURL()
-                .scrollToWidgetsFooterMenu()
+                .scrollToFooterMenu()
                 .getCopyrightSign();
 
         Assert.assertEquals(actualCopyright,expectedCopyright);
@@ -216,7 +215,7 @@ public class FooterMenuTest extends BaseTest {
         final String expectedFacebookURLPart = "facebook.com";
 
         openBaseURL()
-                .scrollToPageBottom()
+                .scrollToFooterMenu()
                 .clickFacebookIcon()
                 .switchToExternalPage();
 
@@ -227,7 +226,7 @@ public class FooterMenuTest extends BaseTest {
     public void testSocialPanelIconsNavigateToTheirWebSites() {
 
         boolean actualDomains = openBaseURL()
-                .scrollByGithubIcon()
+                .scrollToFooterMenu()
                 .clickAllIconsAndValidateDomains();
 
         Assert.assertTrue(actualDomains);

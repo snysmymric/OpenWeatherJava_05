@@ -16,7 +16,7 @@ public class WidgetsTest extends BaseTest {
         final String city = "Rome";
 
         WidgetsPage widgetPage = openBaseURL()
-                .scrollToWidgetsFooterMenu()
+                .scrollToFooterMenu()
                 .clickWidgetsPageFooterMenu();
 
         final String oldCity = widgetPage.getCityName();
@@ -48,7 +48,7 @@ public class WidgetsTest extends BaseTest {
         final String cityName = "Athens";
 
         WidgetsPage widgetPage = openBaseURL()
-                .scrollToWidgetsFooterMenu()
+                .scrollToFooterMenu()
                 .clickWidgetsPageFooterMenu();
 
         final  String oldCity = widgetPage.getCityName();

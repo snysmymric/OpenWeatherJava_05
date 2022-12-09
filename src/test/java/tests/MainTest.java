@@ -4,6 +4,7 @@ import base.BaseTest;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import pages.HomeSignInPage;
 import pages.MainPage;
 import utils.DateTimeUtils;
 import java.util.List;
@@ -373,6 +374,32 @@ public class MainTest extends BaseTest {
         Assert.assertEquals(dataSourceDropDownTextAfter, dataSourceDropDownTextBefore);
     }
 
+    @Test
+    public void testFooterMenuLinks() {
+        final int expectedLinks = 27;
+
+        openBaseURL();
+
+        MainPage mainPage = new MainPage(getDriver()).scrollToFooterMenu();
+        int actualLinks = mainPage.footerMenuLinks();
+
+        Assert.assertEquals(actualLinks, expectedLinks);
+    }
+
+    @Test
+    public void testSignInFooterMenuLinks() {
+        final int expectedLinks = 27;
+
+        openBaseURL().signIn();
+
+        MainPage mainPage = new MainPage(getDriver()).scrollToFooterMenu();
+        int actualLinks = mainPage.footerMenuLinks();
+
+        Assert.assertEquals(actualLinks, expectedLinks);
+
+        new HomeSignInPage(getDriver()).signOut();
+    }
+    
     @Test
     public void testEmailAndAdditionalInfoIsNotSavedAfterClickingOutOfContainer() {
         MainPage mainPage = new MainPage(getDriver());

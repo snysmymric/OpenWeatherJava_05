@@ -168,6 +168,12 @@ public class MainPage extends FooterMenuPage {
         getWait20().until(ExpectedConditions.numberOfWindowsToBe(2));
     }
 
+    public MainPage scrollToFooterMenu() {
+        scrollByVisibleElement(getFooterMenu());
+
+        return this;
+    }
+
     public String getCityCountryName() {
 
         return getText(h2CityCountryHeader);
@@ -270,25 +276,6 @@ public class MainPage extends FooterMenuPage {
         return this;
     }
 
-    public MainPage scrollToOurTechnologyFooterMenu() {
-        scrollByVisibleElement(getOurTechnologyFooterMenu());
-
-        return this;
-    }
-
-    public MainPage scrollToPrivacyPolicyFooterMenu() {
-        scrollByVisibleElement(getPrivacyPolicyFooterMenu());
-
-        return this;
-    }
-
-    public MainPage scrollToWeatherDashboardFooterMenu() {
-        JavascriptExecutor js = (JavascriptExecutor) getDriver();
-        js.executeScript("window.scrollTo(0, 5200)");
-
-        return this;
-    }
-
     public boolean checkAllIconsAreVisibleAndClickable() {
 
         return allElementsVisibleAndClickable(differentWeatherIcons);
@@ -351,12 +338,6 @@ public class MainPage extends FooterMenuPage {
         return isListContains("°C", getTexts(dayListValues));
     }
 
-    public MainPage scrollToAboutUsFooterMenu() {
-        scrollByVisibleElement(getAboutUsFooterMenu());
-
-        return this;
-    }
-
     public String getHeaderForDifferentWeatherContainer() {
 
         return getText(h3DialogTitle);
@@ -365,18 +346,6 @@ public class MainPage extends FooterMenuPage {
     public boolean isDayListValuesContainsF() {
 
         return isListContains("°F", getTexts(dayListValues));
-    }
-
-    public MainPage scrollToDownloadOnTheAppStoreLink() {
-        scrollByVisibleElement(getDownloadOnTheAppStoreLinkFooterMenu());
-
-        return new MainPage(getDriver());
-    }
-
-    public MainPage scrollByGithubIcon() {
-        scrollByVisibleElement(getGithubIconFooterMenu());
-
-        return new MainPage(getDriver());
     }
 
     public MainPage scrollToPageBottom() {
@@ -428,18 +397,6 @@ public class MainPage extends FooterMenuPage {
         return this;
     }
 
-    public MainPage scrollToAskQuestionFooterMenu() {
-        scrollByVisibleElement(getAskQuestionFooterMenu());
-
-        return this;
-    }
-
-    public MainPage scrollToWidgetsFooterMenu() {
-        scrollByVisibleElement(getWidgetFooterMenu());
-
-        return this;
-    }
-
     public MainPage clickMoreOptionsDropDown() {
         click20(moreOptionsDropDown);
 
@@ -456,12 +413,6 @@ public class MainPage extends FooterMenuPage {
         clickAKey(temperatureInputInDifferentWeatherContainer, Keys.ARROW_UP);
 
         return this;
-    }
-
-    public MainPage scrollToDownloadOnFooterMenuGooglePlayStore() {
-        scrollByVisibleElement(getDownloadOnTheAppStoreLinkFooterMenu());
-
-        return new MainPage(getDriver());
     }
 
     public WebElement getBulkLink() {

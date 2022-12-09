@@ -19,7 +19,7 @@ public class WeatherDashboardTest extends BaseTest {
         final String expectedResult = "https://openweathermap.org/weather-dashboard";
 
         WeatherDashboardPage weatherDashboardPage = openBaseURL()
-                .scrollToWeatherDashboardFooterMenu()
+                .scrollToFooterMenu()
                 .clickWeatherDashboardFooterMenu();
 
         assertEquals(weatherDashboardPage.getCurrentURL(), expectedResult);

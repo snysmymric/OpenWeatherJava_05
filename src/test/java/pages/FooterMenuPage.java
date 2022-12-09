@@ -64,6 +64,12 @@ public abstract class FooterMenuPage extends TopMenuPage {
     @FindBy(xpath = "//div[@class = 'social']//img[contains(@src, 'facebook')]")
     private WebElement iconFacebook;
 
+    @FindBy(css = "div[class = 'inner-footer-container']")
+    private WebElement footerMenu;
+
+    @FindBy(xpath = "//div[@class = 'inner-footer-container']//a")
+    private List<WebElement> footerMenuLinks;
+
     public FooterMenuPage(WebDriver driver) {
         super(driver);
     }
@@ -85,41 +91,16 @@ public abstract class FooterMenuPage extends TopMenuPage {
         click(privacyPolicyFooterMenu);
     }
 
-    protected WebElement getOurTechnologyFooterMenu() {
-
-        return ourTechnologyFooterMenu;
-    }
-
-    protected WebElement getPrivacyPolicyFooterMenu() {
-
-        return privacyPolicyFooterMenu;
-    }
-
-    protected WebElement getAboutUsFooterMenu() {
-
-        return aboutUsFooterMenu;
-    }
-
     public AboutUsPage clickOnAboutUsFooterMenu() {
         click20(aboutUsFooterMenu);
 
         return new AboutUsPage(getDriver());
     }
 
-    protected WebElement getWidgetFooterMenu() {
-
-        return widgetsFooterMenu;
-    }
-
     public WidgetsPage clickWidgetsPageFooterMenu() {
         click(widgetsFooterMenu);
 
         return new WidgetsPage(getDriver());
-    }
-
-    public WebElement getDownloadOnTheAppStoreLinkFooterMenu() {
-
-        return downloadOnTheAppStoreLinkFooterMenu;
     }
 
     public boolean isSocialPanelDisplayed() {
@@ -130,11 +111,6 @@ public abstract class FooterMenuPage extends TopMenuPage {
     public int getSocialPanelSize() {
 
         return getListSize(socialPanelIconsFooterMenu);
-    }
-
-    public WebElement getGithubIconFooterMenu() {
-
-        return githubIconFooterMenu;
     }
 
     public boolean isGithubIconDisplayed() {
@@ -170,11 +146,6 @@ public abstract class FooterMenuPage extends TopMenuPage {
         return new MainPage(getDriver());
     }
 
-    protected WebElement getAskQuestionFooterMenu() {
-
-        return askQuestionFooterMenu;
-    }
-
     public FooterMenuPage clickOnAskQuestionFooterMenu() {
         wait10ElementToBeClickable(askQuestionFooterMenu);
         click20(askQuestionFooterMenu);
@@ -202,11 +173,6 @@ public abstract class FooterMenuPage extends TopMenuPage {
     public String getCopyrightSign(){
 
         return getText(copirightSign);
-    }
-
-    public WebElement getDownloadGooglePlayLinkFooterMenu() {
-
-        return iconGooglePlay;
     }
 
     public MainPage clickDownloadGooglePlayLinkFooterMenu() {
@@ -241,5 +207,16 @@ public abstract class FooterMenuPage extends TopMenuPage {
                 "t.me", "github.com");
 
         return isListContains(expectedDomains, currentURLs);
+    }
+
+    protected WebElement getFooterMenu() {
+
+        return footerMenu;
+    }
+
+    public int footerMenuLinks() {
+        allElementsVisibleAndClickable(footerMenuLinks);
+
+        return getListSize(footerMenuLinks);
     }
 }
