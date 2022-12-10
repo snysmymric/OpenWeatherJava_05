@@ -3,7 +3,6 @@ package tests;
 import base.BaseTest;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import pages.MainPage;
 import pages.PricePage;
 
 import java.util.Arrays;
@@ -113,6 +112,17 @@ public class PriceTest extends BaseTest {
 
         Assert.assertEquals(actualH2HeadersList, expectedH2HeadersList);
         Assert.assertEquals(actualAmountH2Headers, expectedAmountH2Headers);
+    }
+
+    @Test
+    public void testBtnLikeBtnOrange_AmountOfOrangeButtons() {
+        final int expectedOrangeButtons = 2;
+        final List<String> expectedHeaderButtons = Arrays.asList("Detailed pricing", "Detailed pricing");
+
+        PricePage pricePage = openBaseURL().clickPricingMenu();
+
+        Assert.assertEquals(pricePage.getOrangeButtonsAmount(), expectedOrangeButtons);
+        Assert.assertEquals(pricePage.getHeadersOrangeButtons(),expectedHeaderButtons);
     }
 }
 

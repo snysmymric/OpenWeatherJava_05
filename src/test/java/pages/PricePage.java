@@ -38,6 +38,9 @@ public class PricePage extends FooterMenuPage {
     @FindBy(xpath = "//h2")
     private List<WebElement> pricingPageH2Headers;
 
+    @FindBy(xpath = "//a[@class = 'btn_like btn-orange owm-block-mainpage__btn']")
+    private List<WebElement> orangeButtons;
+
     public PricePage(WebDriver driver) {
         super(driver);
     }
@@ -91,5 +94,15 @@ public class PricePage extends FooterMenuPage {
     public int getListPricingPageH2HeadersSize() {
 
         return getListSize(pricingPageH2Headers);
+    }
+
+    public List<String> getHeadersOrangeButtons() {
+
+        return getTrimTexts(orangeButtons);
+    }
+
+    public int getOrangeButtonsAmount() {
+
+        return getListSize(orangeButtons);
     }
 }
