@@ -3,6 +3,8 @@ package tests;
 import base.BaseTest;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import pages.MainPage;
+import pages.PricePage;
 
 import java.util.Arrays;
 import java.util.List;
@@ -92,4 +94,26 @@ public class PriceTest extends BaseTest {
 
         Assert.assertEquals(actualHeaderButtons, expectedHeaderButtons);
     }
+
+    @Test
+    public void testH2Headers() {
+        final int expectedAmountH2Headers = 7;
+        final List<String> expectedH2HeadersList = List.of(
+                "\"One Call by Call\" subscription plan", "Professional collections", "Current weather and forecasts collection",
+                "Special products","Historical weather collection", "Special products","Free data for students");
+
+        List<String> actualH2HeadersList = openBaseURL()
+                .clickPricingMenu()
+                .getListPricingPageH2Headers();
+
+        PricePage pricePage = new PricePage(getDriver());
+
+        int actualAmountH2Headers = pricePage
+                .getListPricingPageH2HeadersSize();
+
+        Assert.assertEquals(actualH2HeadersList, expectedH2HeadersList);
+        Assert.assertEquals(actualAmountH2Headers, expectedAmountH2Headers);
+    }
 }
+
+

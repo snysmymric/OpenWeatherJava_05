@@ -35,6 +35,9 @@ public class PricePage extends FooterMenuPage {
     @FindBy(xpath = "//section[@id='current']/div/div/table/thead/tr/th/h3/b")
     private List<WebElement> weatherAndForecastsCollections;
 
+    @FindBy(xpath = "//h2")
+    private List<WebElement> pricingPageH2Headers;
+
     public PricePage(WebDriver driver) {
         super(driver);
     }
@@ -78,5 +81,15 @@ public class PricePage extends FooterMenuPage {
     public List<String> getHeadersTransparentButtons() {
 
         return getTrimTexts(transparentButtons);
+    }
+
+    public List<String> getListPricingPageH2Headers() {
+
+        return getTexts(pricingPageH2Headers);
+    }
+
+    public int getListPricingPageH2HeadersSize() {
+
+        return getListSize(pricingPageH2Headers);
     }
 }
