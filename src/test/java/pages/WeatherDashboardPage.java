@@ -16,6 +16,10 @@ public class WeatherDashboardPage extends FooterMenuPage {
         super(driver);
     }
 
+    public WeatherDashboardPage(WebDriver driver, String originalHandle) {
+        super(driver, originalHandle);
+    }
+
     public WeatherDashboardPage logger_Info(String str) {
         final Logger logger = Logger.getLogger(Main.class.getName());
         logger.log(Level.INFO, String.valueOf(str));
@@ -27,5 +31,11 @@ public class WeatherDashboardPage extends FooterMenuPage {
         click(tryTheDashBoardButton);
 
         return new HomeDashBoardEventsPage(getDriver());
+    }
+
+    public HomeDashBoardEventsPage clickTryTheDashBoardButtonSaveOriginalHandle() {
+        click(tryTheDashBoardButton);
+
+        return new HomeDashBoardEventsPage(getDriver(), getOriginalHandle());
     }
 }

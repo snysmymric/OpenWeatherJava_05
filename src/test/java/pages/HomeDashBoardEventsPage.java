@@ -27,6 +27,10 @@ public class HomeDashBoardEventsPage extends FooterMenuPage {
         super(driver);
     }
 
+    public HomeDashBoardEventsPage(WebDriver driver, String originalHandle) {
+        super(driver, originalHandle);
+    }
+
     public HomeDashBoardEventsPage switchToEventsDashBoardWindow() {
         switchToAnotherWindow();
 
@@ -54,6 +58,6 @@ public class HomeDashBoardEventsPage extends FooterMenuPage {
     public HomeDashBoardTriggersPage clickToTriggersButton() {
         click(toTriggersButton);
 
-        return new HomeDashBoardTriggersPage(getDriver());
+        return new HomeDashBoardTriggersPage(getDriver(), getOriginalHandle());
     }
 }

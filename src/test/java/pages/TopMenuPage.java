@@ -73,8 +73,15 @@ public abstract class TopMenuPage extends BasePage {
     @FindBy(xpath = "//div[@id='desktop-menu']//li/a[@href='https://home.openweathermap.org/questions']")
     private WebElement askQuestionSupportSubmenu;
 
+    private String originalHandle;
+
     public TopMenuPage(WebDriver driver) {
         super(driver);
+    }
+
+    public TopMenuPage(WebDriver driver, String originalHandle) {
+        super(driver);
+        this.originalHandle = originalHandle;
     }
 
     public int countTopMenuButtons() {
@@ -180,6 +187,12 @@ public abstract class TopMenuPage extends BasePage {
         return new WeatherDashboardPage(getDriver());
     }
 
+    public WeatherDashboardPage clickDashboardMenuSaveOriginalHandle() {
+        click(dashboardMenu);
+
+        return new WeatherDashboardPage(getDriver(), getOriginalHandle());
+    }
+
     public HomeSignInPage clickSignInMenu() {
         click(signInMenuTopMenu);
 
@@ -272,5 +285,38 @@ public abstract class TopMenuPage extends BasePage {
 
     public boolean isDispalyedLogoIcon() {
         return isDisplayedElement(logo);
+    }
+
+    /**
+     *  Save unique identifier of windows opened
+     */
+    public TopMenuPage saveOriginalHandle() {
+        this.originalHandle = getDriver().getWindowHandle();
+
+        return this;
+    }
+
+    public String getOriginalHandle() {
+        return originalHandle;
+    }
+
+    public TopMenuPage closeOpenedTab() {
+        getDriver().getWindowHandles()
+                .stream()
+                .filter(handle -> !handle.equals(originalHandle))
+                .forEach(handle -> {
+                    getDriver().switchTo().window(handle);
+                    getDriver().close();
+                });
+
+        return this;
+    }
+
+    public TopMenuPage switchToOriginalTab() {
+        if (originalHandle != null) {
+            getDriver().switchTo().window(originalHandle);
+        }
+
+        return this;
     }
 }

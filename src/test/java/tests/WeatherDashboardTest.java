@@ -42,21 +42,15 @@ public class WeatherDashboardTest extends BaseTest {
     @BeforeMethod
     public void setUp() {
         openBaseURL().signIn();
-        String originalHandle = getDriver().getWindowHandle();
 
         openBaseURL()
-                .clickDashboardMenu()
-                .clickTryTheDashBoardButton()
+                .saveOriginalHandle()
+                .clickDashboardMenuSaveOriginalHandle()
+                .clickTryTheDashBoardButtonSaveOriginalHandle()
                 .switchToEventsDashBoardWindow()
-                .deleteTriggers();
-
-        for(String handle : getDriver().getWindowHandles()) {
-            if (!handle.equals(originalHandle)) {
-                getDriver().switchTo().window(handle);
-                getDriver().close();
-            }
-        }
-        getDriver().switchTo().window(originalHandle);
+                .deleteTriggers()
+                .closeOpenedTab()
+                .switchToOriginalTab();
     }
 
     @Test

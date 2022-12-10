@@ -15,6 +15,10 @@ public class HomeDashBoardTriggersPage extends FooterMenuPage {
         super(driver);
     }
 
+    public HomeDashBoardTriggersPage(WebDriver driver, String originalHandle) {
+        super(driver, originalHandle);
+    }
+
     public HomeDashBoardTriggersPage clickToDeleteTrigger() {
         click(deleteTrigger);
 
