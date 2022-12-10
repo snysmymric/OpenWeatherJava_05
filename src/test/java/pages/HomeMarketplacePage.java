@@ -14,6 +14,12 @@ public class HomeMarketplacePage extends HomeFooterMenuPage {
     @FindBy(xpath = "//ul[@id='desktop-menu']//a[@href='/history_bulks/new']")
     private WebElement historyBulkMenu;
 
+    @FindBy(xpath = "//div[@class='button-container']//a[@href='http://openweathermap.org/api/history-data-state']")
+    private WebElement dataByStateDocumentationButton;
+
+    @FindBy(xpath = "//div[@id=\"app\"]/div[2]/div/div[2]/div[2]/div/h5/a")
+    private WebElement weatherDataByStateMenu;
+
     public HomeMarketplacePage(WebDriver driver) {
         super(driver);
     }
@@ -38,5 +44,11 @@ public class HomeMarketplacePage extends HomeFooterMenuPage {
         click(historyBulkMenu);
 
         return new HomeHistoryBulksNewPage(getDriver());
+    }
+
+    public HomeZipCodeDataNewPage clickWeatherDataByStateMenu() {
+        click20(weatherDataByStateMenu);
+
+        return new HomeZipCodeDataNewPage(getDriver());
     }
 }
