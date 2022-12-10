@@ -187,7 +187,7 @@ public abstract class FooterMenuPage extends TopMenuPage {
         return new MainPage(getDriver());
     }
 
-    public boolean clickAllIconsAndValidateDomains() {
+    public List<String> clickEachIconAndGetURL() {
         String mainWindow = getDriver().getWindowHandle();
         List<String> currentURLs = new ArrayList<>();
 
@@ -203,10 +203,7 @@ public abstract class FooterMenuPage extends TopMenuPage {
             }
         }
 
-        final List<String> expectedDomains = List.of("www.facebook.com", "twitter.com", "www.linkedin.com", "medium.com",
-                "t.me", "github.com");
-
-        return isListContains(expectedDomains, currentURLs);
+        return currentURLs;
     }
 
     protected WebElement getFooterMenu() {

@@ -5,6 +5,9 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import pages.*;
 
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.List;
 
 
 public class FooterMenuTest extends BaseTest {
@@ -223,12 +226,22 @@ public class FooterMenuTest extends BaseTest {
     }
 
     @Test
-    public void testSocialPanelIconsNavigateToTheirWebSites() {
+    public void testSocialPanelIconsNavigateToTheirWebSites() throws MalformedURLException {
+        final List<String> expectedDomains = List.of("www.facebook.com", "twitter.com", "www.linkedin.com",
+                "openweathermap.medium.com", "t.me", "github.com");
 
-        boolean actualDomains = openBaseURL()
+        List<String> actualURLs = openBaseURL()
                 .scrollToFooterMenu()
-                .clickAllIconsAndValidateDomains();
+                .clickEachIconAndGetURL();
 
-        Assert.assertTrue(actualDomains);
+        Assert.assertEquals(actualURLs.size(), expectedDomains.size());
+
+        for (int i = 0; i < actualURLs.size(); i++) {
+            String expectedDomain = expectedDomains.get(i);
+            URL url = new URL(actualURLs.get(i));
+            String actualDomain = url.getHost();
+
+            Assert.assertEquals(actualDomain, expectedDomain);
+        }
     }
 }
