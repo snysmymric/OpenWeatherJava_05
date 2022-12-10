@@ -9,8 +9,10 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.reporters.jq.Main;
+import utils.DateTimeUtils;
 import utils.TestUtils;
 
+import java.time.Year;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -152,6 +154,13 @@ public class MainPage extends FooterMenuPage {
 
     @FindBy(xpath = "//textarea[@class='owm_textarea']")
     private WebElement anyAdditionalInfoTextarea;
+
+    @FindBy(xpath = "//ul[@class='day-list']/li/span")
+    private List<WebElement> listOfEightDaysData;
+
+    @FindBy(xpath = "//ul[@class='day-list']/li/span[1]")
+    private WebElement currentDateFromEightDaysForecast;
+
 
     public static final String RANDOM_TEXT = TestUtils.getRandomName();
 
@@ -552,5 +561,20 @@ public class MainPage extends FooterMenuPage {
         getWait10().until(ExpectedConditions.invisibilityOf(differentWeatherPopUpContainer));
 
         return this;
+    }
+
+    public List<String> getListOfEightDaysDataText() {
+        scrollByVisibleElement(currentDateFromEightDaysForecast);
+        return getListText(listOfEightDaysData);
+    }
+
+    public String getEightDaysForecastCalendarSequanceText() {
+
+        final String[] dowMonDate = currentDateFromEightDaysForecast.getText().split(" ");
+        final String dowText = dowMonDate[0].substring(0, 3);
+        final int monNum = DateTimeUtils.returnMonth(dowMonDate[1]);
+        final int date = Integer.parseInt(dowMonDate[2]);
+
+        return DateTimeUtils.getEightDaysFromDate(dowText, monNum, date, Year.now().getValue());
     }
 }

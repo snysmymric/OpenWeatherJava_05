@@ -428,4 +428,16 @@ public class MainTest extends BaseTest {
         Assert.assertNotEquals(emailTextAfterClosingContainer, emailText);
         Assert.assertNotEquals(anyAdditionalInfoTextAfterClosingContainer, anyAdditionalInfoText);
     }
+
+    @Test
+    public void testCorrect8DaysForecastCalendarSequence() {
+
+        List<String> listOfEightDaysData = openBaseURL().getListOfEightDaysDataText();
+
+        String expectedResult = new MainPage(getDriver()).getEightDaysForecastCalendarSequanceText();
+
+        String actualResult = listOfEightDaysData.toString().substring(1, listOfEightDaysData.toString().length() - 1);
+
+        Assert.assertEquals(actualResult, expectedResult);
+    }
 }
