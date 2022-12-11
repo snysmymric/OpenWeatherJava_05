@@ -161,6 +161,8 @@ public class MainPage extends FooterMenuPage {
     @FindBy(xpath = "//ul[@class='day-list']/li/span[1]")
     private WebElement currentDateFromEightDaysForecast;
 
+    @FindBy(xpath = "//div[@class = 'weather-alert']")
+    private WebElement weatherAlert;
 
     public static final String RANDOM_TEXT = TestUtils.getRandomName();
 
@@ -576,5 +578,10 @@ public class MainPage extends FooterMenuPage {
         final int date = Integer.parseInt(dowMonDate[2]);
 
         return DateTimeUtils.getEightDaysFromDate(dowText, monNum, date, Year.now().getValue());
+    }
+
+    public String getWeatherAlertText() {
+
+        return getText(weatherAlert);
     }
 }
