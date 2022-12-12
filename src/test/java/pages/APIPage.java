@@ -13,6 +13,9 @@ public class APIPage extends FooterMenuPage {
     @FindBy(className = "breadcrumb-title")
     private WebElement apiPageHeader;
 
+    @FindBy(xpath = "//a[@href='/api/one-call-3'][text()='API doc']")
+    private WebElement APIDocButton;
+
     public APIPage(WebDriver driver) {
         super(driver);
     }
@@ -25,5 +28,11 @@ public class APIPage extends FooterMenuPage {
     public String getPageHeader() {
 
         return getText(apiPageHeader);
+    }
+
+    public APIOneCall3Page clickAPIDocButton() {
+        click(APIDocButton);
+
+        return new APIOneCall3Page(getDriver());
     }
 }
