@@ -523,6 +523,12 @@ public class MainPage extends FooterMenuPage {
         return this;
     }
 
+    public MainPage scrollToSubscriptionFooterMenu() {
+        scrollByVisibleElement(getSubscriptionFooterMenu());
+
+        return this;
+    }
+
     public MainPage clickFirstDataSourceOption() {
         click(dataSourceOptions.get(0));
 

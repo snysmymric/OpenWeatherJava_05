@@ -4,6 +4,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.testng.annotations.Test;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -64,6 +65,12 @@ public abstract class FooterMenuPage extends TopMenuPage {
     @FindBy(xpath = "//div[@class = 'social']//img[contains(@src, 'facebook')]")
     private WebElement iconFacebook;
 
+    @FindBy(xpath = "//div[@id='footer-website']//div[1]/div[2]/p")
+    private WebElement subscription;
+
+    @FindBy(xpath = "//div[@id='footer-website']//div[1]/div[2]/div/ul/li")
+    private List<WebElement> subscriptionList;
+    
     @FindBy(css = "div[class = 'inner-footer-container']")
     private WebElement footerMenu;
 
@@ -210,6 +217,16 @@ public abstract class FooterMenuPage extends TopMenuPage {
         return currentURLs;
     }
 
+    public WebElement getSubscriptionFooterMenu() {
+
+        return subscription;
+    }
+
+    public List<String> getMenusTexts() {
+
+        return getTexts(subscriptionList);
+    }
+    
     protected WebElement getFooterMenu() {
 
         return footerMenu;

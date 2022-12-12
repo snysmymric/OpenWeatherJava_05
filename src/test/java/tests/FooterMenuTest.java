@@ -5,10 +5,10 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import pages.*;
 
+import java.util.ArrayList;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
-
 
 public class FooterMenuTest extends BaseTest {
 
@@ -243,5 +243,22 @@ public class FooterMenuTest extends BaseTest {
 
             Assert.assertEquals(actualDomain, expectedDomain);
         }
+    }
+
+    @Test
+    public void testSubscriptionTextList() {
+        List<String> expectedSubscriptionTexts = new ArrayList<>();
+        expectedSubscriptionTexts.add("How to start");
+        expectedSubscriptionTexts.add("Pricing");
+        expectedSubscriptionTexts.add("Subscribe for free");
+        expectedSubscriptionTexts.add("FAQ");
+
+        List<String> actualSubscriptionTexts =
+                openBaseURL()
+                        .scrollToSubscriptionFooterMenu()
+                        .getMenusTexts();
+
+        Assert.assertTrue(actualSubscriptionTexts.size() > 0);
+        Assert.assertEquals(actualSubscriptionTexts, expectedSubscriptionTexts);
     }
 }
