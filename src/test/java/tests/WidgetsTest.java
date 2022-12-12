@@ -66,4 +66,37 @@ public class WidgetsTest extends BaseTest {
 
         Assert.assertEquals(actualErrorMessage,expectedErrorMessage);
     }
+
+    @Test
+    public void testAllWidgetsDisplayChosenCity() throws InterruptedException {
+        final String key = "20cbbe5f82ae947874eb39f29f8ffbe1";
+        final String cityCountry = "Rome, US";
+
+        WidgetsPage widgetPage = openBaseURL()
+                .scrollToFooterMenu()
+                .clickWidgetsPageFooterMenu()
+                .sleepUntilWidgetsLoaded();
+
+        final String oldCity = widgetPage
+                .waitForBiggerWidgetToAppear()
+                .getCityNameWidget();
+        Reporter.log("Old city was --------" + oldCity, true);
+
+        final String newCity = widgetPage.inputYourAPIKey(key)
+                .inputYourCityName(cityCountry)
+                .clickSearchCityButton()
+                .waitCityToBeChanged(oldCity)
+                .getCityNameWidget();
+        Reporter.log("City changed to ------" + newCity, true);
+
+        Assert.assertNotEquals(newCity, oldCity);
+
+        List<String> allWidgetsTexts = widgetPage.getAllWidgetsCityName();
+        Reporter.log("The size of the allWidgetsTexts is "
+                + allWidgetsTexts.size() + "\nList of widget's cities  ----- " + allWidgetsTexts, true);
+
+        for (String cityName : allWidgetsTexts) {
+            Assert.assertEquals(cityName, cityCountry);
+        }
+    }
 }
