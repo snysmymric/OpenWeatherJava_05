@@ -18,6 +18,12 @@ public class HomeSignInPage extends FooterMenuPage {
     @FindBy(name = "commit")
     private WebElement submitButton;
 
+    @FindBy(xpath = "//a[@href='/users/sign_up']")
+    private WebElement createAccountLink;
+
+    @FindBy(xpath = "//a[@href='#']")
+    private WebElement clickHereToRecoverLink;
+
     @FindBy(xpath = "//div[@class = 'panel-body']")
     WebElement signOutMessage;
 
@@ -103,5 +109,11 @@ public class HomeSignInPage extends FooterMenuPage {
     public List<String> listNavTabElements() {
 
         return getTexts(navTabs);
+    }
+
+    public HomeSignInPage clickCreateAccountLink() {
+        click(createAccountLink);
+
+        return this;
     }
 }
