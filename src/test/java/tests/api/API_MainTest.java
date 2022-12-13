@@ -7,6 +7,7 @@ import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.json.JSONObject;
 import org.testng.Assert;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import pages.MainPage;
 
@@ -92,6 +93,7 @@ public class API_MainTest extends BaseTest {
                 .contains("openweathermap.org/data/2.5/onecall?lat=48.8534&lon=2.3488"));
     }
 
+    @Ignore
     @Test
     public void test_API_HttpRequestResponse_WhenSearchingCityCountry() {
         try {
@@ -127,6 +129,7 @@ public class API_MainTest extends BaseTest {
         }
     }
 
+    @Ignore
     @Test
     public void test_API_RAResponse_WhenSearchingCityCountry() {
         final String url = "https://openweathermap.org/data/2.5"
