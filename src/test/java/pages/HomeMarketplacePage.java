@@ -17,7 +17,7 @@ public class HomeMarketplacePage extends HomeFooterMenuPage {
     @FindBy(xpath = "//div[@class='button-container']//a[@href='http://openweathermap.org/api/history-data-state']")
     private WebElement dataByStateDocumentationButton;
 
-    @FindBy(xpath = "//div[@id=\"app\"]/div[2]/div/div[2]/div[2]/div/h5/a")
+    @FindBy(xpath = "//div[@class='category']/div//a[contains(@href, '/zip_code_data/new') and text()='Historical Weather Data by State for all ZIP codes, USA']")
     private WebElement weatherDataByStateMenu;
 
     public HomeMarketplacePage(WebDriver driver) {

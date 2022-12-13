@@ -356,4 +356,22 @@ public abstract class BasePage {
     public void goBack() {
         getDriver().navigate().back();
     }
+
+    protected List<WebElement> getListOfVisibleElements(List<WebElement> list, int listSize) {
+        List<WebElement> visibleElements = new ArrayList<>();
+
+        if (!(list.size() > 0)) {
+            getWait20().until(ExpectedConditions.visibilityOfAllElements(list));
+            for (WebElement element : list) {
+                if (!element.isDisplayed() && !element.isEnabled()) {
+                    getWait20().until(ExpectedConditions.visibilityOf(element));
+                    visibleElements.add(element);
+                }
+            }
+        } else if (list.size() == listSize) {
+
+            return  list;
+        }
+        return visibleElements;
+    }
 }
