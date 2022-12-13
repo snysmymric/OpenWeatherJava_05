@@ -164,6 +164,9 @@ public class MainPage extends FooterMenuPage {
     @FindBy(xpath = "//div[@class = 'weather-alert']")
     private WebElement weatherAlert;
 
+    @FindBy(xpath = "//span[@class='sub']")
+    private List<WebElement> weatherDescription;
+
     public static final String RANDOM_TEXT = TestUtils.getRandomName();
 
     public MainPage(WebDriver driver) {
@@ -589,5 +592,11 @@ public class MainPage extends FooterMenuPage {
     public String getWeatherAlertText() {
 
         return getText(weatherAlert);
+    }
+
+    public List<String> getListWeatherDescriptionText() {
+        getActions().scrollByAmount(0, 500).perform();
+
+        return getListText(weatherDescription);
     }
 }

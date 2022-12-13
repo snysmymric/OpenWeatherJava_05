@@ -3,9 +3,7 @@ package tests.api;
 import api.Alert;
 import api.CaptureNetworkTraffic;
 import base.BaseTest;
-import com.google.gson.Gson;
 import io.restassured.http.ContentType;
-import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import org.json.JSONObject;
 import org.testng.Assert;
@@ -13,13 +11,12 @@ import org.testng.annotations.Test;
 import pages.MainPage;
 
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 
 import static io.restassured.RestAssured.given;
@@ -27,6 +24,7 @@ import static io.restassured.RestAssured.given;
 public class API_MainTest extends BaseTest {
     static HttpResponse<String> response;
     static String alertText;
+    static List<String> weatherDescriptionList = new ArrayList<>();
 
     @Test
     public void test_API_CNTRequest_OpenBaseURL() {
@@ -152,6 +150,39 @@ public class API_MainTest extends BaseTest {
 
         if(alertText != null && !alertText.isEmpty() && !alertText.isBlank()) {
             Assert.assertEquals(alertTextFromUI.trim(), alertText.trim());
+        }
+    }
+
+    @Test
+    public void testRAResponse_8DayForecastWeatherDescription() {
+        final String URL = "https://openweathermap.org/data/2.5/onecall?lat=48.8534&lon=2.3488&units=metric&appid=439d4b804bc8187953eb36d2a8c26a02";
+        final String cityName = "Paris";
+
+        Response response = given()
+                .when()
+                .contentType(ContentType.JSON)
+                .get(URL)
+                .then()
+                .log().all()
+                .extract().response();
+
+        List<JSONObject> daily = response.jsonPath().get("daily");
+
+        for (int i = 0; i < daily.size(); i++) {
+            weatherDescriptionList.add(response.jsonPath().get(String.format("daily[%d].weather[0].description", i)));
+        }
+
+        String oldCityName = openBaseURL().getCityCountryName();
+        List<String> weatherDescriptionFromUI = new MainPage(getDriver())
+                .clickSearchCityField()
+                .inputSearchCriteria(cityName)
+                .clickSearchButton()
+                .clickParisInDropDownList()
+                .waitForCityCountryNameChanged(oldCityName)
+                .getListWeatherDescriptionText();
+
+        if (!daily.isEmpty() && !weatherDescriptionFromUI.isEmpty() && daily.size() == weatherDescriptionFromUI.size()) {
+            Assert.assertEquals(weatherDescriptionFromUI, weatherDescriptionList);
         }
     }
 }
