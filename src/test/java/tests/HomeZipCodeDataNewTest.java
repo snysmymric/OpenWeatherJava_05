@@ -2,7 +2,6 @@ package tests;
 
 import base.BaseTest;
 import org.testng.Assert;
-import org.testng.Reporter;
 import org.testng.annotations.Test;
 import pages.HomeZipCodeDataNewPage;
 import utils.ProjectConstants;
@@ -10,20 +9,12 @@ import utils.ProjectConstants;
 import java.util.List;
 import java.util.stream.Collectors;
 
-
 public class HomeZipCodeDataNewTest extends BaseTest {
 
     @Test
     public void testListOfStatesIsCorrectAndSorted() {
-        final List<String> expectedStatesNames = List.of("Alabama", "Alaska", "Arizona", "Arkansas", "California",
-                "Colorado", "Connecticut", "Delaware", "District of Columbia", "Florida", "Georgia", "Hawai`i", "Idaho",
-                "Illinois", "Indiana", "Iowa", "Kansas", "Kentucky", "Louisiana", "Maine", "Maryland", "Massachusetts",
-                "Michigan", "Minnesota", "Mississippi", "Missouri", "Montana", "Nebraska", "Nevada", "New Hampshire",
-                "New Jersey", "New Mexico", "New York", "North Carolina", "North Dakota", "Ohio", "Oklahoma", "Oregon",
-                "Pennsylvania", "Rhode Island", "South Carolina", "South Dakota", "Tennessee", "Texas", "Utah", "Vermont",
-                "Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming");
+        final List<String> expectedStatesNames = ProjectConstants.getStatesNames();
         final int expectedStatesAmount = 51;
-        final String expectedAttributeValue = "form-group owm-selector mb-0 open";
 
         HomeZipCodeDataNewPage homeZipCodeDataNewPage = openBaseURL()
                 .clickMarketplaceMenu()
@@ -31,10 +22,7 @@ public class HomeZipCodeDataNewTest extends BaseTest {
                 .clickWeatherDataByStateMenu()
                 .clickDropdownSelectStateButton();
 
-        Assert.assertEquals(homeZipCodeDataNewPage.getDropdownSelectCityAttribute(), expectedAttributeValue);
-
         List<String> actualStatesNames = homeZipCodeDataNewPage.getStatesNames();
-        Reporter.log("State list size is " + actualStatesNames.size() + "\nlist of states ---" + actualStatesNames, true);
         List<String> sortedExpectedStates = expectedStatesNames.stream().sorted().collect(Collectors.toList());
 
         Assert.assertEquals(actualStatesNames.size(), expectedStatesAmount);
@@ -44,21 +32,15 @@ public class HomeZipCodeDataNewTest extends BaseTest {
 
     @Test
     public void testListOfYearsIsCorrect() {
-        final List<String> expectedYears = List.of("2018", "2019");
+        final List<String> expectedYears = ProjectConstants.getExpectedYears();
         final int expectedAmountOfYears = 2;
 
-        final String expectedAttributeValue = "form-group owm-selector mb-0 open";
-
-        HomeZipCodeDataNewPage homeZipCodeDataNewPage = openBaseURL()
+        List<String> actualYears = openBaseURL()
                 .clickMarketplaceMenu()
                 .switchToMarketplaceWindow()
                 .clickWeatherDataByStateMenu()
-                .clickDropdownSelectYearButton();
-
-        Assert.assertEquals(homeZipCodeDataNewPage.getDropdownSelectYearAttribute(), expectedAttributeValue);
-
-        List<String> actualYears = homeZipCodeDataNewPage.getYearsNames();
-        Reporter.log("Years list size is " + actualYears.size() + "\nlist of years ---" + actualYears, true);
+                .clickDropdownSelectYearButton()
+                .getYearsNames();
 
         Assert.assertEquals(actualYears.size(), expectedAmountOfYears);
 
@@ -66,15 +48,16 @@ public class HomeZipCodeDataNewTest extends BaseTest {
     }
 
     @Test
-    public void testThePriceForEachStateIsCorrect() {
+    public void testPriceForEachStateIsCorrect() {
         final String expectedPriceForVirginia = "1300 $";
+        final String stateName = "Virginia";
 
         String actualPriceForVirginia = openBaseURL()
                 .clickMarketplaceMenu()
                 .switchToMarketplaceWindow()
                 .clickWeatherDataByStateMenu()
                 .clickDropdownSelectStateButton()
-                .clickOnVirginia()
+                .clickState(stateName)
                 .getVirginiaTotalPrice();
 
         Assert.assertEquals(actualPriceForVirginia, expectedPriceForVirginia);
@@ -82,9 +65,7 @@ public class HomeZipCodeDataNewTest extends BaseTest {
 
     @Test
     public void testWeatherParametersAreDisplayed() {
-        final List<String> expectedWeatherParameters = List.of("Temperature", "Min temperature",
-                "Max temperature", "Feels like", "Wind (speed, direction)", "Pressure", "Humidity", "Clouds",
-                "Weather conditions", "Rain", "Snow");
+        final List<String> expectedWeatherParameters = ProjectConstants.getWeatherParameters();
 
         List<String> actualWeatherParameters = openBaseURL()
                 .clickMarketplaceMenu()
@@ -96,76 +77,136 @@ public class HomeZipCodeDataNewTest extends BaseTest {
     }
 
     @Test
-    public void testButtonPlaceOrderOpensPopUpWindow() {
+    public void test_PlaceOrderButton_OpensPopUpWindow() {
         final String expectedPopUpHeader = "Order details";
+        final String state = "Florida";
+        final String year = "2019";
 
-        String actualPopUpHeader = openBaseURL()
+        HomeZipCodeDataNewPage homeZipCodeDataNewPage = openBaseURL()
                 .clickMarketplaceMenu()
                 .switchToMarketplaceWindow()
                 .clickWeatherDataByStateMenu()
                 .clickDropdownSelectStateButton()
-                .pickFloridaState()
+                .clickState(state)
                 .clickDropdownSelectYearButton()
-                .pick2019Year()
+                .clickYear(year)
                 .clickPlaceOrder()
-                .waitUntilPlaceOrderPopUpIsVisible()
-                .getPlaceOrderPopUpHeader();
+                .waitUntilPlaceOrderPopUpIsVisible();
+
+        String actualPopUpHeader = homeZipCodeDataNewPage.getPlaceOrderPopUpHeader();
+
+        Assert.assertTrue(homeZipCodeDataNewPage.isOrderPopUpDisplayed());
 
         Assert.assertEquals(actualPopUpHeader, expectedPopUpHeader);
     }
 
     @Test
-    public void testAfterPLaceOrderParametersAreCorrect() {
-        final String expectedState = "Florida";
-        final String expectedYear = "2019";
-        final String expectedPrice = "1300 $";
+    public void testUI_OrderDetailsPopUpWindow() {
+        final String state = "Florida";
+        final String year = "2019";
+        final String expectedValue = "current";
 
         HomeZipCodeDataNewPage homeZipCodeDataNewPage = openBaseURL()
                 .clickMarketplaceMenu()
                 .switchToMarketplaceWindow()
                 .clickWeatherDataByStateMenu()
                 .clickDropdownSelectStateButton()
-                .pickFloridaState()
+                .clickState(state)
                 .clickDropdownSelectYearButton()
-                .pick2019Year()
+                .clickYear(year)
                 .clickPlaceOrder()
                 .waitUntilPlaceOrderPopUpIsVisible();
 
-        Assert.assertEquals(homeZipCodeDataNewPage.getOrderParametersTexts().get(0), expectedState);
-        Assert.assertEquals(homeZipCodeDataNewPage.getOrderParametersTexts().get(1), expectedYear);
-        Assert.assertEquals(homeZipCodeDataNewPage.getOrderParametersTexts().get(5), expectedPrice);
+        Assert.assertEquals(homeZipCodeDataNewPage.getAttributeTopPopUpWindow1(), expectedValue);
+
+        Assert.assertTrue(homeZipCodeDataNewPage.isNextButtonVisible());
     }
 
     @Test
-    public void testPlaceOrderBillingDetails() {
-        final String expectedBillingDetailsHeader = "Billing details";
-        final String expectedBillingAddressHeader = "Billing address";
-        final String firstName = ProjectConstants.getFirstName();
-        final String lastName = ProjectConstants.getLastName();
-        final String phoneNumber = ProjectConstants.getPhoneNumber();
-        final String email = ProjectConstants.getEmail();
+    public void test_OrderDetailsPopUpWindow_ParametersAreCorrect() {
+        final String expectedState = "Florida";
+        final String expectedYear = "2019";
+        final String expectedPrice = "1300 $";
+        final String expectedFileFormat = "CSV";
+        final String expectedUnits = "Standard (Kelvin, hPa, meter/sec)";
+
+        List <String> expectedData = List.of(
+                expectedState,
+                expectedYear,
+                ProjectConstants.getWeatherParametersAsString(),
+                expectedFileFormat,
+                expectedUnits,
+                expectedPrice);
 
         HomeZipCodeDataNewPage homeZipCodeDataNewPage = openBaseURL()
                 .clickMarketplaceMenu()
                 .switchToMarketplaceWindow()
                 .clickWeatherDataByStateMenu()
                 .clickDropdownSelectStateButton()
-                .pickFloridaState()
+                .clickState(expectedState)
                 .clickDropdownSelectYearButton()
-                .pick2019Year()
+                .clickYear(expectedYear)
+                .clickPlaceOrder()
+                .waitUntilPlaceOrderPopUpIsVisible();
+
+        Assert.assertEquals(homeZipCodeDataNewPage.getOrderParametersTexts(), expectedData);
+    }
+
+    @Test
+    public void testUI_BillingDetailsPopUpWindow() {
+        final String expectedBillingDetailsHeader = "Billing details";
+        final String expectedValue = "current";
+        final String state = "Florida";
+        final String year = "2019";
+
+        HomeZipCodeDataNewPage homeZipCodeDataNewPage = openBaseURL()
+                .clickMarketplaceMenu()
+                .switchToMarketplaceWindow()
+                .clickWeatherDataByStateMenu()
+                .clickDropdownSelectStateButton()
+                .clickState(state)
+                .clickDropdownSelectYearButton()
+                .clickYear(year)
                 .clickPlaceOrder()
                 .waitUntilPlaceOrderPopUpIsVisible()
                 .clickNextButton()
                 .waitUntilPlaceOrderPopUpIsVisible();
 
-        Assert.assertEquals(homeZipCodeDataNewPage.getBillingDetailsHeader(), expectedBillingDetailsHeader);
+        Assert.assertEquals(homeZipCodeDataNewPage.getAttributeTopPopUpWindow2(), expectedValue);
 
-        homeZipCodeDataNewPage
+        Assert.assertEquals(homeZipCodeDataNewPage.getBillingDetailsHeader(), expectedBillingDetailsHeader);
+    }
+
+    @Test
+    public void test_BillingDetailsPopUpWindow_FillingIndividualForms() {
+        final String expectedBillingAddressHeader = "Billing address";
+        final String expectedValue = "current";
+        final String expectedState = "Florida";
+        final String expectedYear = "2019";
+        final String firstName = "Tom";
+        final String lastName = "Sawyer";
+        final String phoneNumber = "1234567890";
+        final String email = "tomsawyer@gmail.com";
+
+        HomeZipCodeDataNewPage homeZipCodeDataNewPage = openBaseURL()
+                .clickMarketplaceMenu()
+                .switchToMarketplaceWindow()
+                .clickWeatherDataByStateMenu()
+                .clickDropdownSelectStateButton()
+                .clickState(expectedState)
+                .clickDropdownSelectYearButton()
+                .clickYear(expectedYear)
+                .clickPlaceOrder()
+                .waitUntilPlaceOrderPopUpIsVisible()
+                .clickNextButton()
+                .waitUntilPlaceOrderPopUpIsVisible()
                 .inputFirstName(firstName)
                 .inputLastName(lastName)
                 .inputPhone(phoneNumber)
                 .inputEmail(email)
                 .clickNextButton();
+
+        Assert.assertEquals(homeZipCodeDataNewPage.getAttributeTopPopUpWindow3(), expectedValue);
 
         Assert.assertEquals(homeZipCodeDataNewPage.getBillingAddressHeader(), expectedBillingAddressHeader);
     }

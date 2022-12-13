@@ -1,5 +1,6 @@
 package pages;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -20,12 +21,6 @@ public class HomeZipCodeDataNewPage extends HomeMarketplacePage {
 
     @FindBy(xpath = "//label[text()='Select year']//following-sibling::div//*[local-name() = 'svg']")
     private WebElement dropdownSelectYearButton;
-
-    @FindBy(xpath = "//div[@class='page']/div/div/div/div/fieldset[1]")
-    private WebElement stateDropdownVisible;
-
-    @FindBy(xpath = "//div[@class='page']/div/div/div/div//following-sibling::div//fieldset")
-    private WebElement yearDropdownVisible;
 
     @FindBy(xpath = "//div[@class='footer-content']//h4")
     private WebElement totalPrice;
@@ -72,6 +67,27 @@ public class HomeZipCodeDataNewPage extends HomeMarketplacePage {
     @FindBy(xpath = "//ul[@class='dropdown-menu']//div[@class='menu-item']/span[2]")
     private List<WebElement> zipCodesPricesList;
 
+    @FindBy(xpath = "//span[(text()='Virginia')]")
+    private WebElement stateVirginia;
+
+    @FindBy(xpath = "//div[@class='pop-up-container big']//ul/li[text()='Order details']")
+    private WebElement orderPopUpWindow1;
+
+    @FindBy(xpath = "//div[@class='pop-up-container big']//ul/li[text()='Billing details']")
+    private WebElement orderPopUpWindow2;
+
+    @FindBy(xpath = "//div[@class='pop-up-container big']//ul/li[text()='Billing address']")
+    private WebElement orderPopUpWindow3;
+
+    @FindBy(xpath = "//select[@class='custom-select']")
+    private WebElement titleField;
+
+    @FindBy(xpath = "//select[@class='custom-select']/option")
+    private List<WebElement> titleOptions;
+
+    @FindBy(xpath = "//input[@class='form-control']")
+    private List<WebElement> billingDetailsInputFields;
+
     public HomeZipCodeDataNewPage(WebDriver driver) {
         super(driver);
     }
@@ -102,47 +118,20 @@ public class HomeZipCodeDataNewPage extends HomeMarketplacePage {
         return this;
     }
 
-    public String getDropdownSelectCityAttribute() {
-
-        return getAttribute(stateDropdownVisible, "class");
-    }
-
-    public String getDropdownSelectYearAttribute() {
-
-        return getAttribute(yearDropdownVisible, "class");
-    }
-
-    public List<WebElement> getVisibleStates() {
-
-        return getListOfVisibleElements(stateList, 51);
-    }
-
-    public List<WebElement> getVisibleYears() {
-
-        return getListOfVisibleElements(yearList, 2);
-    }
+//
+//    public List<WebElement> getVisibleStates() {
+//
+//        return getListOfVisibleElements(stateList, 51);
+//    }
+//
+//    public List<WebElement> getVisibleYears() {
+//
+//        return getListOfVisibleElements(yearList, 2);
+//    }
 
     public String getVirginiaTotalPrice() {
 
         return getText(totalPrice).substring(6);
-    }
-
-    public HomeZipCodeDataNewPage clickOnVirginia() {
-        click(getVisibleStates().get(46));
-
-        return this;
-    }
-
-    public HomeZipCodeDataNewPage pickFloridaState() {
-        click(getVisibleStates().get(9));
-
-        return this;
-    }
-
-    public HomeZipCodeDataNewPage pick2019Year() {
-        click(getVisibleYears().get(1));
-
-        return this;
     }
 
     public List<String> getStatesPricesZipCodes() {
@@ -223,5 +212,44 @@ public class HomeZipCodeDataNewPage extends HomeMarketplacePage {
     public String getBillingAddressHeader() {
 
         return getText(billingAddressHeader);
+    }
+
+    public HomeZipCodeDataNewPage clickState(String state) {
+        WebElement stateName = getDriver().findElement(By.xpath("//span[(text()='" + state + "')]"));
+        click20(stateName);
+
+        return this;
+    }
+
+    public HomeZipCodeDataNewPage clickYear(String year) {
+        WebElement yearNumber = getDriver().findElement(By.xpath("//span[(text()='" + year + "')]"));
+        click20(yearNumber);
+
+        return this;
+    }
+
+    public boolean isOrderPopUpDisplayed() {
+
+        return isDisplayedElement(placeOrderContainer);
+    }
+
+    public String getAttributeTopPopUpWindow1() {
+
+        return getAttribute(orderPopUpWindow1, "class");
+    }
+
+    public String getAttributeTopPopUpWindow2() {
+
+        return getAttribute(orderPopUpWindow2, "class");
+    }
+
+    public String getAttributeTopPopUpWindow3() {
+
+        return getAttribute(orderPopUpWindow3, "class");
+    }
+
+    public boolean isNextButtonVisible() {
+
+        return isDisplayedElement(nextButton);
     }
 }
