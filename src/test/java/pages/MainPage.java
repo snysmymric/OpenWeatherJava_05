@@ -137,6 +137,9 @@ public class MainPage extends FooterMenuPage {
     @FindBy(xpath = "//div/a[@href='/current']")
      private WebElement currentWeatherIcon;
 
+    @FindBy(xpath = "//div[@class='section orange-background white-text']")
+    private WebElement orangeBackground;
+
     @FindBy(xpath = "//div[@class = 'mobile-padding']/h1")
     private WebElement mainPageHeader1;
 
@@ -598,5 +601,18 @@ public class MainPage extends FooterMenuPage {
         getActions().scrollByAmount(0, 500).perform();
 
         return getListText(weatherDescription);
+    }
+
+    public MainPage scrollByOrangeBackground() {
+        scrollByVisibleElement(orangeBackground);
+
+        return this;
+    }
+
+    public CurrentWeatherPage clickCurrentWeatherIcon() {
+        wait10ElementToBeClickable(currentWeatherIcon);
+        click20(currentWeatherIcon);
+
+        return new CurrentWeatherPage(getDriver());
     }
 }

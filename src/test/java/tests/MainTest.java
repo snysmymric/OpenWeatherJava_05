@@ -4,6 +4,7 @@ import base.BaseTest;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import pages.CurrentWeatherPage;
 import pages.HomeSignInPage;
 import pages.MainPage;
 import utils.DateTimeUtils;
@@ -439,5 +440,20 @@ public class MainTest extends BaseTest {
         String actualResult = listOfEightDaysData.toString().substring(1, listOfEightDaysData.toString().length() - 1);
 
         Assert.assertEquals(actualResult, expectedResult);
+    }
+
+    @Test
+    public void testCurrentWeatherAPIIconNavigatesToCorrespondingPage() {
+        final String basePageTitle = "Сurrent weather and forecast - OpenWeatherMap";
+        final String expectedUrl = "https://openweathermap.org/current";
+        final String expectedTitle = "Current weather data - OpenWeatherMap";
+
+        CurrentWeatherPage currentWeatherPage = openBaseURL()
+                .scrollByOrangeBackground()
+                .clickCurrentWeatherIcon();
+
+        Assert.assertNotEquals(basePageTitle, currentWeatherPage.getTitle());
+        Assert.assertEquals(currentWeatherPage.getCurrentURL(), expectedUrl);
+        Assert.assertEquals(currentWeatherPage.getTitle(), expectedTitle);
     }
 }
