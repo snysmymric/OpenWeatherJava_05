@@ -5,7 +5,6 @@ import pages.base_abstract.FooterMenuPage;
 
 public class TechnologyPage extends FooterMenuPage {
 
-
     public TechnologyPage(WebDriver driver) {
         super(driver);
     }

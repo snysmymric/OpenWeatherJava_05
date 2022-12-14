@@ -29,52 +29,28 @@ public class WidgetsPage extends FooterMenuPage {
     @FindBy(xpath = "//ul[@id='city-list']//span")
     private List<WebElement> selectYourCity;
 
-    @FindBy(xpath = "//div[@id=\"cities\"]/ul/li[1]/label/span")
+    @FindBy(xpath = "//div[@id=\"cities\"]/ul/li[1]//span")
     private WebElement cityFromSelectYourCityList;
 
-    @FindBy(xpath= "//*[@id='error-key']")
+    @FindBy(id = "error-key")
     private WebElement apiKeyErrorMessage;
 
     @FindBy(xpath = "//div[@class = 'widget-right__title']")
-    private List<WebElement> rightTwoWidgets;
+    private List<WebElement> rightWidgets;
 
     @FindBy(xpath = "//h2[@class = 'widget-right__title']")
-    private List<WebElement> middleThreeWidgets;
+    private List<WebElement> middleWidgets;
 
     @FindBy(xpath = "//h2[@class = 'widget-left-menu__header']")
-    private List<WebElement> leftFourWidgets;
+    private List<WebElement> leftWidgets;
 
     public WidgetsPage(WebDriver driver) {
         super(driver);
     }
 
-    public WidgetsPage inputYourAPIKey(String key) {
-        inputText(yourAPIKeyField, key);
-
-        return this;
-    }
-
-    public WidgetsPage inputYourCityName(String city) {
-        inputText(yourCityNameField, city);
-
-        return this;
-    }
-
     public String getCityName() {
 
         return getText(cityFromSelectYourCityList);
-    }
-
-    public WidgetsPage clickSearchCityButton() {
-        click(searchCityButton);
-
-        return this;
-    }
-
-    public WidgetsPage waitCityFromSelectCityToBeChanged(String oldCity) {
-        waitTextToBeChanged(cityFromSelectYourCityList, oldCity);
-
-        return this;
     }
 
     public List<String> getSelectedCityTexts() {
@@ -99,9 +75,9 @@ public class WidgetsPage extends FooterMenuPage {
 
     public List<WebElement> getWidgets() {
         List<WebElement> widgets = new ArrayList<>();
-        widgets.addAll(rightTwoWidgets);
-        widgets.addAll(middleThreeWidgets);
-        widgets.addAll(leftFourWidgets);
+        widgets.addAll(rightWidgets);
+        widgets.addAll(middleWidgets);
+        widgets.addAll(leftWidgets);
 
         return widgets;
     }
@@ -111,20 +87,44 @@ public class WidgetsPage extends FooterMenuPage {
         return getText(apiKeyErrorMessage);
     }
 
+    public WidgetsPage clickSearchCityButton() {
+        click(searchCityButton);
+
+        return this;
+    }
+
+    public WidgetsPage inputYourAPIKey(String key) {
+        inputText(yourAPIKeyField, key);
+
+        return this;
+    }
+
+    public WidgetsPage inputYourCityName(String city) {
+        inputText(yourCityNameField, city);
+
+        return this;
+    }
+
+    public WidgetsPage waitCityFromSelectCityToBeChanged(String oldCity) {
+        waitTextToBeChanged(cityFromSelectYourCityList, oldCity);
+
+        return this;
+    }
+
     public WidgetsPage waitCityToBeChanged(String oldCity) {
         waitTextToBeChanged(biggerWidgetCityName, oldCity);
 
         return this;
     }
 
-    public WidgetsPage sleepUntilWidgetsLoaded() throws InterruptedException {
-        sleep(1000);
+    public WidgetsPage waitForBiggerWidgetToAppear() {
+        wait20ElementToBeVisible(biggerWidgetCityName);
 
         return this;
     }
 
-    public WidgetsPage waitForBiggerWidgetToAppear() {
-        wait20ElementToBeVisible(biggerWidgetCityName);
+    public WidgetsPage sleepUntilWidgetsLoaded() throws InterruptedException {
+        sleep(1000);
 
         return this;
     }

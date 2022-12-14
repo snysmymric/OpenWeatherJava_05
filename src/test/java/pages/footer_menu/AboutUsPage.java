@@ -9,34 +9,34 @@ import java.util.List;
 
 public class AboutUsPage extends FooterMenuPage {
 
-    @FindBy(xpath = "//div[@class = 'about-us']//h1")
+    @FindBy(xpath = "//div[@class='about-us']//h1")
     private WebElement aboutUsPageHeader;
 
-    @FindBy(xpath = "//h2[text()= 'Where-to']")
-    private WebElement whereToH2tag;
+    @FindBy(xpath = "//h2[text()='Where-to']")
+    private WebElement whereToH2Header;
 
-    @FindBy(xpath = "//div[@class='section where-to']//div[1]/a")
+    @FindBy(xpath = "//a[@class='btn_block orange round']")
     private List<WebElement> optionsUnderWhereTo;
 
     public AboutUsPage(WebDriver driver) {
         super(driver);
     }
 
-    public AboutUsPage waitForAboutUsPageHeaderBeVisible() {
-        wait10ElementToBeVisible(aboutUsPageHeader);
+    public List<String> getOptionsText() {
 
-        return new AboutUsPage(getDriver());
+        return getTexts(optionsUnderWhereTo);
     }
 
     public AboutUsPage scrollToWhereTo() {
-        scrollByVisibleElement(whereToH2tag);
+        scrollByVisibleElement(whereToH2Header);
 
         return this;
     }
 
-    public List<String> getOptionsText() {
+    public AboutUsPage waitForAboutUsPageHeaderBeVisible() {
+        wait10ElementToBeVisible(aboutUsPageHeader);
 
-        return getTexts(optionsUnderWhereTo);
+        return new AboutUsPage(getDriver());
     }
 
     public AboutUsPage waitAllOptionsAreVisibleAndClickable() {

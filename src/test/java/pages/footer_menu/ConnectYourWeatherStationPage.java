@@ -5,7 +5,6 @@ import pages.base_abstract.FooterMenuPage;
 
 public class ConnectYourWeatherStationPage extends FooterMenuPage {
 
-
     public ConnectYourWeatherStationPage(WebDriver driver) {
         super(driver);
     }
