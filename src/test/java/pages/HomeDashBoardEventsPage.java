@@ -17,9 +17,6 @@ public class HomeDashBoardEventsPage extends FooterMenuPage {
     @FindBy(xpath = "//button[@class='button-active shadow-none']")
     private WebElement createNewTrigger;
 
-    @FindBy(xpath = "//div[@class='col']//p")
-    private WebElement textWhenNoTriggers;
-
     @FindBy(xpath = "//a[contains(text(),'To triggers')]")
     private WebElement toTriggersButton;
 
@@ -48,10 +45,9 @@ public class HomeDashBoardEventsPage extends FooterMenuPage {
         if (bodyText.contains(EXPECTED_TEXT_WHEN_NO_TRIGGERS)) {
             return this;
         }
-        clickToTriggersButton()
-                .clickToDeleteTrigger()
-                .clickToConfirmDeleteTrigger();
 
+        HomeDashBoardTriggersPage existTriggersPage = clickToTriggersButton();
+        existTriggersPage.clickToDeleteTrigger();
         return this;
     }
 
