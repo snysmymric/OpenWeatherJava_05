@@ -1,5 +1,6 @@
 package pages;
 
+import org.codehaus.groovy.ast.stmt.IfStatement;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -31,13 +32,13 @@ public class HomeZipCodeDataNewPage extends HomeMarketplacePage {
     @FindBy(xpath = "//div[@class='page']//div[@class='section']/ul/li")
     private List<WebElement> weatherParameters;
 
-    @FindBy(xpath = "//div[@class=\"footer-content\"]//button")
+    @FindBy(xpath = "//div[@class='footer-content']//button")
     private WebElement placeOrderButton;
 
     @FindBy(xpath = "//div[@class='pop-up-container big']")
     private WebElement placeOrderContainer;
 
-    @FindBy(xpath = "//div[@class=\"mb-4 container\"]/h4")
+    @FindBy(xpath = "//div[@class='mb-4 container']/h4")
     private WebElement placeOrderPopUpHeader;
 
     @FindBy(xpath = "//div[@class='page']//div[@class='col-sm-8']")
@@ -47,7 +48,7 @@ public class HomeZipCodeDataNewPage extends HomeMarketplacePage {
     private WebElement nextButton;
 
     @FindBy(xpath = "//div[@class='pop-up-content']//h4")
-    private WebElement billingDetailsHeader;
+    private WebElement billingHeader;
 
     @FindBy(id = "first_name")
     private WebElement firstNameField;
@@ -60,9 +61,6 @@ public class HomeZipCodeDataNewPage extends HomeMarketplacePage {
 
     @FindBy(xpath = "//div[@class='form-group']/label[text()='Email *']/following::input")
     private WebElement emailField;
-
-    @FindBy(xpath = "//div[@class='col']/h4")
-    private WebElement billingAddressHeader;
 
     @FindBy(xpath = "//ul[@class='dropdown-menu']//div[@class='menu-item']/span[2]")
     private List<WebElement> zipCodesPricesList;
@@ -87,6 +85,18 @@ public class HomeZipCodeDataNewPage extends HomeMarketplacePage {
 
     @FindBy(xpath = "//input[@class='form-control']")
     private List<WebElement> billingDetailsInputFields;
+
+    @FindBy(xpath = "//small[@class='form-text text-muted']")
+    private WebElement errorMessage;
+
+    @FindBy(xpath = "//label[@class='custom-control-label' and text()='Organisation']")
+    private WebElement organisationInput;
+
+    @FindBy(id = "organisation")
+    private WebElement organizationNameField;
+
+    @FindBy(id = "vat_id")
+    private WebElement vatIdField;
 
     public HomeZipCodeDataNewPage(WebDriver driver) {
         super(driver);
@@ -117,17 +127,6 @@ public class HomeZipCodeDataNewPage extends HomeMarketplacePage {
         click20(dropdownSelectYearButton);
         return this;
     }
-
-//
-//    public List<WebElement> getVisibleStates() {
-//
-//        return getListOfVisibleElements(stateList, 51);
-//    }
-//
-//    public List<WebElement> getVisibleYears() {
-//
-//        return getListOfVisibleElements(yearList, 2);
-//    }
 
     public String getVirginiaTotalPrice() {
 
@@ -176,13 +175,14 @@ public class HomeZipCodeDataNewPage extends HomeMarketplacePage {
 
     public HomeZipCodeDataNewPage clickNextButton() {
         click20(nextButton);
+        getWait10();
 
         return this;
     }
 
     public String getBillingDetailsHeader() {
 
-        return getText(billingDetailsHeader);
+        return getText(billingHeader);
     }
 
     public HomeZipCodeDataNewPage inputFirstName(String firstName) {
@@ -211,7 +211,7 @@ public class HomeZipCodeDataNewPage extends HomeMarketplacePage {
 
     public String getBillingAddressHeader() {
 
-        return getText(billingAddressHeader);
+        return getText(billingHeader);
     }
 
     public HomeZipCodeDataNewPage clickState(String state) {
@@ -252,4 +252,42 @@ public class HomeZipCodeDataNewPage extends HomeMarketplacePage {
 
         return isDisplayedElement(nextButton);
     }
+
+    public String getErrorMessageText() {
+
+        return getText(errorMessage);
+    }
+
+    public String getFirstNameFieldText() {
+
+        return getText(firstNameField);
+    }
+
+    public boolean isNextButtonSubmiting() {
+        boolean isNextButtonEnabled = false;
+        nextButton.click();
+        if (getText(billingHeader).contains("Billing address")) {
+            return !isNextButtonEnabled;
+        }
+            return isNextButtonEnabled;
+    }
+
+    public String getLastNameFieldText() {
+
+        return getText(lastNameField);
+    }
+
+    public String getPhoneNumberFieldText() {
+
+        return getText(phoneField);
+    }
+
+    public String getEmailFieldText() {
+
+        return getText(emailField);
+    }
+
+
+
+
 }

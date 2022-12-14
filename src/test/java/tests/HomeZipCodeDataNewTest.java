@@ -130,7 +130,7 @@ public class HomeZipCodeDataNewTest extends BaseTest {
         final String expectedFileFormat = "CSV";
         final String expectedUnits = "Standard (Kelvin, hPa, meter/sec)";
 
-        List <String> expectedData = List.of(
+        List<String> expectedData = List.of(
                 expectedState,
                 expectedYear,
                 ProjectConstants.getWeatherParametersAsString(),
@@ -210,4 +210,150 @@ public class HomeZipCodeDataNewTest extends BaseTest {
 
         Assert.assertEquals(homeZipCodeDataNewPage.getBillingAddressHeader(), expectedBillingAddressHeader);
     }
+
+    @Test
+    public void testEmptyFirstName_BillingDetailsPopUpWindow() {
+        final String expectedState = "Florida";
+        final String expectedYear = "2019";
+        final String lastName = "Sawyer";
+        final String phoneNumber = "1234567890";
+        final String email = "tomsawyer@gmail.com";
+        final String expectedFirstName = "";
+        final String expectedErrorMessageText = "Cannot be blank";
+
+        HomeZipCodeDataNewPage homeZipCodeDataNewPage = openBaseURL()
+                .clickMarketplaceMenu()
+                .switchToMarketplaceWindow()
+                .clickWeatherDataByStateMenu()
+                .clickDropdownSelectStateButton()
+                .clickState(expectedState)
+                .clickDropdownSelectYearButton()
+                .clickYear(expectedYear)
+                .clickPlaceOrder()
+                .waitUntilPlaceOrderPopUpIsVisible()
+                .clickNextButton()
+                .waitUntilPlaceOrderPopUpIsVisible()
+                .inputLastName(lastName)
+                .inputPhone(phoneNumber)
+                .inputEmail(email)
+                .clickNextButton();
+
+        String actualErrorMessageText = homeZipCodeDataNewPage.getErrorMessageText();
+
+        Assert.assertEquals(homeZipCodeDataNewPage.getFirstNameFieldText(), expectedFirstName);
+
+        Assert.assertEquals(actualErrorMessageText, expectedErrorMessageText);
+
+        Assert.assertEquals(homeZipCodeDataNewPage.isNextButtonSubmiting(), false);
+    }
+
+    @Test
+    public void testEmptyLastName_BillingDetailsPopUpWindow() {
+        final String expectedState = "Florida";
+        final String expectedYear = "2019";
+        final String firstName = "Tom";
+        final String expectedLastName = "";
+        final String phoneNumber = "1234567890";
+        final String email = "tomsawyer@gmail.com";
+
+        final String expectedErrorMessageText = "Cannot be blank";
+
+        HomeZipCodeDataNewPage homeZipCodeDataNewPage = openBaseURL()
+                .clickMarketplaceMenu()
+                .switchToMarketplaceWindow()
+                .clickWeatherDataByStateMenu()
+                .clickDropdownSelectStateButton()
+                .clickState(expectedState)
+                .clickDropdownSelectYearButton()
+                .clickYear(expectedYear)
+                .clickPlaceOrder()
+                .waitUntilPlaceOrderPopUpIsVisible()
+                .clickNextButton()
+                .waitUntilPlaceOrderPopUpIsVisible()
+                .inputPhone(phoneNumber)
+                .inputEmail(email)
+                .clickNextButton();
+
+        String actualErrorMessageText = homeZipCodeDataNewPage.getErrorMessageText();
+
+        Assert.assertEquals(homeZipCodeDataNewPage.getLastNameFieldText(), expectedLastName);
+
+        Assert.assertEquals(actualErrorMessageText, expectedErrorMessageText);
+
+        Assert.assertEquals(homeZipCodeDataNewPage.isNextButtonSubmiting(), false);
+    }
+
+    @Test
+    public void testEmptyPhoneNumber_BillingDetailsPopUpWindow() {
+        final String expectedState = "Florida";
+        final String expectedYear = "2019";
+        final String expectedFirstName = "Tom";
+        final String lastName = "Sawyer";
+        final String expectedPhoneNumber = "";
+        final String email = "tomsawyer@gmail.com";
+
+        final String expectedErrorMessageText = "Cannot be blank";
+
+        HomeZipCodeDataNewPage homeZipCodeDataNewPage = openBaseURL()
+                .clickMarketplaceMenu()
+                .switchToMarketplaceWindow()
+                .clickWeatherDataByStateMenu()
+                .clickDropdownSelectStateButton()
+                .clickState(expectedState)
+                .clickDropdownSelectYearButton()
+                .clickYear(expectedYear)
+                .clickPlaceOrder()
+                .waitUntilPlaceOrderPopUpIsVisible()
+                .clickNextButton()
+                .waitUntilPlaceOrderPopUpIsVisible()
+                .inputLastName(lastName)
+                .inputEmail(email)
+                .clickNextButton();
+
+        String actualErrorMessageText = homeZipCodeDataNewPage.getErrorMessageText();
+
+        Assert.assertEquals(homeZipCodeDataNewPage.getPhoneNumberFieldText(), expectedPhoneNumber);
+
+        Assert.assertEquals(actualErrorMessageText, expectedErrorMessageText);
+
+        Assert.assertEquals(homeZipCodeDataNewPage.isNextButtonSubmiting(), false);
+    }
+
+    @Test
+    public void testEmptyEmail_BillingDetailsPopUpWindow() {
+        final String expectedState = "Florida";
+        final String expectedYear = "2019";
+        final String expectedFirstName = "Tom";
+        final String lastName = "Sawyer";
+        final String phoneNumber = "1234567890";
+        final String expectedEmail = "";
+
+        final String expectedErrorMessageText = "Cannot be blank";
+
+        HomeZipCodeDataNewPage homeZipCodeDataNewPage = openBaseURL()
+                .clickMarketplaceMenu()
+                .switchToMarketplaceWindow()
+                .clickWeatherDataByStateMenu()
+                .clickDropdownSelectStateButton()
+                .clickState(expectedState)
+                .clickDropdownSelectYearButton()
+                .clickYear(expectedYear)
+                .clickPlaceOrder()
+                .waitUntilPlaceOrderPopUpIsVisible()
+                .clickNextButton()
+                .waitUntilPlaceOrderPopUpIsVisible()
+                .inputLastName(lastName)
+                .inputPhone(phoneNumber)
+                .clickNextButton();
+
+        String actualErrorMessageText = homeZipCodeDataNewPage.getErrorMessageText();
+
+        Assert.assertEquals(homeZipCodeDataNewPage.getEmailFieldText(), expectedEmail);
+
+        Assert.assertEquals(actualErrorMessageText, expectedErrorMessageText);
+
+        Assert.assertEquals(homeZipCodeDataNewPage.isNextButtonSubmiting(), false);
+    }
+
+
 }
