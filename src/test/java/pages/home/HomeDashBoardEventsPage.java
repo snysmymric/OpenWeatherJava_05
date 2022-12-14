@@ -6,10 +6,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import pages.base_abstract.FooterMenuPage;
 
-/**
- * @author Alina Syniagina
- * Dashboard events page.
- */
 public class HomeDashBoardEventsPage extends FooterMenuPage {
 
     public static final String EXPECTED_TEXT_WHEN_NO_TRIGGERS = "Here you will find notifications if the conditions of the triggers you created will be met.\n" +
@@ -29,11 +25,6 @@ public class HomeDashBoardEventsPage extends FooterMenuPage {
         super(driver, originalHandle);
     }
 
-    public HomeDashBoardEventsPage switchToEventsDashBoardWindow() {
-        switchToAnotherWindow();
-
-        return this;
-    }
 
     public HomeDashBoardNewTriggerPage clickCreateNewTriggerButton() {
         click(createNewTrigger);
@@ -41,20 +32,28 @@ public class HomeDashBoardEventsPage extends FooterMenuPage {
         return new HomeDashBoardNewTriggerPage(getDriver());
     }
 
+    public HomeDashBoardTriggersPage clickToTriggersButton() {
+        click(toTriggersButton);
+
+        return new HomeDashBoardTriggersPage(getDriver(), getOriginalHandle());
+    }
+
     public HomeDashBoardEventsPage deleteTriggers() {
         String bodyText = getDriver().findElement(By.tagName("body")).getText();
         if (bodyText.contains(EXPECTED_TEXT_WHEN_NO_TRIGGERS)) {
+
             return this;
         }
 
         HomeDashBoardTriggersPage existTriggersPage = clickToTriggersButton();
         existTriggersPage.clickToDeleteTrigger();
+
         return this;
     }
 
-    public HomeDashBoardTriggersPage clickToTriggersButton() {
-        click(toTriggersButton);
+    public HomeDashBoardEventsPage switchToEventsDashBoardWindow() {
+        switchToAnotherWindow();
 
-        return new HomeDashBoardTriggersPage(getDriver(), getOriginalHandle());
+        return this;
     }
 }

@@ -25,12 +25,14 @@ public class HomeDashBoardTriggersPage extends FooterMenuPage {
             click(button);
             clickToConfirmDeleteTrigger();
         });
+
         return this;
     }
 
     public HomeDashBoardTriggersPage clickToConfirmDeleteTrigger() {
         click(getDriver().findElement(
                 By.xpath("//div[@class='text-end']//button[contains(text(),'Delete')]")));
+
         return this;
     }
 }

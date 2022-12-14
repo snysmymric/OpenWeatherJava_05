@@ -71,53 +71,56 @@ public class HomeAskQuestionPage extends FooterMenuPage {
         super(driver);
     }
 
-    public HomeAskQuestionPage inputTextInEmailTextbox(String text) {
-        input(text, emailTextbox);
-        return new HomeAskQuestionPage(getDriver());
-    }
-
-    public HomeAskQuestionPage selectSubject(String text) {
-        selectOption(subjectTextbox, text);
-        return new HomeAskQuestionPage(getDriver());
-    }
-
-    public HomeAskQuestionPage inputTextInMessageTextbox(String text) {
-        input(text, messageTextbox);
-        return new HomeAskQuestionPage(getDriver());
-    }
-
-    public HomeAskQuestionPage clickOnSubmitButton(){
-        click(submitButton);
-        return new HomeAskQuestionPage(getDriver());
-    }
-
     public String getErrorMessageText(){
+
         return getText(errorMessage);
     }
-
-    public HomeAskQuestionPage clickYesRadioButton() {
-        click(yesRadioButton);
-
-        return new HomeAskQuestionPage(getDriver());
-    }
-
-    public HomeAskQuestionPage selectSubject() {
-        click(subjectTextbox);
-
-        return new HomeAskQuestionPage(getDriver());
-    }
-
-    public HomeAskQuestionPage selectTechQuestionsInSubjectSubmenu() {
-        click(subjectTextbox);
-        click(techIssueSubjectSelect);
-
-        return new HomeAskQuestionPage(getDriver());
-    }
-
 
     public String getRadioButtonText() {
 
         return getText(enterYourAccountMessage);
     }
 
+    public HomeAskQuestionPage clickOnSubmitButton(){
+        click(submitButton);
+
+        return this;
+    }
+
+    public HomeAskQuestionPage clickYesRadioButton() {
+        click(yesRadioButton);
+
+        return this;
+    }
+
+    public HomeAskQuestionPage selectSubject() {
+        click(subjectTextbox);
+
+        return this;
+    }
+
+    public HomeAskQuestionPage selectTechQuestionsInSubjectSubmenu() {
+        click(subjectTextbox);
+        click(techIssueSubjectSelect);
+
+        return this;
+    }
+
+    public HomeAskQuestionPage inputTextInEmailTextbox(String text) {
+        input(text, emailTextbox);
+
+        return this;
+    }
+
+    public HomeAskQuestionPage inputTextInMessageTextbox(String text) {
+        input(text, messageTextbox);
+
+        return this;
+    }
+
+    public HomeAskQuestionPage selectSubject(String text) {
+        selectOption(subjectTextbox, text);
+
+        return this;
+    }
 }

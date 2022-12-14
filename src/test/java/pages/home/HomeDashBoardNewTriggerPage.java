@@ -10,10 +10,6 @@ import java.util.List;
 
 import static org.testng.Assert.assertEquals;
 
-/**
- * @author Alina Syniagina.
- * Dashboard New Trigger Creation page.
- */
 public class HomeDashBoardNewTriggerPage extends FooterMenuPage {
 
     public static final String FAHRENHEIT = "F";
@@ -55,8 +51,13 @@ public class HomeDashBoardNewTriggerPage extends FooterMenuPage {
         super(driver);
     }
 
-    public HomeDashBoardNewTriggerPage inputNameNewTrigger(String triggerName) {
-        input(triggerName, nameNewTriggerField);
+    public String getTriggerCreatedText() {
+
+        return triggerCreatedText.getText();
+    }
+
+    public HomeDashBoardNewTriggerPage clickOnSetCoordinates() {
+        click(setCoordinatesButton);
 
         return this;
     }
@@ -73,6 +74,18 @@ public class HomeDashBoardNewTriggerPage extends FooterMenuPage {
         return this;
     }
 
+    public HomeDashBoardNewTriggerPage clickOnSetLocation() {
+        click(createSetLocationButton);
+
+        return this;
+    }
+
+    public HomeDashBoardNewTriggerPage clickOnCreateNewTrigger() {
+        clickByJavaScript(createNewTriggerButton);
+
+        return this;
+    }
+
     public HomeDashBoardNewTriggerPage setCoordinatesLatitude(String latitudeCoordinate) {
         input(latitudeCoordinate, latitude);
 
@@ -85,8 +98,8 @@ public class HomeDashBoardNewTriggerPage extends FooterMenuPage {
         return this;
     }
 
-    public HomeDashBoardNewTriggerPage clickOnSetCoordinates() {
-        click(setCoordinatesButton);
+    public HomeDashBoardNewTriggerPage inputNameNewTrigger(String triggerName) {
+        input(triggerName, nameNewTriggerField);
 
         return this;
     }
@@ -94,18 +107,6 @@ public class HomeDashBoardNewTriggerPage extends FooterMenuPage {
     public List<WebElement> getListOfInputContainers() {
 
         return inputContainersList;
-    }
-
-    public HomeDashBoardNewTriggerPage clickOnCreateNewTrigger() {
-        clickByJavaScript(createNewTriggerButton);
-
-        return this;
-    }
-
-    public HomeDashBoardNewTriggerPage clickOnSetLocation() {
-        click(createSetLocationButton);
-
-        return this;
     }
 
     public HomeDashBoardNewTriggerPage setUnits(String unit) {
@@ -125,9 +126,5 @@ public class HomeDashBoardNewTriggerPage extends FooterMenuPage {
         click(option);
 
         return this;
-    }
-
-    public String getTriggerCreatedText() {
-        return triggerCreatedText.getText();
     }
 }
