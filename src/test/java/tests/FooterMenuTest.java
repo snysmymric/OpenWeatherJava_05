@@ -153,7 +153,7 @@ public class FooterMenuTest extends BaseTest {
     }
 
     @Test
-    public void testDownloadOpenWeatherAppTextOnFooterMenu() {
+    public void testDownloadOpenWeatherAppTextExists() {
         final String expectedText = "Download OpenWeather app";
 
         Assert.assertTrue(openBaseURL().textDownloadOpenWeatherAppIsDisplayed());
