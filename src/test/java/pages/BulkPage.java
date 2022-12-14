@@ -28,11 +28,12 @@ public class BulkPage extends FooterMenuPage {
 
     public List<String> getBulkFilesRequests() {
 
-        List <String> bulkFilesRequestsText = new ArrayList<>();
+        List<String> bulkFilesRequestsText = new ArrayList<>();
 
-        for (int i=0;i<getListSize(bulkFilesRequests);i+=2) {
+        for (int i = 0; i < getListSize(bulkFilesRequests); i += 2) {
             bulkFilesRequestsText.add(getText(bulkFilesRequests.get(i)));
         }
+
         return bulkFilesRequestsText;
     }
 }

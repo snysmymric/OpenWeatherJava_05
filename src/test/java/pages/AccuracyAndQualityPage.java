@@ -5,7 +5,6 @@ import pages.base_abstract.FooterMenuPage;
 
 public class AccuracyAndQualityPage extends FooterMenuPage {
 
-
     public AccuracyAndQualityPage(WebDriver driver) {
         super(driver);
     }

@@ -24,7 +24,7 @@ public class FindPage extends FooterMenuPage {
         return getAttribute(searchFieldWeatherInYourCity, attribute);
     }
 
-    public boolean IsContainsCurrentUrlCityName(String text){
+    public boolean IsContainsCurrentUrlCityName(String text) {
 
         return currentUrlIsContainsText(text);
     }

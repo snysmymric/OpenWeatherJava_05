@@ -11,18 +11,19 @@ import java.util.List;
 public class APIOneCall3Page extends FooterMenuPage {
 
     @FindBy(xpath = "//section[@id='how']//tbody/*")
-    private List<WebElement> APIOneCall3Parameteres;
+    private List<WebElement> APIOneCall3Parameters;
 
     public APIOneCall3Page(WebDriver driver) {
         super(driver);
     }
 
-    public List<String> getAPIOneCall3Parametres() {
-        List<String> APIOneCall3ParametresText = new ArrayList<>();
+    public List<String> getAPIOneCall3Parametrs() {
+        List<String> APIOneCall3ParametersText = new ArrayList<>();
 
-        for (int i=0;i<getListSize(APIOneCall3Parameteres);i++) {
-            APIOneCall3ParametresText.add(getText(APIOneCall3Parameteres.get(i)));
+        for (int i = 0; i < getListSize(APIOneCall3Parameters); i++) {
+            APIOneCall3ParametersText.add(getText(APIOneCall3Parameters.get(i)));
         }
-        return APIOneCall3ParametresText;
+
+        return APIOneCall3ParametersText;
     }
 }

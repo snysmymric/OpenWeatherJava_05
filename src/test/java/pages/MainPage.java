@@ -92,7 +92,7 @@ public class MainPage extends FooterMenuPage {
 
     @FindBy(className = "activeIcon")
     private WebElement activeIcon;
-    
+
     @FindBy(xpath = "//div[@class='day-list-values']/div/span")
     private List<WebElement> dayListValues;
 
@@ -117,7 +117,7 @@ public class MainPage extends FooterMenuPage {
     @FindBy(xpath = "//p[@class='stick-footer-panel__description']")
     private WebElement textPanel;
 
-    @FindBy (xpath="//div[@id='footer-website']//a[@href='/weather-dashboard']")
+    @FindBy(xpath = "//div[@id='footer-website']//a[@href='/weather-dashboard']")
     private WebElement weatherDashboardFooterMenu;
 
     @FindBy(xpath = "//div[@class='more-options']")
@@ -126,7 +126,7 @@ public class MainPage extends FooterMenuPage {
     @FindBy(xpath = "//input[@type='number']")
     private WebElement temperatureInputInDifferentWeatherContainer;
 
-    @FindBy(xpath="//a[text()='Bulks']")
+    @FindBy(xpath = "//a[text()='Bulks']")
     private WebElement bulkLink;
 
     @FindBy(xpath = "//div[@class = 'widget-notification']")
@@ -136,7 +136,7 @@ public class MainPage extends FooterMenuPage {
     private List<WebElement> apiIcons;
 
     @FindBy(xpath = "//div/a[@href='/current']")
-     private WebElement currentWeatherIcon;
+    private WebElement currentWeatherIcon;
 
     @FindBy(xpath = "//div[@class='section orange-background white-text']")
     private WebElement orangeBackground;
@@ -177,24 +177,167 @@ public class MainPage extends FooterMenuPage {
         super(driver);
     }
 
-    public void waitForGrayContainerDisappeared() {
-        getWait20().until(ExpectedConditions.invisibilityOf(grayContainer));
-    }
-
-    public void switchToExternalPage() {
-        switchToAnotherWindow();
-        getWait20().until(ExpectedConditions.numberOfWindowsToBe(2));
-    }
-
-    public MainPage scrollToFooterMenu() {
-        scrollByVisibleElement(getFooterMenu());
-
-        return this;
-    }
-
     public String getCityCountryName() {
 
         return getText(h2CityCountryHeader);
+    }
+
+    public String getColor() {
+
+        return getBackgroundColor(colorAndFontSizeOfH1Header);
+    }
+
+    public String getFontSize() {
+
+        return getFontSize(colorAndFontSizeOfH1Header);
+    }
+
+    public int getAmountOfIconsOnDifferentWeatherPopUp() {
+
+        return getListSize(iconsList);
+    }
+
+    public String getLoadingText(String attribute) {
+
+        return getAttribute(seeLoading, attribute);
+    }
+
+    public List<WebElement> getListOfIconsOnDifferentWeatherPopUp() {
+
+        return iconsList;
+    }
+
+    public String getErrorText() {
+
+        return getText(resultErrorWidget);
+    }
+
+    public String getErrorButtonBackgroundColor() {
+
+        return getBackgroundColor(resultErrorWidget);
+    }
+
+    public String getActiveIconBackgroundColorInHEX() {
+
+        return getBackgroundColorInHEX(activeIcon);
+    }
+
+    public String getHeaderForDifferentWeatherContainer() {
+
+        return getText(h3DialogTitle);
+    }
+
+    public String getActualTime() {
+
+        return getText(currentTime).substring(0, 10);
+    }
+
+    public String getBottomPanelText() {
+
+        return getText(textPanel);
+    }
+
+    public int getTemperatureValueInDifferentWeatherContainer() {
+
+        return convertStringToInt(getAttribute(temperatureInputInDifferentWeatherContainer,
+                "_value"));
+    }
+
+    public WebElement getBulkLink() {
+
+        return bulkLink;
+    }
+
+    public String getNotificationMessage() {
+
+        return getText(notificationMessage);
+    }
+
+    public List<WebElement> getDisplayedAPIIcons() {
+        List<WebElement> displayedIcons = new ArrayList<>();
+
+        for (WebElement element : apiIcons) {
+            if (isDisplayedElement(element) && element.isEnabled()) {
+                displayedIcons.add(element);
+            } else {
+                getWait20().until(ExpectedConditions.visibilityOf(element));
+                displayedIcons.add(element);
+            }
+        }
+
+        return displayedIcons;
+    }
+
+    public String getWeatherAlertText() {
+
+        return getText(weatherAlert);
+    }
+
+    public List<String> getListWeatherDescriptionText() {
+        getActions().scrollByAmount(0, 500).perform();
+
+        return getListText(weatherDescription);
+    }
+
+    public List<WebElement> getApiIcons() {
+
+        return apiIcons;
+    }
+
+    public int getAPIIconsQuantity() {
+
+        return getListSize(getDisplayedAPIIcons());
+    }
+
+    public List<String> getAPIIconsNames() {
+
+        return getTexts(apiIcons);
+    }
+
+    public String getHeader1Text() {
+
+        return getText(mainPageHeader1);
+    }
+
+    public List<String> getDataSourceOptionsTexts() {
+
+        return getListText(dataSourceOptions);
+    }
+
+    public List<String> getListOfEightDaysDataText() {
+        scrollByVisibleElement(currentDateFromEightDaysForecast);
+
+        return getListText(listOfEightDaysData);
+    }
+
+    public String getEightDaysForecastCalendarSequenceText() {
+
+        final String[] dowMonDate = currentDateFromEightDaysForecast.getText().split(" ");
+        final String dowText = dowMonDate[0].substring(0, 3);
+        final int monNum = DateTimeUtils.returnMonth(dowMonDate[1]);
+        final int date = Integer.parseInt(dowMonDate[2]);
+
+        return DateTimeUtils.getEightDaysFromDate(dowText, monNum, date, Year.now().getValue());
+    }
+
+    public String getHeader2Text() {
+
+        return getText(mainPageHeader2);
+    }
+
+    public String getAnyAdditionalInfoText() {
+
+        return getAttribute(anyAdditionalInfoTextarea, "_value");
+    }
+
+    public String getDataSourceDropDownText() {
+
+        return getText(dataSourceDropDown);
+    }
+
+    public String getEmailTextboxText() {
+
+        return getAttribute(emailTextbox, "_value");
     }
 
     public MainPage clickSearchCityField() {
@@ -233,8 +376,86 @@ public class MainPage extends FooterMenuPage {
         return this;
     }
 
-    public MainPage waitUntilDifferentWeatherPopUpIsVisible() {
-        wait10ElementToBeVisible(differentWeatherPopUpContainer);
+    public MainPage clickIconOnDifferentWeatherPopUp(WebElement element) {
+        click(element);
+
+        return this;
+    }
+
+    public MainPage clickCityNorway() {
+        click20(cityNorway);
+
+        return this;
+    }
+
+    public MainPage clickLocationButton() {
+        click20(locationButton);
+
+        return this;
+    }
+
+    public CurrentWeatherPage clickCurrentWeatherIcon() {
+        wait10ElementToBeClickable(currentWeatherIcon);
+        click20(currentWeatherIcon);
+
+        return new CurrentWeatherPage(getDriver());
+    }
+
+    public BulkPage clickBulks() {
+        JavascriptExecutor executor = (JavascriptExecutor) getDriver();
+        executor.executeScript("arguments[0].click()", bulkLink);
+
+        return new BulkPage(getDriver());
+    }
+
+    public MainPage clickMoreOptionsDropDown() {
+        click20(moreOptionsDropDown);
+
+        return this;
+    }
+
+    public MainPage clickUpKeyInTemperatureInput() {
+        clickAKey(temperatureInputInDifferentWeatherContainer, Keys.ARROW_UP);
+
+        return this;
+    }
+
+    public MainPage clickDataSourceDropDown() {
+        click(dataSourceDropDown);
+
+        return this;
+    }
+
+    public MainPage clickAllDataSourceOptions() {
+        for (int i = 0; i < dataSourceOptions.size(); i++) {
+            click(dataSourceOptions.get(i));
+            click(dataSourceDropDown);
+        }
+
+        return this;
+    }
+
+    public MainPage clickFirstDataSourceOption() {
+        click(dataSourceOptions.get(0));
+
+        return this;
+    }
+
+    public MainPage clickOutOfDifferentWeatherContainer() {
+        Actions action = new Actions(getDriver());
+        action.moveByOffset(0, 0).click().build().perform();
+        getWait10().until(ExpectedConditions.invisibilityOf(differentWeatherPopUpContainer));
+
+        return this;
+    }
+
+    public void switchToExternalPage() {
+        switchToAnotherWindow();
+        getWait20().until(ExpectedConditions.numberOfWindowsToBe(2));
+    }
+
+    public MainPage scrollToFooterMenu() {
+        scrollByVisibleElement(getFooterMenu());
 
         return this;
     }
@@ -251,45 +472,8 @@ public class MainPage extends FooterMenuPage {
         return this;
     }
 
-    public String getColor() {
-
-        return getBackgroundColor(colorAndFontSizeOfH1Header);
-    }
-
-    public String getFontSize() {
-
-        return getFontSize(colorAndFontSizeOfH1Header);
-    }
-
-    public int getAmountOfIconsOnDifferentWeatherPopUp() {
-
-        return getListSize(iconsList);
-    }
-
-    public List<WebElement> getListOfIconsOnDifferentWeatherPopUp() {
-
-        return iconsList;
-    }
-
-    public MainPage clickIconOnDifferentWeatherPopUp(WebElement element) {
-        click(element);
-
-        return this;
-    }
-
-    public String getLoadingText(String attribute) {
-
-        return getAttribute(seeLoading, attribute);
-    }
-
-    public MainPage clickCityNorway() {
-        click20(cityNorway);
-
-        return this;
-    }
-
-    public MainPage clickLocationButton() {
-        click20(locationButton);
+    public MainPage waitUntilDifferentWeatherPopUpIsVisible() {
+        wait10ElementToBeVisible(differentWeatherPopUpContainer);
 
         return this;
     }
@@ -307,16 +491,6 @@ public class MainPage extends FooterMenuPage {
     public boolean isXButtonDisplayed() {
 
         return isDisplayedElement(xButtonInDifferentWeatherContainer);
-    }
-
-    public String getErrorText() {
-
-        return getText(resultErrorWidget);
-    }
-
-    public String getErrorButtonBackgroundColor() {
-
-        return getBackgroundColor(resultErrorWidget);
     }
 
     public MainPage switchToMetric() {
@@ -346,19 +520,9 @@ public class MainPage extends FooterMenuPage {
         return getListSize(activeIconsInDifferentWeatherContainer);
     }
 
-    public String getActiveIconBackgroundColorInHEX() {
-
-        return getBackgroundColorInHEX(activeIcon);
-    }
-        
     public boolean isDayListValuesContainsC() {
 
         return isListContains("°C", getTexts(dayListValues));
-    }
-
-    public String getHeaderForDifferentWeatherContainer() {
-
-        return getText(h3DialogTitle);
     }
 
     public boolean isDayListValuesContainsF() {
@@ -373,9 +537,8 @@ public class MainPage extends FooterMenuPage {
         return this;
     }
 
-    public String getActualTime() {
-
-        return getText(currentTime).substring(0, 10);
+    public void waitForGrayContainerDisappeared() {
+        getWait20().until(ExpectedConditions.invisibilityOf(grayContainer));
     }
 
     public MainPage waitForFooterPanelToBeVisible() {
@@ -390,11 +553,6 @@ public class MainPage extends FooterMenuPage {
         wait20ElementToBeVisible(manageButton);
 
         return this;
-    }
-
-    public String getBottomPanelText() {
-
-        return getText(textPanel);
     }
 
     public MainPage scrollByCoordinatesToWeatherDashboardFooterMenu() {
@@ -415,117 +573,23 @@ public class MainPage extends FooterMenuPage {
         return this;
     }
 
-    public MainPage clickMoreOptionsDropDown() {
-        click20(moreOptionsDropDown);
-
-        return this;
-    }
-
-    public int getTemperatureValueInDifferentWeatherContainer() {
-
-        return convertStringToInt(getAttribute(temperatureInputInDifferentWeatherContainer,
-                "_value"));
-    }
-
-    public MainPage clickUpKeyInTemperatureInput() {
-        clickAKey(temperatureInputInDifferentWeatherContainer, Keys.ARROW_UP);
-
-        return this;
-    }
-
-    public WebElement getBulkLink() {
-
-        return bulkLink;
-        }
     public MainPage scrollToBulkLink() {
 
         if (isDisplayedElement(bulkLink)) {
             wait20ElementToBeVisible(bulkLink);
-            }
+        }
         scrollByVisibleElement(bulkLink);
 
         return this;
-        }
-
-    public BulkPage clickBulks() {
-        JavascriptExecutor executor = (JavascriptExecutor) getDriver();
-        executor.executeScript("arguments[0].click()", bulkLink);
-
-        return new BulkPage(getDriver());
     }
 
-    public boolean isLocationButtonDisplayed(){
+    public boolean isLocationButtonDisplayed() {
 
         return isDisplayedElement(locationButton);
     }
 
-    public String getNotificationMessage(){
-
-        return getText(notificationMessage);
-    }
-
-    public List<WebElement> getDisplayedAPIIcons() {
-        List<WebElement> displayedIcons = new ArrayList<>();
-
-        for(WebElement element: apiIcons) {
-            if(isDisplayedElement(element) && element.isEnabled()) {
-                displayedIcons.add(element);
-            } else {
-                getWait20().until(ExpectedConditions.visibilityOf(element));
-                displayedIcons.add(element);
-            }
-        }
-
-        return displayedIcons;
-    }
-
     public MainPage scrollByCurrentWeatherIcon() {
         scrollByVisibleElement(currentWeatherIcon);
-
-        return this;
-    }
-
-    public List<WebElement> getApiIcons() {
-
-        return apiIcons;
-    }
-
-    public int getAPIIconsQuantity() {
-
-        return getListSize(getDisplayedAPIIcons());
-    }
-
-    public List<String> getAPIIconsNames() {
-
-        return getTexts(apiIcons);
-    }
-
-    public String getHeader1Text() {
-
-        return getText(mainPageHeader1);
-    }
-
-    public String getHeader2Text() {
-
-        return getText(mainPageHeader2);
-    }
-
-    public MainPage clickDataSourceDropDown() {
-        click(dataSourceDropDown);
-
-        return this;
-    }
-
-    public List<String> getDataSourceOptionsTexts() {
-
-        return getListText(dataSourceOptions);
-    }
-
-    public MainPage clickAllDataSourceOptions() {
-        for (int i = 0; i < dataSourceOptions.size(); i++) {
-            click(dataSourceOptions.get(i));
-            click(dataSourceDropDown);
-        }
 
         return this;
     }
@@ -536,27 +600,11 @@ public class MainPage extends FooterMenuPage {
         return this;
     }
 
-    public MainPage clickFirstDataSourceOption() {
-        click(dataSourceOptions.get(0));
-
-        return this;
-    }
-
-    public String getDataSourceDropDownText() {
-
-        return getText(dataSourceDropDown);
-    }
-
     public MainPage inputTextInEmailTextbox() {
         String randomEmail = TestUtils.getRandomName(7) + "@gmail.com";
         input(randomEmail, emailTextbox);
 
         return this;
-    }
-
-    public String getEmailTextboxText() {
-
-        return getAttribute(emailTextbox, "_value");
     }
 
     public MainPage inputTextInAnyAdditionalInfoTextarea() {
@@ -565,55 +613,9 @@ public class MainPage extends FooterMenuPage {
         return this;
     }
 
-    public String getAnyAdditionalInfoText() {
-
-        return getAttribute(anyAdditionalInfoTextarea, "_value");
-    }
-
-    public MainPage clickOutOfDifferentWeatherContainer() {
-        Actions action = new Actions(getDriver());
-        action.moveByOffset(0, 0).click().build().perform();
-        getWait10().until(ExpectedConditions.invisibilityOf(differentWeatherPopUpContainer));
-
-        return this;
-    }
-
-    public List<String> getListOfEightDaysDataText() {
-        scrollByVisibleElement(currentDateFromEightDaysForecast);
-        return getListText(listOfEightDaysData);
-    }
-
-    public String getEightDaysForecastCalendarSequanceText() {
-
-        final String[] dowMonDate = currentDateFromEightDaysForecast.getText().split(" ");
-        final String dowText = dowMonDate[0].substring(0, 3);
-        final int monNum = DateTimeUtils.returnMonth(dowMonDate[1]);
-        final int date = Integer.parseInt(dowMonDate[2]);
-
-        return DateTimeUtils.getEightDaysFromDate(dowText, monNum, date, Year.now().getValue());
-    }
-
-    public String getWeatherAlertText() {
-
-        return getText(weatherAlert);
-    }
-
-    public List<String> getListWeatherDescriptionText() {
-        getActions().scrollByAmount(0, 500).perform();
-
-        return getListText(weatherDescription);
-    }
-
     public MainPage scrollByOrangeBackground() {
         scrollByVisibleElement(orangeBackground);
 
         return this;
-    }
-
-    public CurrentWeatherPage clickCurrentWeatherIcon() {
-        wait10ElementToBeClickable(currentWeatherIcon);
-        click20(currentWeatherIcon);
-
-        return new CurrentWeatherPage(getDriver());
     }
 }

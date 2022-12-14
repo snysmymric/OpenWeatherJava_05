@@ -435,7 +435,7 @@ public class MainTest extends BaseTest {
 
         List<String> listOfEightDaysData = openBaseURL().getListOfEightDaysDataText();
 
-        String expectedResult = new MainPage(getDriver()).getEightDaysForecastCalendarSequanceText();
+        String expectedResult = new MainPage(getDriver()).getEightDaysForecastCalendarSequenceText();
 
         String actualResult = listOfEightDaysData.toString().substring(1, listOfEightDaysData.toString().length() - 1);
 

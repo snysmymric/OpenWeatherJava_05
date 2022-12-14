@@ -27,22 +27,22 @@ public class APIOneCall3Test extends BaseTest {
                 .clickAPIMenu()
                 .clickAPIDocButton();
 
-        String actualParameteres = apiOneCall3Page.getAPIOneCall3Parametres().get(0);
+        String actualParameteres = apiOneCall3Page.getAPIOneCall3Parametrs().get(0);
         Assert.assertEquals(actualParameteres,expectedParametres);
 
-        String actualFirstParameter = apiOneCall3Page.getAPIOneCall3Parametres().get(1);
+        String actualFirstParameter = apiOneCall3Page.getAPIOneCall3Parametrs().get(1);
         Assert.assertEquals(actualFirstParameter,expectedFirstParameter);
 
-        String actualSecondParameter = apiOneCall3Page.getAPIOneCall3Parametres().get(2);
+        String actualSecondParameter = apiOneCall3Page.getAPIOneCall3Parametrs().get(2);
         Assert.assertEquals(actualSecondParameter,expectedSecondParameter);
 
-        String actualThirdParameter = apiOneCall3Page.getAPIOneCall3Parametres().get(3);
+        String actualThirdParameter = apiOneCall3Page.getAPIOneCall3Parametrs().get(3);
         Assert.assertEquals(actualThirdParameter,expectedThirdParameter);
 
-        String actualFourthParameter = apiOneCall3Page.getAPIOneCall3Parametres().get(4);
+        String actualFourthParameter = apiOneCall3Page.getAPIOneCall3Parametrs().get(4);
         Assert.assertEquals(actualFourthParameter,expectedFourthParameter);
 
-        String actualFifthParameter = apiOneCall3Page.getAPIOneCall3Parametres().get(5);
+        String actualFifthParameter = apiOneCall3Page.getAPIOneCall3Parametrs().get(5);
         Assert.assertEquals(actualFifthParameter,expectedFifthParameter);
     }
 }
