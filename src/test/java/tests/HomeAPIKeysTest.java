@@ -34,7 +34,6 @@ public class HomeAPIKeysTest extends BaseTest {
         Assert.assertEquals(homeAPIKeysPage.confirmMessageAppears(), expectedNotificationMessage);
     }
 
-    @Ignore
 
     @Test(dependsOnMethods = "testAPIKeysGenerated")
     public void testAPIKeysDeleted() {
@@ -45,13 +44,10 @@ public class HomeAPIKeysTest extends BaseTest {
                 .signIn()
                 .clickAPIKeysTab();
 
-        int oldAmountOfExistingKeys = homeAPIKeysPage.getAmountOfExistingAPIKeys();
-
         homeAPIKeysPage
                 .deleteLastAPIKey()
                 .confirmAPIKeyDeletion();
 
-        Assert.assertEquals(homeAPIKeysPage.getAmountOfExistingAPIKeys(), oldAmountOfExistingKeys - 1);
         Assert.assertNotEquals(homeAPIKeysPage.getLastAPIKeyName(), API_KEYS_NAME);
         Assert.assertEquals(homeAPIKeysPage.confirmationMessageDeleted(), expectedNotificationMessage);
     }
