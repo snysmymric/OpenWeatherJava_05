@@ -261,4 +261,14 @@ public class FooterMenuTest extends BaseTest {
         Assert.assertTrue(actualSubscriptionTexts.size() > 0);
         Assert.assertEquals(actualSubscriptionTexts, expectedSubscriptionTexts);
     }
+
+    @Test
+    public void testStorePanelExistsAndHasIcons() {
+        final int expectedQuantity = 2;
+
+        MainPage mainPage = openBaseURL();
+
+        Assert.assertTrue(mainPage.storePanelIsDisplayed());
+        Assert.assertEquals(mainPage.getStoresIconsSize(), expectedQuantity);
+    }
 }

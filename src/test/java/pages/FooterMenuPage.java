@@ -77,6 +77,9 @@ public abstract class FooterMenuPage extends TopMenuPage {
     @FindBy(xpath = "//div[@class = 'inner-footer-container']//a")
     private List<WebElement> footerMenuLinks;
 
+    @FindBy(xpath = "//div[@class='my-5']/div[@style='display: flex; flex-direction: row;']/a")
+    private List<WebElement> storePanelIconsFooterMenu;
+
     public FooterMenuPage(WebDriver driver) {
         super(driver);
     }
@@ -236,5 +239,15 @@ public abstract class FooterMenuPage extends TopMenuPage {
         allElementsVisibleAndClickable(footerMenuLinks);
 
         return getListSize(footerMenuLinks);
+    }
+
+    public boolean storePanelIsDisplayed() {
+
+        return isElementsInListDisplayed(storePanelIconsFooterMenu);
+    }
+
+    public int getStoresIconsSize() {
+
+        return getListSize(storePanelIconsFooterMenu);
     }
 }
