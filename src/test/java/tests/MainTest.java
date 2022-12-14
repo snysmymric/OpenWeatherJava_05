@@ -5,7 +5,7 @@ import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import pages.CurrentWeatherPage;
-import pages.HomeSignInPage;
+import pages.home.HomeSignInPage;
 import pages.MainPage;
 import utils.DateTimeUtils;
 import java.util.List;

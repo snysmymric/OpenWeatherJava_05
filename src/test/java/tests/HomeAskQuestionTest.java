@@ -1,11 +1,8 @@
 package tests;
 
 import base.BaseTest;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import org.bouncycastle.crypto.agreement.srp.SRP6Client;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import pages.HomeAskQuestionPage;
 
 public class HomeAskQuestionTest extends BaseTest {
 

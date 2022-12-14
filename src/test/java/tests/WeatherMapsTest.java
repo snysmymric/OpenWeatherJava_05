@@ -3,7 +3,7 @@ package tests;
 import base.BaseTest;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import pages.WeatherMapsPage;
+import pages.top_menu.WeatherMapsPage;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -3,7 +3,7 @@ package tests;
 import base.BaseTest;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import pages.HomeZipCodeDataNewPage;
+import pages.home.HomeZipCodeDataNewPage;
 
 public class HomeMarketplaceTest extends BaseTest {
 

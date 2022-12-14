@@ -1,9 +1,15 @@
-package pages;
+package pages.base_abstract;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import pages.*;
+import pages.top_menu.*;
+import pages.home.HomeAskQuestionPage;
+import pages.home.HomeMarketplacePage;
+import pages.home.HomePage;
+import pages.home.HomeSignInPage;
 
 import java.util.ArrayList;
 import java.util.List;

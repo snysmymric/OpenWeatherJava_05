@@ -1,8 +1,11 @@
-package pages;
+package pages.top_menu;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import pages.APIOneCall3Page;
+import pages.base_abstract.FooterMenuPage;
+
 import java.util.List;
 
 public class APIPage extends FooterMenuPage {

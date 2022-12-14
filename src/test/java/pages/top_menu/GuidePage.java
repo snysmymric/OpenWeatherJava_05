@@ -1,9 +1,11 @@
-package pages;
+package pages.top_menu;
 
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import pages.RoadRiskAPIPage;
+import pages.base_abstract.FooterMenuPage;
 
 import java.util.List;
 

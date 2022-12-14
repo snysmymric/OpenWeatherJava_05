@@ -3,8 +3,8 @@ package tests;
 import base.BaseTest;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import pages.HomePage;
-import pages.HomeSignInPage;
+import pages.home.HomePage;
+import pages.home.HomeSignInPage;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,9 +1,12 @@
-package pages;
+package pages.top_menu;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.testng.reporters.jq.Main;
+import pages.base_abstract.FooterMenuPage;
+import pages.home.HomeDashBoardEventsPage;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
 

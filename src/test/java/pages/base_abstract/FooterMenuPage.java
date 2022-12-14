@@ -1,10 +1,15 @@
-package pages;
+package pages.base_abstract;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.testng.annotations.Test;
+import pages.*;
+import pages.footer_menu.AboutUsPage;
+import pages.footer_menu.TechnologyPage;
+import pages.footer_menu.WidgetsPage;
+import pages.home.HomeAskQuestionPage;
+import pages.top_menu.PricePage;
+import pages.top_menu.WeatherDashboardPage;
 
 import java.util.ArrayList;
 import java.util.List;

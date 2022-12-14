@@ -3,7 +3,7 @@ package tests;
 import base.BaseTest;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import pages.FAQPage;
+import pages.top_menu.FAQPage;
 import pages.MainPage;
 
 public class FAQTest extends BaseTest {

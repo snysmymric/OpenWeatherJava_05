@@ -3,7 +3,7 @@ package tests;
 import base.BaseTest;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import pages.GuidePage;
+import pages.top_menu.GuidePage;
 import pages.RoadRiskAPIPage;
 
 public class GuideTest extends BaseTest {

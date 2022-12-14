@@ -4,6 +4,12 @@ import base.BaseTest;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import pages.*;
+import pages.base_abstract.FooterMenuPage;
+import pages.footer_menu.AboutUsPage;
+import pages.footer_menu.TechnologyPage;
+import pages.footer_menu.WidgetsPage;
+import pages.home.HomeAskQuestionPage;
+import pages.top_menu.WeatherDashboardPage;
 
 import java.util.ArrayList;
 import java.net.MalformedURLException;

@@ -4,6 +4,7 @@ import base.BaseTest;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import pages.*;
+import pages.top_menu.*;
 
 import java.util.List;
 

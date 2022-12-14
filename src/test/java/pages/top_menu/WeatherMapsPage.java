@@ -1,9 +1,11 @@
-package pages;
+package pages.top_menu;
+
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import pages.base_abstract.TopMenuPage;
 
 import java.util.List;
 
@@ -33,6 +35,7 @@ public class WeatherMapsPage extends TopMenuPage {
     public WeatherMapsPage(WebDriver driver) {
         super(driver);
     }
+
     public WeatherMapsPage clickZoomInLoupe() {
         click(zoomInLoupe);
 

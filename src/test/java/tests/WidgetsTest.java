@@ -4,7 +4,7 @@ import base.BaseTest;
 import org.testng.Assert;
 import org.testng.Reporter;
 import org.testng.annotations.Test;
-import pages.WidgetsPage;
+import pages.footer_menu.WidgetsPage;
 
 import java.util.List;
 

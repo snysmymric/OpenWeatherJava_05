@@ -3,10 +3,10 @@ package tests;
 import base.BaseTest;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import pages.WeatherDashboardPage;
+import pages.top_menu.WeatherDashboardPage;
 
 import static org.testng.Assert.assertEquals;
-import static pages.HomeDashBoardNewTriggerPage.FAHRENHEIT;
+import static pages.home.HomeDashBoardNewTriggerPage.FAHRENHEIT;
 
 public class WeatherDashboardTest extends BaseTest {
 
