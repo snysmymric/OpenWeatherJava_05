@@ -90,6 +90,7 @@ public class DateTimeUtils {
                     return "Dec";
             }
         }
+
         return "Error";
     }
 
@@ -122,12 +123,12 @@ public class DateTimeUtils {
                     return 12;
             }
         }
+
         return 0;
     }
 
     public static String returnDayOfTheWeek(int number) {
         if (number > 0 && number < 8) {
-
             switch (number) {
                 case 1:
                     return "Mon";
@@ -145,12 +146,12 @@ public class DateTimeUtils {
                     return "Sun";
             }
         }
+
         return "Error";
     }
 
     public static int returnDayOfTheWeek(String day) {
         if (day != null) {
-
             switch (day) {
                 case "Mon":
                     return 1;
@@ -177,12 +178,12 @@ public class DateTimeUtils {
 
             return "0" + date;
         } else {
+
             return String.valueOf(date);
         }
     }
 
     public static String getEightDaysFromDate(String day, int month, int date, int year) {
-
         int currentYear = year;
         StringBuilder stringBuilder = new StringBuilder();
 
@@ -190,7 +191,8 @@ public class DateTimeUtils {
                 returnMonth(month).equals("Error") ||
                 month <= 0 ||
                 date <= 0 ||
-                date > (daysInMonth(month, year))) {
+                date > (daysInMonth(month, year))
+        ) {
 
             return "Please enter correct data.";
 
@@ -224,6 +226,7 @@ public class DateTimeUtils {
                 }
             }
         }
+
         return stringBuilder.substring(0, stringBuilder.length() - 2);
     }
 }

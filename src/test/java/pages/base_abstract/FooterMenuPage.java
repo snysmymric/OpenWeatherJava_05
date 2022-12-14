@@ -16,31 +16,34 @@ import java.util.List;
 
 public abstract class FooterMenuPage extends TopMenuPage {
 
-    @FindBy(xpath = "//div[@id='footer-website']//a[@href='/weather-dashboard']")
+    final static String FOOTER_MENU_ID = "//div[@id='footer-website']";
+
+    @FindBy(xpath = FOOTER_MENU_ID + "//a[@href='/weather-dashboard']")
     private WebElement weatherDashboardFooterMenu;
 
-    @FindBy(css = "a[href='/technology']")
+    @FindBy(css = FOOTER_MENU_ID + "a[href='/technology']")
     private WebElement ourTechnologyFooterMenu;
 
-    @FindBy(css = "a[href='https://openweather.co.uk/privacy-policy']")
+    @FindBy(css = FOOTER_MENU_ID + "a[href='https://openweather.co.uk/privacy-policy']")
     private WebElement privacyPolicyFooterMenu;
 
-    @FindBy(xpath = "//a[@href = '/about-us']")
+    @FindBy(xpath = FOOTER_MENU_ID + "//a[@href = '/about-us']")
     private WebElement aboutUsFooterMenu;
 
-    @FindBy(xpath = "//div[@class='section-content']/ul/li/a[@href='/widgets-constructor']")
+    @FindBy(xpath = FOOTER_MENU_ID + "//a[@href='/widgets-constructor']")
     private WebElement widgetsFooterMenu;
 
-    @FindBy(xpath = "//a[@href='https://apps.apple.com/gb/app/openweather/id1535923697'] [@target='_blank']")
+    @FindBy(xpath = FOOTER_MENU_ID + "//a[@href='https://apps.apple.com/gb/app/openweather/id1535923697'] "
+            + "[@target='_blank']")
     private WebElement downloadOnTheAppStoreLinkFooterMenu;
 
     @FindBy(className = "social")
     private WebElement socialPanelFooterMenu;
 
-    @FindBy(xpath = "//div[@class='social']/a")
+    @FindBy(xpath = FOOTER_MENU_ID + "//div[@class='social']/a")
     private List<WebElement> socialPanelIconsFooterMenu;
 
-    @FindBy(xpath = "//img[@src='/themes/openweathermap/assets/img/owm_icons/icon_github.png']")
+    @FindBy(xpath = FOOTER_MENU_ID + "//a[@href='https://github.com/search?q=openweathermap&ref=cmdform']")
     private WebElement githubIconFooterMenu;
 
     @FindBy(xpath = "//a[@href='https://github.com/search?q=openweathermap&ref=cmdform']")

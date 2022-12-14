@@ -39,7 +39,6 @@ public final class BaseUtils {
         }
     }
 
-
     private static final ChromeOptions chromeOptions;
     static {
         initProperties();
@@ -65,7 +64,6 @@ public final class BaseUtils {
 
     static WebDriver createDriver() {
         WebDriver driver = new ChromeDriver(chromeOptions);
-        //driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(10));
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 
         return driver;

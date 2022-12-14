@@ -12,11 +12,14 @@ public class TestUtils {
     }
 
     public static String getRandomName(int length) {
-        return RandomStringUtils.random(length,
+
+        return RandomStringUtils
+                .random(length,
                 "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789");
     }
 
     public static String getRandomName() {
+
         return getRandomName(7);
     }
 }

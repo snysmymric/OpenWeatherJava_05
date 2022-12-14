@@ -22,16 +22,17 @@ public abstract class BaseTest {
     public final String BASE_URL = TestUtils.getBaseUrl();
     private WebDriver driver;
     private WebDriverWait webDriverWait20;
-    private WebDriverWait webDriverWait10;
 
     @BeforeSuite
     protected void beforeSuite(ITestContext context) {
+
         Reporter.log(ReportUtils.getReportHeader(context), true);
     }
 
     @BeforeMethod
     protected void beforeMethod(Method method, ITestResult result) {
         driver = BaseUtils.createDriver();
+
         Reporter.log(ReportUtils.END_LINE, true);
         Reporter.log("TEST RUN", true);
         Reporter.log(ReportUtils.getClassNameTestName(method, result), true);
@@ -41,18 +42,12 @@ public abstract class BaseTest {
     protected void afterMethod(Method method, ITestResult result) {
         Reporter.log(ReportUtils.getTestStatistics(method, result), true);
 
-//        HomeSignInPage homeSignInPage = new HomeSignInPage(getDriver());
-//        if (!homeSignInPage.getSignInTopMenuText().equalsIgnoreCase("Sign In")) {
-//            homeSignInPage.signOut();
-//        }
-//        Reporter.log(homeSignInPage.getWelcomeMassage(), true);
-
         driver.quit();
         webDriverWait20 = null;
-        webDriverWait10 = null;
     }
 
     protected WebDriver getDriver() {
+
         return driver;
     }
 
@@ -62,14 +57,6 @@ public abstract class BaseTest {
         }
 
         return webDriverWait20;
-    }
-
-    protected WebDriverWait getWait10() {
-        if (webDriverWait10 == null) {
-            webDriverWait10 = new WebDriverWait(driver, Duration.ofSeconds(10));
-        }
-
-        return webDriverWait10;
     }
 
     public MainPage openBaseURL() {
@@ -99,12 +86,12 @@ public abstract class BaseTest {
         return isElementExists(by);
     }
 
-    public void waitForGrayContainerDisappeared() {
+    private void waitForGrayContainerDisappeared() {
         getWait20().until(ExpectedConditions.invisibilityOfElementLocated(
                 By.className("owm-loader-container")));
     }
 
-    public boolean isElementExists(By by) {
+    private boolean isElementExists(By by) {
         boolean isExists = true;
         try {
             driver.findElement(by);

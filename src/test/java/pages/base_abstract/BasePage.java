@@ -376,4 +376,6 @@ public abstract class BasePage {
         }
         return visibleElements;
     }
+
+    //driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(10));
 }
