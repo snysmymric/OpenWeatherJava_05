@@ -373,37 +373,5 @@ public abstract class BasePage {
         return equals;
     }
 
-    public List<String> getTrimTexts(List<WebElement> elements) {
-        List<String> texts = new ArrayList<>();
-
-        for (WebElement element : elements) {
-            texts.add(getText(element).trim());
-        }
-
-        return texts;
-    }
-
-    public void goBack() {
-        getDriver().navigate().back();
-    }
-
-    protected List<WebElement> getListOfVisibleElements(List<WebElement> list, int listSize) {
-        List<WebElement> visibleElements = new ArrayList<>();
-
-        if (!(list.size() > 0)) {
-            getWait20().until(ExpectedConditions.visibilityOfAllElements(list));
-            for (WebElement element : list) {
-                if (!element.isDisplayed() && !element.isEnabled()) {
-                    getWait20().until(ExpectedConditions.visibilityOf(element));
-                    visibleElements.add(element);
-                }
-            }
-        } else if (list.size() == listSize) {
-
-            return  list;
-        }
-        return visibleElements;
-    }
-
     //driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(10));
 }

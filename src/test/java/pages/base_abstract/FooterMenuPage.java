@@ -46,14 +46,11 @@ public abstract class FooterMenuPage extends TopMenuPage {
     @FindBy(xpath = FOOTER_MENU_ID + "//a[@href='https://github.com/search?q=openweathermap&ref=cmdform']")
     private WebElement githubIconFooterMenu;
 
-    @FindBy(xpath = "//a[@href='https://github.com/search?q=openweathermap&ref=cmdform']")
-    private WebElement githubIconLinkFooterMenu;
-
-    @FindBy(xpath = "//div[@id='footer-website']//a[@href='/stations']")
+    @FindBy(xpath = FOOTER_MENU_ID + "//a[@href='/stations']")
     private WebElement connectYourWeatherStationFooterMenu;
 
-    @FindBy(xpath = ".//p[text()='Download OpenWeather app']")
-    private WebElement textDownloadOpenWeatherApp;
+    @FindBy(xpath = FOOTER_MENU_ID +"//p[text()='Download OpenWeather app']")
+    private WebElement downloadOpenWeatherApp;
 
     @FindBy(xpath = "//div[@id = 'footer-website']//a[@href = 'https://home.openweathermap.org/questions']")
     private WebElement askQuestionFooterMenu;
