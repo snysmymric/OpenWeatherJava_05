@@ -7,40 +7,34 @@ import pages.base_abstract.FooterMenuPage;
 
 public class HomeSignUpPage extends FooterMenuPage {
 
-    @FindBy(xpath = "//div[@class='sign-form']//input[@id='user_username']")
+    @FindBy(xpath = "//input[@id='user_username']")
     private WebElement usernameField;
 
-    @FindBy(xpath = "//div[@class='sign-form']//input[@id='user_email']")
-    private WebElement enterEmail;
+    @FindBy(xpath = "//input[@id='user_email']")
+    private WebElement enterEmailField;
 
-    @FindBy(xpath = "//div[@class='sign-form']//input[@id='user_password']")
-    private WebElement userPassword;
+    @FindBy(xpath = "//input[@id='user_password']")
+    private WebElement userPasswordField;
 
-    @FindBy(xpath = "//div[@class='sign-form']//input[@id='user_password_confirmation']")
-    private WebElement repeatPassword;
+    @FindBy(xpath = "//input[@id='user_password_confirmation']")
+    private WebElement repeatUserPasswordField;
 
-    @FindBy(xpath = "//div[@class='sign-form']//input[@id='agreement_is_age_confirmed']")
+    @FindBy(xpath = "//input[@id='agreement_is_age_confirmed']")
     private WebElement ageConfirmCheckbox;
 
-    @FindBy(xpath = "//div[@class='sign-form']//input[@id='agreement_is_accepted']")
+    @FindBy(xpath = "//input[@id='agreement_is_accepted']")
     private WebElement agreementCheckbox;
 
-    @FindBy(xpath = "//div[@class='sign-form']//input[@id='mailing_system']")
+    @FindBy(xpath = "//input[@id='mailing_system']")
     private WebElement mailingSystemCheckbox;
 
-    @FindBy(xpath = "//div[@class='sign-form']//input[@id='mailing_product']")
+    @FindBy(xpath = "//input[@id='mailing_product']")
     private WebElement mailingProductCheckbox;
 
-    @FindBy(xpath = "//div[@class='sign-form']//input[@id='mailing_news']")
+    @FindBy(xpath = "//input[@id='mailing_news']")
     private WebElement mailingNewsCheckbox;
 
-    @FindBy(xpath = "//body[@class='body-orange']")
-    private WebElement bodyOrange;
-
-    @FindBy(xpath = "//span[@id='recaptcha-anchor']")
-    private WebElement captchaCheckbox;
-
-    @FindBy(xpath = "//div[@class='sign-form']//input[@value='Create Account']")
+    @FindBy(xpath = "//input[@value='Create Account']")
     private WebElement createAccountButton;
 
     @FindBy(xpath = "//div[@class='has-error']/div[@class='help-block']")
@@ -50,62 +44,47 @@ public class HomeSignUpPage extends FooterMenuPage {
         super(driver);
     }
 
-    protected WebElement getCaptchaCheckbox() {
+    public String getErrorCaptchaMessage() {
 
-        return captchaCheckbox;
-    }
-
-    public HomeSignUpPage scrollByCaptchaCheckbox() {
-        scrollByVisibleElement(getCaptchaCheckbox());
-
-        return this;
-    }
-
-    public HomeSignUpPage waitCaptchaToBeClickable() {
-        wait20ElementToBeClickable(getCaptchaCheckbox());
-
-        return this;
-    }
-
-    public HomeSignUpPage clickCaptchaCheckbox() {
-        click(captchaCheckbox);
-        getWait10();
-
-        return this;
+        return getText(errorCaptchaMessage);
     }
 
     public HomeSignUpPage clickClearInputNewUsername() {
+        String username = "Tester";
+
         click(usernameField);
         usernameField.clear();
-        String username = "Tester";
         input(username, usernameField);
 
         return this;
     }
 
     public HomeSignUpPage clickClearInputNewUserEmail() {
-        click(enterEmail);
-        enterEmail.clear();
         String email = "jka59433@xcoxc.com";
-        input(email, enterEmail);
+
+        click(enterEmailField);
+        enterEmailField.clear();
+        input(email, enterEmailField);
 
         return this;
     }
 
     public HomeSignUpPage clickClearInputNewUserPassword() {
-        click(userPassword);
-        userPassword.clear();
         String password = "Tester12#";
-        input(password, userPassword);
+
+        click(userPasswordField);
+        userPasswordField.clear();
+        input(password, userPasswordField);
 
         return this;
     }
 
     public HomeSignUpPage clickClearInputRepeatPassword() {
-        click(repeatPassword);
-        repeatPassword.clear();
         String password = "Tester12#";
-        input(password, repeatPassword);
+
+        click(repeatUserPasswordField);
+        repeatUserPasswordField.clear();
+        input(password, repeatUserPasswordField);
 
         return this;
     }
@@ -124,10 +103,5 @@ public class HomeSignUpPage extends FooterMenuPage {
 
     public void clickCreateAccountButton() {
         click(createAccountButton);
-    }
-
-    public String getErrorCaptchaMessage() {
-
-        return getText(errorCaptchaMessage);
     }
 }

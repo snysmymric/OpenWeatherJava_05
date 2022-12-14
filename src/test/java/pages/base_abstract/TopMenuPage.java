@@ -121,6 +121,11 @@ public abstract class TopMenuPage extends BasePage {
         return getListSize(hamburgerTopMenuDropdownLinks);
     }
 
+    public String getOriginalHandle() {
+
+        return originalHandle;
+    }
+
     public List<String> getHamburgerMenuList () {
 
         return getListText(hamburgerTopMenuDropdownLinks);
@@ -192,16 +197,49 @@ public abstract class TopMenuPage extends BasePage {
         return new HowToStartPage(getDriver());
     }
 
-    public FindPage inputSearchCriteriaIntoSearchFieldAndEnter(String text) {
-        inputAndEnter(searchFieldTopMenu, text);
-
-        return new FindPage(getDriver());
-    }
-
     public WeatherDashboardPage clickDashboardMenu() {
         click(dashboardTopMenu);
 
         return new WeatherDashboardPage(getDriver());
+    }
+
+    public List<String> clickAllMenus() {
+        String mainWindow = getDriver().getWindowHandle();
+        List<String> urlList = new ArrayList<>();
+
+        for (int i = 0; i < topMenuButtons.size() - 1; i++) {
+            click(topMenuButtons.get(i));
+            if (getDriver().getWindowHandles().size() > 1) {
+                switchToAnotherWindow();
+                urlList.add(getCurrentURL());
+                getDriver().close();
+                getDriver().switchTo().window(mainWindow);
+            } else {
+                urlList.add(getCurrentURL());
+            }
+        }
+
+        return urlList;
+    }
+
+    public MainPage clickAndClearSearchFieldTopMenu() {
+        click(searchFieldTopMenu);
+        clear(searchFieldTopMenu);
+
+        return new MainPage(getDriver());
+    }
+
+    public MainPage clickHamburgerMenuIcon() {
+        click(hamburgerTopMenuIcon);
+
+        return new MainPage(getDriver());
+    }
+
+    public HomeAskQuestionPage clickAskQuestionSupportSubmenu() {
+        click(askQuestionSupportSubmenu);
+        switchToAnotherWindow();
+
+        return new HomeAskQuestionPage(getDriver());
     }
 
     public WeatherDashboardPage clickDashboardMenuSaveOriginalHandle() {
@@ -229,43 +267,10 @@ public abstract class TopMenuPage extends BasePage {
         return new HomeSignInPage(getDriver());
     }
 
-    public List<String> clickAllMenus() {
-        String mainWindow = getDriver().getWindowHandle();
-        List<String> urlList = new ArrayList<>();
+    public FindPage inputSearchCriteriaIntoSearchFieldAndEnter(String text) {
+        inputAndEnter(searchFieldTopMenu, text);
 
-        for (int i = 0; i < topMenuButtons.size() - 1; i++) {
-            click(topMenuButtons.get(i));
-            if (getDriver().getWindowHandles().size() > 1) {
-                switchToAnotherWindow();
-                urlList.add(getCurrentURL());
-                getDriver().close();
-                getDriver().switchTo().window(mainWindow);
-            } else {
-                urlList.add(getCurrentURL());
-            }
-        }
-
-        return urlList;
-    }
-
-    public MainPage clickAndClearSearchFieldTopMenu() {
-        click(searchFieldTopMenu);
-        clear(searchFieldTopMenu);
-
-       return new MainPage(getDriver());
-    }
-
-    public MainPage clickHamburgerMenuIcon() {
-        click(hamburgerTopMenuIcon);
-
-        return new MainPage(getDriver());
-    }
-
-    public HomeAskQuestionPage clickAskQuestionSupportSubmenu() {
-        click(askQuestionSupportSubmenu);
-        switchToAnotherWindow();
-
-        return new HomeAskQuestionPage(getDriver());
+        return new FindPage(getDriver());
     }
     
     public FindPage inputRomeIntoSearchFieldAndEnter() {
@@ -281,11 +286,6 @@ public abstract class TopMenuPage extends BasePage {
         this.originalHandle = getDriver().getWindowHandle();
 
         return this;
-    }
-
-    public String getOriginalHandle() {
-
-        return originalHandle;
     }
 
     public TopMenuPage closeOpenedTab() {

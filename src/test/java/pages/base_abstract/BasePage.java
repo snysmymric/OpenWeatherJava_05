@@ -169,18 +169,30 @@ public abstract class BasePage {
         wait10ElementToBeClickable(element).click();
     }
 
-    protected void goBack() {
-        getDriver().navigate().back();
-    }
-
     protected void clickByJavaScript(WebElement element) {
         JavascriptExecutor executor = (JavascriptExecutor) driver;
         executor.executeScript("arguments[0].click();", element);
     }
 
+    protected void clickAKey(WebElement element, Keys key) {
+        getWait10().until(ExpectedConditions.visibilityOf(element));
+        element.sendKeys(key);
+    }
+
     protected void click20(WebElement element) {
         wait20ElementToBeVisible(element);
         wait20ElementToBeClickable(element).click();
+    }
+
+    protected void clickAllElements(List<WebElement> elements) {
+        List<WebElement> allElements = new ArrayList<>(elements);
+
+        for (WebElement checkedElement : allElements) {
+            if (checkedElement.isEnabled() && checkedElement.isDisplayed()) {
+                wait10ElementToBeVisible(checkedElement);
+                wait10ElementToBeClickable(checkedElement).click();
+            }
+        }
     }
 
     protected void switchToAnotherWindow() {
@@ -208,25 +220,9 @@ public abstract class BasePage {
         element.sendKeys(text, Keys.ENTER);
     }
 
-    protected void clickAllElements(List<WebElement> elements) {
-        List<WebElement> allElements = new ArrayList<>(elements);
-
-        for (WebElement checkedElement : allElements) {
-            if (checkedElement.isEnabled() && checkedElement.isDisplayed()) {
-                wait10ElementToBeVisible(checkedElement);
-                wait10ElementToBeClickable(checkedElement).click();
-            }
-        }
-    }
-
     protected void clear(WebElement element) {
 
         element.clear();
-    }
-
-    protected void clickAKey(WebElement element, Keys key) {
-        getWait10().until(ExpectedConditions.visibilityOf(element));
-        element.sendKeys(key);
     }
 
     protected void inputText(WebElement element, String text) {
@@ -239,6 +235,10 @@ public abstract class BasePage {
         while (element.getText() == null || element.getText().length() < 1) {
             getWait20().until(ExpectedConditions.not(ExpectedConditions.textToBePresentInElement(element, "")));
         }
+    }
+
+    protected void goBack() {
+        getDriver().navigate().back();
     }
 
     protected boolean isDisplayedElement(WebElement element) {

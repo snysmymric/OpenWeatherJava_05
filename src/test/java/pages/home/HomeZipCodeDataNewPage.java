@@ -4,8 +4,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-
-import java.util.ArrayList;
 import java.util.List;
 
 public class HomeZipCodeDataNewPage extends HomeMarketplacePage {
@@ -103,28 +101,12 @@ public class HomeZipCodeDataNewPage extends HomeMarketplacePage {
 
     public List<String> getStatesNames() {
 
-        List<String> statesNames = new ArrayList<>();
-        statesNames = getTexts(stateList);
-
-        return statesNames;
+        return getTexts(stateList);
     }
 
     public List<String> getYearsNames() {
 
-        List<String> yearsNames = new ArrayList<>();
-        yearsNames = getTexts(yearList);
-
-        return yearsNames;
-    }
-
-    public HomeZipCodeDataNewPage clickDropdownSelectStateButton() {
-        click20(dropdownSelectStateButton);
-        return this;
-    }
-
-    public HomeZipCodeDataNewPage clickDropdownSelectYearButton() {
-        click20(dropdownSelectYearButton);
-        return this;
+        return getTexts(yearList);
     }
 
     public String getVirginiaTotalPrice() {
@@ -132,17 +114,81 @@ public class HomeZipCodeDataNewPage extends HomeMarketplacePage {
         return getText(totalPrice).substring(6);
     }
 
-    public List<String> getStatesPricesZipCodes() {
-
-        List<String> statesPricesZipCodes = getTexts(statesPricesZipcodes);
-
-        return statesPricesZipCodes;
-    }
-
     public List<String> getWeatherParameters() {
-        List<String> weather_Parameters = new ArrayList<>();
 
         return getTexts(weatherParameters);
+    }
+
+    public String getPlaceOrderPopUpHeader() {
+
+        return getText(placeOrderPopUpHeader);
+    }
+
+    public List<String> getOrderParametersTexts() {
+
+        return getListText(orderParameters);
+    }
+
+    public String getBillingDetailsHeader() {
+
+        return getText(billingHeader);
+    }
+
+    public String getBillingAddressHeader() {
+
+        return getText(billingHeader);
+    }
+
+    public String getAttributeTopPopUpWindow1() {
+
+        return getAttribute(orderPopUpWindow1, "class");
+    }
+
+    public String getAttributeTopPopUpWindow2() {
+
+        return getAttribute(orderPopUpWindow2, "class");
+    }
+
+    public String getAttributeTopPopUpWindow3() {
+
+        return getAttribute(orderPopUpWindow3, "class");
+    }
+
+    public String getErrorMessageText() {
+
+        return getText(errorMessage);
+    }
+
+    public String getFirstNameFieldText() {
+
+        return getText(firstNameField);
+    }
+
+    public String getLastNameFieldText() {
+
+        return getText(lastNameField);
+    }
+
+    public String getPhoneNumberFieldText() {
+
+        return getText(phoneField);
+    }
+
+    public String getEmailFieldText() {
+
+        return getText(emailField);
+    }
+
+    public HomeZipCodeDataNewPage clickDropdownSelectStateButton() {
+        click20(dropdownSelectStateButton);
+
+        return this;
+    }
+
+    public HomeZipCodeDataNewPage clickDropdownSelectYearButton() {
+        click20(dropdownSelectYearButton);
+
+        return this;
     }
 
     public HomeZipCodeDataNewPage clickPlaceOrder() {
@@ -151,37 +197,12 @@ public class HomeZipCodeDataNewPage extends HomeMarketplacePage {
         return this;
     }
 
-    public HomeZipCodeDataNewPage waitUntilPlaceOrderPopUpIsVisible() {
-        wait10ElementToBeVisible(placeOrderContainer);
-
-        return this;
-    }
-
-    public String getPlaceOrderPopUpHeader() {
-
-        return getText(placeOrderPopUpHeader);
-    }
-
-    public List<WebElement> getOrderParameters() {
-
-        return getListOfVisibleElements(orderParameters, 6);
-    }
-
-    public List<String> getOrderParametersTexts() {
-
-        return getListText(orderParameters);
-    }
 
     public HomeZipCodeDataNewPage clickNextButton() {
         click20(nextButton);
         getWait10();
 
         return this;
-    }
-
-    public String getBillingDetailsHeader() {
-
-        return getText(billingHeader);
     }
 
     public HomeZipCodeDataNewPage inputFirstName(String firstName) {
@@ -208,20 +229,15 @@ public class HomeZipCodeDataNewPage extends HomeMarketplacePage {
         return this;
     }
 
-    public String getBillingAddressHeader() {
-
-        return getText(billingHeader);
-    }
-
     public HomeZipCodeDataNewPage clickState(String state) {
-        WebElement stateName = getDriver().findElement(By.xpath("//span[(text()='" + state + "')]"));
+        WebElement stateName = getDriver().findElement(By.xpath(String.format("//span[(text()='%s')]", state)));
         click20(stateName);
 
         return this;
     }
 
     public HomeZipCodeDataNewPage clickYear(String year) {
-        WebElement yearNumber = getDriver().findElement(By.xpath("//span[(text()='" + year + "')]"));
+        WebElement yearNumber = getDriver().findElement(By.xpath(String.format("//span[(text()='%s')]", year)));
         click20(yearNumber);
 
         return this;
@@ -232,61 +248,26 @@ public class HomeZipCodeDataNewPage extends HomeMarketplacePage {
         return isDisplayedElement(placeOrderContainer);
     }
 
-    public String getAttributeTopPopUpWindow1() {
-
-        return getAttribute(orderPopUpWindow1, "class");
-    }
-
-    public String getAttributeTopPopUpWindow2() {
-
-        return getAttribute(orderPopUpWindow2, "class");
-    }
-
-    public String getAttributeTopPopUpWindow3() {
-
-        return getAttribute(orderPopUpWindow3, "class");
-    }
-
     public boolean isNextButtonVisible() {
 
         return isDisplayedElement(nextButton);
     }
 
-    public String getErrorMessageText() {
-
-        return getText(errorMessage);
-    }
-
-    public String getFirstNameFieldText() {
-
-        return getText(firstNameField);
-    }
-
     public boolean isNextButtonSubmiting() {
         boolean isNextButtonEnabled = false;
+
         nextButton.click();
+
         if (getText(billingHeader).contains("Billing address")) {
             return !isNextButtonEnabled;
         }
+
             return isNextButtonEnabled;
     }
 
-    public String getLastNameFieldText() {
+    public HomeZipCodeDataNewPage waitUntilPlaceOrderPopUpIsVisible() {
+        wait10ElementToBeVisible(placeOrderContainer);
 
-        return getText(lastNameField);
+        return this;
     }
-
-    public String getPhoneNumberFieldText() {
-
-        return getText(phoneField);
-    }
-
-    public String getEmailFieldText() {
-
-        return getText(emailField);
-    }
-
-
-
-
 }

@@ -13,17 +13,38 @@ import java.util.List;
 public abstract class HomeTopMenuPage extends FooterMenuPage {
 
     @FindBy(xpath = "//li[@class='user-li']/a" )
-    private WebElement signInMenuTopMenu;
+    private WebElement signInTopMenu;
 
     @FindBy(xpath = "//ul[@id='myTab']/li")
     private List<WebElement> navTabLinks;
 
     public HomeTopMenuPage(WebDriver driver) {super(driver);}
 
+    public int getNavTabLinksAmount() {
+
+        return getListSize(navTabLinks);
+    }
+
     public HomeSignInPage clickSignInMenu() {
-        click(signInMenuTopMenu);
+        click(signInTopMenu);
 
         return new HomeSignInPage(getDriver());
+    }
+
+    public List<String> clickNavTabLinks() {
+        List<String> urlList = new ArrayList<>();
+        urlList.add(getCurrentURL());
+
+        for (int i = 1; i < navTabLinks.size(); i++) {
+            click(navTabLinks.get(i));
+            urlList.add(getCurrentURL());
+
+            if(i == 6) {
+                goBack();
+            }
+        }
+
+        return urlList;
     }
 
     public HomeSignInPage signOut() {
@@ -41,26 +62,5 @@ public abstract class HomeTopMenuPage extends FooterMenuPage {
                 .clickSubmitButton();
 
         return new HomePage(getDriver());
-    }
-
-    public int getNavTabLinksAmount() {
-
-        return getListSize(navTabLinks);
-    }
-
-    public List<String> clickNavTabLinks() {
-        List<String> urlList = new ArrayList<>();
-        urlList.add(getCurrentURL());
-
-        for (int i = 1; i < navTabLinks.size(); i++) {
-            click(navTabLinks.get(i));
-            urlList.add(getCurrentURL());
-
-            if(i == 6) {
-                goBack();
-            }
-        }
-
-        return urlList;
     }
 }
