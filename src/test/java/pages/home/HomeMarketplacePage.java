@@ -8,16 +8,19 @@ import java.util.List;
 
 public class HomeMarketplacePage extends HomeFooterMenuPage {
 
-    @FindBy(className = "button-round")
-    private List<WebElement> allButtons;
+    final static String HOME_MARKETPLACE_BUTTONS_CONTAINER = "//div[@class='button-container']/a";
+    final static String DESKTOP_MENU_ID = "//ul[@id='desktop-menu']/li/a";
 
-    @FindBy(xpath = "//ul[@id='desktop-menu']//a[@href='/history_bulks/new']")
+    @FindBy(xpath = HOME_MARKETPLACE_BUTTONS_CONTAINER)
+    private List<WebElement> allHomeMarketplaceButtons;
+
+    @FindBy(xpath = DESKTOP_MENU_ID + "[@href='/history_bulks/new']")
     private WebElement historyBulkMenu;
 
-    @FindBy(xpath = "//div[@class='button-container']//a[@href='http://openweathermap.org/api/history-data-state']")
+    @FindBy(xpath = HOME_MARKETPLACE_BUTTONS_CONTAINER + "[@href='http://openweathermap.org/api/history-data-state']")
     private WebElement dataByStateDocumentationButton;
 
-    @FindBy(xpath = "//div[@class='category']/div//a[contains(@href, '/zip_code_data/new') and text()='Historical Weather Data by State for all ZIP codes, USA']")
+    @FindBy(xpath = "//div[@class='category']//a[contains(@href, '/zip_code_data/new') and text()='Historical Weather Data by State for all ZIP codes, USA']")
     private WebElement weatherDataByStateMenu;
 
     public HomeMarketplacePage(WebDriver driver) {
@@ -30,14 +33,9 @@ public class HomeMarketplacePage extends HomeFooterMenuPage {
         return this;
     }
 
-    public List<WebElement> getAllButtons() {
-
-        return allButtons;
-    }
-
     public boolean areAllButtonsVisibleAndClickable() {
 
-        return allElementsVisibleAndClickable(allButtons);
+        return allElementsVisibleAndClickable(allHomeMarketplaceButtons);
     }
 
     public HomeHistoryBulksNewPage clickHistoryBulkMenu() {
