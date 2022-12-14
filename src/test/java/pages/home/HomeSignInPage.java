@@ -6,8 +6,6 @@ import org.openqa.selenium.support.FindBy;
 import org.testng.Reporter;
 import pages.base_abstract.FooterMenuPage;
 
-import java.util.List;
-
 public class HomeSignInPage extends FooterMenuPage {
 
     @FindBy(id = "user_email")
@@ -25,20 +23,8 @@ public class HomeSignInPage extends FooterMenuPage {
     @FindBy(xpath = "//a[@href='#']")
     private WebElement clickHereToRecoverLink;
 
-    @FindBy(xpath = "//div[@class = 'panel-body']")
-    WebElement signOutMessage;
-
     @FindBy(xpath = "//h3")
     private WebElement h3Header;
-
-    @FindBy(xpath = "//h2")
-    private List<WebElement> h2Title;
-
-    @FindBy(className = "btn_like")
-    private List<WebElement> orangeButtons;
-
-    @FindBy(xpath = "//ul[@class='nav nav-tabs pull-left']//a")
-    private List<WebElement> navTabs;
 
     public HomeSignInPage(WebDriver driver) {
         super(driver);
@@ -71,11 +57,6 @@ public class HomeSignInPage extends FooterMenuPage {
         click(submitButton);
     }
 
-    public String getMessage() {
-
-        return getText(signOutMessage);
-    }
-
     public HomePage signInRegularUser() {
         clickClearInputRegularUserEmail();
         clickClearInputRegularUserPassword();
@@ -83,33 +64,6 @@ public class HomeSignInPage extends FooterMenuPage {
         Reporter.log("DO NOT FORGET SIGN OUT", true);
 
         return new HomePage(getDriver());
-    }
-
-    public int getH2Titles() {
-
-        return getListSize(h2Title);
-    }
-
-    public List<String> listH2TitlesSighInPage() {
-
-        return getTexts(h2Title);
-    }
-
-    public int orangeButtonsSignIn() {
-        allElementsVisibleAndClickable(orangeButtons);
-
-        return getListSize(orangeButtons);
-    }
-
-    public int navTabs() {
-        allElementsVisibleAndClickable(navTabs);
-
-        return getListSize(navTabs);
-    }
-
-    public List<String> listNavTabElements() {
-
-        return getTexts(navTabs);
     }
 
     public HomeSignInPage clickCreateAccountLink() {
