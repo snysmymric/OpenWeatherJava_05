@@ -26,37 +26,40 @@ public abstract class TopMenuPage extends BasePage {
     private WebElement searchFieldTopMenu;
 
     @FindBy(xpath = "//div[@id = 'desktop-menu']//a[@href='/guide']")
-    private WebElement guideMenu;
+    private WebElement guideTopMenu;
 
     @FindBy(xpath = "//div[@id='desktop-menu']//li/a[@href='/api']")
-    private WebElement apiMenu;
+    private WebElement apiTopMenu;
 
     @FindBy(xpath = "//div[@id='desktop-menu']//a[@href='https://home.openweathermap.org/marketplace']")
-    private WebElement marketplaceMenu;
+    private WebElement marketplaceTopMenu;
 
     @FindBy(xpath = "//div[@id = 'desktop-menu']//a[@href = '/price']")
-    private WebElement pricingMenu;
+    private WebElement pricingTopMenu;
 
     @FindBy(xpath = "//div[@id='desktop-menu']//a[@href='/weathermap']")
-    private WebElement mapsMenu;
+    private WebElement mapsTopMenu;
 
     @FindBy(xpath = "//div[@id = 'desktop-menu']//a[@href='/our-initiatives']")
-    private WebElement ourInitiativesMenu;
+    private WebElement ourInitiativesTopMenu;
 
     @FindBy(xpath = "//div[@id='desktop-menu']//a[@href='/examples']")
-    private WebElement partnersMenu;
+    private WebElement partnersTopMenu;
 
     @FindBy(xpath = "//div[@id='desktop-menu']/ul/li")
     private List<WebElement> topMenuButtons;
 
     @FindBy(xpath = "//li[@class='user-li']/a" )
-    private WebElement signInMenuTopMenu;
+    private WebElement signInTopMenu;
 
     @FindBy(id = "support-dropdown")
-    private WebElement supportMenu;
+    private WebElement supportTopMenu;
+
+    @FindBy(xpath = "//li[@class='with-dropdown']//ul")
+    private WebElement supportTopMenuDropdown;
 
     @FindBy(xpath = "//li[@class='with-dropdown']//li/a")
-    private List<WebElement> supportMenuLinks;
+    private List<WebElement> supportTopMenuDropdownLinks;
 
     @FindBy(xpath = "//ul[@id='support-dropdown-menu']/li/a[@href='/faq']")
     private WebElement faqSupportSubmenu;
@@ -64,20 +67,17 @@ public abstract class TopMenuPage extends BasePage {
     @FindBy(xpath = "//ul[@id='support-dropdown-menu']/li/a[@href='/appid']")
     private WebElement howToStartSupportSubmenu;
 
-    @FindBy(xpath = "//div[@id='desktop-menu']//a[@href='/weather-dashboard']")
-    private WebElement dashboardMenu;
-
-    @FindBy(xpath = "//li[@class='with-dropdown']//ul")
-    private WebElement supportDropdownTopMenu;
-
-    @FindBy(xpath = "//nav/ul/li[@id='hamburger']/img")
-    private WebElement hamburgerIconTopMenu;
-
-    @FindBy(xpath = "//ul[@id='mobile-menu']/li/a")
-    private List <WebElement> hamburgerDropdownTopMenu;
-
     @FindBy(xpath = "//div[@id='desktop-menu']//li/a[@href='https://home.openweathermap.org/questions']")
     private WebElement askQuestionSupportSubmenu;
+
+    @FindBy(xpath = "//div[@id='desktop-menu']//a[@href='/weather-dashboard']")
+    private WebElement dashboardTopMenu;
+
+    @FindBy(xpath = "//nav/ul/li[@id='hamburger']/img")
+    private WebElement hamburgerTopMenuIcon;
+
+    @FindBy(xpath = "//ul[@id='mobile-menu']/li/a")
+    private List <WebElement> hamburgerTopMenuDropdownLinks;
 
     private String originalHandle;
 
@@ -95,6 +95,37 @@ public abstract class TopMenuPage extends BasePage {
         return getListSize(topMenuButtons);
     }
 
+    public String getInnerTextOfPlaceholder(String attribute) {
+
+        return getAttribute(searchFieldTopMenu, attribute);
+    }
+
+    public List<String> getLinksText() {
+
+        return getTexts(supportTopMenuDropdownLinks);
+    }
+
+    public MainPage getWindowWithHamburgerMenu(int width, int height) {
+        setNewDimensionOfWindow(width, height);
+
+        return new MainPage(getDriver());
+    }
+
+    public String getSupportMenuIsActiveValue() {
+
+        return getAttribute(supportTopMenuDropdown, "class");
+    }
+
+    public int getNumberOfOptionsHamburgerMenu() {
+
+        return getListSize(hamburgerTopMenuDropdownLinks);
+    }
+
+    public List<String> getHamburgerMenuList () {
+
+        return getListText(hamburgerTopMenuDropdownLinks);
+    }
+
     public MainPage clickLogo() {
         click(logo);
 
@@ -102,49 +133,49 @@ public abstract class TopMenuPage extends BasePage {
     }
 
     public GuidePage clickGuideMenu() {
-        click(guideMenu);
+        click(guideTopMenu);
 
         return new GuidePage(getDriver());
     }
 
     public APIPage clickAPIMenu() {
-        click(apiMenu);
+        click(apiTopMenu);
 
         return new APIPage(getDriver());
     }
 
     public HomeMarketplacePage clickMarketplaceMenu() {
-        click(marketplaceMenu);
+        click(marketplaceTopMenu);
 
         return new HomeMarketplacePage(getDriver());
     }
 
     public PricePage clickPricingMenu() {
-        click(pricingMenu);
+        click(pricingTopMenu);
 
         return new PricePage(getDriver());
     }
 
     public WeatherMapsPage clickMapsMenu() {
-        click(mapsMenu);
+        click(mapsTopMenu);
 
         return new WeatherMapsPage(getDriver());
     }
 
     public OurInitiativesPage clickOurInitiativesMenu() {
-        click(ourInitiativesMenu);
+        click(ourInitiativesTopMenu);
 
         return new OurInitiativesPage(getDriver());
     }
 
     public PartnersPage clickPartnersMenu() {
-        click(partnersMenu);
+        click(partnersTopMenu);
 
         return new PartnersPage(getDriver());
     }
 
     public MainPage clickSupportMenu() {
-        click(supportMenu);
+        click(supportTopMenu);
 
         return new MainPage(getDriver());
     }
@@ -161,46 +192,26 @@ public abstract class TopMenuPage extends BasePage {
         return new HowToStartPage(getDriver());
     }
 
-    public String getInnerTextOfPlaceholder(String attribute) {
-
-        return getAttribute(searchFieldTopMenu, attribute);
-    }
-
-    public boolean isPlaceholderDisplayed() {
-
-        return isDisplayedElement(searchBoxTopMenu);
-    }
-
     public FindPage inputSearchCriteriaIntoSearchFieldAndEnter(String text) {
         inputAndEnter(searchFieldTopMenu, text);
 
         return new FindPage(getDriver());
     }
 
-    public List<String> getLinksText() {
-
-        return getTexts(supportMenuLinks);
-    }
-
-    public String getSupportMenuIsActiveValue() {
-
-        return getAttribute(supportDropdownTopMenu, "class");
-    }
-
     public WeatherDashboardPage clickDashboardMenu() {
-        click(dashboardMenu);
+        click(dashboardTopMenu);
 
         return new WeatherDashboardPage(getDriver());
     }
 
     public WeatherDashboardPage clickDashboardMenuSaveOriginalHandle() {
-        click(dashboardMenu);
+        click(dashboardTopMenu);
 
         return new WeatherDashboardPage(getDriver(), getOriginalHandle());
     }
 
     public HomeSignInPage clickSignInMenu() {
-        click(signInMenuTopMenu);
+        click(signInTopMenu);
 
         return new HomeSignInPage(getDriver());
     }
@@ -218,11 +229,6 @@ public abstract class TopMenuPage extends BasePage {
         return new HomeSignInPage(getDriver());
     }
 
-    public String getSignInTopMenuText() {
-
-        return getText(signInMenuTopMenu);
-    }
-
     public List<String> clickAllMenus() {
         String mainWindow = getDriver().getWindowHandle();
         List<String> urlList = new ArrayList<>();
@@ -238,59 +244,34 @@ public abstract class TopMenuPage extends BasePage {
                 urlList.add(getCurrentURL());
             }
         }
+
         return urlList;
     }
 
-    public MainPage clickAndClearSearchFieldTopMenu(){
+    public MainPage clickAndClearSearchFieldTopMenu() {
         click(searchFieldTopMenu);
         clear(searchFieldTopMenu);
+
        return new MainPage(getDriver());
     }
 
-    public boolean isDisplayedSupportDropdownContainer() {
-
-        return isDisplayedElement(supportDropdownTopMenu);
-    }
-
-    public MainPage getWindowWithHamburgerMenu(int width, int height) {
-        setNewDimensionOfWindow(width, height);
+    public MainPage clickHamburgerMenuIcon() {
+        click(hamburgerTopMenuIcon);
 
         return new MainPage(getDriver());
     }
-
-    public MainPage clickHamburgerMenuIcon(){
-        click(hamburgerIconTopMenu);
-
-        return new MainPage(getDriver());
-    }
-
-    public boolean IsDispalyedHamburgerIcon(){
-        return isDisplayedElement(hamburgerIconTopMenu);
-    }
-
-    public int getNumberOfOptionsHamburgerMenu(){
-        return getListSize(hamburgerDropdownTopMenu);
-    }
-
-    public List<String> getHamburgerMenuList (){
-        return getListText(hamburgerDropdownTopMenu);
-    }
-
 
     public HomeAskQuestionPage clickAskQuestionSupportSubmenu() {
         click(askQuestionSupportSubmenu);
         switchToAnotherWindow();
+
         return new HomeAskQuestionPage(getDriver());
-   }
+    }
     
-      public FindPage inputRomeIntoSearchFieldAndEnter() {
+    public FindPage inputRomeIntoSearchFieldAndEnter() {
         inputAndEnter(searchFieldTopMenu, "Rome");
 
         return new FindPage(getDriver());
-    }
-
-    public boolean isDispalyedLogoIcon() {
-        return isDisplayedElement(logo);
     }
 
     /**
@@ -303,6 +284,7 @@ public abstract class TopMenuPage extends BasePage {
     }
 
     public String getOriginalHandle() {
+
         return originalHandle;
     }
 
@@ -326,4 +308,23 @@ public abstract class TopMenuPage extends BasePage {
         return this;
     }
 
+    public boolean isPlaceholderDisplayed() {
+
+        return isDisplayedElement(searchBoxTopMenu);
+    }
+
+    public boolean isDisplayedSupportDropdownContainer() {
+
+        return isDisplayedElement(supportTopMenuDropdown);
+    }
+
+    public boolean IsDispalyedHamburgerIcon() {
+
+        return isDisplayedElement(hamburgerTopMenuIcon);
+    }
+
+    public boolean isDispalyedLogoIcon() {
+
+        return isDisplayedElement(logo);
+    }
 }
