@@ -263,6 +263,24 @@ public class FooterMenuTest extends BaseTest {
     }
 
     @Test
+    public void testOpenWeatherForBusinessLinkNavigateToForBusinessWeb(){
+        final String expectedURL = "https://openweather.co.uk/";
+        final String expectedTitle = "OpenWeather for business - OpenWeatherMap";
+
+        MainPage mainPage = new MainPage(getDriver());
+
+        String urlOfMainPage = openBaseURL().getCurrentURL();
+
+        mainPage.scrollToPageBottom()
+                .clickOpenWeatherForBusinessFooterMenuLink()
+                .switchToExternalPage();
+
+        Assert.assertNotEquals(getExternalPageURL(), urlOfMainPage);
+        Assert.assertEquals(getExternalPageTitle(), expectedTitle);
+        Assert.assertEquals(getExternalPageURL(), expectedURL);
+    }
+    
+    @Test
     public void testStorePanelExistsAndHasIcons() {
         final int expectedQuantity = 2;
 

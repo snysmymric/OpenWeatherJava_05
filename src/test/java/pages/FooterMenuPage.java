@@ -77,6 +77,9 @@ public abstract class FooterMenuPage extends TopMenuPage {
     @FindBy(xpath = "//div[@class = 'inner-footer-container']//a")
     private List<WebElement> footerMenuLinks;
 
+    @FindBy(xpath = "//a[@href='https://openweather.co.uk/']")
+    private WebElement openWeatherForBusinessFooterMenuLink;
+
     @FindBy(xpath = "//div[@class='my-5']/div[@style='display: flex; flex-direction: row;']/a")
     private List<WebElement> storePanelIconsFooterMenu;
 
@@ -239,6 +242,12 @@ public abstract class FooterMenuPage extends TopMenuPage {
         allElementsVisibleAndClickable(footerMenuLinks);
 
         return getListSize(footerMenuLinks);
+    }
+
+    public MainPage clickOpenWeatherForBusinessFooterMenuLink() {
+        click(openWeatherForBusinessFooterMenuLink);
+
+        return new MainPage(getDriver());
     }
 
     public boolean storePanelIsDisplayed() {
