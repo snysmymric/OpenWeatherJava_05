@@ -6,7 +6,7 @@ import org.openqa.selenium.support.FindBy;
 
 import java.util.List;
 
-public class HomeHistoryBulksNewPage extends HomeMarketplacePage{
+public class HomeHistoryBulksNewPage extends HomeMarketplacePage {
 
     @FindBy(xpath = "//span[text()='Weather Parameters:']")
     private WebElement weatherParametersButton;

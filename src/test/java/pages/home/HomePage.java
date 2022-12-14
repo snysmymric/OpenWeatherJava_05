@@ -29,12 +29,6 @@ public class HomePage extends HomeTopMenuPage {
         return getText(signedInMessage);
     }
 
-    public HomePage clickUserDropdown() {
-        click(userTopMenu);
-
-        return this;
-    }
-
     public List<String> getTextUserDropDownMenuLInks() {
 
         return getListText(userDropdownMenuLinks);
@@ -44,5 +38,11 @@ public class HomePage extends HomeTopMenuPage {
         click(apiKeysTab);
 
         return new HomeAPIKeysPage(getDriver());
+    }
+
+    public HomePage clickUserDropdown() {
+        click(userTopMenu);
+
+        return this;
     }
 }
