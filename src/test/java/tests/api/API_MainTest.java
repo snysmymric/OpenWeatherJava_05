@@ -188,4 +188,56 @@ public class API_MainTest extends BaseTest {
             Assert.assertEquals(weatherDescriptionFromUI, weatherDescriptionList);
         }
     }
+
+    @Test
+    public void test_API_HttpResponse_AndUIView_OfEightDaysForecastCalendar() {
+        try {
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(new URI("https://openweathermap.org/data/2.5/onecall?lat=48.8534&lon=2.3488&units=metric&appid=439d4b804bc8187953eb36d2a8c26a02"))
+                    .GET()
+                    .build();
+
+            response = HttpClient.newHttpClient()
+                    .send(request, HttpResponse.BodyHandlers.ofString());
+
+        } catch (URISyntaxException | InterruptedException | IOException e) {
+            e.printStackTrace();
+        }
+
+        Assert.assertNotNull(response);
+        Assert.assertNotNull(response.body());
+        Assert.assertEquals(response.statusCode(), 200);
+
+        JSONObject obj = new JSONObject(response.body());
+
+        StringBuilder eightDaysForecastCalendar = new StringBuilder();
+
+        String separator;
+
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 3; j++) {
+                separator = (j == 1) ? " " : ", ";
+
+                eightDaysForecastCalendar.append(
+                        new java.util.Date((long) ((obj.getJSONArray("daily").getJSONObject(i).getLong("dt")) * 1000))
+                                .toString().split(" ")[j]).append(separator);
+            }
+        }
+
+        String expectedApiResult = eightDaysForecastCalendar.toString().replaceAll("..$", "");
+
+        String oldCityName = openBaseURL().getCityCountryName();
+
+        String actualUiResult = new MainPage(getDriver())
+                .clickSearchCityField()
+                .inputSearchCriteria("Paris")
+                .clickSearchButton()
+                .clickParisInDropDownList()
+                .waitForCityCountryNameChanged(oldCityName)
+                .getListOfEightDaysDataText().toString().replaceAll(".$", "").replaceAll("^.", "");
+
+        if (actualUiResult != null && !actualUiResult.isEmpty() && !actualUiResult.isBlank()) {
+            Assert.assertEquals(actualUiResult, expectedApiResult);
+        }
+    }
 }
