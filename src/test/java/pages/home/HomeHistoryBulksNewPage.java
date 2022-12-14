@@ -32,7 +32,7 @@ public class HomeHistoryBulksNewPage extends HomeMarketplacePage{
 
     public boolean allCheckmarksAreNotSelectedInTheWeatherParameters() {
 
-        return checkingForUnselectedElements(weatherParametersElements);
+        return areElementsUnselected(weatherParametersElements);
     }
 
     public HomeHistoryBulksNewPage uncheckNotAllWeatherParameters(String textContains) {

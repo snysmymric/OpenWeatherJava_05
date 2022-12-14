@@ -279,7 +279,7 @@ public abstract class TopMenuPage extends BasePage {
 
     public HomeAskQuestionPage clickAskQuestionSupportSubmenu() {
         click(askQuestionSupportSubmenu);
-        iterateWindows();
+        switchToAnotherWindow();
         return new HomeAskQuestionPage(getDriver());
    }
     
