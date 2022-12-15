@@ -15,41 +15,48 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class TopMenuPage extends BasePage {
+    private String originalHandle;
+
+    private static final String TOP_MENU_ID = "//div[@id='desktop-menu']";
+    private static final String SUPPORT_DROPDOWN_ID = "//ul[@id='support-dropdown-menu']";
 
     @FindBy(xpath = "//li[@class='logo']/a")
     private WebElement logo;
 
-    @FindBy(xpath = "//div[@id='desktop-menu']//form[@role='search']")
+    @FindBy(xpath = TOP_MENU_ID + "//form[@role='search']")
     private WebElement searchBoxTopMenu;
 
-    @FindBy(xpath = "//div//input[@name='q']")
+    @FindBy(xpath = TOP_MENU_ID + "//input[@name='q']")
     private WebElement searchFieldTopMenu;
 
-    @FindBy(xpath = "//div[@id = 'desktop-menu']//a[@href='/guide']")
+    @FindBy(xpath = TOP_MENU_ID + "//a[@href='/guide']")
     private WebElement guideTopMenu;
 
-    @FindBy(xpath = "//div[@id='desktop-menu']//li/a[@href='/api']")
+    @FindBy(xpath = TOP_MENU_ID + "//li/a[@href='/api']")
     private WebElement apiTopMenu;
 
-    @FindBy(xpath = "//div[@id='desktop-menu']//a[@href='https://home.openweathermap.org/marketplace']")
+    @FindBy(xpath = TOP_MENU_ID + "//a[@href='https://home.openweathermap.org/marketplace']")
     private WebElement marketplaceTopMenu;
 
-    @FindBy(xpath = "//div[@id = 'desktop-menu']//a[@href = '/price']")
+    @FindBy(xpath = TOP_MENU_ID + "//a[@href='/price']")
     private WebElement pricingTopMenu;
 
-    @FindBy(xpath = "//div[@id='desktop-menu']//a[@href='/weathermap']")
+    @FindBy(xpath = TOP_MENU_ID + "//a[@href='/weathermap']")
     private WebElement mapsTopMenu;
 
-    @FindBy(xpath = "//div[@id = 'desktop-menu']//a[@href='/our-initiatives']")
+    @FindBy(xpath = TOP_MENU_ID + "//a[@href='/our-initiatives']")
     private WebElement ourInitiativesTopMenu;
 
-    @FindBy(xpath = "//div[@id='desktop-menu']//a[@href='/examples']")
+    @FindBy(xpath = TOP_MENU_ID + "//a[@href='/examples']")
     private WebElement partnersTopMenu;
 
-    @FindBy(xpath = "//div[@id='desktop-menu']/ul/li")
-    private List<WebElement> topMenuButtons;
+    @FindBy(xpath = TOP_MENU_ID + "/ul/li")
+    private List<WebElement> topMenus;
 
-    @FindBy(xpath = "//li[@class='user-li']/a" )
+    @FindBy(xpath = TOP_MENU_ID + "//a[@href='/weather-dashboard']")
+    private WebElement dashboardTopMenu;
+
+    @FindBy(xpath = TOP_MENU_ID + "//li[@class='user-li']/a" )
     private WebElement signInTopMenu;
 
     @FindBy(id = "support-dropdown")
@@ -61,25 +68,20 @@ public abstract class TopMenuPage extends BasePage {
     @FindBy(xpath = "//li[@class='with-dropdown']//li/a")
     private List<WebElement> supportTopMenuDropdownLinks;
 
-    @FindBy(xpath = "//ul[@id='support-dropdown-menu']/li/a[@href='/faq']")
+    @FindBy(xpath = SUPPORT_DROPDOWN_ID + "//li/a[@href='/faq']")
     private WebElement faqSupportSubmenu;
 
-    @FindBy(xpath = "//ul[@id='support-dropdown-menu']/li/a[@href='/appid']")
+    @FindBy(xpath = SUPPORT_DROPDOWN_ID + "//li/a[@href='/appid']")
     private WebElement howToStartSupportSubmenu;
 
-    @FindBy(xpath = "//div[@id='desktop-menu']//li/a[@href='https://home.openweathermap.org/questions']")
+    @FindBy(xpath = SUPPORT_DROPDOWN_ID + "//li/a[@href='https://home.openweathermap.org/questions']")
     private WebElement askQuestionSupportSubmenu;
-
-    @FindBy(xpath = "//div[@id='desktop-menu']//a[@href='/weather-dashboard']")
-    private WebElement dashboardTopMenu;
 
     @FindBy(xpath = "//nav/ul/li[@id='hamburger']/img")
     private WebElement hamburgerTopMenuIcon;
 
     @FindBy(xpath = "//ul[@id='mobile-menu']/li/a")
     private List <WebElement> hamburgerTopMenuDropdownLinks;
-
-    private String originalHandle;
 
     public TopMenuPage(WebDriver driver) {
         super(driver);
@@ -90,9 +92,9 @@ public abstract class TopMenuPage extends BasePage {
         this.originalHandle = originalHandle;
     }
 
-    public int countTopMenuButtons() {
+    public int countTopMenus() {
 
-        return getListSize(topMenuButtons);
+        return getListSize(topMenus);
     }
 
     public String getInnerTextOfPlaceholder(String attribute) {
@@ -105,15 +107,15 @@ public abstract class TopMenuPage extends BasePage {
         return getTexts(supportTopMenuDropdownLinks);
     }
 
-    public MainPage getWindowWithHamburgerMenu(int width, int height) {
+    public MainPage setWindowWithHamburgerMenu(int width, int height) {
         setWindowDimensions(width, height);
 
         return new MainPage(getDriver());
     }
 
-    public String getSupportMenuIsActiveValue() {
+    public List<String> getHamburgerMenuList () {
 
-        return getAttribute(supportTopMenuDropdown, "class");
+        return getTexts(hamburgerTopMenuDropdownLinks);
     }
 
     public int getNumberOfOptionsHamburgerMenu() {
@@ -121,14 +123,39 @@ public abstract class TopMenuPage extends BasePage {
         return getListSize(hamburgerTopMenuDropdownLinks);
     }
 
+    public String getSupportMenuIsActiveValue() {
+
+        return getAttribute(supportTopMenuDropdown, "class");
+    }
+
+    public List<String> getAllMenusLinks() {
+        String mainWindow = getDriver().getWindowHandle();
+        List<String> urlList = new ArrayList<>();
+
+        for (int i = 0; i < topMenus.size() - 1; i++) {
+            click(topMenus.get(i));
+            if (getDriver().getWindowHandles().size() > 1) {
+                switchToAnotherWindow();
+                urlList.add(getCurrentURL());
+                getDriver().close();
+                getDriver().switchTo().window(mainWindow);
+            } else {
+                urlList.add(getCurrentURL());
+            }
+        }
+
+        return urlList;
+    }
+
     public String getOriginalHandle() {
 
         return originalHandle;
     }
 
-    public List<String> getHamburgerMenuList () {
+    public TopMenuPage saveOriginalHandle() {
+        this.originalHandle = getDriver().getWindowHandle();
 
-        return getTexts(hamburgerTopMenuDropdownLinks);
+        return this;
     }
 
     public MainPage clickLogo() {
@@ -203,25 +230,6 @@ public abstract class TopMenuPage extends BasePage {
         return new WeatherDashboardPage(getDriver());
     }
 
-    public List<String> clickAllMenus() {
-        String mainWindow = getDriver().getWindowHandle();
-        List<String> urlList = new ArrayList<>();
-
-        for (int i = 0; i < topMenuButtons.size() - 1; i++) {
-            click(topMenuButtons.get(i));
-            if (getDriver().getWindowHandles().size() > 1) {
-                switchToAnotherWindow();
-                urlList.add(getCurrentURL());
-                getDriver().close();
-                getDriver().switchTo().window(mainWindow);
-            } else {
-                urlList.add(getCurrentURL());
-            }
-        }
-
-        return urlList;
-    }
-
     public MainPage clickAndClearSearchFieldTopMenu() {
         click(searchFieldTopMenu);
         clear(searchFieldTopMenu);
@@ -255,7 +263,7 @@ public abstract class TopMenuPage extends BasePage {
     }
 
     public HomePage signIn() {
-        clickSignInMenu().signInRegularUser();
+        clickSignInMenu().signInAsRegularUser();
 
         return new HomePage(getDriver());
     }
@@ -279,15 +287,6 @@ public abstract class TopMenuPage extends BasePage {
         return new FindPage(getDriver());
     }
 
-    /**
-     *  Save unique identifier of windows opened
-     */
-    public TopMenuPage saveOriginalHandle() {
-        this.originalHandle = getDriver().getWindowHandle();
-
-        return this;
-    }
-
     public TopMenuPage closeOpenedTab() {
         getDriver().getWindowHandles()
                 .stream()
@@ -300,12 +299,10 @@ public abstract class TopMenuPage extends BasePage {
         return this;
     }
 
-    public TopMenuPage switchToOriginalTab() {
+    public void switchToOriginalTab() {
         if (originalHandle != null) {
             getDriver().switchTo().window(originalHandle);
         }
-
-        return this;
     }
 
     public boolean isPlaceholderDisplayed() {
@@ -313,17 +310,17 @@ public abstract class TopMenuPage extends BasePage {
         return isElementDisplayed(searchBoxTopMenu);
     }
 
-    public boolean isDisplayedSupportDropdownContainer() {
+    public boolean isSupportDropdownContainerDisplayed() {
 
         return isElementDisplayed(supportTopMenuDropdown);
     }
 
-    public boolean IsDispalyedHamburgerIcon() {
+    public boolean isHamburgerIconDisplayed() {
 
         return isElementDisplayed(hamburgerTopMenuIcon);
     }
 
-    public boolean isDispalyedLogoIcon() {
+    public boolean isLogoIconDisplayed() {
 
         return isElementDisplayed(logo);
     }

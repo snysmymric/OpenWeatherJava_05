@@ -16,7 +16,7 @@ import java.util.List;
 
 public abstract class FooterMenuPage extends TopMenuPage {
 
-    final static String FOOTER_MENU_ID = "//div[@id='footer-website']";
+    private static final String FOOTER_MENU_ID = "//div[@id='footer-website']";
 
     @FindBy(xpath = FOOTER_MENU_ID)
     private WebElement footerMenu;
@@ -68,7 +68,7 @@ public abstract class FooterMenuPage extends TopMenuPage {
     private WebElement iconGooglePlay;
 
     @FindBy(xpath = FOOTER_MENU_ID + "//span[contains(text(), '©')]")
-    private WebElement copyrightSign;
+    private WebElement copyright;
 
     @FindBy(xpath = FOOTER_MENU_ID + "//a[@href='https://www.facebook.com/groups/270748973021342']")
     private WebElement iconFacebook;
@@ -112,9 +112,9 @@ public abstract class FooterMenuPage extends TopMenuPage {
         return getListSize(storeIcons);
     }
 
-    public String getCopyrightSign(){
+    public String getCopyright(){
 
-        return getText(copyrightSign);
+        return getText(copyright);
     }
 
     public WebElement getSubscriptionFooterMenu() {

@@ -125,7 +125,7 @@ public class TopMenuTest extends BaseTest {
 
         MainPage mainPage = openBaseURL().clickSupportMenu();
 
-        Assert.assertTrue(mainPage.isDisplayedSupportDropdownContainer());
+        Assert.assertTrue(mainPage.isSupportDropdownContainerDisplayed());
         Assert.assertEquals(mainPage.getSupportMenuIsActiveValue(), expectedIfVisible);
 
         mainPage.clickSupportMenu();
@@ -176,7 +176,7 @@ public class TopMenuTest extends BaseTest {
 
         int actualCountTopMenuButtons =
                 openBaseURL()
-                        .countTopMenuButtons();
+                        .countTopMenus();
 
         Assert.assertEquals(actualCountTopMenuButtons, expectedButton);
     }
@@ -239,7 +239,7 @@ public class TopMenuTest extends BaseTest {
                 "https://openweather.co.uk/blog/category/weather", "https://openweather.co.uk/",
                 "https://home.openweathermap.org/users/sign_in");
 
-        List<String> actualURLs = openBaseURL().clickAllMenus();
+        List<String> actualURLs = openBaseURL().getAllMenusLinks();
 
         Assert.assertEquals(actualURLs, expectedURLs);
     }
@@ -253,10 +253,10 @@ public class TopMenuTest extends BaseTest {
                 "Maps", "Our Initiatives", "Partners", "Blog", "For Business", "Ask a question", "Sign in");
 
         MainPage mainPage = openBaseURL()
-                .getWindowWithHamburgerMenu(width,height)
+                .setWindowWithHamburgerMenu(width,height)
                 .clickHamburgerMenuIcon();
 
-        Assert.assertTrue(mainPage.IsDispalyedHamburgerIcon());
+        Assert.assertTrue(mainPage.isHamburgerIconDisplayed());
         Assert.assertTrue(mainPage.getNumberOfOptionsHamburgerMenu() > 0);
         Assert.assertEquals(mainPage.getNumberOfOptionsHamburgerMenu(), expectedNumberOfOptionsHamburgerMenu);
         Assert.assertEquals(mainPage.getHamburgerMenuList(), expectedHamburgerMenuList);
@@ -269,9 +269,9 @@ public class TopMenuTest extends BaseTest {
         final String expectedUrl = "https://openweathermap.org/";
 
         MainPage mainPage = openBaseURL()
-                .getWindowWithHamburgerMenu(width,height);
+                .setWindowWithHamburgerMenu(width,height);
 
-        Assert.assertTrue(mainPage.isDispalyedLogoIcon());
+        Assert.assertTrue(mainPage.isLogoIconDisplayed());
 
         mainPage.clickLogo();
 

@@ -57,7 +57,7 @@ public class HomeSignInPage extends FooterMenuPage {
         click(submitButton);
     }
 
-    public HomePage signInRegularUser() {
+    public HomePage signInAsRegularUser() {
         clickClearInputRegularUserEmail();
         clickClearInputRegularUserPassword();
         clickSubmitButton();

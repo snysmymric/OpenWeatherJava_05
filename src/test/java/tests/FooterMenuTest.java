@@ -214,7 +214,7 @@ public class FooterMenuTest extends BaseTest {
         final String expectedCopyright = "© 2012 — 2022 OpenWeather ® All rights reserved";
         String actualCopyright = openBaseURL()
                 .scrollToFooterMenu()
-                .getCopyrightSign();
+                .getCopyright();
 
         Assert.assertEquals(actualCopyright,expectedCopyright);
     }

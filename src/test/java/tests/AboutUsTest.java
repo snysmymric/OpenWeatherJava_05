@@ -11,9 +11,12 @@ public class AboutUsTest extends BaseTest {
 
     @Test
     public void testWhereToHasActiveFourOptions() {
-
-        List <String> fourOptions = Arrays.asList("Buy by Subscription", "Buy in the Marketplace",
-                "Products documentation", "News and Updates");
+        final List <String> expectedFourOptions = Arrays.asList(
+                "Buy by Subscription",
+                "Buy in the Marketplace",
+                "Products documentation",
+                "News and Updates"
+        );
 
         List<String> actualOptionsUnderWhereTo =
                 openBaseURL().scrollToFooterMenu().clickAboutUsFooterMenu()
@@ -21,6 +24,6 @@ public class AboutUsTest extends BaseTest {
                 .waitAllOptionsAreVisibleAndClickable()
                 .getOptionsText();
 
-        Assert.assertEquals(actualOptionsUnderWhereTo, fourOptions);
+        Assert.assertEquals(actualOptionsUnderWhereTo, expectedFourOptions);
     }
 }
