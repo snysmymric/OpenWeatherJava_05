@@ -16,7 +16,7 @@ public class AboutUsTest extends BaseTest {
                 "Products documentation", "News and Updates");
 
         List<String> actualOptionsUnderWhereTo =
-                openBaseURL().scrollToFooterMenu().clickOnAboutUsFooterMenu()
+                openBaseURL().scrollToFooterMenu().clickAboutUsFooterMenu()
                 .scrollToWhereTo()
                 .waitAllOptionsAreVisibleAndClickable()
                 .getOptionsText();

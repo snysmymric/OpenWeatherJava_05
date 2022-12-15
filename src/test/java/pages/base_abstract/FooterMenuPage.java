@@ -18,6 +18,9 @@ public abstract class FooterMenuPage extends TopMenuPage {
 
     final static String FOOTER_MENU_ID = "//div[@id='footer-website']";
 
+    @FindBy(xpath = FOOTER_MENU_ID)
+    private WebElement footerMenu;
+
     @FindBy(xpath = FOOTER_MENU_ID + "//a[@href='/weather-dashboard']")
     private WebElement weatherDashboardFooterMenu;
 
@@ -27,7 +30,7 @@ public abstract class FooterMenuPage extends TopMenuPage {
     @FindBy(css = FOOTER_MENU_ID + "a[href='https://openweather.co.uk/privacy-policy']")
     private WebElement privacyPolicyFooterMenu;
 
-    @FindBy(xpath = FOOTER_MENU_ID + "//a[@href = '/about-us']")
+    @FindBy(xpath = FOOTER_MENU_ID + "//a[@href='/about-us']")
     private WebElement aboutUsFooterMenu;
 
     @FindBy(xpath = FOOTER_MENU_ID + "//a[@href='/widgets-constructor']")
@@ -49,43 +52,40 @@ public abstract class FooterMenuPage extends TopMenuPage {
     @FindBy(xpath = FOOTER_MENU_ID + "//a[@href='/stations']")
     private WebElement connectYourWeatherStationFooterMenu;
 
-    @FindBy(xpath = FOOTER_MENU_ID +"//p[text()='Download OpenWeather app']")
-    private WebElement downloadOpenWeatherApp;
+    @FindBy(xpath = FOOTER_MENU_ID + "//p[text()='Download OpenWeather app']")
+    private WebElement downloadOpenWeatherAppText;
 
-    @FindBy(xpath = "//div[@id = 'footer-website']//a[@href = 'https://home.openweathermap.org/questions']")
+    @FindBy(xpath = FOOTER_MENU_ID + "//a[@href='https://home.openweathermap.org/questions']")
     private WebElement askQuestionFooterMenu;
 
-    @FindBy(xpath = "//div[@class='section-content']//a[@href='/price']")
+    @FindBy(xpath = FOOTER_MENU_ID + "//a[@href='/price']")
     private WebElement pricingFooterMenu;
 
-    @FindBy(xpath = "//div[@style='display: flex; flex-direction: row;']/a")
+    @FindBy(xpath = FOOTER_MENU_ID + "//div[@style='display: flex; flex-direction: row;']/a")
     private List<WebElement> storeIcons;
 
-    @FindBy(xpath = "//img[@alt='Get it on Google Play']")
+    @FindBy(xpath = FOOTER_MENU_ID + "//a[@href='https://play.google.com/store/apps/details?id=uk.co.openweather']")
     private WebElement iconGooglePlay;
 
-    @FindBy(xpath = "//div[@class='horizontal-section my-5']/div/span[2]")
-    private WebElement copirightSign;
+    @FindBy(xpath = FOOTER_MENU_ID + "//span[contains(text(), '©')]")
+    private WebElement copyrightSign;
 
-    @FindBy(xpath = "//div[@class = 'social']//img[contains(@src, 'facebook')]")
+    @FindBy(xpath = FOOTER_MENU_ID + "//a[@href='https://www.facebook.com/groups/270748973021342']")
     private WebElement iconFacebook;
 
-    @FindBy(xpath = "//div[@id='footer-website']//div[1]/div[2]/p")
+    @FindBy(xpath = FOOTER_MENU_ID + "//p[text()='Subscription']")
     private WebElement subscription;
 
-    @FindBy(xpath = "//div[@id='footer-website']//div[1]/div[2]/div/ul/li")
+    @FindBy(xpath = FOOTER_MENU_ID + "//p[text()='Subscription']/parent::div/div/ul/li")
     private List<WebElement> subscriptionList;
-    
-    @FindBy(css = "div[class = 'inner-footer-container']")
-    private WebElement footerMenu;
 
-    @FindBy(xpath = "//div[@class = 'inner-footer-container']//a")
+    @FindBy(xpath = FOOTER_MENU_ID + "//a")
     private List<WebElement> footerMenuLinks;
 
-    @FindBy(xpath = "//a[@href='https://openweather.co.uk/']")
+    @FindBy(xpath = FOOTER_MENU_ID + "//a[@href='https://openweather.co.uk/']")
     private WebElement openWeatherForBusinessFooterMenuLink;
 
-    @FindBy(xpath = "//div[@class='my-5']/div[@style='display: flex; flex-direction: row;']/a")
+    @FindBy(xpath = FOOTER_MENU_ID + "//div[@class='my-5']//a")
     private List<WebElement> storePanelIconsFooterMenu;
 
     public FooterMenuPage(WebDriver driver) {
@@ -93,7 +93,54 @@ public abstract class FooterMenuPage extends TopMenuPage {
     }
 
     public FooterMenuPage(WebDriver driver, String originalHandle) {
+
         super(driver, originalHandle);
+    }
+
+    public int getSocialPanelSize() {
+
+        return getListSize(socialPanelIconsFooterMenu);
+    }
+
+    public String getDownloadOpenWeatherAppText() {
+
+        return getText(downloadOpenWeatherAppText);
+    }
+
+    public int getStoreIconsCount() {
+
+        return getListSize(storeIcons);
+    }
+
+    public String getCopyrightSign(){
+
+        return getText(copyrightSign);
+    }
+
+    public WebElement getSubscriptionFooterMenu() {
+
+        return subscription;
+    }
+
+    public List<String> getSubscriptionMenusTexts() {
+
+        return getTexts(subscriptionList);
+    }
+
+    protected WebElement getFooterMenu() {
+
+        return footerMenu;
+    }
+
+    public int getFooterMenuLinksCount() {
+        areAllElementsVisibleAndClickable(footerMenuLinks);
+
+        return getListSize(footerMenuLinks);
+    }
+
+    public int getStoresIconsCount() {
+
+        return getListSize(storePanelIconsFooterMenu);
     }
 
     public WeatherDashboardPage clickWeatherDashboardFooterMenu() {
@@ -109,11 +156,16 @@ public abstract class FooterMenuPage extends TopMenuPage {
     }
 
     public void clickPrivacyPolicyFooterMenu() {
-
         click(privacyPolicyFooterMenu);
     }
 
-    public AboutUsPage clickOnAboutUsFooterMenu() {
+    public PricePage clickPricingFooterMenu() {
+        click20(pricingFooterMenu);
+
+        return new PricePage(getDriver());
+    }
+
+    public AboutUsPage clickAboutUsFooterMenu() {
         click20(aboutUsFooterMenu);
 
         return new AboutUsPage(getDriver());
@@ -125,86 +177,35 @@ public abstract class FooterMenuPage extends TopMenuPage {
         return new WidgetsPage(getDriver());
     }
 
-    public boolean isSocialPanelDisplayed() {
-
-        return isDisplayedElement(socialPanelFooterMenu);
-    }
-
-    public int getSocialPanelSize() {
-
-        return getListSize(socialPanelIconsFooterMenu);
-    }
-
-    public boolean isGithubIconDisplayed() {
-
-        return isDisplayedElement(githubIconFooterMenu);
-    }
-
-    public MainPage clickToGithubIcon() {
-        click20(githubIconLinkFooterMenu);
-
-        return new MainPage(getDriver());
-    }
-
     public WeatherStationsPage clickConnectYourWeatherStationFooterMenu() {
         click(connectYourWeatherStationFooterMenu);
 
         return new WeatherStationsPage(getDriver());
     }
 
-    public String getTextDownloadOpenWeatherApp() {
-
-        return getText(textDownloadOpenWeatherApp);
+    public void clickGitHubIcon() {
+        click20(githubIconFooterMenu);
     }
 
-    public boolean textDownloadOpenWeatherAppIsDisplayed() {
-
-        return isDisplayedElement(textDownloadOpenWeatherApp);
-    }
-
-    public MainPage clickDownloadOnTheAppStoreLinkFooterMenu() {
+    public void clickAppStoreIcon() {
         click20(downloadOnTheAppStoreLinkFooterMenu);
-
-        return new MainPage(getDriver());
     }
 
-    public FooterMenuPage clickOnAskQuestionFooterMenu() {
+    public void clickGooglePlayIcon() {
+        click20(iconGooglePlay);
+    }
+
+    public void clickFacebookIcon(){
+        click20(iconFacebook);
+    }
+
+    public void clickOpenWeatherForBusinessFooterMenuLink() {
+        click(openWeatherForBusinessFooterMenuLink);
+    }
+
+    public MainPage clickAskQuestionFooterMenu() {
         wait10ElementToBeClickable(askQuestionFooterMenu);
         click20(askQuestionFooterMenu);
-
-        return this;
-    }
-
-    public HomeAskQuestionPage switchToHomeAskQuestionPage() {
-        switchToAnotherWindow();
-
-        return new HomeAskQuestionPage(getDriver());
-    }
-
-    public PricePage clickPricingFooterMenu() {
-        click20(pricingFooterMenu);
-
-        return new PricePage(getDriver());
-    }
-
-    public int getStoreIconsSize() {
-
-        return getListSize(storeIcons);
-    }
-
-    public String getCopyrightSign(){
-
-        return getText(copirightSign);
-    }
-
-    public MainPage clickDownloadGooglePlayLinkFooterMenu() {
-        click20(iconGooglePlay);
-
-        return new MainPage(getDriver());
-    }
-
-    public MainPage clickFacebookIcon(){
-        click20(iconFacebook);
 
         return new MainPage(getDriver());
     }
@@ -213,8 +214,8 @@ public abstract class FooterMenuPage extends TopMenuPage {
         String mainWindow = getDriver().getWindowHandle();
         List<String> currentURLs = new ArrayList<>();
 
-        for (int i = 0; i < socialPanelIconsFooterMenu.size(); i++) {
-            click(socialPanelIconsFooterMenu.get(i));
+        for (WebElement panelIconsFooterMenu : socialPanelIconsFooterMenu) {
+            click(panelIconsFooterMenu);
             if (getDriver().getWindowHandles().size() > 1) {
                 switchToAnotherWindow();
                 currentURLs.add(getCurrentURL());
@@ -228,40 +229,29 @@ public abstract class FooterMenuPage extends TopMenuPage {
         return currentURLs;
     }
 
-    public WebElement getSubscriptionFooterMenu() {
+    public HomeAskQuestionPage switchToHomeAskQuestionPage() {
+        switchToAnotherWindow();
 
-        return subscription;
+        return new HomeAskQuestionPage(getDriver());
     }
 
-    public List<String> getMenusTexts() {
+    public boolean isStorePanelDisplayed() {
 
-        return getTexts(subscriptionList);
-    }
-    
-    protected WebElement getFooterMenu() {
-
-        return footerMenu;
+        return areElementsInListDisplayed(storePanelIconsFooterMenu);
     }
 
-    public int footerMenuLinks() {
-        allElementsVisibleAndClickable(footerMenuLinks);
+    public boolean isSocialPanelDisplayed() {
 
-        return getListSize(footerMenuLinks);
+        return isElementDisplayed(socialPanelFooterMenu);
     }
 
-    public MainPage clickOpenWeatherForBusinessFooterMenuLink() {
-        click(openWeatherForBusinessFooterMenuLink);
+    public boolean isGithubIconDisplayed() {
 
-        return new MainPage(getDriver());
+        return isElementDisplayed(githubIconFooterMenu);
     }
 
-    public boolean storePanelIsDisplayed() {
+    public boolean isDownloadOpenWeatherAppDisplayed() {
 
-        return isElementsInListDisplayed(storePanelIconsFooterMenu);
-    }
-
-    public int getStoresIconsSize() {
-
-        return getListSize(storePanelIconsFooterMenu);
+        return isElementDisplayed(downloadOpenWeatherAppText);
     }
 }

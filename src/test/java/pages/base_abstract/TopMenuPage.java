@@ -106,7 +106,7 @@ public abstract class TopMenuPage extends BasePage {
     }
 
     public MainPage getWindowWithHamburgerMenu(int width, int height) {
-        setNewDimensionOfWindow(width, height);
+        setWindowDimensions(width, height);
 
         return new MainPage(getDriver());
     }
@@ -128,7 +128,7 @@ public abstract class TopMenuPage extends BasePage {
 
     public List<String> getHamburgerMenuList () {
 
-        return getListText(hamburgerTopMenuDropdownLinks);
+        return getTexts(hamburgerTopMenuDropdownLinks);
     }
 
     public MainPage clickLogo() {
@@ -310,21 +310,21 @@ public abstract class TopMenuPage extends BasePage {
 
     public boolean isPlaceholderDisplayed() {
 
-        return isDisplayedElement(searchBoxTopMenu);
+        return isElementDisplayed(searchBoxTopMenu);
     }
 
     public boolean isDisplayedSupportDropdownContainer() {
 
-        return isDisplayedElement(supportTopMenuDropdown);
+        return isElementDisplayed(supportTopMenuDropdown);
     }
 
     public boolean IsDispalyedHamburgerIcon() {
 
-        return isDisplayedElement(hamburgerTopMenuIcon);
+        return isElementDisplayed(hamburgerTopMenuIcon);
     }
 
     public boolean isDispalyedLogoIcon() {
 
-        return isDisplayedElement(logo);
+        return isElementDisplayed(logo);
     }
 }

@@ -59,7 +59,7 @@ public class WidgetsPage extends FooterMenuPage {
             waitForTextNotToBeEmpty(selectYourCity.get(i));
         }
 
-        return getListText(selectYourCity);
+        return getTexts(selectYourCity);
     }
 
     public String getCityNameWidget() {
@@ -68,7 +68,7 @@ public class WidgetsPage extends FooterMenuPage {
     }
 
     public List<String> getAllWidgetsCityName() {
-        List<String> allWidgetsCityName = getListText(getWidgets());
+        List<String> allWidgetsCityName = getTexts(getWidgets());
 
         return allWidgetsCityName;
     }
@@ -94,13 +94,13 @@ public class WidgetsPage extends FooterMenuPage {
     }
 
     public WidgetsPage inputYourAPIKey(String key) {
-        inputText(yourAPIKeyField, key);
+        inputAfterClear(yourAPIKeyField, key);
 
         return this;
     }
 
     public WidgetsPage inputYourCityName(String city) {
-        inputText(yourCityNameField, city);
+        inputAfterClear(yourCityNameField, city);
 
         return this;
     }

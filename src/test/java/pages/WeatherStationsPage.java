@@ -22,7 +22,7 @@ public class WeatherStationsPage extends FooterMenuPage {
     }
 
     public WeatherStationsPage waitAllSummaryElementsVisibleAndClickable() {
-        allElementsVisibleAndClickable(summaryListWeatherStations);
+        areAllElementsVisibleAndClickable(summaryListWeatherStations);
 
         return this;
     }

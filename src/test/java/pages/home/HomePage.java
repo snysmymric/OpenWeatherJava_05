@@ -43,7 +43,7 @@ public class HomePage extends HomeTopMenuPage {
 
     public List<String> getTextUserDropDownMenuLInks() {
 
-        return getListText(userDropdownMenuLinks);
+        return getTexts(userDropdownMenuLinks);
     }
 
     public HomeAPIKeysPage clickAPIKeysTab() {
@@ -63,13 +63,13 @@ public class HomePage extends HomeTopMenuPage {
     }
 
     public int orangeButtonsSignIn() {
-        allElementsVisibleAndClickable(orangeButtons);
+        areAllElementsVisibleAndClickable(orangeButtons);
 
         return getListSize(orangeButtons);
     }
 
     public int navTabs() {
-        allElementsVisibleAndClickable(navTabs);
+        areAllElementsVisibleAndClickable(navTabs);
 
         return getListSize(navTabs);
     }
@@ -79,7 +79,7 @@ public class HomePage extends HomeTopMenuPage {
         return getTexts(navTabs);
     }
 
-    public String getMessage() {
+    public String getMessageSignOut() {
 
         return getText(signOutMessage);
     }

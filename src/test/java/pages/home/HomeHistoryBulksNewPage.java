@@ -25,7 +25,7 @@ public class HomeHistoryBulksNewPage extends HomeMarketplacePage {
     }
 
     public HomeHistoryBulksNewPage uncheckAllWeatherParameters() {
-        clickAllElements(weatherParametersElements);
+        clickAllElementsInList(weatherParametersElements);
 
         return this;
     }

@@ -382,7 +382,7 @@ public class MainTest extends BaseTest {
         openBaseURL();
 
         MainPage mainPage = new MainPage(getDriver()).scrollToFooterMenu();
-        int actualLinks = mainPage.footerMenuLinks();
+        int actualLinks = mainPage.getFooterMenuLinksCount();
 
         Assert.assertEquals(actualLinks, expectedLinks);
     }
@@ -394,7 +394,7 @@ public class MainTest extends BaseTest {
         openBaseURL().signIn();
 
         MainPage mainPage = new MainPage(getDriver()).scrollToFooterMenu();
-        int actualLinks = mainPage.footerMenuLinks();
+        int actualLinks = mainPage.getFooterMenuLinksCount();
 
         Assert.assertEquals(actualLinks, expectedLinks);
 

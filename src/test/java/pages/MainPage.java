@@ -4,7 +4,6 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -257,7 +256,7 @@ public class MainPage extends FooterMenuPage {
         List<WebElement> displayedIcons = new ArrayList<>();
 
         for (WebElement element : apiIcons) {
-            if (isDisplayedElement(element) && element.isEnabled()) {
+            if (isElementDisplayed(element) && element.isEnabled()) {
                 displayedIcons.add(element);
             } else {
                 getWait20().until(ExpectedConditions.visibilityOf(element));
@@ -276,7 +275,7 @@ public class MainPage extends FooterMenuPage {
     public List<String> getListWeatherDescriptionText() {
         getActions().scrollByAmount(0, 500).perform();
 
-        return getListText(weatherDescription);
+        return getTexts(weatherDescription);
     }
 
     public List<WebElement> getApiIcons() {
@@ -301,13 +300,13 @@ public class MainPage extends FooterMenuPage {
 
     public List<String> getDataSourceOptionsTexts() {
 
-        return getListText(dataSourceOptions);
+        return getTexts(dataSourceOptions);
     }
 
     public List<String> getListOfEightDaysDataText() {
         scrollByVisibleElement(currentDateFromEightDaysForecast);
 
-        return getListText(listOfEightDaysData);
+        return getTexts(listOfEightDaysData);
     }
 
     public String getEightDaysForecastCalendarSequenceText() {
@@ -415,7 +414,7 @@ public class MainPage extends FooterMenuPage {
     }
 
     public MainPage clickUpKeyInTemperatureInput() {
-        clickAKey(temperatureInputInDifferentWeatherContainer, Keys.ARROW_UP);
+        clickEnter(temperatureInputInDifferentWeatherContainer);
 
         return this;
     }
@@ -480,17 +479,17 @@ public class MainPage extends FooterMenuPage {
 
     public boolean checkAllIconsAreVisibleAndClickable() {
 
-        return allElementsVisibleAndClickable(differentWeatherIcons);
+        return areAllElementsVisibleAndClickable(differentWeatherIcons);
     }
 
     public boolean isSendButtonDisplayed() {
 
-        return isDisplayedElement(sendButtonInDifferentWeatherContainer);
+        return isElementDisplayed(sendButtonInDifferentWeatherContainer);
     }
 
     public boolean isXButtonDisplayed() {
 
-        return isDisplayedElement(xButtonInDifferentWeatherContainer);
+        return isElementDisplayed(xButtonInDifferentWeatherContainer);
     }
 
     public MainPage switchToMetric() {
@@ -575,7 +574,7 @@ public class MainPage extends FooterMenuPage {
 
     public MainPage scrollToBulkLink() {
 
-        if (isDisplayedElement(bulkLink)) {
+        if (isElementDisplayed(bulkLink)) {
             wait20ElementToBeVisible(bulkLink);
         }
         scrollByVisibleElement(bulkLink);
@@ -585,7 +584,7 @@ public class MainPage extends FooterMenuPage {
 
     public boolean isLocationButtonDisplayed() {
 
-        return isDisplayedElement(locationButton);
+        return isElementDisplayed(locationButton);
     }
 
     public MainPage scrollByCurrentWeatherIcon() {

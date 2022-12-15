@@ -26,12 +26,12 @@ public class FindPage extends FooterMenuPage {
 
     public boolean IsContainsCurrentUrlCityName(String text) {
 
-        return currentUrlIsContainsText(text);
+        return isCurrentUrlContains(text);
     }
 
     public List<String> getSearchCityNames() {
 
-        return getListText(searchedCityNames);
+        return getTexts(searchedCityNames);
     }
 
     public boolean isCreatedCityNamesListContainsRome() {

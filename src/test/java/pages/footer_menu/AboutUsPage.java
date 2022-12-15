@@ -40,7 +40,7 @@ public class AboutUsPage extends FooterMenuPage {
     }
 
     public AboutUsPage waitAllOptionsAreVisibleAndClickable() {
-        allElementsVisibleAndClickable(optionsUnderWhereTo);
+        areAllElementsVisibleAndClickable(optionsUnderWhereTo);
 
         return this;
     }

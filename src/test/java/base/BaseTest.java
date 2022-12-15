@@ -1,9 +1,6 @@
 package base;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.ITestContext;
 import org.testng.ITestResult;
@@ -19,9 +16,8 @@ import java.lang.reflect.Method;
 import java.time.Duration;
 
 public abstract class BaseTest {
-    public final String BASE_URL = TestUtils.getBaseUrl();
     private WebDriver driver;
-    private WebDriverWait webDriverWait20;
+    private WebDriverWait webDriverWait;
 
     @BeforeSuite
     protected void beforeSuite(ITestContext context) {
@@ -43,7 +39,7 @@ public abstract class BaseTest {
         Reporter.log(ReportUtils.getTestStatistics(method, result), true);
 
         driver.quit();
-        webDriverWait20 = null;
+        webDriverWait = null;
     }
 
     protected WebDriver getDriver() {
@@ -51,55 +47,24 @@ public abstract class BaseTest {
         return driver;
     }
 
-    protected WebDriverWait getWait20() {
-        if (webDriverWait20 == null) {
-            webDriverWait20 = new WebDriverWait(driver, Duration.ofSeconds(20));
+    protected WebDriverWait getWait() {
+        if (webDriverWait == null) {
+            webDriverWait = new WebDriverWait(driver, Duration.ofSeconds(20));
         }
 
-        return webDriverWait20;
+        return webDriverWait;
     }
 
     public MainPage openBaseURL() {
-        getDriver().get(BASE_URL);
-        waitForGrayContainerDisappeared();
+        TestUtils.loadBaseUrlPage(getDriver(), getWait());
 
-        if (reloadPageIfElementNotFound(By.xpath("//div[@id = 'weather-widget']//h2"))) {
+        if (TestUtils.isH2HeaderExists(getDriver())) {
             Reporter.log("BaseURL page was loaded successfully ", true);
         } else {
-            Reporter.log("!!!!! Error !!!!! BaseURL page was NOT loaded. \n "
-                    + "Cancel current run and Re-Run jobs\n", true);
+            TestUtils.reLoadBaseUrlPage(getDriver(), getWait());
         }
 
         return new MainPage(getDriver());
-    }
-
-    private boolean reloadPageIfElementNotFound(By by) {
-        int count = 0;
-
-        while (count <= 3 && !(isElementExists(by))) {
-            getDriver().navigate().refresh();
-            Reporter.log("Re-loading base URL page", true);
-            waitForGrayContainerDisappeared();
-            count++;
-        }
-
-        return isElementExists(by);
-    }
-
-    private void waitForGrayContainerDisappeared() {
-        getWait20().until(ExpectedConditions.invisibilityOfElementLocated(
-                By.className("owm-loader-container")));
-    }
-
-    private boolean isElementExists(By by) {
-        boolean isExists = true;
-        try {
-            driver.findElement(by);
-        } catch (NoSuchElementException e) {
-            isExists = false;
-        }
-
-        return isExists;
     }
 
     public String getExternalPageTitle() {

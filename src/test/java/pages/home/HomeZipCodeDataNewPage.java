@@ -126,7 +126,7 @@ public class HomeZipCodeDataNewPage extends HomeMarketplacePage {
 
     public List<String> getOrderParametersTexts() {
 
-        return getListText(orderParameters);
+        return getTexts(orderParameters);
     }
 
     public String getBillingDetailsHeader() {
@@ -206,25 +206,25 @@ public class HomeZipCodeDataNewPage extends HomeMarketplacePage {
     }
 
     public HomeZipCodeDataNewPage inputFirstName(String firstName) {
-        inputText(firstNameField, firstName);
+        inputAfterClear(firstNameField, firstName);
 
         return this;
     }
 
     public HomeZipCodeDataNewPage inputLastName(String lastName) {
-        inputText(lastNameField, lastName);
+        inputAfterClear(lastNameField, lastName);
 
         return this;
     }
 
     public HomeZipCodeDataNewPage inputPhone(String number) {
-        inputText(phoneField, number);
+        inputAfterClear(phoneField, number);
 
         return this;
     }
 
     public HomeZipCodeDataNewPage inputEmail(String email) {
-        inputText(emailField, email);
+        inputAfterClear(emailField, email);
 
         return this;
     }
@@ -245,12 +245,12 @@ public class HomeZipCodeDataNewPage extends HomeMarketplacePage {
 
     public boolean isOrderPopUpDisplayed() {
 
-        return isDisplayedElement(placeOrderContainer);
+        return isElementDisplayed(placeOrderContainer);
     }
 
     public boolean isNextButtonVisible() {
 
-        return isDisplayedElement(nextButton);
+        return isElementDisplayed(nextButton);
     }
 
     public boolean isNextButtonSubmiting() {

@@ -69,7 +69,7 @@ public class FooterMenuTest extends BaseTest {
 
         AboutUsPage aboutUsPage = openBaseURL()
                 .scrollToFooterMenu()
-                .clickOnAboutUsFooterMenu()
+                .clickAboutUsFooterMenu()
                 .waitForAboutUsPageHeaderBeVisible();
 
         Assert.assertNotEquals(basePageTitle, aboutUsPage.getTitle());
@@ -99,7 +99,7 @@ public class FooterMenuTest extends BaseTest {
 
         openBaseURL()
                 .scrollToFooterMenu()
-                .clickDownloadOnTheAppStoreLinkFooterMenu()
+                .clickAppStoreIcon()
                 .switchToExternalPage();
 
         Assert.assertEquals(getExternalPageURL(), expectedAppStoreURL);
@@ -123,7 +123,7 @@ public class FooterMenuTest extends BaseTest {
 
         Assert.assertTrue(mainPage.isGithubIconDisplayed());
 
-        mainPage.clickToGithubIcon().switchToExternalPage();
+        mainPage.clickGitHubIcon().switchToExternalPage();
 
         Assert.assertEquals(getExternalPageURL(), expectedURL);
     }
@@ -159,13 +159,13 @@ public class FooterMenuTest extends BaseTest {
     }
 
     @Test
-    public void testDownloadOpenWeatherAppTextExists() {
+    public void isDownloadOpenWeatherAppTextExists() {
         final String expectedText = "Download OpenWeather app";
 
-        Assert.assertTrue(openBaseURL().textDownloadOpenWeatherAppIsDisplayed());
+        Assert.assertTrue(openBaseURL().isDownloadOpenWeatherAppDisplayed());
 
         String textDownloadOpenWeatherApp = openBaseURL()
-                .getTextDownloadOpenWeatherApp();
+                .getDownloadOpenWeatherAppText();
 
         Assert.assertEquals(textDownloadOpenWeatherApp, expectedText);
     }
@@ -178,7 +178,7 @@ public class FooterMenuTest extends BaseTest {
 
         HomeAskQuestionPage homeAskQuestionPage = openBaseURL()
                 .scrollToFooterMenu()
-                .clickOnAskQuestionFooterMenu()
+                .clickAskQuestionFooterMenu()
                 .switchToHomeAskQuestionPage();
 
         Assert.assertNotEquals(basePageTitle, homeAskQuestionPage.getTitle());
@@ -192,9 +192,9 @@ public class FooterMenuTest extends BaseTest {
 
         FooterMenuPage footerMenuPage = openBaseURL()
                 .scrollToFooterMenu()
-                .clickDownloadGooglePlayLinkFooterMenu();
+                .clickGooglePlayIcon();
 
-        Assert.assertEquals(footerMenuPage.getStoreIconsSize(), expectedResult);
+        Assert.assertEquals(footerMenuPage.getStoreIconsCount(), expectedResult);
     }
 
     @Test
@@ -203,7 +203,7 @@ public class FooterMenuTest extends BaseTest {
 
         openBaseURL()
                 .scrollToFooterMenu()
-                .clickDownloadGooglePlayLinkFooterMenu()
+                .clickGooglePlayIcon()
                 .switchToExternalPage();
 
         Assert.assertEquals(getExternalPageURL(), expectedGooglePlayURL);
@@ -262,7 +262,7 @@ public class FooterMenuTest extends BaseTest {
         List<String> actualSubscriptionTexts =
                 openBaseURL()
                         .scrollToSubscriptionFooterMenu()
-                        .getMenusTexts();
+                        .getSubscriptionMenusTexts();
 
         Assert.assertTrue(actualSubscriptionTexts.size() > 0);
         Assert.assertEquals(actualSubscriptionTexts, expectedSubscriptionTexts);
@@ -292,7 +292,7 @@ public class FooterMenuTest extends BaseTest {
 
         MainPage mainPage = openBaseURL();
 
-        Assert.assertTrue(mainPage.storePanelIsDisplayed());
-        Assert.assertEquals(mainPage.getStoresIconsSize(), expectedQuantity);
+        Assert.assertTrue(mainPage.isStorePanelDisplayed());
+        Assert.assertEquals(mainPage.getStoresIconsCount(), expectedQuantity);
     }
 }

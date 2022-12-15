@@ -35,7 +35,7 @@ public class HomeMarketplacePage extends HomeFooterMenuPage {
 
     public boolean areAllButtonsVisibleAndClickable() {
 
-        return allElementsVisibleAndClickable(allHomeMarketplaceButtons);
+        return areAllElementsVisibleAndClickable(allHomeMarketplaceButtons);
     }
 
     public HomeHistoryBulksNewPage clickHistoryBulkMenu() {

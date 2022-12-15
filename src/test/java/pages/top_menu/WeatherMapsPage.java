@@ -77,7 +77,7 @@ public class WeatherMapsPage extends TopMenuPage {
 
     public boolean isLoopDisplayBlockDisplayed() {
 
-        return isDisplayedElement(loopDisplayBlock);
+        return isElementDisplayed(loopDisplayBlock);
     }
 
     public WeatherMapsPage clickLoopDisplayBlock() {

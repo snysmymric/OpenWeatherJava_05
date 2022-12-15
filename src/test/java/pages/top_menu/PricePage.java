@@ -84,7 +84,7 @@ public class PricePage extends FooterMenuPage {
 
     public List<String> getHeadersTransparentButtons() {
 
-        return getTrimTexts(transparentButtons);
+        return getTrimmedTexts(transparentButtons);
     }
 
     public List<String> getListPricingPageH2Headers() {
@@ -99,7 +99,7 @@ public class PricePage extends FooterMenuPage {
 
     public List<String> getHeadersOrangeButtons() {
 
-        return getTrimTexts(orangeButtons);
+        return getTrimmedTexts(orangeButtons);
     }
 
     public int getOrangeButtonsAmount() {

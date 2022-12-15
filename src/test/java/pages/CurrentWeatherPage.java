@@ -17,7 +17,7 @@ public class CurrentWeatherPage extends FooterMenuPage {
     public boolean isAPICallCodeDisplayed() {
         wait10ElementToBeVisible(apiCallCode);
 
-        return isDisplayedElement(apiCallCode);
+        return isElementDisplayed(apiCallCode);
     }
 
     public String getAPICallCode() {

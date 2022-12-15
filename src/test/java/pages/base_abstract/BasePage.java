@@ -27,18 +27,11 @@ public abstract class BasePage {
     }
 
     abstract HomePage signIn();
+
     abstract HomeSignInPage signOut();
 
     protected WebDriver getDriver() {
         return driver;
-    }
-
-    protected WebDriverWait getWait20() {
-        if (webDriverWait20 == null) {
-            webDriverWait20 = new WebDriverWait(driver, Duration.ofSeconds(20));
-        }
-
-        return webDriverWait20;
     }
 
     protected WebDriverWait getWait10() {
@@ -47,6 +40,14 @@ public abstract class BasePage {
         }
 
         return webDriverWait10;
+    }
+
+    protected WebDriverWait getWait20() {
+        if (webDriverWait20 == null) {
+            webDriverWait20 = new WebDriverWait(driver, Duration.ofSeconds(20));
+        }
+
+        return webDriverWait20;
     }
 
     protected Actions getActions() {
@@ -75,24 +76,49 @@ public abstract class BasePage {
         return element.getText();
     }
 
-    protected List<String> getTexts(List<WebElement> elements) {
-        List<String> texts = new ArrayList<>();
+    protected List<String> getTexts(List<WebElement> list) {
+        if (list.size() > 0) {
+            getWait20().until(ExpectedConditions.visibilityOfAllElements(list));
+            List<String> textList = new ArrayList<>();
+            for (WebElement element : list) {
+                if (element.isEnabled() && element.isDisplayed()) {
+                    textList.add(element.getText());
+                }
+            }
 
-        for (WebElement element : elements) {
-            texts.add(getText(element));
+            return textList;
         }
 
-        return texts;
+        return new ArrayList<>();
     }
 
-    protected List<String> getTrimTexts(List<WebElement> elements) {
-        List<String> texts = new ArrayList<>();
+    protected List<String> getTrimmedTexts(List<WebElement> elements) {
+        List<String> texts = getTexts(elements);
 
         for (WebElement element : elements) {
             texts.add(getText(element).trim());
         }
 
         return texts;
+    }
+
+    protected List<WebElement> getListOfVisibleElements(List<WebElement> list, int listSize) {
+        List<WebElement> visibleElements = new ArrayList<>();
+
+        if (!(list.size() > 0)) {
+            getWait20().until(ExpectedConditions.visibilityOfAllElements(list));
+            for (WebElement element : list) {
+                if (!element.isDisplayed() && !element.isEnabled()) {
+                    getWait20().until(ExpectedConditions.visibilityOf(element));
+                    visibleElements.add(element);
+                }
+            }
+        } else if (list.size() == listSize) {
+
+            return list;
+        }
+
+        return visibleElements;
     }
 
     public String getAttribute(WebElement element, String attribute) {
@@ -109,23 +135,9 @@ public abstract class BasePage {
         return element.getCssValue("background-color");
     }
 
-    protected List<WebElement> getListOfVisibleElements(List<WebElement> list, int listSize) {
-        List<WebElement> visibleElements = new ArrayList<>();
+    protected String getBackgroundColorInHEX(WebElement element) {
 
-        if (!(list.size() > 0)) {
-            getWait20().until(ExpectedConditions.visibilityOfAllElements(list));
-            for (WebElement element : list) {
-                if (!element.isDisplayed() && !element.isEnabled()) {
-                    getWait20().until(ExpectedConditions.visibilityOf(element));
-                    visibleElements.add(element);
-                }
-            }
-        } else if (list.size() == listSize) {
-
-            return  list;
-        }
-
-        return visibleElements;
+        return Color.fromString(getBackgroundColor(element)).asHex();
     }
 
     protected String getFontSize(WebElement element) {
@@ -139,44 +151,9 @@ public abstract class BasePage {
         return list.size();
     }
 
-    protected List<String> getListText(List<WebElement> list) {
-        if (list.size() > 0) {
-            getWait20().until(ExpectedConditions.visibilityOfAllElements(list));
-            List<String> textList = new ArrayList<>();
-            for (WebElement element : list) {
-                if (element.isEnabled() && element.isDisplayed()) {
-                    textList.add(element.getText());
-                }
-            }
-
-            return textList;
-        }
-
-        return new ArrayList<>();
-    }
-
-    protected String getBackgroundColorInHEX(WebElement element) {
-
-        return Color.fromString(getBackgroundColor(element)).asHex();
-    }
-
-    protected void setNewDimensionOfWindow(int width, int height){
-        getDriver().manage().window().setSize(new Dimension(width, height));
-    }
-
     protected void click(WebElement element) {
         wait10ElementToBeVisible(element);
         wait10ElementToBeClickable(element).click();
-    }
-
-    protected void clickByJavaScript(WebElement element) {
-        JavascriptExecutor executor = (JavascriptExecutor) driver;
-        executor.executeScript("arguments[0].click();", element);
-    }
-
-    protected void clickAKey(WebElement element, Keys key) {
-        getWait10().until(ExpectedConditions.visibilityOf(element));
-        element.sendKeys(key);
     }
 
     protected void click20(WebElement element) {
@@ -184,15 +161,54 @@ public abstract class BasePage {
         wait20ElementToBeClickable(element).click();
     }
 
-    protected void clickAllElements(List<WebElement> elements) {
+    protected void clickByJavaScript(WebElement element) {
+        JavascriptExecutor executor = (JavascriptExecutor) driver;
+        executor.executeScript("arguments[0].click();", element);
+    }
+
+    protected void clickEnter(WebElement element) {
+        getWait10().until(ExpectedConditions.visibilityOf(element));
+        element.sendKeys(Keys.ARROW_UP);
+    }
+
+    protected void clickAllElementsInList(List<WebElement> elements) {
         List<WebElement> allElements = new ArrayList<>(elements);
 
-        for (WebElement checkedElement : allElements) {
-            if (checkedElement.isEnabled() && checkedElement.isDisplayed()) {
-                wait10ElementToBeVisible(checkedElement);
-                wait10ElementToBeClickable(checkedElement).click();
+        for (WebElement element : allElements) {
+            if (element.isEnabled() && element.isDisplayed()) {
+                wait10ElementToBeVisible(element);
+                wait10ElementToBeClickable(element).click();
+            } else {
+                Reporter.log("Element " + element + " is not visible or not clickable ", true);
             }
         }
+    }
+
+    protected void clear(WebElement element) {
+
+        element.clear();
+    }
+
+    protected void input(String text, WebElement element) {
+
+        element.sendKeys(text);
+    }
+
+    protected void inputAndEnter(WebElement element, String text) {
+        getWait10().until(ExpectedConditions.visibilityOf(element));
+        element.sendKeys(text, Keys.ENTER);
+    }
+
+    protected void inputAfterClear(WebElement element, String text) {
+        click(element);
+        if (!getText(element).isEmpty() && getText(element).isBlank()) {
+            clear(element);
+        }
+        input(text, element);
+    }
+
+    protected void setWindowDimensions(int width, int height) {
+        getDriver().manage().window().setSize(new Dimension(width, height));
     }
 
     protected void switchToAnotherWindow() {
@@ -202,6 +218,8 @@ public abstract class BasePage {
             if (!originalWindow.equals(windowHandle) && getDriver().getWindowHandles().size() == 2) {
                 getDriver().switchTo().window(windowHandle);
                 break;
+            } else {
+                Reporter.log(" Unable to switch window ", true);
             }
         }
     }
@@ -211,54 +229,20 @@ public abstract class BasePage {
         js.executeScript("arguments[0].scrollIntoView();", element);
     }
 
-    protected void input(String text, WebElement element) {
-        element.sendKeys(text);
-    }
-
-    protected void inputAndEnter(WebElement element, String text) {
-        getWait10().until(ExpectedConditions.visibilityOf(element));
-        element.sendKeys(text, Keys.ENTER);
-    }
-
-    protected void clear(WebElement element) {
-
-        element.clear();
-    }
-
-    protected void inputText(WebElement element, String text) {
-        click(element);
-        clear(element);
-        input(text, element);
-    }
-
-    protected void waitForTextNotToBeEmpty(WebElement element) {
-        while (element.getText() == null || element.getText().length() < 1) {
-            getWait20().until(ExpectedConditions.not(ExpectedConditions.textToBePresentInElement(element, "")));
-        }
-    }
-
     protected void goBack() {
         getDriver().navigate().back();
     }
 
-    protected boolean isDisplayedElement(WebElement element) {
-
-        return element.isDisplayed();
+    protected void selectOption(WebElement element, String text) {
+        Select option = new Select(element);
+        option.selectByValue(text);
     }
 
-    protected boolean allElementsVisibleAndClickable(List<WebElement> elements) {
-        List<WebElement> allElements = new ArrayList<>(elements);
-        int elementsSize = elements.size();
-        int count = 0;
-
-        for (WebElement checkedElement : allElements) {
-            if (checkedElement.isEnabled() && checkedElement.isDisplayed()) {
-                wait10ElementToBeClickable(checkedElement);
-                count++;
-            }
+    protected void waitForTextNotToBeEmpty(WebElement element) {
+        while (element.getText() == null || element.getText().length() < 1) {
+            getWait20().until(ExpectedConditions
+                    .not(ExpectedConditions.textToBePresentInElement(element, "")));
         }
-
-        return elementsSize == count;
     }
 
     protected void wait10ElementToBeVisible(WebElement element) {
@@ -288,44 +272,24 @@ public abstract class BasePage {
                 .not(ExpectedConditions.textToBePresentInElement(element, text)));
     }
 
-    protected boolean isTextContains(String text, WebElement element) {
+    protected boolean isElementDisplayed(WebElement element) {
 
-        return getText(element).contains(text);
+        return element.isDisplayed();
     }
 
-    protected boolean isListContains(String text, List<String> list) {
-        boolean result = true;
-
-        for (String s : list) {
-            result = result && s.contains(text);
-        }
-
-        return result;
-    }
-
-    protected boolean isListContains(List<String> shortList, List<String> longList) {
-        boolean result = true;
-
-        for (int i = 0; i < shortList.size(); i++) {
-            result = result && longList.get(i).contains(shortList.get(i));
-        }
-
-        return result;
-    }
-
-    protected boolean isElementsInListDisplayed( List<WebElement> list) {
-        boolean result = true;
+    protected boolean areElementsInListDisplayed(List<WebElement> list) {
+        boolean result = false;
 
         for (WebElement element : list) {
-            result = result && element.isDisplayed();
+            if (element.isDisplayed()) {
+                result = true;
+            } else {
+
+                return false;
+            }
         }
 
         return result;
-    }
-
-    protected boolean currentUrlIsContainsText(String text) {
-
-        return getDriver().getCurrentUrl().contains(text);
     }
 
     protected boolean areElementsUnselected(List<WebElement> elements) {
@@ -344,34 +308,62 @@ public abstract class BasePage {
         return elementsSize == count;
     }
 
-    protected int convertStringToInt(String text) {
+    protected boolean areAllElementsVisibleAndClickable(List<WebElement> elements) {
+        List<WebElement> allElements = new ArrayList<>(elements);
+        int elementsSize = elements.size();
+        int count = 0;
 
-        return Integer.parseInt(text);
-    }
-
-    protected void selectOption(WebElement element, String text) {
-        Select option = new Select(element);
-        option.selectByValue(text);
-    }
-
-    protected boolean isListEqualsExpectedList(List<String> list, List<String> expectedList) {
-        boolean equals = false;
-
-        if (list.size() == expectedList.size()) {
-            int count = 0;
-            for (int i = 0; i < expectedList.size(); i++) {
-                if (list.get(i).equals(expectedList.get(i))) {
-                    count++;
-                }
-            }
-
-            if (count == expectedList.size()) {
-                equals = true;
+        for (WebElement checkedElement : allElements) {
+            if (checkedElement.isEnabled() && checkedElement.isDisplayed()) {
+                wait10ElementToBeClickable(checkedElement);
+                count++;
             }
         }
 
-        return equals;
+        return elementsSize == count;
     }
 
-    //driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(10));
+//    protected boolean isTextContains(String text, WebElement element) {
+//
+//        return getText(element).contains(text);
+//    }
+
+//    protected boolean isListContains(String text, List<String> list) {
+//        boolean result = false;
+//
+//        for (String s : list) {
+//            if (s.contains(text)) {
+//                result = true;
+//            } else {
+//
+//                return false;
+//            }
+//        }
+//
+//        return result;
+//    }
+
+//    protected boolean isCurrentUrlContains(String text) {
+//
+//        return getDriver().getCurrentUrl().contains(text);
+//    }
+
+//    protected boolean isListEqualsExpectedList(List<String> list, List<String> expectedList) {
+//        boolean equals = false;
+//
+//        if (list.size() == expectedList.size()) {
+//            int count = 0;
+//            for (int i = 0; i < expectedList.size(); i++) {
+//                if (list.get(i).equals(expectedList.get(i))) {
+//                    count++;
+//                }
+//            }
+//
+//            if (count == expectedList.size()) {
+//                equals = true;
+//            }
+//        }
+//
+//        return equals;
+//    }
 }
