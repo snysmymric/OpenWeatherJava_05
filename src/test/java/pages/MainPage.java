@@ -172,7 +172,7 @@ public class MainPage extends FooterMenuPage {
     @FindBy(xpath = "//span[@class='sub']")
     private List<WebElement> weatherDescription;
 
-    @FindBy(tagName = "a")
+    @FindBy(css = "a[href*='/']")
     private List<WebElement> allLinks;
 
     public static final String RANDOM_TEXT = TestUtils.getRandomName();
@@ -626,8 +626,13 @@ public class MainPage extends FooterMenuPage {
         return this;
     }
 
-    public List<WebElement> getAllLinks() {
+    public List<String> getAllLinks() {
+        List<String> linksList = new ArrayList<>();
 
-        return allLinks;
+        for(WebElement link : allLinks) {
+            linksList.add(getAttribute(link, "href"));
+        }
+
+        return linksList;
     }
 }

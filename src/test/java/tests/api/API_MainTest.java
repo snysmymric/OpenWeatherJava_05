@@ -9,6 +9,7 @@ import io.restassured.response.Response;
 import org.json.JSONObject;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
+import org.testng.Reporter;
 import org.testng.annotations.Test;
 import pages.MainPage;
 import utils.DateTimeUtils;
@@ -278,22 +279,23 @@ public class API_MainTest extends BaseTest {
 
     @Test
     public void testAllLinksAreNotBroken() {
-        final List<WebElement> allLinks = openBaseURL().getAllLinks();
+        final List<String> allLinks = openBaseURL().getAllLinks();
 
         List<String> brokenLinks = new ArrayList<>();
+        List<String> workingLinks = new ArrayList<>();
 
-        for (WebElement link : allLinks) {
-            String urlLink = link.getAttribute("href");
-
+        for (String link : allLinks) {
             try {
-                URL url = new URL(urlLink);
+                URL url = new URL(link);
 
                 HttpURLConnection httpURLConnect = (HttpURLConnection) url.openConnection();
-                httpURLConnect.setConnectTimeout(5000);
+                httpURLConnect.setConnectTimeout(500);
                 httpURLConnect.connect();
 
                 if (httpURLConnect.getResponseCode() >= 400) {
-                    brokenLinks.add(urlLink);
+                    brokenLinks.add(link);
+                } else {
+                    workingLinks.add(link);
                 }
 
             } catch (IOException e) {
@@ -301,6 +303,8 @@ public class API_MainTest extends BaseTest {
             }
         }
 
-        Assert.assertEquals(brokenLinks.size(), 0);
+        Assert.assertEquals(workingLinks.size() + brokenLinks.size(), allLinks.size());
+        Reporter.log("Working links " + workingLinks.size(), true);
+        Reporter.log("Broken links " + brokenLinks.size(), true);
     }
 }
