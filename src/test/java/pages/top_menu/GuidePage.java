@@ -4,15 +4,14 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import pages.MainPage;
 import pages.RoadRiskAPIPage;
-import pages.base_abstract.FooterMenuPage;
+import pages.SolarRadiationAPIPage;
+import pages.base_abstract.BreadCrumbPage;
 
 import java.util.List;
 
-public class GuidePage extends FooterMenuPage {
-
-    @FindBy(xpath = "//div[@class='container']//li/a[@href = '/']")
-    private WebElement homeGuideLink;
+public class GuidePage extends BreadCrumbPage {
 
     @FindBy(xpath = "//a[@href='/api/solar-radiation']")
     private WebElement solarRadiationLink;
@@ -24,27 +23,21 @@ public class GuidePage extends FooterMenuPage {
     private WebElement roadRiskAPILink;
 
     @FindBy(xpath = "//a[text()='Learn more']")
-    private List<WebElement> buttonsLearnMoreList;
+    private List<WebElement> learnMoreButtons;
 
     public GuidePage(WebDriver driver) {
         super(driver);
     }
 
-    public int getButtonsLearnMoreAmount() {
+    public int countLearnMoreButtons() {
 
-        return getListSize(buttonsLearnMoreList);
+        return getListSize(learnMoreButtons);
     }
 
-    public GuidePage clickHomeGuideLink() {
-        click(homeGuideLink);
-
-        return this;
-    }
-
-    public GuidePage clickSolarRadiationLink() {
+    public SolarRadiationAPIPage clickSolarRadiationLink() {
         click(solarRadiationLink);
 
-        return this;
+        return new SolarRadiationAPIPage(getDriver());
     }
 
     public RoadRiskAPIPage clickRoadRiskAPILink(){
@@ -58,5 +51,4 @@ public class GuidePage extends FooterMenuPage {
         js.executeScript("arguments[0].scrollIntoView();", dedicatedWeatherProductsHeader);
         return this;
     }
-
 }

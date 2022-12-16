@@ -3,9 +3,9 @@ package pages;
 import org.openqa.selenium.WebDriver;
 import pages.base_abstract.BreadCrumbPage;
 
-public class RoadRiskAPIPage extends BreadCrumbPage {
+public class SolarRadiationAPIPage extends BreadCrumbPage {
 
-    public RoadRiskAPIPage(WebDriver driver) {
+    public SolarRadiationAPIPage(WebDriver driver) {
         super(driver);
     }
 }

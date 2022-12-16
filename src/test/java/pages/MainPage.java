@@ -539,8 +539,10 @@ public class MainPage extends FooterMenuPage {
         return this;
     }
 
-    public void waitForGrayContainerDisappeared() {
+    public MainPage waitForGrayContainerDisappeared() {
         getWait20().until(ExpectedConditions.invisibilityOf(grayContainer));
+
+        return this;
     }
 
     public MainPage waitForFooterPanelToBeVisible() {

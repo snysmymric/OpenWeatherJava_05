@@ -277,4 +277,20 @@ public class TopMenuTest extends BaseTest {
 
         Assert.assertEquals(mainPage.getCurrentURL(),expectedUrl);
     }
+
+    @Test
+    public void testNavigationBarSearchField_NavigatesToFindPage() {
+        final String findPageURL = "https://openweathermap.org/find?q=Barcelona";
+        final String cityName = "Barcelona";
+
+        String oldURL = openBaseURL().getCurrentURL();
+
+        String actualURL = new MainPage(getDriver())
+                .clickSearchFieldTopMenu()
+                .inputSearchCriteriaAndEnter(cityName)
+                .getCurrentURL();
+
+        Assert.assertNotEquals(oldURL, actualURL);
+        Assert.assertEquals(actualURL, findPageURL);
+    }
 }

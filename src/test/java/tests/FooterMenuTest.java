@@ -96,13 +96,19 @@ public class FooterMenuTest extends BaseTest {
     public void testDownloadOnTheAppStoreLinkNavigatesToAppStore() {
         final String expectedAppStoreURL =
                 "https://apps.apple.com/gb/app/openweather/id1535923697";
+        final String expectedTitle = "OpenWeather on the App Store";
 
-        openBaseURL()
-                .scrollToFooterMenu()
-                .clickAppStoreIcon()
-                .switchToExternalPage();
+        String oldURL = openBaseURL().getCurrentURL();
+
+        MainPage mainPage = new MainPage(getDriver());
+
+        mainPage.scrollToFooterMenu()
+                .clickAppStoreIcon();
+
+        mainPage.switchToExternalPage();
 
         Assert.assertEquals(getExternalPageURL(), expectedAppStoreURL);
+        Assert.assertEquals(getExternalPageTitle(), expectedTitle);
     }
 
     @Test

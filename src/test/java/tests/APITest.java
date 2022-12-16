@@ -21,10 +21,10 @@ public class APITest extends BaseTest {
     public void testAPIPageHeader() {
         final String expectedHeader = "Weather API";
 
-        String header = openBaseURL()
+        String actualHeader = openBaseURL()
                 .clickAPIMenu()
-                .getPageHeader();
+                .getH1Header();
 
-        Assert.assertEquals(header,expectedHeader);
+        Assert.assertEquals(actualHeader,expectedHeader);
     }
 }

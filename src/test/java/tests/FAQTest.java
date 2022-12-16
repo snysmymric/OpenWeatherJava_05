@@ -3,37 +3,19 @@ package tests;
 import base.BaseTest;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import pages.top_menu.FAQPage;
-import pages.MainPage;
 
 public class FAQTest extends BaseTest {
 
     @Test
-    public void testFAQButtonIsClickable() {
-        final String expectedResult = "Frequently Asked Questions";
+    public void testFAQHeader() {
+        final String expectedHeader = "Frequently Asked Questions";
 
-        openBaseURL();
-
-        MainPage mainPage = new MainPage(getDriver());
-
-        mainPage.clickSupportMenu();
-        mainPage.clickFAQSupportSubmenu();
-
-        FAQPage FAQPage = new FAQPage(getDriver());
-
-        Assert.assertEquals(FAQPage.getFrequentlyAskedQuestionsHeader(), expectedResult);
-    }
-
-    @Test
-    public void testTitle() {
-        final String expectedTitle = "Frequently Asked Questions - OpenWeatherMap";
-
-        String actualTitle = openBaseURL()
+        String actualHeader = openBaseURL()
                 .clickSupportMenu()
                 .clickFAQSupportSubmenu()
-                .getTitle();
+                .getH1Header();
 
-        Assert.assertEquals(actualTitle, expectedTitle);
+        Assert.assertEquals(actualHeader, expectedHeader);
     }
 
     @Test
@@ -49,7 +31,7 @@ public class FAQTest extends BaseTest {
     }
 
     @Test
-    public void testAllFAQInnerDescriptionIsDisplayed() {
+    public void testAllFAQInnerDescriptionsAmount() {
         final int expectedOpenedFAQAmount = 59;
 
         int actualOpenedFAQAmount = openBaseURL()

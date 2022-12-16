@@ -66,4 +66,10 @@ public class TestUtils {
 
         return Integer.parseInt(text);
     }
+
+    public static String getSubstring(String text, String separator) {
+        int index = text.indexOf(separator);
+
+        return text.substring(0, index);
+    }
 }

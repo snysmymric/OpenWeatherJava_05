@@ -3,21 +3,19 @@ package tests;
 import base.BaseTest;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import pages.CurrentWeatherPage;
 
 public class CurrentWeatherTest extends BaseTest {
 
     @Test
-    public void testCorrectAPICallCodeIsDisplayed() {
-        String expectedAPICallCode = "https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={API key}";
+    public void testCurrentWeatherDataCallTemplate() {
+        final String expectedTemplate =
+                "https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={API key}";
 
-        CurrentWeatherPage currentWeatherPage = openBaseURL()
+        String actualTemplate = openBaseURL()
                 .scrollByOrangeBackground()
-                .clickCurrentWeatherIcon();
+                .clickCurrentWeatherIcon()
+                .getAPICallTemplate();
 
-        String actualAPICallCode = currentWeatherPage.getAPICallCode();
-
-        Assert.assertTrue(currentWeatherPage.isAPICallCodeDisplayed());
-        Assert.assertEquals(actualAPICallCode, expectedAPICallCode);
+        Assert.assertEquals(actualTemplate, expectedTemplate);
     }
 }

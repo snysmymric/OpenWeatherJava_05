@@ -29,24 +29,4 @@ public class ProjectConstants {
             "Temperature, Min temperature, Max temperature, "
                     + "Feels like, Wind (speed, direction), Pressure, "
                     + "Humidity, Clouds, Weather conditions, Rain, Snow";
-
-    public static List<String> getStatesNames() {
-
-        return EXPECTED_STATES_NAMES;
-    }
-
-    public static List<String> getExpectedYears() {
-
-        return EXPECTED_YEARS;
-    }
-
-    public static List<String> getWeatherParameters() {
-
-        return EXPECTED_WEATHER_PARAMETERS;
-    }
-
-    public static String getWeatherParametersAsString() {
-
-        return EXPECTED_WEATHER_PARAMETERS_AS_STRING;
-    }
 }

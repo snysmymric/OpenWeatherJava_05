@@ -1,0 +1,43 @@
+package pages.base_abstract;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import pages.MainPage;
+
+public abstract class BreadCrumbPage extends FooterMenuPage {
+
+    @FindBy(xpath = "//h1[@class ='breadcrumb-title']")
+    private WebElement h1Header;
+
+    @FindBy(xpath = "//ol/li/a[@href = '/']")
+    private WebElement homeLink;
+
+    @FindBy(xpath = "//ol/li[@class='breadcrumb__leaf']")
+    private WebElement currentPageName;
+
+    public BreadCrumbPage(WebDriver driver) {
+        super(driver);
+    }
+
+    public String getH1Header() {
+
+        return getText(h1Header);
+    }
+
+    public String getCurrentPageName() {
+
+        return getText(currentPageName);
+    }
+
+    public WebElement getHomeLink() {
+
+        return homeLink;
+    }
+
+    public MainPage clickHomeLink() {
+        click(getHomeLink());
+
+        return new MainPage(getDriver());
+    }
+}

@@ -10,20 +10,21 @@ import java.util.List;
 public class AboutUsTest extends BaseTest {
 
     @Test
-    public void testWhereToHasActiveFourOptions() {
-        final List <String> expectedFourOptions = Arrays.asList(
+    public void testWhereToField_HasActiveOptions() {
+        final List<String> expectedOptions = Arrays.asList(
                 "Buy by Subscription",
                 "Buy in the Marketplace",
                 "Products documentation",
                 "News and Updates"
         );
 
-        List<String> actualOptionsUnderWhereTo =
-                openBaseURL().scrollToFooterMenu().clickAboutUsFooterMenu()
+        List<String> actualOptions = openBaseURL()
+                .scrollToFooterMenu()
+                .clickAboutUsFooterMenu()
                 .scrollToWhereTo()
                 .waitAllOptionsAreVisibleAndClickable()
                 .getOptionsText();
 
-        Assert.assertEquals(actualOptionsUnderWhereTo, expectedFourOptions);
+        Assert.assertEquals(actualOptions, expectedOptions);
     }
 }

@@ -12,8 +12,11 @@ public class FindPage extends FooterMenuPage {
     @FindBy(id = "search_str")
     private WebElement searchFieldWeatherInYourCity;
 
-    @FindBy(xpath = "//div[@id='forecast_list_ul']//tr/td/b/a")
-    private List<WebElement> searchedCityNames;
+    @FindBy(xpath = "//div[@id='forecast_list_ul']//tr")
+    private List<WebElement> resultRows;
+
+    @FindBy(xpath = "//div[@id='forecast_list_ul']//tr/td[2]/b[1]")
+    private List<WebElement> cityCountryNames;
 
     public FindPage(WebDriver driver) {
         super(driver);
@@ -24,18 +27,13 @@ public class FindPage extends FooterMenuPage {
         return getAttribute(searchFieldWeatherInYourCity, attribute);
     }
 
-    public boolean IsContainsCurrentUrlCityName(String text) {
+    public List<WebElement> getResultRows() {
 
-        return isCurrentUrlContains(text);
+        return resultRows;
     }
 
-    public List<String> getSearchCityNames() {
+    public List<String> getCityCountryNames() {
 
-        return getTexts(searchedCityNames);
-    }
-
-    public boolean isCreatedCityNamesListContainsRome() {
-
-        return isListContains("Rome", getSearchCityNames());
+        return getTexts(cityCountryNames);
     }
 }

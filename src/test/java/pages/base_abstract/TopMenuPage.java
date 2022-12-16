@@ -230,9 +230,8 @@ public abstract class TopMenuPage extends BasePage {
         return new WeatherDashboardPage(getDriver());
     }
 
-    public MainPage clickAndClearSearchFieldTopMenu() {
+    public MainPage clickSearchFieldTopMenu() {
         click(searchFieldTopMenu);
-        clear(searchFieldTopMenu);
 
         return new MainPage(getDriver());
     }
@@ -275,14 +274,17 @@ public abstract class TopMenuPage extends BasePage {
         return new HomeSignInPage(getDriver());
     }
 
-    public FindPage inputSearchCriteriaIntoSearchFieldAndEnter(String text) {
-        inputAndEnter(searchFieldTopMenu, text);
+    public FindPage inputSearchCriteriaIntoSearchField(String text) {
+        if (!getText(searchFieldTopMenu).isEmpty() && !getText(searchFieldTopMenu).isBlank()) {
+            clear(searchFieldTopMenu);
+        }
+        input(text, searchFieldTopMenu);
 
         return new FindPage(getDriver());
     }
-    
-    public FindPage inputRomeIntoSearchFieldAndEnter() {
-        inputAndEnter(searchFieldTopMenu, "Rome");
+
+    public FindPage clickEnter() {
+        clickEnter(searchFieldTopMenu);
 
         return new FindPage(getDriver());
     }
@@ -323,5 +325,17 @@ public abstract class TopMenuPage extends BasePage {
     public boolean isLogoIconDisplayed() {
 
         return isElementDisplayed(logo);
+    }
+
+    public String getEnteredValue() {
+
+        return getAttribute(searchFieldTopMenu, "value");
+    }
+
+    public FindPage inputSearchCriteriaAndEnter(String text) {
+        inputSearchCriteriaIntoSearchField(text);
+        clickEnter();
+
+        return new FindPage(getDriver());
     }
 }

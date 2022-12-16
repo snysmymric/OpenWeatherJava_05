@@ -8,20 +8,17 @@ import pages.base_abstract.FooterMenuPage;
 public class CurrentWeatherPage extends FooterMenuPage {
 
     @FindBy(xpath = "//section[@id='geo']/div[@class='api']/code")
-    private WebElement apiCallCode;
+    private WebElement apiCallTemplate;
 
     public CurrentWeatherPage(WebDriver driver) {
         super(driver);
     }
 
-    public boolean isAPICallCodeDisplayed() {
-        wait10ElementToBeVisible(apiCallCode);
+    public String getAPICallTemplate() {
+        if (!isElementDisplayed(apiCallTemplate)) {
+            wait10ElementToBeVisible(apiCallTemplate);
+        }
 
-        return isElementDisplayed(apiCallCode);
-    }
-
-    public String getAPICallCode() {
-
-        return getText(apiCallCode);
+        return getText(apiCallTemplate);
     }
 }
