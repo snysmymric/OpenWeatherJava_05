@@ -62,7 +62,7 @@ public class PriceTest extends BaseTest {
 
         List<String> actualAlertsH4 = openBaseURL()
                 .clickPricingMenu()
-                .getSectionAlertsSubHeadersOfFirstColumn();
+                .getAlertsSubHeaders();
 
         Assert.assertEquals(actualAlertsH4, expectedAlertsH4);
     }

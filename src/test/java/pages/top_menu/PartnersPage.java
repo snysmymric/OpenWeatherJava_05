@@ -9,11 +9,11 @@ import java.util.List;
 
 public class PartnersPage extends FooterMenuPage {
 
-    @FindBy(xpath = "//div[@class='col-sm-7']/h1")
-    private WebElement h1Header;
+    @FindBy(xpath = "//h1[@class='breadcrumb-title']")
+    private WebElement partnersPageHeader;
 
     @FindBy(xpath = "//a[@href='#apache']")
-    private WebElement apacheCamelHyperlink;
+    private WebElement apacheCamellink;
 
     @FindBy(xpath = "//a[@href='http://camel.apache.org/weather.html']")
     private WebElement seeOnWebsiteButton;
@@ -27,11 +27,16 @@ public class PartnersPage extends FooterMenuPage {
 
     public String getPageHeader() {
 
-        return getText(h1Header);
+        return getText(partnersPageHeader);
+    }
+
+    public List<String> getRightSideLinksText(){
+
+        return getTexts(rightSideLinks);
     }
 
     public PartnersPage clickApacheCamelHyperLink() {
-        click20(apacheCamelHyperlink);
+        click20(apacheCamellink);
 
         return this;
     }
@@ -43,10 +48,8 @@ public class PartnersPage extends FooterMenuPage {
     }
 
     public void switchToPartnerWindow() {
+
         switchToAnotherWindow();
     }
 
-    public List<String> getRightSideLinksText(){
-        return getTexts(rightSideLinks);
-    }
 }

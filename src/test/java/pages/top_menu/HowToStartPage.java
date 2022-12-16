@@ -5,7 +5,6 @@ import pages.base_abstract.FooterMenuPage;
 
 public class HowToStartPage extends FooterMenuPage {
 
-
     public HowToStartPage(WebDriver driver) {
         super(driver);
     }

@@ -10,30 +10,24 @@ import java.util.List;
 public class PricePage extends FooterMenuPage {
 
     @FindBy(xpath = "//h1")
-    private WebElement pricingPageHeader;
+    private WebElement pricingPageH1Header;
 
     @FindBy(xpath = "//a[@class = 'btn_block transparent round']")
     private List<WebElement> transparentButtons;
 
     @FindBy(xpath = "//section[@id = 'alerts']/h2")
-    private WebElement alertsH2Header;
+    private WebElement alertsHeader;
 
     @FindBy(xpath = "//section[@id = 'alerts']//tbody/tr/th/h4/a")
-    private List<WebElement> sectionAlertsSubHeadersOfFirstColumn;
+    private List<WebElement> alertsSubHeaders;
 
     @FindBy(xpath = "//section[@id='alerts']//h4[text()='By request']")
-    private List<WebElement> sectionAlertsSubHeadersOfSecondColumn;
+    private List<WebElement> alertsPriceByRequest;
 
-    @FindBy(xpath = "//section[@id='alerts']//h4[@class = 'before-buttons' and @id = 'solar_radiation']")
-    private  WebElement sectionAlertsSubHeadersOfSecondColumnFirstSubHeader;
+    @FindBy(id = "solar_radiation")
+    private  WebElement alertPriceSolarRadiationAPIText;
 
-    @FindBy(xpath = "//section[@id = 'alerts']//tbody/tr[1]/th[1]/p[1]")
-    private WebElement sectionAlertsBodyOfFirstCellInFirstRowPartOne;
-
-    @FindBy(xpath = "//section[@id = 'alerts']//tbody/tr[1]/th[1]/p[2]")
-    private WebElement sectionAlertsBodyOfFirstCellInFirstRowPartTwo;
-
-    @FindBy(xpath = "//section[@id='current']/div/div/table/thead/tr/th/h3/b")
+    @FindBy(xpath = "//section[@id='current']//table/thead//h3/b")
     private List<WebElement> weatherAndForecastsCollections;
 
     @FindBy(xpath = "//h2")
@@ -46,14 +40,14 @@ public class PricePage extends FooterMenuPage {
         super(driver);
     }
 
-    public int getTransparentButtonsAmount() {
-
-        return getListSize(transparentButtons);
-    }
-
     public String getHeaderText() {
 
-        return getText(pricingPageHeader);
+        return getText(pricingPageH1Header);
+    }
+
+    public String getAlertsH2Header() {
+
+        return getText(alertsHeader);
     }
 
     public List<String> getCollectionsNames() {
@@ -61,25 +55,9 @@ public class PricePage extends FooterMenuPage {
         return getTexts(weatherAndForecastsCollections);
     }
 
-    public String getAlertsH2Header() {
+    public List<String> getAlertsSubHeaders() {
 
-        return getText(alertsH2Header);
-    }
-
-    public List<String> getSectionAlertsSubHeadersOfFirstColumn() {
-
-        return getTexts(sectionAlertsSubHeadersOfFirstColumn);
-    }
-
-    public int getByRequestSubHeadersAmount() {
-
-        return getListSize(sectionAlertsSubHeadersOfSecondColumn);
-    }
-
-    public PricePage waitGetRequestToBeChanged(String oldHeader) {
-        waitTextToBeChanged(sectionAlertsSubHeadersOfSecondColumnFirstSubHeader, oldHeader);
-
-        return this;
+        return getTexts(alertsSubHeaders);
     }
 
     public List<String> getHeadersTransparentButtons() {
@@ -102,8 +80,24 @@ public class PricePage extends FooterMenuPage {
         return getTrimmedTexts(orangeButtons);
     }
 
+    public int getByRequestSubHeadersAmount() {
+
+        return getListSize(alertsPriceByRequest);
+    }
+
     public int getOrangeButtonsAmount() {
 
         return getListSize(orangeButtons);
+    }
+
+    public int getTransparentButtonsAmount() {
+
+        return getListSize(transparentButtons);
+    }
+
+    public PricePage waitGetRequestToBeChanged(String oldHeader) {
+        waitTextToBeChanged(alertPriceSolarRadiationAPIText, oldHeader);
+
+        return this;
     }
 }

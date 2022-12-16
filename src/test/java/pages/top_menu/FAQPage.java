@@ -12,7 +12,7 @@ public class FAQPage extends FooterMenuPage {
     @FindBy(className = "breadcrumb__leaf")
     private WebElement frequentlyAskedQuestionsHeader;
 
-    @FindBy(xpath = "//div[@class='col-sm-12']/section/h3")
+    @FindBy(xpath = "//section/h3")
     private List<WebElement> H3HeadersList;
 
     @FindBy(xpath = "//p[@class='question-heading']")

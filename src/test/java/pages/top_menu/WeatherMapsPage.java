@@ -23,10 +23,10 @@ public class WeatherMapsPage extends TopMenuPage {
     @FindBy (xpath ="//div[@id='map']//label/span")
     private List<WebElement> weatherControlMenus;
 
-    @FindBy(xpath ="//form[@style='display: block; position: absolute; left: 27px; top: 0px; z-index: -10;']")
+    @FindBy(xpath ="//div[@class='leaflet-control-container']//form")
     private WebElement loopDisplayBlock;
 
-    @FindBy (xpath = "//input[@style='height: 25px; border: 1px solid grey; padding: 0px 0px 0px 10px;']")
+    @FindBy (xpath = "//div[@class='leaflet-control-container']//form/input")
     private WebElement searchLoopField;
 
     @FindBy(xpath = "//a[@title='Nominatim Search']")
@@ -34,24 +34,6 @@ public class WeatherMapsPage extends TopMenuPage {
 
     public WeatherMapsPage(WebDriver driver) {
         super(driver);
-    }
-
-    public WeatherMapsPage clickZoomInLoupe() {
-        click(zoomInLoupe);
-
-        return this;
-    }
-
-    public WeatherMapsPage clickZoomOutLoupe() {
-        click(zoomOutLoupe);
-
-        return this;
-    }
-
-    public WeatherMapsPage waitUntilUrlContains(String text) {
-        waitForUrlContains(text);
-
-        return this;
     }
 
     public String getZoomOutText() {
@@ -69,15 +51,16 @@ public class WeatherMapsPage extends TopMenuPage {
         return getTexts(weatherControlMenus);
     }
 
-    public WeatherMapsPage clickNominatimSearchButton() {
-        click (nominatimSearchButton);
+    public WeatherMapsPage clickZoomInLoupe() {
+        click(zoomInLoupe);
 
         return this;
     }
 
-    public boolean isLoopDisplayBlockDisplayed() {
+    public WeatherMapsPage clickZoomOutLoupe() {
+        click(zoomOutLoupe);
 
-        return isElementDisplayed(loopDisplayBlock);
+        return this;
     }
 
     public WeatherMapsPage clickLoopDisplayBlock() {
@@ -86,8 +69,25 @@ public class WeatherMapsPage extends TopMenuPage {
         return this;
     }
 
+    public WeatherMapsPage clickNominatimSearchButton() {
+        click (nominatimSearchButton);
+
+        return this;
+    }
+
     protected void inputAndEnter(WebElement element, String text) {
         getWait10().until(ExpectedConditions.visibilityOf(searchLoopField));
         element.sendKeys(text, Keys.ENTER);
+    }
+
+    public boolean isLoopDisplayBlockDisplayed() {
+
+        return isElementDisplayed(loopDisplayBlock);
+    }
+
+    public WeatherMapsPage waitUntilUrlContains(String text) {
+        waitForUrlContains(text);
+
+        return this;
     }
 }

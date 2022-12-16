@@ -12,7 +12,7 @@ import java.util.logging.Logger;
 
 public class WeatherDashboardPage extends FooterMenuPage {
 
-    @FindBy(xpath = "//div[@class='row weather text-center below']//a[contains(@href, 'id=weather_dashboard_website')]")
+    @FindBy(xpath = "//div[@class='col-lg-6']//a")
     private WebElement tryTheDashBoardButton;
 
     public WeatherDashboardPage(WebDriver driver) {
@@ -21,13 +21,6 @@ public class WeatherDashboardPage extends FooterMenuPage {
 
     public WeatherDashboardPage(WebDriver driver, String originalHandle) {
         super(driver, originalHandle);
-    }
-
-    public WeatherDashboardPage logger_Info(String str) {
-        final Logger logger = Logger.getLogger(Main.class.getName());
-        logger.log(Level.INFO, String.valueOf(str));
-
-        return this;
     }
 
     public HomeDashBoardEventsPage clickTryTheDashBoardButton() {
@@ -41,4 +34,12 @@ public class WeatherDashboardPage extends FooterMenuPage {
 
         return new HomeDashBoardEventsPage(getDriver(), getOriginalHandle());
     }
+
+    public WeatherDashboardPage logger_Info(String str) {
+        final Logger logger = Logger.getLogger(Main.class.getName());
+        logger.log(Level.INFO, String.valueOf(str));
+
+        return this;
+    }
+
 }

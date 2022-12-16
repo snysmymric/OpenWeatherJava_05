@@ -12,13 +12,13 @@ import java.util.List;
 public class GuidePage extends FooterMenuPage {
 
     @FindBy(xpath = "//div[@class='container']//li/a[@href = '/']")
-    private WebElement homeGuideButton;
+    private WebElement homeGuideLink;
 
-    @FindBy(xpath = "/html/body/main/div[2]/div/div/ol/ul[5]/li[1]/a")
+    @FindBy(xpath = "//a[@href='/api/solar-radiation']")
     private WebElement solarRadiationLink;
 
-    @FindBy(xpath = "/html/body/main/div[2]/div/div/ol/h2[1]")
-    private WebElement DedicatedWeatherProducts;
+    @FindBy(xpath = "//h2[contains(text(),'Dedicated weather products')]")
+    private WebElement dedicatedWeatherProductsHeader;
 
     @FindBy(xpath = "//p/a[@href= '/api/road-risk']")
     private WebElement roadRiskAPILink;
@@ -30,8 +30,13 @@ public class GuidePage extends FooterMenuPage {
         super(driver);
     }
 
-    public GuidePage clickHomeGuide() {
-        click(homeGuideButton);
+    public int getButtonsLearnMoreAmount() {
+
+        return getListSize(buttonsLearnMoreList);
+    }
+
+    public GuidePage clickHomeGuideLink() {
+        click(homeGuideLink);
 
         return this;
     }
@@ -42,21 +47,16 @@ public class GuidePage extends FooterMenuPage {
         return this;
     }
 
-    public GuidePage scrollToDedicatedWeatherProducts() {
-        JavascriptExecutor js = (JavascriptExecutor) getDriver();
-        js.executeScript("arguments[0].scrollIntoView();", DedicatedWeatherProducts);
-        return this;
-    }
-
     public RoadRiskAPIPage clickRoadRiskAPILink(){
         click(roadRiskAPILink);
 
         return new RoadRiskAPIPage(getDriver());
     }
 
-    public int getButtonsLearnMoreAmount() {
-
-        return getListSize(buttonsLearnMoreList);
+    public GuidePage scrollToDedicatedWeatherProducts() {
+        JavascriptExecutor js = (JavascriptExecutor) getDriver();
+        js.executeScript("arguments[0].scrollIntoView();", dedicatedWeatherProductsHeader);
+        return this;
     }
 
 }

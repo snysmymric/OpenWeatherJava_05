@@ -14,7 +14,7 @@ public class GuideTest extends BaseTest {
 
         GuidePage guidePage = openBaseURL()
                 .clickGuideMenu()
-                .clickHomeGuide();
+                .clickHomeGuideLink();
 
         waitForGrayContainerDisappeared();
 
