@@ -4,7 +4,7 @@ import java.util.List;
 
 public class ProjectConstants {
 
-    private static final List<String> EXPECTED_STATES_NAMES = List.of(
+    public static final List<String> EXPECTED_STATES_NAMES = List.of(
             "Alabama", "Alaska", "Arizona", "Arkansas", "California",
             "Colorado", "Connecticut", "Delaware", "District of Columbia",
             "Florida", "Georgia", "Hawai`i", "Idaho", "Illinois", "Indiana",
@@ -17,15 +17,13 @@ public class ProjectConstants {
             "Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming"
     );
 
-    private static final List<String> EXPECTED_WEATHER_PARAMETERS = List.of(
+    public static final List<String> EXPECTED_WEATHER_PARAMETERS = List.of(
             "Temperature", "Min temperature", "Max temperature", "Feels like",
             "Wind (speed, direction)", "Pressure", "Humidity", "Clouds",
             "Weather conditions", "Rain", "Snow"
     );
 
-    private static final List<String> EXPECTED_YEARS = List.of("2018", "2019");
-
-    private static final String EXPECTED_WEATHER_PARAMETERS_AS_STRING =
+    public static final String EXPECTED_WEATHER_PARAMETERS_AS_STRING =
             "Temperature, Min temperature, Max temperature, "
                     + "Feels like, Wind (speed, direction), Pressure, "
                     + "Humidity, Clouds, Weather conditions, Rain, Snow";

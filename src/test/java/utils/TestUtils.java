@@ -62,7 +62,7 @@ public class TestUtils {
         return getRandomName(7);
     }
 
-    protected static int convertStringToInt(String text) {
+    public static int convertStringToInt(String text) {
 
         return Integer.parseInt(text);
     }

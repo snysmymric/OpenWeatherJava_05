@@ -57,6 +57,7 @@ public class TopMenuTest extends BaseTest {
     public void testMapsMenuNavigatesToWeatherMapsPage() {
         final String mapsUrl = "https://openweathermap.org/weathermap";
         final String mapsTitle = "Interactive weather maps - OpenWeatherMap";
+        final String baseUrl = getDriver().getCurrentUrl();
 
         WeatherMapsPage weatherMapsPage =
                 openBaseURL()
@@ -65,7 +66,7 @@ public class TopMenuTest extends BaseTest {
         String actualMapsUrl = weatherMapsPage.getCurrentURL().substring(0, 37);
         String actualMapsTitle = weatherMapsPage.getTitle();
 
-        Assert.assertNotEquals(actualMapsUrl, BASE_URL);
+        Assert.assertNotEquals(actualMapsUrl, baseUrl);
         Assert.assertEquals(actualMapsUrl, mapsUrl);
         Assert.assertEquals(actualMapsTitle, mapsTitle);
     }
@@ -194,7 +195,7 @@ public class TopMenuTest extends BaseTest {
 
     @Test
     public void testFAQSupportSubmenuNavigatesToFAQPage() {
-        final String expectedUrl = String.format(BASE_URL + "faq");
+        final String expectedUrl = getDriver().getCurrentUrl() + "faq";
 
         String actualUrl = openBaseURL()
                 .clickSupportMenu()

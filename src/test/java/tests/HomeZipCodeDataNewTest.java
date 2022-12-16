@@ -5,7 +5,6 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import pages.home.HomeZipCodeDataNewPage;
 import utils.ProjectConstants;
-
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -13,7 +12,7 @@ public class HomeZipCodeDataNewTest extends BaseTest {
 
     @Test
     public void testListOfStatesIsCorrectAndSorted() {
-        final List<String> expectedStatesNames = ProjectConstants.getStatesNames();
+        final List<String> expectedStatesNames = ProjectConstants.EXPECTED_STATES_NAMES;
         final int expectedStatesAmount = 51;
 
         HomeZipCodeDataNewPage homeZipCodeDataNewPage = openBaseURL()
@@ -32,7 +31,7 @@ public class HomeZipCodeDataNewTest extends BaseTest {
 
     @Test
     public void testListOfYearsIsCorrect() {
-        final List<String> expectedYears = ProjectConstants.getExpectedYears();
+        final List<String> EXPECTED_YEARS = List.of("2018", "2019");
         final int expectedAmountOfYears = 2;
 
         List<String> actualYears = openBaseURL()
@@ -44,7 +43,7 @@ public class HomeZipCodeDataNewTest extends BaseTest {
 
         Assert.assertEquals(actualYears.size(), expectedAmountOfYears);
 
-        Assert.assertEquals(actualYears, expectedYears);
+        Assert.assertEquals(actualYears, EXPECTED_YEARS);
     }
 
     @Test
@@ -65,7 +64,7 @@ public class HomeZipCodeDataNewTest extends BaseTest {
 
     @Test
     public void testWeatherParametersAreDisplayed() {
-        final List<String> expectedWeatherParameters = ProjectConstants.getWeatherParameters();
+        final String expectedWeatherParameters = ProjectConstants.EXPECTED_WEATHER_PARAMETERS_AS_STRING;
 
         List<String> actualWeatherParameters = openBaseURL()
                 .clickMarketplaceMenu()
@@ -133,7 +132,7 @@ public class HomeZipCodeDataNewTest extends BaseTest {
         List<String> expectedData = List.of(
                 expectedState,
                 expectedYear,
-                ProjectConstants.getWeatherParametersAsString(),
+                ProjectConstants.EXPECTED_WEATHER_PARAMETERS_AS_STRING,
                 expectedFileFormat,
                 expectedUnits,
                 expectedPrice);
@@ -270,6 +269,7 @@ public class HomeZipCodeDataNewTest extends BaseTest {
                 .waitUntilPlaceOrderPopUpIsVisible()
                 .clickNextButton()
                 .waitUntilPlaceOrderPopUpIsVisible()
+                .inputFirstName(firstName)
                 .inputPhone(phoneNumber)
                 .inputEmail(email)
                 .clickNextButton();
@@ -306,6 +306,7 @@ public class HomeZipCodeDataNewTest extends BaseTest {
                 .waitUntilPlaceOrderPopUpIsVisible()
                 .clickNextButton()
                 .waitUntilPlaceOrderPopUpIsVisible()
+                .inputFirstName(expectedFirstName)
                 .inputLastName(lastName)
                 .inputEmail(email)
                 .clickNextButton();
@@ -342,6 +343,7 @@ public class HomeZipCodeDataNewTest extends BaseTest {
                 .waitUntilPlaceOrderPopUpIsVisible()
                 .clickNextButton()
                 .waitUntilPlaceOrderPopUpIsVisible()
+                .inputFirstName(expectedFirstName)
                 .inputLastName(lastName)
                 .inputPhone(phoneNumber)
                 .clickNextButton();
@@ -354,6 +356,4 @@ public class HomeZipCodeDataNewTest extends BaseTest {
 
         Assert.assertEquals(homeZipCodeDataNewPage.isNextButtonSubmiting(), false);
     }
-
-
 }

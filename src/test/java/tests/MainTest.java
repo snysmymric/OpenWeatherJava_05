@@ -159,18 +159,24 @@ public class MainTest extends BaseTest {
 
     @Test
     public void testTempUnitChangedToC_WhenSwitchingToMetric() {
-        MainPage mainPage = openBaseURL().switchToMetric();
-        waitForGrayContainerDisappeared();
+        final String expectedResult = "°C";
 
-        Assert.assertTrue(mainPage.isTextContainsC());
+        MainPage mainPage = openBaseURL()
+                .switchToMetric()
+                .waitForGreyContainerDisappeared();
+
+        Assert.assertEquals(mainPage.isTextContainsC(), expectedResult);
     }
 
     @Test
     public void testTempUnitChangedToF_WhenSwitchingToImperial() {
-        MainPage mainPage = openBaseURL().switchToImperial();
-        waitForGrayContainerDisappeared();
+        final String expectedResult = "°F";
 
-        Assert.assertTrue(mainPage.isTextContainF());
+        MainPage mainPage = openBaseURL()
+                .switchToImperial()
+                .waitForGreyContainerDisappeared();
+
+        Assert.assertEquals(mainPage.isTextContainF(), expectedResult);
     }
 
     @Test
@@ -227,11 +233,13 @@ public class MainTest extends BaseTest {
 
     @Test
     public void testCheckTempInC_inDayList_whenSwitchingToMetric() {
+        final String expectedResult = "°C";
+
         MainPage mainPage = openBaseURL()
                 .switchToMetric();
-        mainPage.waitForGrayContainerDisappeared();
+        mainPage.waitForGreyContainerDisappeared();
 
-        Assert.assertTrue(mainPage.isDayListValuesContainsC());
+        Assert.assertEquals(mainPage.isDayListValuesContainsC(), expectedResult);
     }
 
     @Test
@@ -247,11 +255,13 @@ public class MainTest extends BaseTest {
 
     @Test
     public void testCheckTempInF_inDayList_whenSwitchingToImperial() {
+        final String expectedResult = "°F";
+
         MainPage mainPage = openBaseURL()
                 .switchToImperial();
-        mainPage.waitForGrayContainerDisappeared();
+        mainPage.waitForGreyContainerDisappeared();
 
-        Assert.assertTrue(mainPage.isDayListValuesContainsF());
+        Assert.assertEquals(mainPage.isDayListValuesContainsF(), expectedResult);
     }
 
     @Test

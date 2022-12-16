@@ -26,7 +26,7 @@ public class GuideTest extends BaseTest {
 
         String actualURL = new GuidePage(getDriver())
                 .clickHomeLink()
-                .waitForGrayContainerDisappeared()
+                .waitForGreyContainerDisappeared()
                 .getCurrentURL();
 
         Assert.assertNotEquals(actualURL, guideURL);

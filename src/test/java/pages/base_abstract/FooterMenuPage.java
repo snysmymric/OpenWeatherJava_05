@@ -24,10 +24,10 @@ public abstract class FooterMenuPage extends TopMenuPage {
     @FindBy(xpath = FOOTER_MENU_ID + "//a[@href='/weather-dashboard']")
     private WebElement weatherDashboardFooterMenu;
 
-    @FindBy(css = FOOTER_MENU_ID + "a[href='/technology']")
+    @FindBy(xpath = FOOTER_MENU_ID + "//a[@href='/technology']")
     private WebElement ourTechnologyFooterMenu;
 
-    @FindBy(css = FOOTER_MENU_ID + "a[href='https://openweather.co.uk/privacy-policy']")
+    @FindBy(xpath = FOOTER_MENU_ID + "//a[@href='https://openweather.co.uk/privacy-policy']")
     private WebElement privacyPolicyFooterMenu;
 
     @FindBy(xpath = FOOTER_MENU_ID + "//a[@href='/about-us']")
@@ -195,7 +195,7 @@ public abstract class FooterMenuPage extends TopMenuPage {
         click20(iconGooglePlay);
     }
 
-    public void clickFacebookIcon(){
+    public void clickFacebookIcon() {
         click20(iconFacebook);
     }
 

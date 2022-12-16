@@ -26,9 +26,4 @@ public class WeatherStationsPage extends FooterMenuPage {
 
         return this;
     }
-
-    public boolean isActualSummaryTextsEqualsExpectedSummaryTexts(List<String> list, List<String> expectedList) {
-
-        return isListEqualsExpectedList(list, expectedList);
-    }
 }

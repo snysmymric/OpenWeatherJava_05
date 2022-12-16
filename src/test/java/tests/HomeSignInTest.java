@@ -31,9 +31,8 @@ public class HomeSignInTest extends BaseTest {
 
         Assert.assertEquals(actualSignInMessage, "Signed in successfully.");
 
-        String actualSignOutMessage = new HomePage(getDriver())
-                .signOut()
-                .getMessage();
+        new HomeSignInPage(getDriver()).signOut();
+        String actualSignOutMessage = new HomePage(getDriver()).getMessage();
 
         Assert.assertEquals(actualSignOutMessage, "You need to sign in or sign up before continuing.");
     }
@@ -44,11 +43,9 @@ public class HomeSignInTest extends BaseTest {
 
         openBaseURL().signIn();
 
-        HomeSignInPage homeSignInPage = new HomeSignInPage(getDriver());
+        Assert.assertEquals(new HomePage(getDriver()).getH2Titles(), expectedH2TitlesAmount);
 
-        Assert.assertEquals(homeSignInPage.getH2Titles(), expectedH2TitlesAmount);
-
-        homeSignInPage.signOut();
+        new HomeSignInPage(getDriver()).signOut();
     }
 
     @Test
@@ -75,11 +72,9 @@ public class HomeSignInTest extends BaseTest {
 
         openBaseURL().signIn();
 
-        HomeSignInPage homeSignInPage = new HomeSignInPage(getDriver());
+        Assert.assertEquals(new HomePage(getDriver()).listH2TitlesSighInPage(), expectedResult);
 
-        Assert.assertEquals(homeSignInPage.listH2TitlesSighInPage(), expectedResult);
-
-        homeSignInPage.signOut();
+        new HomeSignInPage(getDriver()).signOut();
     }
 
     @Test
@@ -87,13 +82,11 @@ public class HomeSignInTest extends BaseTest {
         int expectedResult = 6;
 
         openBaseURL().signIn();
-
-        HomeSignInPage homeSignInPage = new HomeSignInPage(getDriver());
-        int actualResult = homeSignInPage.orangeButtonsSignIn();
+        int actualResult = new HomePage(getDriver()).orangeButtonsSignIn();
 
         Assert.assertEquals(actualResult, expectedResult);
 
-        homeSignInPage.signOut();
+        new HomeSignInPage(getDriver()).signOut();
     }
 
     @Test
@@ -105,12 +98,12 @@ public class HomeSignInTest extends BaseTest {
 
         openBaseURL().signIn();
 
-        HomeSignInPage homeSignInPage = new HomeSignInPage(getDriver());
-        int actualResultNavTabElements = homeSignInPage.navTabs();
+        HomePage homePage = new HomePage(getDriver());
+        int actualResultNavTabElements = homePage.navTabs();
 
         Assert.assertEquals(expectedNavTabElements, actualResultNavTabElements);
-        Assert.assertEquals(expectedResultListElements, homeSignInPage.listNavTabElements());
+        Assert.assertEquals(expectedResultListElements, homePage.listNavTabElements());
 
-        homeSignInPage.signOut();
+        homePage.signOut();
     }
 }

@@ -18,6 +18,8 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import static utils.TestUtils.convertStringToInt;
+
 public class MainPage extends FooterMenuPage {
 
     @FindBy(className = "owm-loader-container")
@@ -243,6 +245,7 @@ public class MainPage extends FooterMenuPage {
 
         return convertStringToInt(getAttribute(temperatureInputInDifferentWeatherContainer,
                 "_value"));
+
     }
 
     public WebElement getBulkLink() {
@@ -507,14 +510,14 @@ public class MainPage extends FooterMenuPage {
         return this;
     }
 
-    public boolean isTextContainsC() {
+    public String isTextContainsC() {
 
-        return isTextContains("°C", currentTempAndUnit);
+        return getText(currentTempAndUnit);
     }
 
-    public boolean isTextContainF() {
+    public String isTextContainF() {
 
-        return isTextContains("°F", currentTempAndUnit);
+        return getText(currentTempAndUnit);
     }
 
     public int countActiveIconsInDifferentWeatherContainer() {
@@ -522,14 +525,14 @@ public class MainPage extends FooterMenuPage {
         return getListSize(activeIconsInDifferentWeatherContainer);
     }
 
-    public boolean isDayListValuesContainsC() {
+    public List<String> isDayListValuesContainsC() {
 
-        return isListContains("°C", getTexts(dayListValues));
+        return getTexts(dayListValues);
     }
 
-    public boolean isDayListValuesContainsF() {
+    public List<String> isDayListValuesContainsF() {
 
-        return isListContains("°F", getTexts(dayListValues));
+        return getTexts(dayListValues);
     }
 
     public MainPage scrollToPageBottom() {
@@ -539,7 +542,7 @@ public class MainPage extends FooterMenuPage {
         return this;
     }
 
-    public MainPage waitForGrayContainerDisappeared() {
+    public MainPage waitForGreyContainerDisappeared() {
         getWait20().until(ExpectedConditions.invisibilityOf(grayContainer));
 
         return this;

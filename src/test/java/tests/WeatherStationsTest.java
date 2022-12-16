@@ -24,9 +24,6 @@ public class WeatherStationsTest extends BaseTest {
                         .waitAllSummaryElementsVisibleAndClickable()
                         .getSummaryTextsWeatherStations();
 
-        boolean textsAreEqual = new WeatherStationsPage(getDriver())
-                .isActualSummaryTextsEqualsExpectedSummaryTexts(actualSummaryTexts, expectedSummaryTexts);
-
-        Assert.assertTrue(textsAreEqual);
+        Assert.assertEquals(actualSummaryTexts, expectedSummaryTexts);
     }
 }

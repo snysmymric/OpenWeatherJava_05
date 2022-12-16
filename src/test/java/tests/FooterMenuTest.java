@@ -10,7 +10,6 @@ import pages.footer_menu.TechnologyPage;
 import pages.footer_menu.WidgetsPage;
 import pages.home.HomeAskQuestionPage;
 import pages.top_menu.WeatherDashboardPage;
-
 import java.util.ArrayList;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -96,7 +95,7 @@ public class FooterMenuTest extends BaseTest {
     public void testDownloadOnTheAppStoreLinkNavigatesToAppStore() {
         final String expectedAppStoreURL =
                 "https://apps.apple.com/gb/app/openweather/id1535923697";
-        final String expectedTitle = "OpenWeather on the App Store";
+        final String expectedTitle = "OpenWeather on the App Store";
 
         String oldURL = openBaseURL().getCurrentURL();
 
@@ -107,6 +106,7 @@ public class FooterMenuTest extends BaseTest {
 
         mainPage.switchToExternalPage();
 
+        Assert.assertNotEquals(oldURL, getExternalPageURL());
         Assert.assertEquals(getExternalPageURL(), expectedAppStoreURL);
         Assert.assertEquals(getExternalPageTitle(), expectedTitle);
     }
@@ -129,7 +129,8 @@ public class FooterMenuTest extends BaseTest {
 
         Assert.assertTrue(mainPage.isGithubIconDisplayed());
 
-        mainPage.clickGitHubIcon().switchToExternalPage();
+        mainPage.clickGitHubIcon();
+        mainPage.switchToExternalPage();
 
         Assert.assertEquals(getExternalPageURL(), expectedURL);
     }
@@ -148,8 +149,9 @@ public class FooterMenuTest extends BaseTest {
 
     @Test
     public void testConnectYourWeatherStationFooterLinkNavigatesToWeatherStationsPage() {
-        final String weatherStationsUrl = "https://openweathermap.org/stations";
-        final String weatherStationsTitle = "Weather Stations - OpenWeatherMap";
+        final String expectedWeatherStationsUrl = "https://openweathermap.org/stations";
+        final String expectedWeatherStationsTitle = "Weather Stations - OpenWeatherMap";
+        final String basePageURL = openBaseURL().getCurrentURL();
 
         WeatherStationsPage weatherStationsPage =
                 openBaseURL()
@@ -159,9 +161,9 @@ public class FooterMenuTest extends BaseTest {
         String actualWeatherStationsUrl = weatherStationsPage.getCurrentURL();
         String actualWeatherStationsTitle = weatherStationsPage.getTitle();
 
-        Assert.assertNotEquals(weatherStationsUrl, BASE_URL);
-        Assert.assertEquals(actualWeatherStationsUrl, weatherStationsUrl);
-        Assert.assertEquals(actualWeatherStationsTitle, weatherStationsTitle);
+        Assert.assertNotEquals(expectedWeatherStationsUrl, basePageURL);
+        Assert.assertEquals(actualWeatherStationsUrl, expectedWeatherStationsUrl);
+        Assert.assertEquals(actualWeatherStationsTitle, expectedWeatherStationsTitle);
     }
 
     @Test
@@ -197,8 +199,7 @@ public class FooterMenuTest extends BaseTest {
         final int expectedResult = 2;
 
         FooterMenuPage footerMenuPage = openBaseURL()
-                .scrollToFooterMenu()
-                .clickGooglePlayIcon();
+                .scrollToFooterMenu();
 
         Assert.assertEquals(footerMenuPage.getStoreIconsCount(), expectedResult);
     }
@@ -209,8 +210,8 @@ public class FooterMenuTest extends BaseTest {
 
         openBaseURL()
                 .scrollToFooterMenu()
-                .clickGooglePlayIcon()
-                .switchToExternalPage();
+                .clickGooglePlayIcon();
+        new MainPage(getDriver()).switchToExternalPage();
 
         Assert.assertEquals(getExternalPageURL(), expectedGooglePlayURL);
     }
@@ -231,8 +232,8 @@ public class FooterMenuTest extends BaseTest {
 
         openBaseURL()
                 .scrollToFooterMenu()
-                .clickFacebookIcon()
-                .switchToExternalPage();
+                .clickFacebookIcon();
+        new MainPage(getDriver()).switchToExternalPage();
 
         Assert.assertTrue((getExternalPageURL().contains(expectedFacebookURLPart)));
     }
@@ -284,8 +285,8 @@ public class FooterMenuTest extends BaseTest {
         String urlOfMainPage = openBaseURL().getCurrentURL();
 
         mainPage.scrollToPageBottom()
-                .clickOpenWeatherForBusinessFooterMenuLink()
-                .switchToExternalPage();
+                .clickOpenWeatherForBusinessFooterMenuLink();
+        mainPage.switchToExternalPage();
 
         Assert.assertNotEquals(getExternalPageURL(), urlOfMainPage);
         Assert.assertEquals(getExternalPageTitle(), expectedTitle);

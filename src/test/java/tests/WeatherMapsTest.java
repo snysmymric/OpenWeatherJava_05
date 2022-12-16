@@ -3,6 +3,7 @@ package tests;
 import base.BaseTest;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import pages.base_abstract.TopMenuPage;
 import pages.top_menu.WeatherMapsPage;
 
 import java.util.ArrayList;
@@ -57,9 +58,8 @@ public class WeatherMapsTest extends BaseTest {
 
         Assert.assertTrue(weatherMapsPage.isLoopDisplayBlockDisplayed());
 
-        String oldUrl = String.valueOf(weatherMapsPage
-                .clickLoopDisplayBlock()
-                .inputSearchCriteriaIntoSearchFieldAndEnter(locationROME));
+        weatherMapsPage.clickLoopDisplayBlock();
+        String oldUrl = String.valueOf(weatherMapsPage.inputSearchCriteriaIntoSearchField(locationROME));
 
         Assert.assertNotEquals(oldUrl, getDriver().getCurrentUrl());
     }
