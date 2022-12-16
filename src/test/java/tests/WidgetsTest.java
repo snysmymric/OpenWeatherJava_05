@@ -5,6 +5,7 @@ import org.testng.Assert;
 import org.testng.Reporter;
 import org.testng.annotations.Test;
 import pages.footer_menu.WidgetsPage;
+import utils.ProjectConstants;
 
 import java.util.List;
 
@@ -12,7 +13,6 @@ public class WidgetsTest extends BaseTest {
 
     @Test
     public void testSelectYourCityFieldContainsChosenCity() {
-        final String key = "20cbbe5f82ae947874eb39f29f8ffbe1";
         final String city = "Rome";
 
         WidgetsPage widgetPage = openBaseURL()
@@ -20,10 +20,9 @@ public class WidgetsTest extends BaseTest {
                 .clickWidgetsPageFooterMenu();
 
         final String oldCity = widgetPage.getCityName();
-        Reporter.log("Old city was --------" + oldCity, true);
 
         final String newCity = widgetPage
-                .inputYourAPIKey(key)
+                .inputYourAPIKey(ProjectConstants.WIDGETS_KEY)
                 .inputYourCityName(city)
                 .clickSearchCityButton()
                 .waitCityFromSelectCityToBeChanged(oldCity)

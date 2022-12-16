@@ -23,7 +23,7 @@ import static utils.TestUtils.convertStringToInt;
 public class MainPage extends FooterMenuPage {
 
     @FindBy(className = "owm-loader-container")
-    private WebElement grayContainer;
+    private WebElement greyContainer;
 
     @FindBy(xpath = "//div[@id = 'weather-widget']//h2")
     private WebElement h2CityCountryHeader;
@@ -543,7 +543,7 @@ public class MainPage extends FooterMenuPage {
     }
 
     public MainPage waitForGreyContainerDisappeared() {
-        getWait20().until(ExpectedConditions.invisibilityOf(grayContainer));
+        waitForGreyContainerDisappeared(greyContainer);
 
         return this;
     }

@@ -37,6 +37,7 @@ public class FindTest extends BaseTest {
 
         List<WebElement> actualResultList = openBaseURL()
                 .inputSearchCriteriaIntoSearchField(expectedCityName)
+                .clickEnter()
                 .getResultRows();
 
         Assert.assertTrue(actualResultList.size() > 0);

@@ -3,7 +3,8 @@ package tests;
 import base.BaseTest;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import pages.*;
+import pages.MainPage;
+import pages.WeatherStationsPage;
 import pages.base_abstract.FooterMenuPage;
 import pages.footer_menu.AboutUsPage;
 import pages.footer_menu.TechnologyPage;
@@ -95,7 +96,8 @@ public class FooterMenuTest extends BaseTest {
     public void testDownloadOnTheAppStoreLinkNavigatesToAppStore() {
         final String expectedAppStoreURL =
                 "https://apps.apple.com/gb/app/openweather/id1535923697";
-        final String expectedTitle = "OpenWeather on the App Store";
+        final String expectedTitle = "OpenWeather on the AppNBSPStore";
+
 
         String oldURL = openBaseURL().getCurrentURL();
 

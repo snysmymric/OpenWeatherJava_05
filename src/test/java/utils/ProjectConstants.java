@@ -27,4 +27,6 @@ public class ProjectConstants {
             "Temperature, Min temperature, Max temperature, "
                     + "Feels like, Wind (speed, direction), Pressure, "
                     + "Humidity, Clouds, Weather conditions, Rain, Snow";
+
+    public static final String WIDGETS_KEY = "057fdd4683cc49fa82b0cb45a668f0ad";
 }

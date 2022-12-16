@@ -8,6 +8,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Reporter;
+import pages.MainPage;
 import pages.home.HomePage;
 import pages.home.HomeSignInPage;
 
@@ -168,7 +169,7 @@ public abstract class BasePage {
 
     protected void clickEnter(WebElement element) {
         getWait10().until(ExpectedConditions.visibilityOf(element));
-        element.sendKeys(Keys.ARROW_UP);
+        element.sendKeys(Keys.ENTER);
     }
 
     protected void clickAllElementsInList(List<WebElement> elements) {
@@ -321,5 +322,9 @@ public abstract class BasePage {
         }
 
         return elementsSize == count;
+    }
+
+    public void waitForGreyContainerDisappeared(WebElement element) {
+        getWait20().until(ExpectedConditions.invisibilityOf(element));
     }
 }
