@@ -170,6 +170,9 @@ public class MainPage extends FooterMenuPage {
     @FindBy(xpath = "//span[@class='sub']")
     private List<WebElement> weatherDescription;
 
+    @FindBy(tagName = "a")
+    private List<WebElement> allLinks;
+
     public static final String RANDOM_TEXT = TestUtils.getRandomName();
 
     public MainPage(WebDriver driver) {
@@ -616,5 +619,10 @@ public class MainPage extends FooterMenuPage {
         scrollByVisibleElement(orangeBackground);
 
         return this;
+    }
+
+    public List<WebElement> getAllLinks() {
+
+        return allLinks;
     }
 }
