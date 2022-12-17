@@ -3,31 +3,25 @@ package tests;
 import base.BaseTest;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import pages.home.HomeSignInPage;
-import pages.home.HomeSignUpPage;
 
 public class HomeSignUpTest extends BaseTest {
 
     @Test
     public void testCreateNewAccountWithoutCaptcha() {
-    openBaseURL().clickSignInMenu();
+        final String expectedReCaptchaErrorMessage = "reCAPTCHA verification failed, please try again.";
 
-    HomeSignInPage homeSignInPage = new HomeSignInPage(getDriver());
+        String actualReCaptchaErrorMessage = openBaseURL()
+                .clickSignInMenu()
+                .clickCreateAnAccountLink()
+                .clickClearInputNewUsername()
+                .clickClearInputNewUserEmail()
+                .clickClearInputNewUserPassword()
+                .clickClearInputRepeatPassword()
+                .clickAgeConfirmCheckbox()
+                .clickAgreementCheckbox()
+                .clickCreateAccountButton()
+                .getErrorCaptchaMessage();
 
-    homeSignInPage.clickCreateAccountLink();
-
-    HomeSignUpPage homeSignUpPage = new HomeSignUpPage(getDriver());
-
-    homeSignUpPage.clickClearInputNewUsername()
-                  .clickClearInputNewUserEmail()
-                  .clickClearInputNewUserPassword()
-                  .clickClearInputRepeatPassword()
-                  .clickAgeConfirmCheckbox()
-                  .clickAgreementCheckbox()
-                  .clickCreateAccountButton();
-
-    String actualErrorCaptchaMessage = homeSignUpPage.getErrorCaptchaMessage();
-
-    Assert.assertEquals(actualErrorCaptchaMessage, "reCAPTCHA verification failed, please try again.");
+        Assert.assertEquals(actualReCaptchaErrorMessage, expectedReCaptchaErrorMessage);
     }
 }

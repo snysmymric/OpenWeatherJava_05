@@ -288,4 +288,17 @@ public class TopMenuTest extends BaseTest {
         Assert.assertNotEquals(oldURL, actualURL);
         Assert.assertEquals(actualURL, findPageURL);
     }
+
+    @Test
+    public void testSignInMenuNavigatesToSignInPage() {
+        final String expectedWelcomeMessage = "Sign In To Your Account";
+
+        String actualWelcomeMessage = openBaseURL()
+                .clickSignInMenu()
+                .getWelcomeMessage();
+
+        Assert.assertEquals(actualWelcomeMessage, expectedWelcomeMessage);
+    }
+
+
 }

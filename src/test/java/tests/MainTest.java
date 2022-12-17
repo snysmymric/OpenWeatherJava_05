@@ -5,7 +5,7 @@ import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import pages.CurrentWeatherPage;
-import pages.home.HomeSignInPage;
+import pages.home.HomeUsersSignInPage;
 import pages.MainPage;
 import utils.DateTimeUtils;
 import java.util.List;
@@ -408,7 +408,7 @@ public class MainTest extends BaseTest {
 
         Assert.assertEquals(actualLinks, expectedLinks);
 
-        new HomeSignInPage(getDriver()).signOut();
+        new HomeUsersSignInPage(getDriver()).signOut();
     }
     
     @Test

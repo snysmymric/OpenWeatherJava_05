@@ -6,7 +6,7 @@ import org.openqa.selenium.support.FindBy;
 import org.testng.Reporter;
 import pages.base_abstract.FooterMenuPage;
 
-public class HomeSignInPage extends FooterMenuPage {
+public class HomeUsersSignInPage extends FooterMenuPage {
 
     @FindBy(id = "user_email")
     private WebElement userEmail;
@@ -26,16 +26,24 @@ public class HomeSignInPage extends FooterMenuPage {
     @FindBy(xpath = "//h3")
     private WebElement h3Header;
 
-    public HomeSignInPage(WebDriver driver) {
+    @FindBy(xpath = "//div[@class = 'panel-body']")
+    WebElement notification;
+
+    public HomeUsersSignInPage(WebDriver driver) {
         super(driver);
     }
 
-    public String getWelcomeMassage() {
+    public String getNotification() {
+
+        return getText(notification);
+    }
+
+    public String getWelcomeMessage() {
 
         return getText(h3Header);
     }
 
-    public HomeSignInPage clickClearInputRegularUserEmail() {
+    public HomeUsersSignInPage clickClearInputRegularUserEmail() {
         click(userEmail);
         userEmail.clear();
         String email = "jka59433@xcoxc.com";
@@ -44,7 +52,7 @@ public class HomeSignInPage extends FooterMenuPage {
         return this;
     }
 
-    public HomeSignInPage clickClearInputRegularUserPassword() {
+    public HomeUsersSignInPage clickClearInputRegularUserPassword() {
         click(userPassword);
         userPassword.clear();
         String password = "Tester12#";
@@ -66,9 +74,9 @@ public class HomeSignInPage extends FooterMenuPage {
         return new HomePage(getDriver());
     }
 
-    public HomeSignInPage clickCreateAccountLink() {
+    public HomeUsersSignUpPage clickCreateAnAccountLink() {
         click(createAccountLink);
 
-        return this;
+        return new HomeUsersSignUpPage(getDriver());
     }
 }

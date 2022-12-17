@@ -47,7 +47,7 @@ public class PricePage extends BreadCrumbPage {
         return getTexts(weatherAndForecastsCollections);
     }
 
-    public List<String> getAlertsH4Headers() {
+    public List<String> getH4Headers() {
 
         return getTexts(alertsH4Headers);
     }
@@ -57,12 +57,12 @@ public class PricePage extends BreadCrumbPage {
         return getTrimmedTexts(transparentButtons);
     }
 
-    public List<String> getH2HeadersPricingPage() {
+    public List<String> getH2Headers() {
 
         return getTexts(h2Headers);
     }
 
-    public int getH2HeadersAmountPricingPage() {
+    public int getH2HeadersAmount() {
 
         return getListSize(h2Headers);
     }

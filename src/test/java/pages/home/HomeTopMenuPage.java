@@ -20,18 +20,18 @@ public abstract class HomeTopMenuPage extends FooterMenuPage {
 
     public HomeTopMenuPage(WebDriver driver) {super(driver);}
 
-    public int getNavTabLinksAmount() {
+    public int getHomeTopMenusAmount() {
 
         return getListSize(navTabLinks);
     }
 
-    public HomeSignInPage clickSignInMenu() {
+    public HomeUsersSignInPage clickSignInMenu() {
         click(signInTopMenu);
 
-        return new HomeSignInPage(getDriver());
+        return new HomeUsersSignInPage(getDriver());
     }
 
-    public List<String> clickNavTabLinks() {
+    public List<String> clickHomeTopMenus() {
         List<String> urlList = new ArrayList<>();
         urlList.add(getCurrentURL());
 
@@ -47,12 +47,12 @@ public abstract class HomeTopMenuPage extends FooterMenuPage {
         return urlList;
     }
 
-    public HomeSignInPage signOut() {
+    public HomeUsersSignInPage signOut() {
         click(getDriver().findElement(By.id("user-dropdown")));
         click(getDriver().findElement(By.xpath("//a[@href='/users/sign_out']")));
         Reporter.log(getDriver().findElement(By.xpath("//h3")).getText(), true);
 
-        return new HomeSignInPage(getDriver());
+        return new HomeUsersSignInPage(getDriver());
     }
 
     public HomePage signIn() {

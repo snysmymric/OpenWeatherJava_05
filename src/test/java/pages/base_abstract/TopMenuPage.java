@@ -9,7 +9,7 @@ import pages.top_menu.*;
 import pages.home.HomeAskQuestionPage;
 import pages.home.HomeMarketplacePage;
 import pages.home.HomePage;
-import pages.home.HomeSignInPage;
+import pages.home.HomeUsersSignInPage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,6 +56,9 @@ public abstract class TopMenuPage extends BasePage {
     @FindBy(xpath = TOP_MENU_ID + "//a[@href='/weather-dashboard']")
     private WebElement dashboardTopMenu;
 
+    @FindBy(xpath = TOP_MENU_ID + "//a[@href='https://openweathermap.org/weather-dashboard']")
+    private WebElement homeDashboardTopMenu;
+
     @FindBy(xpath = TOP_MENU_ID + "//li[@class='user-li']/a" )
     private WebElement signInTopMenu;
 
@@ -87,11 +90,6 @@ public abstract class TopMenuPage extends BasePage {
         super(driver);
     }
 
-    public TopMenuPage(WebDriver driver, String originalHandle) {
-        super(driver);
-        this.originalHandle = originalHandle;
-    }
-
     public int topMenuLinkAmount() {
 
         return getListSize(topMenus);
@@ -101,6 +99,17 @@ public abstract class TopMenuPage extends BasePage {
 
         return getAttribute(searchFieldTopMenu, attribute);
     }
+
+    public WebElement getHomeDashboardTopMenu() {
+        return homeDashboardTopMenu;
+    }
+
+    public WeatherDashboardPage clickDashboardHomeTopMenu() {
+        click(homeDashboardTopMenu);
+
+        return new WeatherDashboardPage(getDriver());
+    }
+
 
     public List<String> getLinksText() {
 
@@ -152,10 +161,8 @@ public abstract class TopMenuPage extends BasePage {
         return originalHandle;
     }
 
-    public TopMenuPage saveOriginalHandle() {
+    public void setOriginalHandle() {
         this.originalHandle = getDriver().getWindowHandle();
-
-        return this;
     }
 
     public MainPage clickLogo() {
@@ -220,6 +227,7 @@ public abstract class TopMenuPage extends BasePage {
 
     public HowToStartPage clickHowToStartSupportSubmenu() {
         click(howToStartSupportSubmenu);
+        setOriginalHandle();
 
         return new HowToStartPage(getDriver());
     }
@@ -249,16 +257,10 @@ public abstract class TopMenuPage extends BasePage {
         return new HomeAskQuestionPage(getDriver());
     }
 
-    public WeatherDashboardPage clickDashboardMenuSaveOriginalHandle() {
-        click(dashboardTopMenu);
-
-        return new WeatherDashboardPage(getDriver(), getOriginalHandle());
-    }
-
-    public HomeSignInPage clickSignInMenu() {
+    public HomeUsersSignInPage clickSignInMenu() {
         click(signInTopMenu);
 
-        return new HomeSignInPage(getDriver());
+        return new HomeUsersSignInPage(getDriver());
     }
 
     public HomePage signIn() {
@@ -267,11 +269,11 @@ public abstract class TopMenuPage extends BasePage {
         return new HomePage(getDriver());
     }
 
-    public HomeSignInPage signOut() {
+    public HomeUsersSignInPage signOut() {
         click(getDriver().findElement(By.id("user-dropdown")));
         click(getDriver().findElement(By.xpath("//a[@href='/users/sign_out']")));
 
-        return new HomeSignInPage(getDriver());
+        return new HomeUsersSignInPage(getDriver());
     }
 
     public FindPage inputSearchCriteriaIntoSearchField(String text) {
@@ -301,10 +303,12 @@ public abstract class TopMenuPage extends BasePage {
         return this;
     }
 
-    public void switchToOriginalTab() {
+    public WeatherDashboardPage switchBackToWeatherDashboardPage() {
         if (originalHandle != null) {
             getDriver().switchTo().window(originalHandle);
         }
+
+        return new WeatherDashboardPage(getDriver());
     }
 
     public boolean isPlaceholderDisplayed() {

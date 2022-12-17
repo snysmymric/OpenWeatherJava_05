@@ -41,7 +41,7 @@ public class PartnersTest extends BaseTest {
     }
 
     @Test
-    public void testRightLinksAreShowed(){
+    public void testAllLinksAsExpected() {
         final List<String> expectedRightSideLinks = List.of(
                 "Google Weather-Based Campaign Management with OpenWeatherMap API"
                 ,"Google Maps JavaScript API based on OpenWeatherMap API"

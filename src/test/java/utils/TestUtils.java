@@ -4,11 +4,14 @@ import org.apache.commons.lang3.RandomStringUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Reporter;
 
 import java.time.Duration;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class TestUtils {
 
@@ -75,5 +78,10 @@ public class TestUtils {
 
     public static void waitForPageLoaded(WebDriver driver) {
         driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(10));
+    }
+
+    public static List<String> getSortedList(List<String> elements) {
+
+        return elements.stream().sorted().collect(Collectors.toList());
     }
 }

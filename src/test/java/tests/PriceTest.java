@@ -22,7 +22,7 @@ public class PriceTest extends BaseTest {
     }
 
     @Test
-    public void testH1HeaderPricingPage() {
+    public void testH1Header() {
         final String expectedHeader = "Pricing";
 
         String actualHeader = openBaseURL()
@@ -34,7 +34,9 @@ public class PriceTest extends BaseTest {
 
     @Test
     public void testCurrentWeatherAndForecastsCollectionsNames() {
-        final List<String> expectedNames = Arrays.asList("Free", "Startup", "Developer", "Professional", "Enterprise");
+        final List<String> expectedNames = Arrays.asList(
+                "Free", "Startup", "Developer", "Professional", "Enterprise"
+        );
 
         List<String> collectionsNames = openBaseURL()
                 .clickPricingMenu()
@@ -44,73 +46,83 @@ public class PriceTest extends BaseTest {
     }
 
     @Test
-    public void testAlertsH2HeaderPricingPage() {
-        final String expectedAlertsH2Header = "Special products";
+    public void testH2HeaderOnAlertsTable() {
+        final String expectedH2Header = "Special products";
 
-        String actualAlertsH2Header = openBaseURL()
+        String actualH2Header = openBaseURL()
                 .clickPricingMenu()
                 .getAlertsH2Header();
 
-        Assert.assertEquals(actualAlertsH2Header, expectedAlertsH2Header);
+        Assert.assertEquals(actualH2Header, expectedH2Header);
     }
 
     @Test
-    public void testAlertsH4HeadersPricingPage() {
-        final List<String> expectedAlertsH4 = Arrays.asList(
-                "Solar Radiation API", "Solar Radiation API - Historical data",
-                "Global Weather Alerts Push notifications", "Road Risk API (advanced configuration)",
-                "Global Precipitation Map - Forecast and historical data", "Weather Maps 2.0 with 1-hour step");
+    public void testH4HeadersOnAlertsTable() {
+        final List<String> expectedH4Headers = Arrays.asList(
+                "Solar Radiation API",
+                "Solar Radiation API - Historical data",
+                "Global Weather Alerts Push notifications",
+                "Road Risk API (advanced configuration)",
+                "Global Precipitation Map - Forecast and historical data",
+                "Weather Maps 2.0 with 1-hour step"
+        );
 
-        List<String> actualAlertsH4 = openBaseURL()
+        List<String> actualH4Headers = openBaseURL()
                 .clickPricingMenu()
-                .getAlertsH4Headers();
+                .getH4Headers();
 
-        Assert.assertEquals(actualAlertsH4, expectedAlertsH4);
+        Assert.assertEquals(actualH4Headers, expectedH4Headers);
     }
 
     @Test
-    public void testAlertsPriceByRequestAmount() {
-        final int expectedByRequestAmount = 4;
+    public void testAlertsPriceByRequest() {
+        final int expectedAmount = 4;
         final String oldSubHeader = "By request";
 
-        int actualByRequestAmount = openBaseURL()
+        int actualAmount = openBaseURL()
                 .clickPricingMenu()
                 .waitGetRequestToBeChanged(oldSubHeader)
                 .getAlertsByRequestAmount();
 
-        Assert.assertEquals(actualByRequestAmount, expectedByRequestAmount);
+        Assert.assertEquals(actualAmount, expectedAmount);
     }
 
     @Test
     public void testTransparentButtonsLabels() {
-        final List<String> expectedHeaderButtons = Arrays.asList(
+        final List<String> expectedTransparentButtonsLabels = Arrays.asList(
                 "Get API key", "Subscribe", "Subscribe", "Subscribe",
                 "Subscribe", "Get access", "Get access", "Get access", "Get access", "Get access",
                 "Get access", "Get", "Get", "Subscribe", "Subscribe", "Get", "Get access",
                 "Get access", "Learn more");
 
-        List<String> actualHeaderButtons = openBaseURL()
+        List<String> actualTransparentButtonsLabels = openBaseURL()
                 .clickPricingMenu()
                 .getTransparentButtonsLabels();
 
-        Assert.assertEquals(actualHeaderButtons, expectedHeaderButtons);
+        Assert.assertEquals(actualTransparentButtonsLabels, expectedTransparentButtonsLabels);
     }
 
     @Test
     public void testH2HeadersPricingPage() {
         final int expectedAmountH2Headers = 7;
         final List<String> expectedH2Headers = List.of(
-                "\"One Call by Call\" subscription plan", "Professional collections", "Current weather and forecasts collection",
-                "Special products","Historical weather collection", "Special products","Free data for students");
+                "\"One Call by Call\" subscription plan",
+                "Professional collections",
+                "Current weather and forecasts collection",
+                "Special products",
+                "Historical weather collection",
+                "Special products",
+                "Free data for students"
+        );
 
         List<String> actualH2Headers = openBaseURL()
                 .clickPricingMenu()
-                .getH2HeadersPricingPage();
+                .getH2Headers();
 
         PricePage pricePage = new PricePage(getDriver());
 
         int actualAmountH2Headers = pricePage
-                .getH2HeadersAmountPricingPage();
+                .getH2HeadersAmount();
 
         Assert.assertEquals(actualH2Headers, expectedH2Headers);
         Assert.assertEquals(actualAmountH2Headers, expectedAmountH2Headers);
@@ -127,5 +139,3 @@ public class PriceTest extends BaseTest {
         Assert.assertEquals(pricePage.getDetailedPricingButtonsLabels(),expectedLabels);
     }
 }
-
-

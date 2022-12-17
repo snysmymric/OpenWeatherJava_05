@@ -3,23 +3,23 @@ package tests;
 import base.BaseTest;
 import org.testng.Assert;
 import org.testng.Reporter;
-import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import pages.footer_menu.WidgetsPage;
 import utils.ProjectConstants;
 
 import java.util.List;
 
-@Ignore
 public class WidgetsTest extends BaseTest {
 
     @Test
-    public void testSelectYourCityFieldContainsChosenCity() {
+    public void testSelectYourCityFieldContainsChosenCity() throws InterruptedException {
         final String city = "Rome";
 
         WidgetsPage widgetPage = openBaseURL()
                 .scrollToFooterMenu()
                 .clickWidgetsPageFooterMenu();
+
+        sleep(1000);
 
         final String oldCity = widgetPage.getCityName();
 
@@ -75,8 +75,9 @@ public class WidgetsTest extends BaseTest {
 
         WidgetsPage widgetPage = openBaseURL()
                 .scrollToFooterMenu()
-                .clickWidgetsPageFooterMenu()
-                .sleepUntilWidgetsLoaded();
+                .clickWidgetsPageFooterMenu();
+
+        sleep(1000);
 
         final String oldCity = widgetPage
                 .waitForBiggerWidgetToAppear()

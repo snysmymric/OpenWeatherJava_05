@@ -5,7 +5,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import pages.base_abstract.FooterMenuPage;
 
-public class HomeSignUpPage extends FooterMenuPage {
+public class HomeUsersSignUpPage extends FooterMenuPage {
 
     @FindBy(xpath = "//input[@id='user_username']")
     private WebElement usernameField;
@@ -37,19 +37,11 @@ public class HomeSignUpPage extends FooterMenuPage {
     @FindBy(xpath = "//input[@value='Create Account']")
     private WebElement createAccountButton;
 
-    @FindBy(xpath = "//div[@class='has-error']/div[@class='help-block']")
-    private WebElement errorCaptchaMessage;
-
-    public HomeSignUpPage(WebDriver driver) {
+    public HomeUsersSignUpPage(WebDriver driver) {
         super(driver);
     }
 
-    public String getErrorCaptchaMessage() {
-
-        return getText(errorCaptchaMessage);
-    }
-
-    public HomeSignUpPage clickClearInputNewUsername() {
+    public HomeUsersSignUpPage clickClearInputNewUsername() {
         String username = "Tester";
 
         click(usernameField);
@@ -59,7 +51,7 @@ public class HomeSignUpPage extends FooterMenuPage {
         return this;
     }
 
-    public HomeSignUpPage clickClearInputNewUserEmail() {
+    public HomeUsersSignUpPage clickClearInputNewUserEmail() {
         String email = "jka59433@xcoxc.com";
 
         click(enterEmailField);
@@ -69,7 +61,7 @@ public class HomeSignUpPage extends FooterMenuPage {
         return this;
     }
 
-    public HomeSignUpPage clickClearInputNewUserPassword() {
+    public HomeUsersSignUpPage clickClearInputNewUserPassword() {
         String password = "Tester12#";
 
         click(userPasswordField);
@@ -79,7 +71,7 @@ public class HomeSignUpPage extends FooterMenuPage {
         return this;
     }
 
-    public HomeSignUpPage clickClearInputRepeatPassword() {
+    public HomeUsersSignUpPage clickClearInputRepeatPassword() {
         String password = "Tester12#";
 
         click(repeatUserPasswordField);
@@ -89,19 +81,21 @@ public class HomeSignUpPage extends FooterMenuPage {
         return this;
     }
 
-    public HomeSignUpPage clickAgeConfirmCheckbox() {
+    public HomeUsersSignUpPage clickAgeConfirmCheckbox() {
         click(ageConfirmCheckbox);
 
         return this;
     }
 
-    public HomeSignUpPage clickAgreementCheckbox() {
+    public HomeUsersSignUpPage clickAgreementCheckbox() {
         click(agreementCheckbox);
 
         return this;
     }
 
-    public void clickCreateAccountButton() {
+    public HomeUsersPage clickCreateAccountButton() {
         click(createAccountButton);
+
+        return new HomeUsersPage(getDriver());
     }
 }

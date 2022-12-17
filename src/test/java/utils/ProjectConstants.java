@@ -35,6 +35,5 @@ public class ProjectConstants {
     public static final String MESSAGE_TEXT = "Message";
 
     public static final int WIDTH_HAMBURGER_MENU = 1020;
-
     public static final int HEIGHT_HAMBURGER_MENU = 880;
 }

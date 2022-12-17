@@ -33,9 +33,7 @@ public class PartnersPage extends BreadCrumbPage {
         return this;
     }
 
-    public PartnersPage clickSeeOnWebsiteButton() {
+    public void clickSeeOnWebsiteButton() {
         click20(seeOnWebsiteButton);
-
-        return this;
     }
 }

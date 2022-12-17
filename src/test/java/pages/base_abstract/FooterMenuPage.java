@@ -92,11 +92,6 @@ public abstract class FooterMenuPage extends TopMenuPage {
         super(driver);
     }
 
-    public FooterMenuPage(WebDriver driver, String originalHandle) {
-
-        super(driver, originalHandle);
-    }
-
     public int getSocialPanelSize() {
 
         return getListSize(socialPanelIconsFooterMenu);

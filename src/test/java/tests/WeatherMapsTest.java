@@ -31,8 +31,12 @@ public class WeatherMapsTest extends BaseTest {
     @Test
     public void testWeatherControlLayersText() {
         final List<String> expectedLayersTexts = List.of(
-                "Temperature","Pressure","Wind speed",
-                "Clouds","Global Precipitation");
+                "Temperature",
+                "Pressure",
+                "Wind speed",
+                "Clouds",
+                "Global Precipitation"
+        );
 
         List<String> actualLayersTexts =
                 openBaseURL()

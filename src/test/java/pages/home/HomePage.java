@@ -9,7 +9,7 @@ import java.util.List;
 public class HomePage extends HomeTopMenuPage {
 
     @FindBy(xpath = "//div[@class = 'panel-body']")
-    WebElement signedInMessage;
+    WebElement notification;
 
     @FindBy(id = "user-dropdown")
     WebElement userTopMenu;
@@ -21,7 +21,7 @@ public class HomePage extends HomeTopMenuPage {
     private WebElement apiKeysTab;
 
     @FindBy(xpath = "//h2")
-    private List<WebElement> h2Title;
+    private List<WebElement> h2Headers;
 
     @FindBy(className = "btn_like")
     private List<WebElement> orangeButtons;
@@ -29,19 +29,16 @@ public class HomePage extends HomeTopMenuPage {
     @FindBy(xpath = "//ul[@class='nav nav-tabs pull-left']//a")
     private List<WebElement> navTabs;
 
-    @FindBy(xpath = "//div[@class = 'panel-body']")
-    WebElement signOutMessage;
-
     public HomePage(WebDriver driver) {
         super(driver);
     }
 
-    public String getMessage() {
+    public String getNotification() {
 
-        return getText(signedInMessage);
+        return getText(notification);
     }
 
-    public List<String> getTextUserDropDownMenuLInks() {
+    public List<String> getUserNameDropdownMenuTexts() {
 
         return getTexts(userDropdownMenuLinks);
     }
@@ -52,20 +49,14 @@ public class HomePage extends HomeTopMenuPage {
         return new HomeAPIKeysPage(getDriver());
     }
 
-    public int getH2Titles() {
+    public int getH2Headers() {
 
-        return getListSize(h2Title);
+        return getListSize(h2Headers);
     }
 
-    public List<String> listH2TitlesSighInPage() {
+    public List<String> getListH2Headers() {
 
-        return getTexts(h2Title);
-    }
-
-    public int orangeButtonsSignIn() {
-        areAllElementsVisibleAndClickable(orangeButtons);
-
-        return getListSize(orangeButtons);
+        return getTexts(h2Headers);
     }
 
     public int navTabs() {
@@ -78,15 +69,20 @@ public class HomePage extends HomeTopMenuPage {
 
         return getTexts(navTabs);
     }
-
-    public String getMessageSignOut() {
-
-        return getText(signOutMessage);
-    }
     
-    public HomePage clickUserDropdown() {
+    public HomePage clickUserNameMenu() {
         click(userTopMenu);
 
         return this;
+    }
+
+    public List<WebElement> getOrangeButtons() {
+
+        return orangeButtons;
+    }
+
+    public void waitUntilButtonIsClickable(WebElement button) {
+
+        wait10ElementToBeClickable(button);
     }
 }

@@ -122,10 +122,4 @@ public class WidgetsPage extends FooterMenuPage {
 
         return this;
     }
-
-    public WidgetsPage sleepUntilWidgetsLoaded() throws InterruptedException {
-        sleep(1000);
-
-        return this;
-    }
 }

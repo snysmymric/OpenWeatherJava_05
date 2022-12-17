@@ -5,7 +5,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import utils.TestUtils;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class HomeMarketplacePage extends HomeFooterMenuPage {
@@ -41,9 +40,9 @@ public class HomeMarketplacePage extends HomeFooterMenuPage {
         return allHomeMarketplaceButtons;
     }
 
-    public WebElement waitUntilButtonIsClickable(WebElement button) {
+    public void waitUntilButtonIsClickable(WebElement button) {
 
-        return wait10ElementToBeClickable(button);
+        wait10ElementToBeClickable(button);
     }
 
     public HomeHistoryBulksNewPage clickHistoryBulkMenu() {

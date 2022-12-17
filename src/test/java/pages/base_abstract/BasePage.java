@@ -8,13 +8,13 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Reporter;
-import pages.MainPage;
 import pages.home.HomePage;
-import pages.home.HomeSignInPage;
+import pages.home.HomeUsersSignInPage;
 
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public abstract class BasePage {
     private WebDriver driver;
@@ -29,7 +29,7 @@ public abstract class BasePage {
 
     abstract HomePage signIn();
 
-    abstract HomeSignInPage signOut();
+    abstract HomeUsersSignInPage signOut();
 
     protected WebDriver getDriver() {
         return driver;
@@ -202,9 +202,7 @@ public abstract class BasePage {
 
     protected void inputAfterClear(WebElement element, String text) {
         click(element);
-        if (!getText(element).isEmpty() && getText(element).isBlank()) {
-            clear(element);
-        }
+        clear(element);
         input(text, element);
     }
 
@@ -267,7 +265,7 @@ public abstract class BasePage {
     }
 
     protected void waitTextToBeChanged(WebElement element, String text) {
-        getWait10().until(ExpectedConditions
+        getWait20().until(ExpectedConditions
                 .not(ExpectedConditions.textToBePresentInElement(element, text)));
     }
 
