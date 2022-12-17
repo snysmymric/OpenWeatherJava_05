@@ -172,7 +172,7 @@ public class MainPage extends FooterMenuPage {
     @FindBy(xpath = "//span[@class='sub']")
     private List<WebElement> weatherDescription;
 
-    @FindBy(css = "a[href*='/']")
+    @FindBy(css = "a[href*='/'],a[href*='#']")
     private List<WebElement> allLinks;
 
     public static final String RANDOM_TEXT = TestUtils.getRandomName();
@@ -510,9 +510,15 @@ public class MainPage extends FooterMenuPage {
         return this;
     }
 
-    public String isTextContainsC() {
+    public List <String> getTempsAndUnitsList() {
 
-        return getText(currentTempAndUnit);
+        List <String> list = new ArrayList<>();
+
+        for (String element : getTexts(dayListValues)) {
+            list.add(element.substring(element.length() - 2));
+        }
+
+        return list;
     }
 
     public String isTextContainF() {
@@ -634,5 +640,11 @@ public class MainPage extends FooterMenuPage {
         }
 
         return linksList;
+    }
+
+    public String getTempUnit() {
+        String tempAndUnit = getText(currentTempAndUnit);
+
+        return tempAndUnit.substring(tempAndUnit.length() - 2);
     }
 }

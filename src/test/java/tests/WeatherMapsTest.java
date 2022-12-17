@@ -3,19 +3,17 @@ package tests;
 import base.BaseTest;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import pages.base_abstract.TopMenuPage;
 import pages.top_menu.WeatherMapsPage;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class WeatherMapsTest extends BaseTest {
 
     @Test
     public void testZoomInOutControl() {
-        String expectedZoomIN = "+";
-        String expectedZoomOut = "-";
-        String partialUrl = "http";
+        final String expectedZoomIN = "+";
+        final String expectedZoomOut = "-";
+        final String partialUrl = "http";
 
         WeatherMapsPage weatherMapsPage = openBaseURL()
                 .clickMapsMenu()
@@ -32,12 +30,9 @@ public class WeatherMapsTest extends BaseTest {
 
     @Test
     public void testWeatherControlLayersText() {
-        List<String> expectedLayersTexts = new ArrayList<>();
-        expectedLayersTexts.add("Temperature");
-        expectedLayersTexts.add("Pressure");
-        expectedLayersTexts.add("Wind speed");
-        expectedLayersTexts.add("Clouds");
-        expectedLayersTexts.add("Global Precipitation");
+        final List<String> expectedLayersTexts = List.of(
+                "Temperature","Pressure","Wind speed",
+                "Clouds","Global Precipitation");
 
         List<String> actualLayersTexts =
                 openBaseURL()
@@ -50,17 +45,17 @@ public class WeatherMapsTest extends BaseTest {
 
     @Test
     public void testButtonLoop_MapPage() {
-        String locationROME = "Rome, Italy";
+        final String locationROME = "Rome, Italy";
 
          WeatherMapsPage weatherMapsPage = openBaseURL()
                 .clickMapsMenu()
-                .clickNominatimSearchButton();
+                .clickSearchButton();
 
         Assert.assertTrue(weatherMapsPage.isLoopDisplayBlockDisplayed());
 
         weatherMapsPage.clickLoopDisplayBlock();
         String oldUrl = String.valueOf(weatherMapsPage.inputSearchCriteriaIntoSearchField(locationROME));
 
-        Assert.assertNotEquals(oldUrl, getDriver().getCurrentUrl());
+        Assert.assertNotEquals(oldUrl, weatherMapsPage.getCurrentURL());
     }
 }

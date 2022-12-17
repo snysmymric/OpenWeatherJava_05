@@ -3,22 +3,20 @@ package tests;
 import base.BaseTest;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import utils.ProjectConstants;
 
 public class HomeAskQuestionTest extends BaseTest {
 
     @Test
     public void testCaptchaErrorMessage() {
-        final String email = "test@test.com";
-        String subject = "Other";
-        final String messageText = "Message";
         final String expectedMessage = "reCAPTCHA verification failed, please try again.";
 
         String actualMessage = openBaseURL()
                 .clickSupportMenu()
                 .clickAskQuestionSupportSubmenu()
-                .inputTextInEmailTextbox(email)
-                .selectSubject(subject)
-                .inputTextInMessageTextbox(messageText)
+                .inputTextInEmailTextbox(ProjectConstants.EMAIL)
+                .selectSubject(ProjectConstants.SUBJECT)
+                .inputTextInMessageTextbox(ProjectConstants.MESSAGE_TEXT)
                 .clickOnSubmitButton()
                 .getErrorMessageText();
 
@@ -37,6 +35,5 @@ public class HomeAskQuestionTest extends BaseTest {
                 .getRadioButtonText();
         
         Assert.assertEquals(actualMessage, expectedMessage);
-
     }
 }

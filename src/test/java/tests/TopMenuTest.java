@@ -5,6 +5,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import pages.*;
 import pages.top_menu.*;
+import utils.ProjectConstants;
 
 import java.util.List;
 
@@ -14,13 +15,8 @@ public class TopMenuTest extends BaseTest {
     public void testAPIMenuNavigatesToAPIPage() {
         final String expectedURL = "https://openweathermap.org/api";
 
-        openBaseURL();
-
-        MainPage mainPage = new MainPage(getDriver());
-
-        mainPage.clickAPIMenu();
-
-        APIPage apiPage = new APIPage(getDriver());
+        APIPage apiPage = openBaseURL()
+                .clickAPIMenu();
 
         Assert.assertEquals(apiPage.getCurrentURL(), expectedURL);
     }
@@ -91,11 +87,10 @@ public class TopMenuTest extends BaseTest {
         final String expectedInnerTextOfPlaceholder = "Weather in your city";
         final String attribute = "placeholder";
 
-        Assert.assertTrue(openBaseURL().isPlaceholderDisplayed());
+        MainPage mainPage = openBaseURL();
+        Assert.assertTrue(mainPage.isPlaceholderDisplayed());
 
-        String innerTextOfPlaceholder =
-                openBaseURL().
-                        getInnerTextOfPlaceholder(attribute);
+        String innerTextOfPlaceholder =mainPage.getInnerTextOfPlaceholder(attribute);
 
         Assert.assertEquals(innerTextOfPlaceholder, expectedInnerTextOfPlaceholder);
     }
@@ -104,8 +99,6 @@ public class TopMenuTest extends BaseTest {
     public void testOurInitiativesMenuNavigatesToOurInitiativesPage() {
         final String expectedUrl = "https://openweathermap.org/our-initiatives";
         final String expectedTitle = "Our Initiatives - OpenWeatherMap";
-
-        openBaseURL();
 
         OurInitiativesPage ourInitiativesPage = openBaseURL().clickOurInitiativesMenu();
 
@@ -116,7 +109,12 @@ public class TopMenuTest extends BaseTest {
     @Test
     public void testSupportMenuHasLinks() {
         final List<String> expectedList = List.of("FAQ", "How to start", "Ask a question");
-        Assert.assertEquals(openBaseURL().clickSupportMenu().getLinksText(), expectedList);
+
+        List<String> actualList = openBaseURL()
+                            .clickSupportMenu()
+                            .getLinksText();
+
+        Assert.assertEquals(actualList, expectedList);
     }
 
     @Test
@@ -172,14 +170,14 @@ public class TopMenuTest extends BaseTest {
     }
 
     @Test
-    public void testCountTopMenuButtons() {
-        int expectedButton = 12;
+    public void testTopMenuLinkAmount() {
+        final int expectedLinkAmouunt = 12;
 
-        int actualCountTopMenuButtons =
+        int actualTopMenuLinkAmount =
                 openBaseURL()
-                        .countTopMenus();
+                        .topMenuLinkAmount();
 
-        Assert.assertEquals(actualCountTopMenuButtons, expectedButton);
+        Assert.assertEquals(actualTopMenuLinkAmount, expectedLinkAmouunt);
     }
 
     @Test
@@ -195,7 +193,7 @@ public class TopMenuTest extends BaseTest {
 
     @Test
     public void testFAQSupportSubmenuNavigatesToFAQPage() {
-        final String expectedUrl = getDriver().getCurrentUrl() + "faq";
+        final String expectedUrl = "https://openweathermap.org/faq";
 
         String actualUrl = openBaseURL()
                 .clickSupportMenu()
@@ -231,7 +229,7 @@ public class TopMenuTest extends BaseTest {
 
     @Test
     public void testEachTopMenuNavigatesToCorrespondingPage() {
-        List<String> expectedURLs = List.of(
+        final List<String> expectedURLs = List.of(
                 "https://openweathermap.org/guide", "https://openweathermap.org/api",
                 "https://openweathermap.org/weather-dashboard", "https://home.openweathermap.org/marketplace",
                 "https://openweathermap.org/price",
@@ -247,14 +245,13 @@ public class TopMenuTest extends BaseTest {
 
     @Test
     public void testHamburgerMenuIsAvailableAndHasOptions_TopMenu() {
-        final int width = 1020;
-        final int height = 880;
         final int expectedNumberOfOptionsHamburgerMenu = 12;
-        List<String> expectedHamburgerMenuList = List.of("Guide", "API", "Dashboard", "Marketplace", "Pricing",
+        final List<String> expectedHamburgerMenuList = List.of(
+                "Guide", "API", "Dashboard", "Marketplace", "Pricing",
                 "Maps", "Our Initiatives", "Partners", "Blog", "For Business", "Ask a question", "Sign in");
 
         MainPage mainPage = openBaseURL()
-                .setWindowWithHamburgerMenu(width,height)
+                .setWindowWithHamburgerMenu(ProjectConstants.WIDTH_HAMBURGER_MENU,ProjectConstants.HEIGHT_HAMBURGER_MENU)
                 .clickHamburgerMenuIcon();
 
         Assert.assertTrue(mainPage.isHamburgerIconDisplayed());
@@ -265,16 +262,13 @@ public class TopMenuTest extends BaseTest {
 
     @Test
     public void testHamburgerMenuHasLogo() {
-        final int width = 1020;
-        final int height = 880;
         final String expectedUrl = "https://openweathermap.org/";
 
         MainPage mainPage = openBaseURL()
-                .setWindowWithHamburgerMenu(width,height);
+                .setWindowWithHamburgerMenu(ProjectConstants.WIDTH_HAMBURGER_MENU,ProjectConstants.HEIGHT_HAMBURGER_MENU)
+                .clickLogo();
 
         Assert.assertTrue(mainPage.isLogoIconDisplayed());
-
-        mainPage.clickLogo();
 
         Assert.assertEquals(mainPage.getCurrentURL(),expectedUrl);
     }

@@ -12,7 +12,10 @@ public class HomeHistoryBulksNewPage extends HomeMarketplacePage {
     private WebElement weatherParametersButton;
 
     @FindBy(xpath = "//div[@class='owm-check-box-group columns']//label")
-    private List<WebElement> weatherParametersElements;
+    private List<WebElement> labels;
+
+    @FindBy(xpath = "//div[@class='owm-check-box-group columns']//input")
+    private List<WebElement> inputs;
 
     public HomeHistoryBulksNewPage(WebDriver driver) {
         super(driver);
@@ -24,24 +27,34 @@ public class HomeHistoryBulksNewPage extends HomeMarketplacePage {
         return this;
     }
 
-    public HomeHistoryBulksNewPage uncheckAllWeatherParameters() {
-        clickAllElementsInList(weatherParametersElements);
-
-        return this;
+    public void clickAllWeatherParameters() {
+        clickAllElementsInList(labels);
     }
 
-    public boolean allCheckmarksAreNotSelectedInTheWeatherParameters() {
+    public List<WebElement> getCheckBoxes() {
 
-        return areElementsUnselected(weatherParametersElements);
+        return inputs;
     }
 
-    public HomeHistoryBulksNewPage uncheckNotAllWeatherParameters(String textContains) {
-        for (WebElement element : weatherParametersElements) {
-            if (!element.getText().toLowerCase().contains(textContains)) {
-                element.click();
+    public int getNOTSelectedCount(List<WebElement> checkBoxes) {
+        int count = 0;
+        for (WebElement checkBox : checkBoxes) {
+            if (!checkBox.isSelected()) {
+                count++;
             }
         }
 
-        return this;
+        return count;
+    }
+
+    public int getSelectedCount(List<WebElement> checkBoxes) {
+        int count = 0;
+        for (WebElement checkBox : checkBoxes) {
+            if (checkBox.isSelected()) {
+                count++;
+            }
+        }
+
+        return count;
     }
 }

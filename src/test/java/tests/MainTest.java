@@ -165,7 +165,7 @@ public class MainTest extends BaseTest {
                 .switchToMetric()
                 .waitForGreyContainerDisappeared();
 
-        Assert.assertEquals(mainPage.isTextContainsC(), expectedResult);
+        Assert.assertEquals(mainPage.getTempUnit(), expectedResult);
     }
 
     @Test
@@ -176,7 +176,7 @@ public class MainTest extends BaseTest {
                 .switchToImperial()
                 .waitForGreyContainerDisappeared();
 
-        Assert.assertEquals(mainPage.isTextContainF(), expectedResult);
+        Assert.assertEquals(mainPage.getTempUnit(), expectedResult);
     }
 
     @Test
@@ -233,13 +233,24 @@ public class MainTest extends BaseTest {
 
     @Test
     public void testCheckTempInC_inDayList_whenSwitchingToMetric() {
-        final String expectedResult = "°C";
+        final List<String> expectedResult = List.of("°C", "°C", "°C", "°C", "°C", "°C", "°C", "°C");
 
         MainPage mainPage = openBaseURL()
-                .switchToMetric();
-        mainPage.waitForGreyContainerDisappeared();
+                .switchToMetric()
+                .waitForGreyContainerDisappeared();
 
-        Assert.assertEquals(mainPage.isDayListValuesContainsC(), expectedResult);
+        Assert.assertEquals(mainPage.getTempsAndUnitsList(), expectedResult);
+    }
+
+    @Test
+    public void testCheckTempInF_inDayList_whenSwitchingToImperial() {
+        final List<String> expectedResult = List.of("°F", "°F", "°F", "°F", "°F", "°F", "°F", "°F");
+
+        MainPage mainPage = openBaseURL()
+                .switchToImperial()
+                .waitForGreyContainerDisappeared();
+
+        Assert.assertEquals(mainPage.getTempsAndUnitsList(), expectedResult);
     }
 
     @Test
@@ -251,17 +262,6 @@ public class MainTest extends BaseTest {
                 .getHeaderForDifferentWeatherContainer();
 
         Assert.assertEquals(actualHeader, expectedHeader);
-    }
-
-    @Test
-    public void testCheckTempInF_inDayList_whenSwitchingToImperial() {
-        final String expectedResult = "°F";
-
-        MainPage mainPage = openBaseURL()
-                .switchToImperial();
-        mainPage.waitForGreyContainerDisappeared();
-
-        Assert.assertEquals(mainPage.isDayListValuesContainsF(), expectedResult);
     }
 
     @Test

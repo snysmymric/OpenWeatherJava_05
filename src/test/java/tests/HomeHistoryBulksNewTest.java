@@ -1,38 +1,46 @@
 package tests;
 
 import base.BaseTest;
+import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import pages.home.HomeHistoryBulksNewPage;
 
+import java.util.List;
 
 public class HomeHistoryBulksNewTest extends BaseTest {
 
     @Test
-    public void testUncheckAllCheckmarkInTheListOfWeatherParameters() {
+    public void testAllWeatherParametersSelectedByDefault() {
+        HomeHistoryBulksNewPage homeHistoryBulksNewPage = new HomeHistoryBulksNewPage(getDriver());
 
-        boolean allCheckmarksAreNotSelected = openBaseURL()
+        List<WebElement> checkBoxes = openBaseURL()
                 .clickMarketplaceMenu()
                 .switchToMarketplaceWindow()
                 .clickHistoryBulkMenu()
                 .clickWeatherParametersButton()
-                .uncheckAllWeatherParameters()
-                .allCheckmarksAreNotSelectedInTheWeatherParameters();
+                .getCheckBoxes();
 
-        Assert.assertTrue(allCheckmarksAreNotSelected);
+        int selectedCount = homeHistoryBulksNewPage.getSelectedCount(checkBoxes);
+
+        Assert.assertEquals(selectedCount, checkBoxes.size());
     }
 
-    @Test
-    public void testUncheckAllCheckmarkInTheListOfWeatherParameters_NegativeScenario() {
-        final String containsTheGivenCharactersTheSelectedElement = "s";
+    @Test(dependsOnMethods = "testAllWeatherParametersSelectedByDefault")
+    public void testWeatherParametersNOTSelected_AfterUncheckAll() {
+        HomeHistoryBulksNewPage homeHistoryBulksNewPage = new HomeHistoryBulksNewPage(getDriver());
 
-        boolean AllCheckmarksAreNotSelected = openBaseURL()
+        List<WebElement> checkBoxes = openBaseURL()
                 .clickMarketplaceMenu()
                 .switchToMarketplaceWindow()
                 .clickHistoryBulkMenu()
                 .clickWeatherParametersButton()
-                .uncheckNotAllWeatherParameters(containsTheGivenCharactersTheSelectedElement)
-                .allCheckmarksAreNotSelectedInTheWeatherParameters();
+                .getCheckBoxes();
 
-        Assert.assertFalse(AllCheckmarksAreNotSelected);
+        homeHistoryBulksNewPage.clickAllWeatherParameters();
+
+        int notSelectedAmount = homeHistoryBulksNewPage.getNOTSelectedCount(checkBoxes);
+
+        Assert.assertEquals(notSelectedAmount, checkBoxes.size());
     }
 }

@@ -3,14 +3,11 @@ package pages.top_menu;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import pages.base_abstract.FooterMenuPage;
+import pages.base_abstract.BreadCrumbPage;
 
 import java.util.List;
 
-public class PricePage extends FooterMenuPage {
-
-    @FindBy(xpath = "//h1")
-    private WebElement pricingPageH1Header;
+public class PricePage extends BreadCrumbPage {
 
     @FindBy(xpath = "//a[@class = 'btn_block transparent round']")
     private List<WebElement> transparentButtons;
@@ -19,7 +16,7 @@ public class PricePage extends FooterMenuPage {
     private WebElement alertsHeader;
 
     @FindBy(xpath = "//section[@id = 'alerts']//tbody/tr/th/h4/a")
-    private List<WebElement> alertsSubHeaders;
+    private List<WebElement> alertsH4Headers;
 
     @FindBy(xpath = "//section[@id='alerts']//h4[text()='By request']")
     private List<WebElement> alertsPriceByRequest;
@@ -31,18 +28,13 @@ public class PricePage extends FooterMenuPage {
     private List<WebElement> weatherAndForecastsCollections;
 
     @FindBy(xpath = "//h2")
-    private List<WebElement> pricingPageH2Headers;
+    private List<WebElement> h2Headers;
 
     @FindBy(xpath = "//a[@class = 'btn_like btn-orange owm-block-mainpage__btn']")
-    private List<WebElement> orangeButtons;
+    private List<WebElement> detailedPricingButtons;
 
     public PricePage(WebDriver driver) {
         super(driver);
-    }
-
-    public String getHeaderText() {
-
-        return getText(pricingPageH1Header);
     }
 
     public String getAlertsH2Header() {
@@ -55,39 +47,39 @@ public class PricePage extends FooterMenuPage {
         return getTexts(weatherAndForecastsCollections);
     }
 
-    public List<String> getAlertsSubHeaders() {
+    public List<String> getAlertsH4Headers() {
 
-        return getTexts(alertsSubHeaders);
+        return getTexts(alertsH4Headers);
     }
 
-    public List<String> getHeadersTransparentButtons() {
+    public List<String> getTransparentButtonsLabels() {
 
         return getTrimmedTexts(transparentButtons);
     }
 
-    public List<String> getListPricingPageH2Headers() {
+    public List<String> getH2HeadersPricingPage() {
 
-        return getTexts(pricingPageH2Headers);
+        return getTexts(h2Headers);
     }
 
-    public int getListPricingPageH2HeadersSize() {
+    public int getH2HeadersAmountPricingPage() {
 
-        return getListSize(pricingPageH2Headers);
+        return getListSize(h2Headers);
     }
 
-    public List<String> getHeadersOrangeButtons() {
+    public List<String> getDetailedPricingButtonsLabels() {
 
-        return getTrimmedTexts(orangeButtons);
+        return getTrimmedTexts(detailedPricingButtons);
     }
 
-    public int getByRequestSubHeadersAmount() {
+    public int getAlertsByRequestAmount() {
 
         return getListSize(alertsPriceByRequest);
     }
 
-    public int getOrangeButtonsAmount() {
+    public int getDetailedPricingButtonsAmount() {
 
-        return getListSize(orangeButtons);
+        return getListSize(detailedPricingButtons);
     }
 
     public int getTransparentButtonsAmount() {

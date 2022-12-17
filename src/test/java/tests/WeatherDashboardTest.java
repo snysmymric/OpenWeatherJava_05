@@ -39,43 +39,43 @@ public class WeatherDashboardTest extends BaseTest {
 //        Assert.assertEquals(weatherDashboardPage.getCurrentURL(), expectedLink);
     }
 
-    @BeforeMethod
-    public void setUp() {
-        openBaseURL().signIn();
+//    @BeforeMethod
+//    public void setUp() {
+//        openBaseURL().signIn();
+//
+//        openBaseURL()
+//                .saveOriginalHandle()
+//                .clickDashboardMenuSaveOriginalHandle()
+//                .clickTryTheDashBoardButtonSaveOriginalHandle()
+//                .switchToEventsDashBoardWindow()
+//                .deleteTriggers()
+//                .closeOpenedTab()
+//                .switchToOriginalTab();
+//    }
 
-        openBaseURL()
-                .saveOriginalHandle()
-                .clickDashboardMenuSaveOriginalHandle()
-                .clickTryTheDashBoardButtonSaveOriginalHandle()
-                .switchToEventsDashBoardWindow()
-                .deleteTriggers()
-                .closeOpenedTab()
-                .switchToOriginalTab();
-    }
-
-    @Test
-    public void testCreateNewTrigger() {
-        // GIVEN
-        final String expectedMessage = "Trigger Created";
-
-        // WHEN
-        String actualTriggerText = openBaseURL()
-                .clickDashboardMenu()
-                .clickTryTheDashBoardButton()
-                .switchToEventsDashBoardWindow()
-                .clickCreateNewTriggerButton()
-                .inputNameNewTrigger("Air temperature cold")
-                .clickOnLocationField()
-                .clickOnCoordinates()
-                .setCoordinatesLatitude("61.0932")
-                .setCoordinatesLongitude("-149.8457")
-                .clickOnSetCoordinates()
-                .clickOnSetLocation()
-                .setUnits(FAHRENHEIT)
-                .clickOnCreateNewTrigger()
-                .getTriggerCreatedText();
-
-        // THEN
-        assertEquals(actualTriggerText, expectedMessage);
-    }
+//    @Test
+//    public void testCreateNewTrigger() {
+//        // GIVEN
+//        final String expectedMessage = "Trigger Created";
+//
+//        // WHEN
+//        String actualTriggerText = openBaseURL()
+//                .clickDashboardMenu()
+//                .clickTryTheDashBoardButton()
+//                .switchToEventsDashBoardWindow()
+//                .clickCreateNewTriggerButton()
+//                .inputNameNewTrigger("Air temperature cold")
+//                .clickOnLocationField()
+//                .clickOnCoordinates()
+//                .setCoordinatesLatitude("61.0932")
+//                .setCoordinatesLongitude("-149.8457")
+//                .clickOnSetCoordinates()
+//                .clickOnSetLocation()
+//                .setUnits(FAHRENHEIT)
+//                .clickOnCreateNewTrigger()
+//                .getTriggerCreatedText();
+//
+//        // THEN
+//        assertEquals(actualTriggerText, expectedMessage);
+//    }
 }

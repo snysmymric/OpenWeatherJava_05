@@ -69,7 +69,7 @@ public class WeatherMapsPage extends TopMenuPage {
         return this;
     }
 
-    public WeatherMapsPage clickNominatimSearchButton() {
+    public WeatherMapsPage clickSearchButton() {
         click (nominatimSearchButton);
 
         return this;

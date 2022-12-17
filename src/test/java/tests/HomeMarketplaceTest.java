@@ -1,37 +1,56 @@
 package tests;
 
 import base.BaseTest;
+import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import pages.home.HomeMarketplacePage;
 import pages.home.HomeZipCodeDataNewPage;
+
+import java.util.List;
 
 public class HomeMarketplaceTest extends BaseTest {
 
     @Test
     public void testAllButtonsAreVisibleAndClickable() {
+        int count = 0;
 
-        final boolean areAllButtonsVisibleAndClickable =
-                openBaseURL()
+        HomeMarketplacePage homeMarketplacePage = new HomeMarketplacePage(getDriver());
+
+        List<WebElement> allButtons = openBaseURL()
                         .clickMarketplaceMenu()
                         .switchToMarketplaceWindow()
-                        .areAllButtonsVisibleAndClickable();
+                        .getAllHomeMarketplaceButtons();
 
-        Assert.assertTrue(areAllButtonsVisibleAndClickable);
+        for (WebElement button : allButtons) {
+            if (button.isEnabled() && button.isDisplayed()) {
+                homeMarketplacePage.waitUntilButtonIsClickable(button);
+                count++;
+            }
+        }
+
+        Assert.assertEquals(count, allButtons.size());
     }
 
     @Test
-    public void test_WeatherDataByStateLink_NavigatesTo_HomeZipCodeDataPage() {
+    public void testWeatherDataByStateLink_NavigatesTo_HomeZipCodeDataPage() {
         final String expectedURL = "https://home.openweathermap.org/zip_code_data/new";
-        final String basePageTitle = "Сurrent weather and forecast - OpenWeatherMap";
         final String expectedTitle = "Marketplace: History Bulk, History Forecast Bulk, Historical Weather Data by State for all ZIP codes, USA - OpenWeather";
 
-        HomeZipCodeDataNewPage homeZipCodeDataNewPage = openBaseURL()
+        final String oldURL = openBaseURL()
                 .clickMarketplaceMenu()
                 .switchToMarketplaceWindow()
-                .clickWeatherDataByStateMenu();
+                .getCurrentURL();
 
-        Assert.assertEquals(homeZipCodeDataNewPage.getCurrentURL(), expectedURL);
-        Assert.assertNotEquals(basePageTitle, homeZipCodeDataNewPage.getTitle());
-        Assert.assertEquals(homeZipCodeDataNewPage.getTitle(), expectedTitle);
+        HomeZipCodeDataNewPage homeZipCodeDataNewPage = new HomeZipCodeDataNewPage(getDriver());
+
+        homeZipCodeDataNewPage.clickWeatherDataByStateMenu();
+
+        String actualURL= homeZipCodeDataNewPage.getCurrentURL();
+        String actualTitle = homeZipCodeDataNewPage.getTitle();
+
+        Assert.assertNotEquals(oldURL, actualURL);
+        Assert.assertEquals(actualURL, expectedURL);
+        Assert.assertEquals(actualTitle, expectedTitle);
     }
 }

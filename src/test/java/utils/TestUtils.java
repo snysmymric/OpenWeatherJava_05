@@ -23,7 +23,7 @@ public class TestUtils {
 
     public static void loadBaseUrlPage(WebDriver driver, WebDriverWait wait) {
         driver.get(BASE_URL);
-        driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(10));
+        waitForPageLoaded(driver);
         wait.until(ExpectedConditions.invisibilityOfElementLocated(ON_LOAD_CONTAINER));
     }
 
@@ -71,5 +71,9 @@ public class TestUtils {
         int index = text.indexOf(separator);
 
         return text.substring(0, index);
+    }
+
+    public static void waitForPageLoaded(WebDriver driver) {
+        driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(10));
     }
 }

@@ -3,12 +3,14 @@ package tests;
 import base.BaseTest;
 import org.testng.Assert;
 import org.testng.Reporter;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import pages.footer_menu.WidgetsPage;
 import utils.ProjectConstants;
 
 import java.util.List;
 
+@Ignore
 public class WidgetsTest extends BaseTest {
 
     @Test

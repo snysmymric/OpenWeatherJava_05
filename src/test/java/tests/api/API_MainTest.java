@@ -7,7 +7,6 @@ import base.BaseTest;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.json.JSONObject;
-import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.Reporter;
 import org.testng.annotations.Test;
@@ -134,7 +133,7 @@ public class API_MainTest extends BaseTest {
                 .when()
                 .contentType(ContentType.JSON)
                 .get(PARIS_URL)
-                .then().log().all()
+                .then().log().ifError()
                 .extract().body().jsonPath().getList("alerts", Alert.class);
 
         for (Alert alert : alerts) {
@@ -162,7 +161,7 @@ public class API_MainTest extends BaseTest {
                 .contentType(ContentType.JSON)
                 .get(PARIS_URL)
                 .then()
-                .log().all()
+                .log().ifError()
                 .extract().response();
 
         final List<JSONObject> daily = response.jsonPath().get("daily");

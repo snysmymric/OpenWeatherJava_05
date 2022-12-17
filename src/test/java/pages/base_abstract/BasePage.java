@@ -94,7 +94,7 @@ public abstract class BasePage {
     }
 
     protected List<String> getTrimmedTexts(List<WebElement> elements) {
-        List<String> texts = getTexts(elements);
+        List<String> texts = new ArrayList<>();
 
         for (WebElement element : elements) {
             texts.add(getText(element).trim());
@@ -219,8 +219,6 @@ public abstract class BasePage {
             if (!originalWindow.equals(windowHandle) && getDriver().getWindowHandles().size() == 2) {
                 getDriver().switchTo().window(windowHandle);
                 break;
-            } else {
-                Reporter.log(" Unable to switch window ", true);
             }
         }
     }
@@ -291,22 +289,6 @@ public abstract class BasePage {
         }
 
         return result;
-    }
-
-    protected boolean areElementsUnselected(List<WebElement> elements) {
-        List<WebElement> allElements = new ArrayList<>(elements);
-        int elementsSize = elements.size();
-        int count = 0;
-
-        for (WebElement checkbox : allElements) {
-            if (!checkbox.findElement(By.cssSelector("*, :after, :before")).isSelected()) {
-                count++;
-            } else {
-                Reporter.log(getText(checkbox), true);
-            }
-        }
-
-        return elementsSize == count;
     }
 
     protected boolean areAllElementsVisibleAndClickable(List<WebElement> elements) {

@@ -27,27 +27,36 @@ public class HomeAPIKeysTest extends BaseTest {
                 .inputNewName(API_KEYS_NAME)
                 .clickGenerateKeysButton();
 
-        Assert.assertEquals(homeAPIKeysPage.getAmountOfExistingAPIKeys(), oldAmountOfExistingKeys + 1);
-        Assert.assertEquals(homeAPIKeysPage.getLastAPIKeyName(), API_KEYS_NAME);
-        Assert.assertEquals(homeAPIKeysPage.getLastAPIKeyStatus(), expectedAPIKeyStatus);
-        Assert.assertEquals(homeAPIKeysPage.confirmMessageAppears(), expectedNotificationMessage);
-    }
+        int actualAmountOfKeys = homeAPIKeysPage.getAmountOfExistingAPIKeys();
+        String actualNameOfNewKey = homeAPIKeysPage.getLastAPIKeyName();
+        String actualStatus = homeAPIKeysPage.getLastAPIKeyStatus();
+        String successMessage = homeAPIKeysPage.confirmMessageAppears();
 
+        Assert.assertEquals(actualAmountOfKeys, oldAmountOfExistingKeys + 1);
+        Assert.assertEquals(actualNameOfNewKey, API_KEYS_NAME);
+        Assert.assertEquals(actualStatus, expectedAPIKeyStatus);
+        Assert.assertEquals(successMessage, expectedNotificationMessage);
+    }
 
     @Test(dependsOnMethods = "testAPIKeysGenerated")
     public void testAPIKeysDeleted() {
-
         final String expectedNotificationMessage = "API key was deleted successfully";
 
         HomeAPIKeysPage homeAPIKeysPage = openBaseURL()
                 .signIn()
                 .clickAPIKeysTab();
 
-        homeAPIKeysPage
-                .deleteLastAPIKey()
+        String lastKeyName = homeAPIKeysPage.getLastAPIKeyName();
+
+        Assert.assertEquals(lastKeyName, API_KEYS_NAME);
+
+        homeAPIKeysPage.deleteLastAPIKey()
                 .confirmAPIKeyDeletion();
 
-        Assert.assertNotEquals(homeAPIKeysPage.getLastAPIKeyName(), API_KEYS_NAME);
-        Assert.assertEquals(homeAPIKeysPage.confirmationMessageDeleted(), expectedNotificationMessage);
+        String actualLastKeyName = homeAPIKeysPage.getLastAPIKeyName();
+        String actualNotificationMessage = homeAPIKeysPage.confirmationMessageDeleted();
+
+        Assert.assertNotEquals(actualLastKeyName, lastKeyName);
+        Assert.assertEquals(actualNotificationMessage, expectedNotificationMessage);
     }
 }

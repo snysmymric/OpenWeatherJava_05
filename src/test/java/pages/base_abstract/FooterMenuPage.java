@@ -214,8 +214,8 @@ public abstract class FooterMenuPage extends TopMenuPage {
         String mainWindow = getDriver().getWindowHandle();
         List<String> currentURLs = new ArrayList<>();
 
-        for (WebElement panelIconsFooterMenu : socialPanelIconsFooterMenu) {
-            click(panelIconsFooterMenu);
+        for (WebElement icon : socialPanelIconsFooterMenu) {
+            click(icon);
             if (getDriver().getWindowHandles().size() > 1) {
                 switchToAnotherWindow();
                 currentURLs.add(getCurrentURL());

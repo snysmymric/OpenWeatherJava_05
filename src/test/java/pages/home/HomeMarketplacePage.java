@@ -3,7 +3,9 @@ package pages.home;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import utils.TestUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class HomeMarketplacePage extends HomeFooterMenuPage {
@@ -29,13 +31,19 @@ public class HomeMarketplacePage extends HomeFooterMenuPage {
 
     public HomeMarketplacePage switchToMarketplaceWindow() {
         switchToAnotherWindow();
+        TestUtils.waitForPageLoaded(getDriver());
 
         return this;
     }
 
-    public boolean areAllButtonsVisibleAndClickable() {
+    public List<WebElement> getAllHomeMarketplaceButtons() {
 
-        return areAllElementsVisibleAndClickable(allHomeMarketplaceButtons);
+        return allHomeMarketplaceButtons;
+    }
+
+    public WebElement waitUntilButtonIsClickable(WebElement button) {
+
+        return wait10ElementToBeClickable(button);
     }
 
     public HomeHistoryBulksNewPage clickHistoryBulkMenu() {

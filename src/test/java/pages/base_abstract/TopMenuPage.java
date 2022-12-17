@@ -92,7 +92,7 @@ public abstract class TopMenuPage extends BasePage {
         this.originalHandle = originalHandle;
     }
 
-    public int countTopMenus() {
+    public int topMenuLinkAmount() {
 
         return getListSize(topMenus);
     }
@@ -132,8 +132,8 @@ public abstract class TopMenuPage extends BasePage {
         String mainWindow = getDriver().getWindowHandle();
         List<String> urlList = new ArrayList<>();
 
-        for (int i = 0; i < topMenus.size() - 1; i++) {
-            click(topMenus.get(i));
+        for (WebElement topMenu : topMenus) {
+            click(topMenu);
             if (getDriver().getWindowHandles().size() > 1) {
                 switchToAnotherWindow();
                 urlList.add(getCurrentURL());

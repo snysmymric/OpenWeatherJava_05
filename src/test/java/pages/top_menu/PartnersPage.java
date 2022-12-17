@@ -3,14 +3,11 @@ package pages.top_menu;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import pages.base_abstract.FooterMenuPage;
+import pages.base_abstract.BreadCrumbPage;
 
 import java.util.List;
 
-public class PartnersPage extends FooterMenuPage {
-
-    @FindBy(xpath = "//h1[@class='breadcrumb-title']")
-    private WebElement partnersPageHeader;
+public class PartnersPage extends BreadCrumbPage {
 
     @FindBy(xpath = "//a[@href='#apache']")
     private WebElement apacheCamellink;
@@ -25,17 +22,12 @@ public class PartnersPage extends FooterMenuPage {
         super(driver);
     }
 
-    public String getPageHeader() {
-
-        return getText(partnersPageHeader);
-    }
-
     public List<String> getRightSideLinksText(){
 
         return getTexts(rightSideLinks);
     }
 
-    public PartnersPage clickApacheCamelHyperLink() {
+    public PartnersPage clickApacheCamelLink() {
         click20(apacheCamellink);
 
         return this;
@@ -46,10 +38,4 @@ public class PartnersPage extends FooterMenuPage {
 
         return this;
     }
-
-    public void switchToPartnerWindow() {
-
-        switchToAnotherWindow();
-    }
-
 }
