@@ -1,5 +1,6 @@
 package utils;
 
+import base.BaseTest;
 import org.testng.ITestContext;
 import org.testng.ITestResult;
 
@@ -38,7 +39,7 @@ public class ReportUtils {
                 + DateTimeUtils.getCurrentDateTime()
                 + "\t\t\t\t\t\t\t\t\t\t\t\t\t\t" + "\n";
         String projectName = "\tProject: OpenWeatherJava_05" + "\n";
-        String baseURL = "\tBASE_URL: " + TestUtils.getBaseUrl()
+        String baseURL = "\tBASE_URL: " + BaseTest.getBaseUrl()
                 + "\t\t\t\t\t\t\t\t\t\t\t" + "\n";
 
         return H_LINE + header + currentDate + projectName + baseURL + H_LINE;

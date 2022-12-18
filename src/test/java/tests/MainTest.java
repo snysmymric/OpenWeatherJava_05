@@ -267,15 +267,6 @@ public class MainTest extends BaseTest {
     }
 
     @Test
-    public void testCurrentDateAndTimeOnMainPage() {
-        final String expectedTime = DateTimeUtils.getSystemDate();
-
-        String actualTime = openBaseURL().getActualTime();
-
-        Assert.assertEquals(actualTime, expectedTime);
-    }
-
-    @Test
     public void testCheckTextInTheBottomOfThePage() {
         final String expectedTextPanel =
                 "We use cookies which are essential for the site to work. We also use non-essential "

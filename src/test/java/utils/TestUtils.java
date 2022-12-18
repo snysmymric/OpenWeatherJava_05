@@ -1,5 +1,6 @@
 package utils;
 
+import base.BaseTest;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
@@ -15,17 +16,11 @@ import java.util.stream.Collectors;
 
 public class TestUtils {
 
-    private final static String BASE_URL = "https://openweathermap.org/";
     private final static By H2_HEADER = By.xpath("//div[@id = 'weather-widget']//h2");
     private final static By ON_LOAD_CONTAINER = By.className("owm-loader-container");
 
-    public static String getBaseUrl() {
-
-        return BASE_URL;
-    }
-
     public static void loadBaseUrlPage(WebDriver driver, WebDriverWait wait) {
-        driver.get(BASE_URL);
+        driver.get(BaseTest.getBaseUrl());
         waitForPageLoaded(driver);
         wait.until(ExpectedConditions.invisibilityOfElementLocated(ON_LOAD_CONTAINER));
     }

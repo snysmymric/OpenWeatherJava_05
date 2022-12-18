@@ -19,6 +19,9 @@ import java.time.Duration;
 import static java.lang.Thread.sleep;
 
 public abstract class BaseTest {
+
+    private final static String BASE_URL = "https://openweathermap.org/";
+
     private WebDriver driver;
     private WebDriverWait webDriverWait;
 
@@ -60,6 +63,11 @@ public abstract class BaseTest {
 
     public void sleep(int millis) throws InterruptedException {
         Thread.sleep(millis);
+    }
+
+    public static String getBaseUrl() {
+
+        return BASE_URL;
     }
 
     public MainPage openBaseURL() {
