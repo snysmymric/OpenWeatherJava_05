@@ -69,6 +69,11 @@ public abstract class BasePage {
         return getDriver().getCurrentUrl();
     }
 
+    public String getFormattedURL() {
+
+        return getDriver().getCurrentUrl().substring(0, 37);
+    }
+
     protected String getText(WebElement element) {
         if (!element.getText().isEmpty()) {
             wait10ElementToBeVisible(element);

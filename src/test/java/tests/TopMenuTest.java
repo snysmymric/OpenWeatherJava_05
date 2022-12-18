@@ -4,6 +4,8 @@ import base.BaseTest;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import pages.*;
+import pages.home.HomeMarketplacePage;
+import pages.home.HomeUsersSignInPage;
 import pages.top_menu.*;
 import utils.ProjectConstants;
 
@@ -14,72 +16,99 @@ public class TopMenuTest extends BaseTest {
     @Test
     public void testAPIMenuNavigatesToAPIPage() {
         final String expectedURL = "https://openweathermap.org/api";
+        final String expectedTitle = "Weather API - OpenWeatherMap";
 
-        APIPage apiPage = openBaseURL()
-                .clickAPIMenu();
+        final String oldURL = openBaseURL().getCurrentURL();
 
-        Assert.assertEquals(apiPage.getCurrentURL(), expectedURL);
+        String actualURL = new MainPage(getDriver())
+                .clickAPIMenu()
+                .getCurrentURL();
+
+        String actualTitle = new APIPage(getDriver()).getTitle();
+
+        Assert.assertNotEquals(actualURL, oldURL);
+        Assert.assertEquals(actualURL, expectedURL);
+        Assert.assertEquals(actualTitle, expectedTitle);
     }
 
     @Test
     public void testMarketplaceMenuNavigatesToMarketplacePage() {
-//        final String expectedURL = "https://home.openweathermap.org/marketplace";
-//
-//        openBaseURL();
-//
-//        MainPage mainPage = new MainPage(getDriver());
-//
-//        mainPage.clickMarketplaceMenu();
-//
-//        switchToAnotherWindow(getDriver());
-//
-//        Assert.assertEquals(getExternalPageURL(), expectedURL);
+        final String expectedURL = "https://home.openweathermap.org/marketplace";
+        final String expectedTitle = "Marketplace: History Bulk, History Forecast Bulk, "
+                + "Historical Weather Data by State for all ZIP codes, USA - OpenWeather";
+
+        final String oldURL = openBaseURL().getCurrentURL();
+
+        MainPage mainPage = new MainPage(getDriver());
+
+        HomeMarketplacePage homeMarketplacePage = mainPage
+                .clickMarketplaceMenu()
+                .switchToMarketplaceWindow();
+
+
+        String actualURL = homeMarketplacePage
+                .getCurrentURL();
+
+        String actualTitle = homeMarketplacePage.getTitle();
+
+        Assert.assertNotEquals(actualURL, oldURL);
+        Assert.assertEquals(actualURL, expectedURL);
+        Assert.assertEquals(actualTitle, expectedTitle);
     }
 
     @Test
     public void testGuideMenuNavigatesToGuidePage() {
-        final String basePageTitle = "Сurrent weather and forecast - OpenWeatherMap";
-        final String expectedUrl = "https://openweathermap.org/guide";
+        final String expectedURL = "https://openweathermap.org/guide";
         final String expectedTitle = "OpenWeatherMap API guide - OpenWeatherMap";
 
-        GuidePage guidePage = openBaseURL().clickGuideMenu();
+        final String oldURL = openBaseURL().getCurrentURL();
 
-        Assert.assertNotEquals(basePageTitle, guidePage.getTitle());
-        Assert.assertEquals(guidePage.getCurrentURL(), expectedUrl);
-        Assert.assertEquals(guidePage.getTitle(), expectedTitle);
+        String actualURL = new MainPage(getDriver())
+                .clickGuideMenu()
+                .getCurrentURL();
+
+        String actualTitle = new GuidePage(getDriver()).getTitle();
+
+        Assert.assertNotEquals(actualURL, oldURL);
+        Assert.assertEquals(actualURL, expectedURL);
+        Assert.assertEquals(actualTitle, expectedTitle);
     }
 
     @Test
     public void testMapsMenuNavigatesToWeatherMapsPage() {
-        final String mapsUrl = "https://openweathermap.org/weathermap";
-        final String mapsTitle = "Interactive weather maps - OpenWeatherMap";
-        final String baseUrl = getDriver().getCurrentUrl();
+        final String expectedURL = "https://openweathermap.org/weathermap";
+        final String expectedTitle = "Interactive weather maps - OpenWeatherMap";
 
-        WeatherMapsPage weatherMapsPage =
-                openBaseURL()
-                        .clickMapsMenu();
+        final String oldURL = openBaseURL().getCurrentURL();
 
-        String actualMapsUrl = weatherMapsPage.getCurrentURL().substring(0, 37);
-        String actualMapsTitle = weatherMapsPage.getTitle();
+        String actualURL = new MainPage(getDriver())
+                .clickMapsMenu()
+                .getFormattedURL();
 
-        Assert.assertNotEquals(actualMapsUrl, baseUrl);
-        Assert.assertEquals(actualMapsUrl, mapsUrl);
-        Assert.assertEquals(actualMapsTitle, mapsTitle);
+        String actualTitle = new WeatherMapsPage(getDriver()).getTitle();
+
+        Assert.assertNotEquals(actualURL, oldURL);
+        Assert.assertEquals(actualURL, expectedURL);
+        Assert.assertEquals(actualTitle, expectedTitle);
     }
 
     @Test
     public void testHowToStartMenuNavigatesToHowToStartPage() {
-        final String basePageTitle = "Сurrent weather and forecast - OpenWeatherMap";
+        final String expectedURL = "https://openweathermap.org/appid";
         final String expectedTitle = "How to start to work with Openweather API - OpenWeatherMap";
-        final String expectedUrl = "https://openweathermap.org/appid";
 
-        HowToStartPage howToStartPage = openBaseURL()
+        final String oldURL = openBaseURL().getCurrentURL();
+
+        String actualURL = new MainPage(getDriver())
                 .clickSupportMenu()
-                .clickHowToStartSupportSubmenu();
+                .clickHowToStartSupportSubmenu()
+                .getCurrentURL();
 
-        Assert.assertNotEquals(basePageTitle, howToStartPage.getTitle());
-        Assert.assertEquals(howToStartPage.getCurrentURL(), expectedUrl);
-        Assert.assertEquals(howToStartPage.getTitle(), expectedTitle);
+        String actualTitle = new HowToStartPage(getDriver()).getTitle();
+
+        Assert.assertNotEquals(actualURL, oldURL);
+        Assert.assertEquals(actualURL, expectedURL);
+        Assert.assertEquals(actualTitle, expectedTitle);
     }
 
     @Test
@@ -90,29 +119,41 @@ public class TopMenuTest extends BaseTest {
         MainPage mainPage = openBaseURL();
         Assert.assertTrue(mainPage.isPlaceholderDisplayed());
 
-        String innerTextOfPlaceholder =mainPage.getInnerTextOfPlaceholder(attribute);
+        String actualInnerTextOfPlaceholder = mainPage.getInnerTextOfPlaceholder(attribute);
 
-        Assert.assertEquals(innerTextOfPlaceholder, expectedInnerTextOfPlaceholder);
+        Assert.assertEquals(actualInnerTextOfPlaceholder, expectedInnerTextOfPlaceholder);
     }
 
     @Test
     public void testOurInitiativesMenuNavigatesToOurInitiativesPage() {
-        final String expectedUrl = "https://openweathermap.org/our-initiatives";
+        final String expectedURL = "https://openweathermap.org/our-initiatives";
         final String expectedTitle = "Our Initiatives - OpenWeatherMap";
 
-        OurInitiativesPage ourInitiativesPage = openBaseURL().clickOurInitiativesMenu();
+        final String oldURL = openBaseURL().getCurrentURL();
 
-        Assert.assertEquals(ourInitiativesPage.getCurrentURL(), expectedUrl);
-        Assert.assertEquals(ourInitiativesPage.getTitle(), expectedTitle);
+        String actualURL = new MainPage(getDriver())
+                .clickOurInitiativesMenu()
+                .getCurrentURL();
+
+        String actualTitle = new OurInitiativesPage(getDriver()).getTitle();
+
+        Assert.assertNotEquals(actualURL, oldURL);
+        Assert.assertEquals(actualURL, expectedURL);
+        Assert.assertEquals(actualTitle, expectedTitle);
     }
 
     @Test
     public void testSupportMenuHasLinks() {
-        final List<String> expectedList = List.of("FAQ", "How to start", "Ask a question");
+        final List<String> expectedList = List.of(
+                "FAQ",
+                "How to start",
+                "Ask a question"
+        );
 
-        List<String> actualList = openBaseURL()
-                            .clickSupportMenu()
-                            .getLinksText();
+        List<String> actualList =
+                openBaseURL()
+                        .clickSupportMenu()
+                        .getLinksText();
 
         Assert.assertEquals(actualList, expectedList);
     }
@@ -122,120 +163,136 @@ public class TopMenuTest extends BaseTest {
         final String expectedIfVisible = "dropdown-menu dropdown-visible";
         final String expectedIfNotVisible = "dropdown-menu";
 
-        MainPage mainPage = openBaseURL().clickSupportMenu();
+        openBaseURL();
 
-        Assert.assertTrue(mainPage.isSupportDropdownContainerDisplayed());
-        Assert.assertEquals(mainPage.getSupportMenuIsActiveValue(), expectedIfVisible);
+        String actualIfVisible = new MainPage(getDriver())
+                .clickSupportMenu()
+                .getSupportMenuIsActiveValue();
 
-        mainPage.clickSupportMenu();
+        Assert.assertTrue(new MainPage(getDriver()).isSupportDropdownContainerDisplayed());
+        Assert.assertEquals(actualIfVisible, expectedIfVisible);
 
-        Assert.assertEquals(mainPage.getSupportMenuIsActiveValue(), expectedIfNotVisible);
+        String actualIfNotVisible = new MainPage(getDriver())
+                .clickSupportMenu()
+                .getSupportMenuIsActiveValue();
+
+        Assert.assertEquals(actualIfNotVisible, expectedIfNotVisible);
     }
-
 
     @Test
     public void testPartnersMenuNavigatesToPartnersPage() {
-        final String expectedCurrentURL = "https://openweathermap.org/examples";
-
-        String currentURL =
-                openBaseURL()
-                        .clickPartnersMenu()
-                        .getCurrentURL();
-
-        Assert.assertEquals(currentURL, expectedCurrentURL);
-    }
-
-    @Test
-    public void testPartnersPageTitle() {
+        final String expectedURL = "https://openweathermap.org/examples";
         final String expectedTitle = "Partners and solutions - OpenWeatherMap";
 
-        String title = openBaseURL()
+        final String oldURL = openBaseURL().getCurrentURL();
+
+        String actualURL = new MainPage(getDriver())
                 .clickPartnersMenu()
-                .getTitle();
+                .getCurrentURL();
 
-        Assert.assertEquals(title, expectedTitle);
-    }
+        String actualTitle = new PartnersPage(getDriver()).getTitle();
 
-
-    @Test
-    public void testGuideMenuNavigatesToGuidePage1() {
-        final String expectedUrl = "https://openweathermap.org/guide";
-        final String expectedTitle = "OpenWeatherMap API guide - OpenWeatherMap";
-
-        GuidePage guidePage =
-                openBaseURL()
-                        .clickGuideMenu();
-        Assert.assertEquals(guidePage.getCurrentURL(), expectedUrl);
-        Assert.assertEquals(guidePage.getTitle(), expectedTitle);
+        Assert.assertNotEquals(actualURL, oldURL);
+        Assert.assertEquals(actualURL, expectedURL);
+        Assert.assertEquals(actualTitle, expectedTitle);
     }
 
     @Test
     public void testTopMenuLinkAmount() {
-        final int expectedLinkAmouunt = 12;
+        final int expectedTopMenuLinkAmount = 12;
 
         int actualTopMenuLinkAmount =
                 openBaseURL()
                         .topMenuLinkAmount();
 
-        Assert.assertEquals(actualTopMenuLinkAmount, expectedLinkAmouunt);
+        Assert.assertEquals(actualTopMenuLinkAmount, expectedTopMenuLinkAmount);
     }
 
     @Test
-    public  void testCompanyLogoNavigatesToBaseURL() {
+    public void testCompanyLogoNavigatesToBaseURL() {
         final String expectedURL = "https://openweathermap.org/";
         final String expectedTitle = "Сurrent weather and forecast - OpenWeatherMap";
 
-        MainPage mainPage = openBaseURL().clickLogo();
+        openBaseURL();
 
-        Assert.assertEquals(mainPage.getCurrentURL(), expectedURL);
-        Assert.assertEquals(mainPage.getTitle(), expectedTitle);
+        String actualURL = new MainPage(getDriver())
+                .clickLogo()
+                .getCurrentURL();
+
+        String actualTitle = new MainPage(getDriver()).getTitle();
+
+        Assert.assertEquals(actualURL, expectedURL);
+        Assert.assertEquals(actualTitle, expectedTitle);
     }
 
     @Test
     public void testFAQSupportSubmenuNavigatesToFAQPage() {
-        final String expectedUrl = "https://openweathermap.org/faq";
+        final String expectedURL = "https://openweathermap.org/faq";
+        final String expectedTitle = "Frequently Asked Questions - OpenWeatherMap";
 
-        String actualUrl = openBaseURL()
+        final String oldURL = openBaseURL().getCurrentURL();
+
+        String actualURL = new MainPage(getDriver())
                 .clickSupportMenu()
                 .clickFAQSupportSubmenu()
                 .getCurrentURL();
 
-        Assert.assertEquals(actualUrl, expectedUrl);
+        String actualTitle = new FAQPage(getDriver()).getTitle();
+
+        Assert.assertNotEquals(actualURL, oldURL);
+        Assert.assertEquals(actualURL, expectedURL);
+        Assert.assertEquals(actualTitle, expectedTitle);
     }
 
     @Test
     public void testDashboardMenuNavigatesToDashboardPage() {
         final String expectedURL = "https://openweathermap.org/weather-dashboard";
+        final String expectedTitle = "Weather dashboard - OpenWeatherMap";
 
-        String weatherDashboardURL = openBaseURL()
+        final String oldURL = openBaseURL().getCurrentURL();
+
+        String actualURL = new MainPage(getDriver())
                 .clickDashboardMenu()
                 .getCurrentURL();
 
-        Assert.assertEquals(weatherDashboardURL, expectedURL);
+        String actualTitle = new WeatherDashboardPage(getDriver()).getTitle();
+
+        Assert.assertNotEquals(actualURL, oldURL);
+        Assert.assertEquals(actualURL, expectedURL);
+        Assert.assertEquals(actualTitle, expectedTitle);
     }
 
     @Test
     public void testPricingMenuNavigatesToPricePage() {
-        final String basePageTitle = "Сurrent weather and forecast - OpenWeatherMap";
-        final String expectedPriceURL = "https://openweathermap.org/price";
-        final String expectedPricingTitle = "Pricing - OpenWeatherMap";
+        final String expectedURL = "https://openweathermap.org/price";
+        final String expectedTitle = "Pricing - OpenWeatherMap";
 
-        PricePage pricePage = openBaseURL().clickPricingMenu();
+        final String oldURL = openBaseURL().getCurrentURL();
 
-        Assert.assertNotEquals(basePageTitle, pricePage.getTitle());
-        Assert.assertEquals(pricePage.getCurrentURL(), expectedPriceURL);
-        Assert.assertEquals(pricePage.getTitle(),expectedPricingTitle);
+        String actualURL = new MainPage(getDriver())
+                .clickPricingMenu()
+                .getCurrentURL();
+
+        String actualTitle = new PricePage(getDriver()).getTitle();
+
+        Assert.assertNotEquals(actualURL, oldURL);
+        Assert.assertEquals(actualURL, expectedURL);
+        Assert.assertEquals(actualTitle, expectedTitle);
     }
 
     @Test
     public void testEachTopMenuNavigatesToCorrespondingPage() {
         final List<String> expectedURLs = List.of(
-                "https://openweathermap.org/guide", "https://openweathermap.org/api",
-                "https://openweathermap.org/weather-dashboard", "https://home.openweathermap.org/marketplace",
+                "https://openweathermap.org/guide",
+                "https://openweathermap.org/api",
+                "https://openweathermap.org/weather-dashboard",
+                "https://home.openweathermap.org/marketplace",
                 "https://openweathermap.org/price",
                 "https://openweathermap.org/weathermap?basemap=map&cities=true&layer=temperature&lat=30&lon=-20&zoom=5",
-                "https://openweathermap.org/our-initiatives", "https://openweathermap.org/examples",
-                "https://openweather.co.uk/blog/category/weather", "https://openweather.co.uk/",
+                "https://openweathermap.org/our-initiatives",
+                "https://openweathermap.org/examples",
+                "https://openweather.co.uk/blog/category/weather",
+                "https://openweather.co.uk/",
                 "https://home.openweathermap.org/users/sign_in");
 
         List<String> actualURLs = openBaseURL().getAllMenusLinks();
@@ -248,57 +305,69 @@ public class TopMenuTest extends BaseTest {
         final int expectedNumberOfOptionsHamburgerMenu = 12;
         final List<String> expectedHamburgerMenuList = List.of(
                 "Guide", "API", "Dashboard", "Marketplace", "Pricing",
-                "Maps", "Our Initiatives", "Partners", "Blog", "For Business", "Ask a question", "Sign in");
-
-        MainPage mainPage = openBaseURL()
-                .setWindowWithHamburgerMenu(ProjectConstants.WIDTH_HAMBURGER_MENU,ProjectConstants.HEIGHT_HAMBURGER_MENU)
+                "Maps", "Our Initiatives", "Partners", "Blog", "For Business",
+                "Ask a question", "Sign in"
+        );
+        openBaseURL()
+                .setWindowWithHamburgerMenu(ProjectConstants.WIDTH_HAMBURGER_MENU, ProjectConstants.HEIGHT_HAMBURGER_MENU)
                 .clickHamburgerMenuIcon();
 
-        Assert.assertTrue(mainPage.isHamburgerIconDisplayed());
-        Assert.assertTrue(mainPage.getNumberOfOptionsHamburgerMenu() > 0);
-        Assert.assertEquals(mainPage.getNumberOfOptionsHamburgerMenu(), expectedNumberOfOptionsHamburgerMenu);
-        Assert.assertEquals(mainPage.getHamburgerMenuList(), expectedHamburgerMenuList);
+        int actualNumberOfOptionsHamburgerMenu = new MainPage(getDriver()).getNumberOfOptionsHamburgerMenu();
+
+        List<String> actualHamburgerMenuList = new MainPage(getDriver()).getHamburgerMenuList();
+
+        Assert.assertTrue(new MainPage(getDriver()).isHamburgerIconDisplayed());
+        Assert.assertTrue(new MainPage(getDriver()).getNumberOfOptionsHamburgerMenu() > 0);
+        Assert.assertEquals(actualNumberOfOptionsHamburgerMenu, expectedNumberOfOptionsHamburgerMenu);
+        Assert.assertEquals(actualHamburgerMenuList, expectedHamburgerMenuList);
     }
 
     @Test
     public void testHamburgerMenuHasLogo() {
-        final String expectedUrl = "https://openweathermap.org/";
+        final String expectedURL = "https://openweathermap.org/";
 
-        MainPage mainPage = openBaseURL()
-                .setWindowWithHamburgerMenu(ProjectConstants.WIDTH_HAMBURGER_MENU,ProjectConstants.HEIGHT_HAMBURGER_MENU)
-                .clickLogo();
+        openBaseURL();
 
-        Assert.assertTrue(mainPage.isLogoIconDisplayed());
+        String actualURL = new MainPage(getDriver())
+                .setWindowWithHamburgerMenu(ProjectConstants.WIDTH_HAMBURGER_MENU, ProjectConstants.HEIGHT_HAMBURGER_MENU)
+                .clickLogo().getCurrentURL();
 
-        Assert.assertEquals(mainPage.getCurrentURL(),expectedUrl);
+        Assert.assertTrue(new MainPage(getDriver()).isLogoIconDisplayed());
+
+        Assert.assertEquals(actualURL, expectedURL);
     }
 
     @Test
     public void testNavigationBarSearchField_NavigatesToFindPage() {
-        final String findPageURL = "https://openweathermap.org/find?q=Barcelona";
-        final String cityName = "Barcelona";
+        final String expectedURL = "https://openweathermap.org/find?q=Barcelona";
+        final String expectedName = "Barcelona";
 
-        String oldURL = openBaseURL().getCurrentURL();
+        final String oldURL = openBaseURL().getCurrentURL();
 
         String actualURL = new MainPage(getDriver())
                 .clickSearchFieldTopMenu()
-                .inputSearchCriteriaAndEnter(cityName)
+                .inputSearchCriteriaAndEnter(expectedName)
                 .getCurrentURL();
 
         Assert.assertNotEquals(oldURL, actualURL);
-        Assert.assertEquals(actualURL, findPageURL);
+        Assert.assertEquals(actualURL, expectedURL);
     }
 
     @Test
     public void testSignInMenuNavigatesToSignInPage() {
+        final String expectedURL = "https://home.openweathermap.org/users/sign_in";
         final String expectedWelcomeMessage = "Sign In To Your Account";
 
-        String actualWelcomeMessage = openBaseURL()
-                .clickSignInMenu()
-                .getWelcomeMessage();
+        final String oldURL = openBaseURL().getCurrentURL();
 
+        String actualURL = new MainPage(getDriver())
+                .clickSignInMenu()
+                .getCurrentURL();
+
+        String actualWelcomeMessage = new HomeUsersSignInPage(getDriver()).getWelcomeMessage();
+
+        Assert.assertNotEquals(actualURL, oldURL);
+        Assert.assertEquals(actualURL, expectedURL);
         Assert.assertEquals(actualWelcomeMessage, expectedWelcomeMessage);
     }
-
-
 }
