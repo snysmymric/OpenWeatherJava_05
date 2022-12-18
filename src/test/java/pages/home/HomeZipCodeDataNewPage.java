@@ -5,7 +5,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class HomeZipCodeDataNewPage extends HomeMarketplacePage {
 
@@ -67,13 +66,13 @@ public class HomeZipCodeDataNewPage extends HomeMarketplacePage {
     private WebElement stateVirginia;
 
     @FindBy(xpath = "//div[@class='pop-up-container big']//ul/li[text()='Order details']")
-    private WebElement orderPopUpWindow1;
+    private WebElement orderPopUpWindowOne;
 
     @FindBy(xpath = "//div[@class='pop-up-container big']//ul/li[text()='Billing details']")
-    private WebElement orderPopUpWindow2;
+    private WebElement orderPopUpWindowTwo;
 
     @FindBy(xpath = "//div[@class='pop-up-container big']//ul/li[text()='Billing address']")
-    private WebElement orderPopUpWindow3;
+    private WebElement orderPopUpWindowThree;
 
     @FindBy(xpath = "//select[@class='custom-select']")
     private WebElement titleField;
@@ -140,19 +139,19 @@ public class HomeZipCodeDataNewPage extends HomeMarketplacePage {
         return getText(billingHeader);
     }
 
-    public String getAttributeTopPopUpWindow1() {
+    public String getAttributeTopPopUpWindowOne() {
 
-        return getAttribute(orderPopUpWindow1, "class");
+        return getAttribute(orderPopUpWindowOne, "class");
     }
 
-    public String getAttributeTopPopUpWindow2() {
+    public String getAttributeTopPopUpWindowTwo() {
 
-        return getAttribute(orderPopUpWindow2, "class");
+        return getAttribute(orderPopUpWindowTwo, "class");
     }
 
-    public String getAttributeTopPopUpWindow3() {
+    public String getAttributeTopPopUpWindowThree() {
 
-        return getAttribute(orderPopUpWindow3, "class");
+        return getAttribute(orderPopUpWindowThree, "class");
     }
 
     public String getErrorMessageText() {

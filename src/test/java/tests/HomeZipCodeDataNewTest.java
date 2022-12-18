@@ -96,8 +96,8 @@ public class HomeZipCodeDataNewTest extends BaseTest {
 
         Assert.assertTrue(homeZipCodeDataNewPage.isOrderPopUpDisplayed());
         Assert.assertEquals(actualPopUpHeader, expectedPopUpHeader);
-        Assert.assertEquals(homeZipCodeDataNewPage.getAttributeTopPopUpWindow1(), expectedValue);
-        Assert.assertTrue(homeZipCodeDataNewPage.isNextButtonVisible());
+        Assert.assertEquals(homeZipCodeDataNewPage.getAttributeTopPopUpWindowOne(), expectedValue);
+//        Assert.assertTrue(homeZipCodeDataNewPage.isNextButtonVisible());
     }
 
     @Test
@@ -131,11 +131,16 @@ public class HomeZipCodeDataNewTest extends BaseTest {
     }
 
     @Test
-    public void testBillingDetailsPopUpWindow() {
+    public void testBillingDetailsPopUpWindow_FillingIndividualForms() {
+        final String expectedBillingAddressHeader = "Billing address";
         final String expectedBillingDetailsHeader = "Billing details";
         final String expectedValue = "current";
         final String state = "Florida";
         final String year = "2019";
+        final String firstName = ProjectConstants.FIRST_NAME;
+        final String lastName = ProjectConstants.LAST_NAME;
+        final String phoneNumber = ProjectConstants.PHONE_NUMBER;
+        final String email = ProjectConstants.EMAIL;
 
         HomeZipCodeDataNewPage homeZipCodeDataNewPage = openBaseURL()
                 .clickMarketplaceMenu()
@@ -150,50 +155,26 @@ public class HomeZipCodeDataNewTest extends BaseTest {
                 .clickNextButton()
                 .waitUntilPlaceOrderPopUpIsVisible();
 
-        Assert.assertEquals(homeZipCodeDataNewPage.getAttributeTopPopUpWindow2(), expectedValue);
+        Assert.assertEquals(homeZipCodeDataNewPage.getAttributeTopPopUpWindowTwo(), expectedValue);
         Assert.assertEquals(homeZipCodeDataNewPage.getBillingDetailsHeader(), expectedBillingDetailsHeader);
-    }
 
-    @Test
-    public void testBillingDetailsPopUpWindow_FillingIndividualForms() {
-        final String expectedBillingAddressHeader = "Billing address";
-        final String expectedValue = "current";
-        final String expectedState = "Florida";
-        final String expectedYear = "2019";
-        final String firstName = "Tom";
-        final String lastName = "Sawyer";
-        final String phoneNumber = "1234567890";
-        final String email = "tomsawyer@gmail.com";
-
-        HomeZipCodeDataNewPage homeZipCodeDataNewPage = openBaseURL()
-                .clickMarketplaceMenu()
-                .switchToMarketplaceWindow()
-                .clickWeatherDataByStateMenu()
-                .clickDropdownSelectStateButton()
-                .clickState(expectedState)
-                .clickDropdownSelectYearButton()
-                .clickYear(expectedYear)
-                .clickPlaceOrder()
-                .waitUntilPlaceOrderPopUpIsVisible()
-                .clickNextButton()
-                .waitUntilPlaceOrderPopUpIsVisible()
-                .inputFirstName(firstName)
+                homeZipCodeDataNewPage.inputFirstName(firstName)
                 .inputLastName(lastName)
                 .inputPhone(phoneNumber)
                 .inputEmail(email)
                 .clickNextButton();
 
-        Assert.assertEquals(homeZipCodeDataNewPage.getAttributeTopPopUpWindow3(), expectedValue);
+        Assert.assertEquals(homeZipCodeDataNewPage.getAttributeTopPopUpWindowThree(), expectedValue);
         Assert.assertEquals(homeZipCodeDataNewPage.getBillingAddressHeader(), expectedBillingAddressHeader);
     }
 
     @Test
     public void testErrorMessage_WhenFirstNameIsEmpty_InBillingDetails() {
-        final String expectedState = "Florida";
-        final String expectedYear = "2019";
-        final String lastName = "Sawyer";
-        final String phoneNumber = "1234567890";
-        final String email = "tomsawyer@gmail.com";
+        final String state = "Florida";
+        final String year = "2019";
+        final String lastName = ProjectConstants.LAST_NAME;
+        final String phoneNumber = ProjectConstants.PHONE_NUMBER;
+        final String email = ProjectConstants.EMAIL;
         final String expectedFirstName = "";
         final String expectedErrorMessageText = "Cannot be blank";
 
@@ -202,9 +183,9 @@ public class HomeZipCodeDataNewTest extends BaseTest {
                 .switchToMarketplaceWindow()
                 .clickWeatherDataByStateMenu()
                 .clickDropdownSelectStateButton()
-                .clickState(expectedState)
+                .clickState(state)
                 .clickDropdownSelectYearButton()
-                .clickYear(expectedYear)
+                .clickYear(year)
                 .clickPlaceOrder()
                 .waitUntilPlaceOrderPopUpIsVisible()
                 .clickNextButton()
@@ -222,13 +203,13 @@ public class HomeZipCodeDataNewTest extends BaseTest {
     }
 
     @Test
-    public void testEmptyLastName_BillingDetailsPopUpWindow() {
-        final String expectedState = "Florida";
-        final String expectedYear = "2019";
-        final String firstName = "Tom";
+    public void testErrorMessage_WhenLastNameIsEmpty_InBillingDetails() {
+        final String state = "Florida";
+        final String year = "2019";
+        final String firstName = ProjectConstants.FIRST_NAME;
+        final String phoneNumber = ProjectConstants.PHONE_NUMBER;
+        final String email = ProjectConstants.EMAIL;
         final String expectedLastName = "";
-        final String phoneNumber = "1234567890";
-        final String email = "tomsawyer@gmail.com";
         final String expectedErrorMessageText = "Cannot be blank";
 
         HomeZipCodeDataNewPage homeZipCodeDataNewPage = openBaseURL()
@@ -236,9 +217,9 @@ public class HomeZipCodeDataNewTest extends BaseTest {
                 .switchToMarketplaceWindow()
                 .clickWeatherDataByStateMenu()
                 .clickDropdownSelectStateButton()
-                .clickState(expectedState)
+                .clickState(state)
                 .clickDropdownSelectYearButton()
-                .clickYear(expectedYear)
+                .clickYear(year)
                 .clickPlaceOrder()
                 .waitUntilPlaceOrderPopUpIsVisible()
                 .clickNextButton()
@@ -256,14 +237,13 @@ public class HomeZipCodeDataNewTest extends BaseTest {
     }
 
     @Test
-    public void testEmptyPhoneNumber_BillingDetailsPopUpWindow() {
-        final String expectedState = "Florida";
-        final String expectedYear = "2019";
-        final String expectedFirstName = "Tom";
-        final String lastName = "Sawyer";
+    public void testErrorMessage_WhenPhoneNumberIsEmpty_InBillingDetails() {
+        final String state = "Florida";
+        final String year = "2019";
+        final String firstName = ProjectConstants.FIRST_NAME;
+        final String lastName = ProjectConstants.LAST_NAME;
+        final String email = ProjectConstants.EMAIL;
         final String expectedPhoneNumber = "";
-        final String email = "tomsawyer@gmail.com";
-
         final String expectedErrorMessageText = "Cannot be blank";
 
         HomeZipCodeDataNewPage homeZipCodeDataNewPage = openBaseURL()
@@ -271,14 +251,14 @@ public class HomeZipCodeDataNewTest extends BaseTest {
                 .switchToMarketplaceWindow()
                 .clickWeatherDataByStateMenu()
                 .clickDropdownSelectStateButton()
-                .clickState(expectedState)
+                .clickState(state)
                 .clickDropdownSelectYearButton()
-                .clickYear(expectedYear)
+                .clickYear(year)
                 .clickPlaceOrder()
                 .waitUntilPlaceOrderPopUpIsVisible()
                 .clickNextButton()
                 .waitUntilPlaceOrderPopUpIsVisible()
-                .inputFirstName(expectedFirstName)
+                .inputFirstName(firstName)
                 .inputLastName(lastName)
                 .inputEmail(email)
                 .clickNextButton();
@@ -291,14 +271,13 @@ public class HomeZipCodeDataNewTest extends BaseTest {
     }
 
     @Test
-    public void testEmptyEmail_BillingDetailsPopUpWindow() {
-        final String expectedState = "Florida";
-        final String expectedYear = "2019";
-        final String expectedFirstName = "Tom";
-        final String lastName = "Sawyer";
-        final String phoneNumber = "1234567890";
+    public void testErrorMessage_WhenEmailIsEmpty_InBillingDetails() {
+        final String state = "Florida";
+        final String year = "2019";
+        final String firstName = ProjectConstants.FIRST_NAME;
+        final String lastName = ProjectConstants.LAST_NAME;
+        final String phoneNumber = ProjectConstants.PHONE_NUMBER;
         final String expectedEmail = "";
-
         final String expectedErrorMessageText = "Cannot be blank";
 
         HomeZipCodeDataNewPage homeZipCodeDataNewPage = openBaseURL()
@@ -306,14 +285,14 @@ public class HomeZipCodeDataNewTest extends BaseTest {
                 .switchToMarketplaceWindow()
                 .clickWeatherDataByStateMenu()
                 .clickDropdownSelectStateButton()
-                .clickState(expectedState)
+                .clickState(state)
                 .clickDropdownSelectYearButton()
-                .clickYear(expectedYear)
+                .clickYear(year)
                 .clickPlaceOrder()
                 .waitUntilPlaceOrderPopUpIsVisible()
                 .clickNextButton()
                 .waitUntilPlaceOrderPopUpIsVisible()
-                .inputFirstName(expectedFirstName)
+                .inputFirstName(firstName)
                 .inputLastName(lastName)
                 .inputPhone(phoneNumber)
                 .clickNextButton();
