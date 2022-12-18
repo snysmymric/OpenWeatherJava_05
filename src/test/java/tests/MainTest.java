@@ -5,12 +5,11 @@ import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import pages.CurrentWeatherPage;
-import pages.home.HomeUsersSignInPage;
 import pages.MainPage;
 import utils.DateTimeUtils;
-import java.util.List;
+import utils.TestUtils;
 
-import static pages.MainPage.RANDOM_TEXT;
+import java.util.List;
 
 public class MainTest extends BaseTest {
 
@@ -19,9 +18,7 @@ public class MainTest extends BaseTest {
         final String cityName = "Paris";
         final String expectedCityCountryNames = "Paris, FR";
 
-        openBaseURL();
-
-        MainPage mainPage = new MainPage(getDriver());
+        MainPage mainPage = openBaseURL();
 
         final String oldCityCountryName = mainPage.getCityCountryName();
 
@@ -37,80 +34,72 @@ public class MainTest extends BaseTest {
     }
 
     @Test
-    public void testH2TagText_WhenSearchingCityCountry1() {
+    public void testH2TagText_WhenSearchingCityCountryChain() {
         final String cityName = "Paris";
         final String expectedCityCountryNames = "Paris, FR";
 
-        openBaseURL();
-
-        MainPage mainPage = new MainPage(getDriver());
+        MainPage mainPage = openBaseURL();
 
         final String oldCityCountryName = mainPage.getCityCountryName();
 
-        String newCityCountryNames = mainPage
-                .clickSearchCityField()
-                .inputSearchCriteria(cityName)
-                .clickSearchButton()
-                .clickParisInDropDownList()
-                .waitForCityCountryNameChanged(oldCityCountryName)
-                .getCityCountryName();
+        String newCityCountryNames =
+                mainPage
+                        .clickSearchCityField()
+                        .inputSearchCriteria(cityName)
+                        .clickSearchButton()
+                        .clickParisInDropDownList()
+                        .waitForCityCountryNameChanged(oldCityCountryName)
+                        .getCityCountryName();
 
         Assert.assertEquals(newCityCountryNames, expectedCityCountryNames);
     }
 
     @Test
     public void testH1HeaderColorAndFontSize() {
-        final String expectedColor = "rgba(0, 0, 0, 0)";
-        final String expectedFontSize = "45px";
+        final String expectedH1Color = "rgba(0, 0, 0, 0)";
+        final String expectedH1FontSize = "45px";
 
-        openBaseURL();
+        MainPage mainPage = openBaseURL();
 
-        MainPage mainPage = new MainPage(getDriver());
+        String actualH1Color = mainPage.getH1Color();
+        String actualH1FontSize = mainPage.getH1FontSize();
 
-        String h1HeaderColor = mainPage.getColor();
-        String h1HeaderFontSize = mainPage.getFontSize();
-
-        Assert.assertEquals(h1HeaderColor, expectedColor);
-        Assert.assertEquals(h1HeaderFontSize, expectedFontSize);
+        Assert.assertEquals(actualH1Color, expectedH1Color);
+        Assert.assertEquals(actualH1FontSize, expectedH1FontSize);
     }
 
     @Test
     public void testAmountOfIcons_OnDifferentWeatherPopUp() {
         final int expectedAmountOfIcons = 9;
 
-        openBaseURL();
+        int actualIconsAmount =
+                openBaseURL()
+                        .clickDifferentWeatherButton()
+                        .waitUntilDifferentWeatherPopUpIsVisible()
+                        .getAmountOfIconsOnDifferentWeatherPopUp();
 
-        MainPage mainPage = new MainPage(getDriver());
-
-        int elements = mainPage
-                .clickDifferentWeatherButton()
-                .waitUntilDifferentWeatherPopUpIsVisible()
-                .getAmountOfIconsOnDifferentWeatherPopUp();
-
-        Assert.assertEquals(elements, expectedAmountOfIcons);
+        Assert.assertEquals(actualIconsAmount, expectedAmountOfIcons);
     }
 
     @Test
-    public void testEachIconBecomesActiveAfterClick_DifferentWeatherPopUp_() {
-        final String nameOfTestedAttribute = "class";
-        final String expectedValueOfTestedAttribute = "activeIcon";
+    public void testIconsHighlightedAfterClickDifferentWeatherPopUp_() {
+        final String expectedValueOfAttribute = "activeIcon";
 
-        openBaseURL();
+        MainPage mainPage = openBaseURL();
 
-        MainPage mainPage = new MainPage(getDriver());
+        List<WebElement> iconsDifferentWeather =
+                mainPage
+                        .clickDifferentWeatherButton()
+                        .waitUntilDifferentWeatherPopUpIsVisible()
+                        .getListOfIconsOnDifferentWeatherPopUp();
 
-        List<WebElement> elements = mainPage
-                .clickDifferentWeatherButton()
-                .waitUntilDifferentWeatherPopUpIsVisible()
-                .getListOfIconsOnDifferentWeatherPopUp();
-
-        for (WebElement element : elements) {
-            Assert.assertEquals(
+        for (WebElement icon : iconsDifferentWeather) {
+            String actualValueAttribute =
                     mainPage
-                            .clickIconOnDifferentWeatherPopUp(element)
-                            .getAttribute(element, nameOfTestedAttribute),
-                    expectedValueOfTestedAttribute
-            );
+                            .clickIconOnDifferentWeatherPopUp(icon)
+                            .getClassAttribute(icon);
+
+            Assert.assertEquals(actualValueAttribute, expectedValueOfAttribute);
         }
     }
 
@@ -118,126 +107,137 @@ public class MainTest extends BaseTest {
     public void testRefreshPage() {
         final String expectedTextWhenLoading = "Loading";
 
-        String actualTextWhenLoading = openBaseURL()
-                .clickLogo()
-                .getLoadingText("aria-label");
+        String actualTextWhenLoading =
+                openBaseURL()
+                        .clickLogo()
+                        .getLoadingText("aria-label");
 
         Assert.assertEquals(actualTextWhenLoading, expectedTextWhenLoading);
     }
 
     @Test
-    public void testCurrentLocation() {
+    public void testCurrentLocationButton() {
         final String cityName = "Norway";
-        final String expectedCityName = "London, GB";
+        final String expectedCityCountryName = "London, GB";
 
-        String actualCityName = openBaseURL()
-                .clickSearchCityField()
-                .inputSearchCriteria(cityName)
-                .clickSearchButton()
-                .clickCityNorway()
-                .clickLocationButton()
-                .getCityCountryName();
+        String actualCityCountryName =
+                openBaseURL()
+                        .clickSearchCityField()
+                        .inputSearchCriteria(cityName)
+                        .clickSearchButton()
+                        .clickCityNorway()
+                        .clickLocationButton()
+                        .getCityCountryName();
 
-        Assert.assertEquals(actualCityName, expectedCityName);
+        Assert.assertEquals(actualCityCountryName, expectedCityCountryName);
     }
 
+//    @Test
+//    public void testAllIconsAreShownAndClickable() {
+//        MainPage mainPage =
+//                openBaseURL()
+//                        .clickDifferentWeatherButton();
+//
+//        Assert.assertTrue(mainPage.checkAllIconsAreVisibleAndClickable());
+//    }
+
     @Test
-    public void testAllIconsAreShownAndClickable() {
-        MainPage mainPage = openBaseURL()
-                .clickDifferentWeatherButton();
+    public void testXButtonIsDisplayed() {
+        MainPage mainPage =
+                openBaseURL()
+                        .clickDifferentWeatherButton();
 
-        Assert.assertTrue(mainPage.checkAllIconsAreVisibleAndClickable());
-    }
-
-    @Test
-    public void testIfXButtonDisplayed() {
-        MainPage mainPage = openBaseURL()
-                .clickDifferentWeatherButton();
-
-        Assert.assertTrue(mainPage.isXButtonDisplayed());
+        Assert.assertTrue(mainPage.isXButtonDisplayed(), "X button is not displayed");
     }
 
     @Test
     public void testTempUnitChangedToC_WhenSwitchingToMetric() {
-        final String expectedResult = "°C";
+        final String expectedTempUnit = "°C";
 
-        MainPage mainPage = openBaseURL()
+        String actualTempUnit = openBaseURL()
                 .switchToMetric()
-                .waitForGreyContainerDisappeared();
+                .waitForGreyContainerDisappeared()
+                .getTempUnit();
 
-        Assert.assertEquals(mainPage.getTempUnit(), expectedResult);
+        Assert.assertEquals(actualTempUnit, expectedTempUnit);
     }
 
     @Test
     public void testTempUnitChangedToF_WhenSwitchingToImperial() {
-        final String expectedResult = "°F";
+        final String expectedTempUnit = "°F";
 
-        MainPage mainPage = openBaseURL()
+        String actualTempUnit = openBaseURL()
                 .switchToImperial()
-                .waitForGreyContainerDisappeared();
+                .waitForGreyContainerDisappeared()
+                .getTempUnit();
 
-        Assert.assertEquals(mainPage.getTempUnit(), expectedResult);
+        Assert.assertEquals(actualTempUnit, expectedTempUnit);
     }
 
     @Test
-    public void testIfSendButtonDisplayed() {
-        MainPage mainPage = openBaseURL()
-                .clickDifferentWeatherButton();
+    public void testSendButtonIsDisplayed() {
+        MainPage mainPage =
+                openBaseURL()
+                        .clickDifferentWeatherButton();
 
-        Assert.assertTrue(mainPage.isSendButtonDisplayed());
+        Assert.assertTrue(mainPage.isSendButtonDisplayed(), "Send button is not displayed");
     }
 
     @Test
     public void testErrorMessageWhenCityDoesNotExists() {
-        final String cityName = RANDOM_TEXT;
+        final String cityName = TestUtils.getRandomName();
         final String expectedErrorText = "No results for " + cityName;
 
-        String actualErrorText = openBaseURL()
-                .clickSearchCityField()
-                .inputSearchCriteria(cityName)
-                .clickSearchButton()
-                .getErrorText();
+        String actualErrorText =
+                openBaseURL()
+                        .clickSearchCityField()
+                        .inputSearchCriteria(cityName)
+                        .clickSearchButton()
+                        .getErrorText();
 
         Assert.assertEquals(actualErrorText, expectedErrorText);
     }
 
     @Test
-    public void testIfXButtonHasColorGreen() {
-        final String cityName = RANDOM_TEXT;
-        final String expectedXButtonBackgroundColor = "rgba(120, 203, 191, 0.8)";
+    public void testSearchErrorMessageBackgroundColor() {
+        final String cityName = TestUtils.getRandomName();
+        final String expectedSearchErrorMessageColor = "rgba(120, 203, 191, 0.8)";
 
-        String actualXButtonBackgroundColor = openBaseURL()
-                .clickSearchCityField()
-                .inputSearchCriteria(cityName)
-                .clickSearchButton()
-                .getErrorButtonBackgroundColor();
+        String actualSearchErrorMessageColor =
+                openBaseURL()
+                        .clickSearchCityField()
+                        .inputSearchCriteria(cityName)
+                        .clickSearchButton()
+                        .getErrorButtonBackgroundColor();
 
-        Assert.assertEquals(actualXButtonBackgroundColor, expectedXButtonBackgroundColor);
+        Assert.assertEquals(actualSearchErrorMessageColor, expectedSearchErrorMessageColor);
     }
 
     @Test
-    public void testOnlyOneIconHighlighted_WhenDifferentWeatherContainerAppears() {
-        openBaseURL();
+    public void testOneIconHighlightedByDefault_WhenDifferentWeatherContainerAppears() {
+        final String expectedIconColor = "#ececed";
+        MainPage mainPage = openBaseURL();
 
-        MainPage mainPage = new MainPage(getDriver());
-
-        int activeIcon = mainPage.clickDifferentWeatherButton()
-                .waitUntilDifferentWeatherPopUpIsVisible()
-                .countActiveIconsInDifferentWeatherContainer();
+        int activeIcon =
+                mainPage
+                        .clickDifferentWeatherButton()
+                        .waitUntilDifferentWeatherPopUpIsVisible()
+                        .countActiveIconsInDifferentWeatherContainer();
 
         final String activeIconColor = mainPage.getActiveIconBackgroundColorInHEX();
 
         Assert.assertEquals(activeIcon, 1);
-        Assert.assertEquals(activeIconColor, "#ececed");
+        Assert.assertEquals(activeIconColor, expectedIconColor);
     }
 
     @Test
     public void testCheckTempInC_inDayList_whenSwitchingToMetric() {
         final List<String> expectedResult = List.of("°C", "°C", "°C", "°C", "°C", "°C", "°C", "°C");
 
-        MainPage mainPage = openBaseURL()
-                .switchToMetric()
-                .waitForGreyContainerDisappeared();
+        MainPage mainPage =
+                openBaseURL()
+                        .switchToMetric()
+                        .waitForGreyContainerDisappeared();
 
         Assert.assertEquals(mainPage.getTempsAndUnitsList(), expectedResult);
     }
@@ -246,27 +246,29 @@ public class MainTest extends BaseTest {
     public void testCheckTempInF_inDayList_whenSwitchingToImperial() {
         final List<String> expectedResult = List.of("°F", "°F", "°F", "°F", "°F", "°F", "°F", "°F");
 
-        MainPage mainPage = openBaseURL()
-                .switchToImperial()
-                .waitForGreyContainerDisappeared();
+        MainPage mainPage =
+                openBaseURL()
+                        .switchToImperial()
+                        .waitForGreyContainerDisappeared();
 
         Assert.assertEquals(mainPage.getTempsAndUnitsList(), expectedResult);
     }
 
     @Test
     public void testDifferentWeatherButtonOpensDifferentWeatherContainer() {
-        String expectedHeader = "Different weather";
+        final String expectedHeader = "Different weather";
 
-        String actualHeader = openBaseURL()
-                .clickDifferentWeatherButton()
-                .getHeaderForDifferentWeatherContainer();
+        String actualHeader =
+                openBaseURL()
+                        .clickDifferentWeatherButton()
+                        .getHeaderForDifferentWeatherContainer();
 
         Assert.assertEquals(actualHeader, expectedHeader);
     }
 
     @Test
     public void testCurrentDateAndTimeOnMainPage() {
-        String expectedTime = DateTimeUtils.getSystemDate();
+        final String expectedTime = DateTimeUtils.getSystemDate();
 
         String actualTime = openBaseURL().getActualTime();
 
@@ -275,23 +277,23 @@ public class MainTest extends BaseTest {
 
     @Test
     public void testCheckTextInTheBottomOfThePage() {
-        final String expectedResult = "We use cookies which are essential for the site to work. We also use non-essential "
-                + "cookies to help us improve our services. Any data collected is anonymised. You can allow all cookies"
-                + " or manage them individually.";
+        final String expectedTextPanel =
+                "We use cookies which are essential for the site to work. We also use non-essential "
+                        + "cookies to help us improve our services. Any data collected is anonymised. "
+                        + "You can allow all cookies or manage them individually.";
 
-        String actualResultTextPanel = openBaseURL()
-                .waitForFooterPanelToBeVisible()
-                .waitForElementToBeVisible()
-                .getBottomPanelText();
+        String actualTextPanel =
+                openBaseURL()
+                        .waitForFooterPanelToBeVisible()
+                        .waitForElementToBeVisible()
+                        .getBottomPanelText();
 
-        Assert.assertEquals(actualResultTextPanel, expectedResult);
+        Assert.assertEquals(actualTextPanel, expectedTextPanel);
     }
 
     @Test
     public void testTemperatureValueIncreasedByOne_WhenClickingUp() {
-        openBaseURL();
-
-        MainPage mainPage = new MainPage(getDriver());
+        MainPage mainPage = openBaseURL();
 
         int temperatureValueInContainer = mainPage
                 .clickDifferentWeatherButton()
@@ -305,82 +307,93 @@ public class MainTest extends BaseTest {
 
         Assert.assertEquals(increasedTemperatureValueInContainer - temperatureValueInContainer, 1);
     }
+
     @Test
-    public void testLocationButtonIsDisplayedandClicabl(){
-        final String expectedNotificationMessage  = "Location unavailable. Displaying default location: London";
+    public void testLocationButtonIsDisplayedAndClickable() {
+        final String expectedNotificationMessage = "Location unavailable. Displaying default location: London";
 
-        Assert.assertTrue(openBaseURL().isLocationButtonDisplayed());
+        MainPage mainPage = openBaseURL();
+        Assert.assertTrue(mainPage.isLocationButtonDisplayed());
 
-        String actualNotificationMessage = openBaseURL()
-                .clickLocationButton()
-                .getNotificationMessage();
+        String actualNotificationMessage =
+                mainPage
+                        .clickLocationButton()
+                        .getNotificationMessage();
 
-        Assert.assertEquals(actualNotificationMessage,expectedNotificationMessage);
+        Assert.assertEquals(actualNotificationMessage, expectedNotificationMessage);
     }
 
     @Test
     public void testAPIIconsAreDisplayed_SectionOrangeBackground() {
-        int expectedAPIIconsQuantity = 5;
-        List<String> expectedAPIIconsNames = List.of("current\nweather\n(current)", "hourly\nforecast\n(4 days)",
-                "daily\nforecast\n(16 days)", "climatic\nforecast\n(30 days)", "historical\nweather\n(1 month, 1 year)");
+        final int expectedAPIIconsQuantity = 5;
+        final List<String> expectedAPIIconsNames = List.of(
+                "current\nweather\n(current)",
+                "hourly\nforecast\n(4 days)",
+                "daily\nforecast\n(16 days)",
+                "climatic\nforecast\n(30 days)",
+                "historical\nweather\n(1 month, 1 year)"
+        );
 
-        MainPage mainPage = openBaseURL()
-                .scrollByCurrentWeatherIcon();
+        MainPage mainPage =
+                openBaseURL()
+                        .scrollByCurrentWeatherIcon();
 
-        List<WebElement> displayedAPIIcons = mainPage.getDisplayedAPIIcons();
-
-        Assert.assertEquals(displayedAPIIcons, mainPage.getApiIcons());
+        Assert.assertEquals(mainPage.getDisplayedAPIIcons(), mainPage.getApiIcons());
         Assert.assertEquals(mainPage.getAPIIconsQuantity(), expectedAPIIconsQuantity);
         Assert.assertEquals(mainPage.getAPIIconsNames(), expectedAPIIconsNames);
     }
 
     @Test
     public void testHeadersMainPage() {
-        final String expectedHeader1 = "OpenWeather";
-        final String expectedHeader2 = "Weather forecasts, nowcasts and history in a fast and elegant way";
+        final String expectedH1Header = "OpenWeather";
+        final String expectedH2Header = "Weather forecasts, nowcasts and history in a fast and elegant way";
 
         MainPage mainPage = openBaseURL();
 
-        Assert.assertEquals(mainPage.getHeader1Text(), expectedHeader1);
-        Assert.assertEquals(mainPage.getHeader2Text(), expectedHeader2);
+        Assert.assertEquals(mainPage.getH1Header(), expectedH1Header);
+        Assert.assertEquals(mainPage.getH2Header(), expectedH2Header);
     }
 
     @Test
     public void testDataSourceOptionsNames() {
-        final List<String> expectedDataSourceOptionsNames = List.of(
+        final List<String> expectedDataSourceOptionsTexts = List.of(
                 "Personal feelings",
                 "Own weather station or devices",
                 "Local weather provider",
                 "Global weather provider",
-                "Other");
+                "Other"
+        );
 
-        List<String> dataSourceOptionsTexts = openBaseURL()
-                .clickDifferentWeatherButton()
-                .waitUntilDifferentWeatherPopUpIsVisible()
-                .clickMoreOptionsDropDown()
-                .clickDataSourceDropDown()
-                .clickAllDataSourceOptions()
-                .getDataSourceOptionsTexts();
+        List<String> actualdataSourceOptionsTexts =
+                openBaseURL()
+                        .clickDifferentWeatherButton()
+                        .waitUntilDifferentWeatherPopUpIsVisible()
+                        .clickMoreOptionsDropDown()
+                        .clickDataSourceDropDown()
+                        .clickAllDataSourceOptions()
+                        .getDataSourceOptionsTexts();
 
-        Assert.assertEquals(dataSourceOptionsTexts, expectedDataSourceOptionsNames);
+        Assert.assertEquals(actualdataSourceOptionsTexts, expectedDataSourceOptionsTexts);
     }
 
     @Test
     public void testChosenDataSourceOptionIsSavedAfterClickingLessOptionsDropDown() {
-        String dataSourceDropDownTextBefore = openBaseURL()
-                .clickDifferentWeatherButton()
-                .waitUntilDifferentWeatherPopUpIsVisible()
-                .clickMoreOptionsDropDown()
-                .clickDataSourceDropDown()
-                .clickFirstDataSourceOption()
-                .getDataSourceDropDownText();
+        MainPage mainPage = openBaseURL();
 
-        MainPage mainPage = new MainPage(getDriver());
+        String dataSourceDropDownTextBefore =
+                mainPage
+                        .clickDifferentWeatherButton()
+                        .waitUntilDifferentWeatherPopUpIsVisible()
+                        .clickMoreOptionsDropDown()
+                        .clickDataSourceDropDown()
+                        .clickFirstDataSourceOption()
+                        .getDataSourceDropDownText();
 
-        String dataSourceDropDownTextAfter = mainPage
-                .clickMoreOptionsDropDown()
-                .clickMoreOptionsDropDown()
-                .getDataSourceDropDownText();
+        String dataSourceDropDownTextAfter =
+                mainPage
+                        .clickLessOptionsDropDown()
+                        .clickMoreOptionsDropDown()
+                        .getDataSourceDropDownText();
 
         Assert.assertEquals(dataSourceDropDownTextAfter, dataSourceDropDownTextBefore);
     }
@@ -389,55 +402,59 @@ public class MainTest extends BaseTest {
     public void testFooterMenuLinks() {
         final int expectedLinks = 27;
 
-        openBaseURL();
-
-        MainPage mainPage = new MainPage(getDriver()).scrollToFooterMenu();
-        int actualLinks = mainPage.getFooterMenuLinksCount();
+        int actualLinks = openBaseURL()
+                .scrollToFooterMenu()
+                .getFooterMenuLinksCount();
 
         Assert.assertEquals(actualLinks, expectedLinks);
     }
 
-    @Test
-    public void testSignInFooterMenuLinks() {
-        final int expectedLinks = 27;
+//    @Test
+//    public void testSignInFooterMenuLinks() {
+//        final int expectedLinks = 27;
+//
+//        openBaseURL().signIn();
+//
+//        MainPage mainPage = new MainPage(getDriver()).scrollToFooterMenu();
+//        int actualLinks = mainPage.getFooterMenuLinksCount();
+//
+//        Assert.assertEquals(actualLinks, expectedLinks);
+//
+//        new HomeUsersSignInPage(getDriver()).signOut();
+//    }
 
-        openBaseURL().signIn();
 
-        MainPage mainPage = new MainPage(getDriver()).scrollToFooterMenu();
-        int actualLinks = mainPage.getFooterMenuLinksCount();
-
-        Assert.assertEquals(actualLinks, expectedLinks);
-
-        new HomeUsersSignInPage(getDriver()).signOut();
-    }
-    
     @Test
     public void testEmailAndAdditionalInfoIsNotSavedAfterClickingOutOfContainer() {
-        MainPage mainPage = new MainPage(getDriver());
+        MainPage mainPage = openBaseURL();
 
-        String emailText = openBaseURL()
-                .clickDifferentWeatherButton()
-                .waitUntilDifferentWeatherPopUpIsVisible()
-                .clickMoreOptionsDropDown()
-                .inputTextInEmailTextbox()
-                .getEmailTextboxText();
+        String emailTextBefore =
+                mainPage
+                        .clickDifferentWeatherButton()
+                        .waitUntilDifferentWeatherPopUpIsVisible()
+                        .clickMoreOptionsDropDown()
+                        .inputTextInEmailTextbox()
+                        .getEmailTextboxText();
 
-        String anyAdditionalInfoText = mainPage
-                .inputTextInAnyAdditionalInfoTextarea()
-                .getAnyAdditionalInfoText();
+        String additionalInfoTextBefore =
+                mainPage
+                        .inputTextInAdditionalInfoTextarea()
+                        .getAdditionalInfoText();
 
-        String emailTextAfterClosingContainer = mainPage
-                .clickOutOfDifferentWeatherContainer()
-                .clickDifferentWeatherButton()
-                .waitUntilDifferentWeatherPopUpIsVisible()
-                .clickMoreOptionsDropDown()
-                .getEmailTextboxText();
+        String emailTextAfter =
+                mainPage
+                        .clickOutOfDifferentWeatherContainer()
+                        .clickDifferentWeatherButton()
+                        .waitUntilDifferentWeatherPopUpIsVisible()
+                        .clickMoreOptionsDropDown()
+                        .getEmailTextboxText();
 
-        String anyAdditionalInfoTextAfterClosingContainer = mainPage
-                .getAnyAdditionalInfoText();
+        String additionalInfoTextAfter =
+                mainPage
+                        .getAdditionalInfoText();
 
-        Assert.assertNotEquals(emailTextAfterClosingContainer, emailText);
-        Assert.assertNotEquals(anyAdditionalInfoTextAfterClosingContainer, anyAdditionalInfoText);
+        Assert.assertNotEquals(emailTextAfter, emailTextBefore);
+        Assert.assertNotEquals(additionalInfoTextAfter, additionalInfoTextBefore);
     }
 
     @Test
@@ -458,11 +475,12 @@ public class MainTest extends BaseTest {
         final String expectedUrl = "https://openweathermap.org/current";
         final String expectedTitle = "Current weather data - OpenWeatherMap";
 
-        CurrentWeatherPage currentWeatherPage = openBaseURL()
-                .scrollByOrangeBackground()
-                .clickCurrentWeatherIcon();
+        CurrentWeatherPage currentWeatherPage =
+                openBaseURL()
+                        .scrollByOrangeBackground()
+                        .clickCurrentWeatherIcon();
 
-        Assert.assertNotEquals(basePageTitle, currentWeatherPage.getTitle());
+        Assert.assertNotEquals(currentWeatherPage.getTitle(), basePageTitle);
         Assert.assertEquals(currentWeatherPage.getCurrentURL(), expectedUrl);
         Assert.assertEquals(currentWeatherPage.getTitle(), expectedTitle);
     }

@@ -14,7 +14,6 @@ import pages.home.HomeUsersSignInPage;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public abstract class BasePage {
     private WebDriver driver;
@@ -175,6 +174,11 @@ public abstract class BasePage {
     protected void clickEnter(WebElement element) {
         getWait10().until(ExpectedConditions.visibilityOf(element));
         element.sendKeys(Keys.ENTER);
+    }
+
+    protected void clickArrowUp(WebElement element) {
+        getWait10().until(ExpectedConditions.visibilityOf(element));
+        element.sendKeys(Keys.ARROW_UP);
     }
 
     protected void clickAllElementsInList(List<WebElement> elements) {

@@ -258,7 +258,7 @@ public abstract class TopMenuPage extends BasePage {
     }
 
     public HomeUsersSignInPage clickSignInMenu() {
-        click(signInTopMenu);
+        click20(signInTopMenu);
 
         return new HomeUsersSignInPage(getDriver());
     }

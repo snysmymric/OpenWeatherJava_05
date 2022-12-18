@@ -2,6 +2,7 @@ package tests;
 
 import base.BaseTest;
 import org.testng.Assert;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import pages.*;
 import pages.home.HomeMarketplacePage;
@@ -280,6 +281,7 @@ public class TopMenuTest extends BaseTest {
         Assert.assertEquals(actualTitle, expectedTitle);
     }
 
+    @Ignore
     @Test
     public void testEachTopMenuNavigatesToCorrespondingPage() {
         final List<String> expectedURLs = List.of(

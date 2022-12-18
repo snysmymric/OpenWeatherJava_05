@@ -186,12 +186,12 @@ public class MainPage extends FooterMenuPage {
         return getText(h2CityCountryHeader);
     }
 
-    public String getColor() {
+    public String getH1Color() {
 
         return getBackgroundColor(colorAndFontSizeOfH1Header);
     }
 
-    public String getFontSize() {
+    public String getH1FontSize() {
 
         return getFontSize(colorAndFontSizeOfH1Header);
     }
@@ -299,7 +299,7 @@ public class MainPage extends FooterMenuPage {
         return getTexts(apiIcons);
     }
 
-    public String getHeader1Text() {
+    public String getH1Header() {
 
         return getText(mainPageHeader1);
     }
@@ -325,12 +325,12 @@ public class MainPage extends FooterMenuPage {
         return DateTimeUtils.getEightDaysFromDate(dowText, monNum, date, Year.now().getValue());
     }
 
-    public String getHeader2Text() {
+    public String getH2Header() {
 
         return getText(mainPageHeader2);
     }
 
-    public String getAnyAdditionalInfoText() {
+    public String getAdditionalInfoText() {
 
         return getAttribute(anyAdditionalInfoTextarea, "_value");
     }
@@ -419,8 +419,13 @@ public class MainPage extends FooterMenuPage {
         return this;
     }
 
+    public MainPage clickLessOptionsDropDown() {
+        click20(moreOptionsDropDown);
+
+        return this;
+    }
     public MainPage clickUpKeyInTemperatureInput() {
-        clickEnter(temperatureInputInDifferentWeatherContainer);
+        clickArrowUp(temperatureInputInDifferentWeatherContainer);
 
         return this;
     }
@@ -620,7 +625,7 @@ public class MainPage extends FooterMenuPage {
         return this;
     }
 
-    public MainPage inputTextInAnyAdditionalInfoTextarea() {
+    public MainPage inputTextInAdditionalInfoTextarea() {
         input(TestUtils.getRandomName(9), anyAdditionalInfoTextarea);
 
         return this;
@@ -646,5 +651,10 @@ public class MainPage extends FooterMenuPage {
         String tempAndUnit = getText(currentTempAndUnit);
 
         return tempAndUnit.substring(tempAndUnit.length() - 2);
+    }
+
+    public String getClassAttribute(WebElement element) {
+
+        return getAttribute(element ,"class");
     }
 }
