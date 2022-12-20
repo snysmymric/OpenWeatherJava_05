@@ -175,6 +175,9 @@ public class MainPage extends FooterMenuPage {
     @FindBy(css = "a[href*='/'],a[href*='#']")
     private List<WebElement> allLinks;
 
+    @FindBy(xpath = "//div[@class = 'current-temp']//span[@class = 'heading']")
+    private WebElement currentTemp;
+
     public static final String RANDOM_TEXT = TestUtils.getRandomName();
 
     public MainPage(WebDriver driver) {
@@ -343,6 +346,11 @@ public class MainPage extends FooterMenuPage {
     public String getEmailTextboxText() {
 
         return getAttribute(emailTextbox, "_value");
+    }
+
+    public String getCurrentTemp() {
+
+        return getText(currentTemp).substring(0, 2).replaceAll("°", "");
     }
 
     public MainPage clickSearchCityField() {

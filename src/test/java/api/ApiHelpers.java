@@ -55,4 +55,13 @@ public class ApiHelpers {
 
         return sb.toString();
     }
+
+    public static String getCurrentTemp(JSONObject weatherObj) {
+        StringBuilder sb = new StringBuilder();
+
+        sb.append(Math.round(weatherObj.getJSONObject("current")
+                .getDouble("temp")));
+
+        return sb.toString();
+    }
 }

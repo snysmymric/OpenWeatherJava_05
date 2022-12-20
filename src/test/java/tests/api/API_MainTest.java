@@ -307,4 +307,41 @@ public class API_MainTest extends BaseTest {
         Reporter.log("Working links " + workingLinks.size(), true);
         Reporter.log("Broken links " + brokenLinks.size(), true);
     }
+
+    @Test
+    public void test_API_HttpRequestResponse__WeatherTempParis() {
+        try {
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(new URI(PARIS_URL))
+                    .GET()
+                    .build();
+
+            response = HttpClient.newHttpClient()
+                    .send(request, HttpResponse.BodyHandlers.ofString());
+
+        } catch (URISyntaxException | InterruptedException | IOException e) {
+            e.printStackTrace();
+        }
+
+        Assert.assertNotNull(response);
+        Assert.assertNotNull(response.body());
+        Assert.assertEquals(response.statusCode(), 200);
+
+        final JSONObject obj = new JSONObject(response.body());
+        final String expectedApiResult = ApiHelpers.getCurrentTemp(obj);
+
+        final String oldCityName = openBaseURL().getCityCountryName();
+
+        String actualUiResult = new MainPage(getDriver())
+                .clickSearchCityField()
+                .inputSearchCriteria("Paris")
+                .clickSearchButton()
+                .clickParisInDropDownList()
+                .waitForCityCountryNameChanged(oldCityName)
+                .getCurrentTemp();
+
+        if (!actualUiResult.isEmpty() && !actualUiResult.isBlank()) {
+            Assert.assertEquals(actualUiResult, expectedApiResult);
+        }
+    }
 }
