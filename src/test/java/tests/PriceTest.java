@@ -16,6 +16,7 @@ public class PriceTest extends BaseTest {
 
         int actualTransparentButtons = openBaseURL()
                 .clickPricingMenu()
+                .waitAllElementsVisibleAndClickable()
                 .getTransparentButtonsAmount();
 
         Assert.assertEquals(actualTransparentButtons, expectedTransparentButtons);

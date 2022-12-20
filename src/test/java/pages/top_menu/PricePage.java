@@ -92,4 +92,10 @@ public class PricePage extends BreadCrumbPage {
 
         return this;
     }
+
+    public PricePage waitAllElementsVisibleAndClickable() {
+        areAllElementsVisibleAndClickable(transparentButtons);
+
+        return this;
+    }
 }
