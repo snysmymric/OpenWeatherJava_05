@@ -344,4 +344,37 @@ public class API_MainTest extends BaseTest {
             Assert.assertEquals(actualUiResult, expectedApiResult);
         }
     }
+
+    @Test
+    public void test_API_HttpResponse_CurrentPressureInParis() {
+        try {
+            final HttpRequest request = HttpRequest.newBuilder()
+                    .uri(new URI(PARIS_URL))
+                    .GET()
+                    .build();
+
+            response = HttpClient.newHttpClient()
+                    .send(request, HttpResponse.BodyHandlers.ofString());
+
+        } catch (URISyntaxException | InterruptedException | IOException e) {
+            e.printStackTrace();
+        }
+
+        Assert.assertNotNull(response);
+        Assert.assertNotNull(response.body());
+        Assert.assertEquals(response.statusCode(), 200);
+
+        final String pressureInParisFromAPI = ApiHelpers.getCurrentPressure(new JSONObject(response.body()));
+        final String oldCityName = openBaseURL().getCityCountryName();
+
+        String pressureInParisFromUI = new MainPage(getDriver())
+                .clickSearchCityField()
+                .inputSearchCriteria("Paris")
+                .clickSearchButton()
+                .clickParisInDropDownList()
+                .waitForCityCountryNameChanged(oldCityName)
+                .getCurrentPressure();
+
+        Assert.assertEquals(pressureInParisFromUI, pressureInParisFromAPI);
+    }
 }

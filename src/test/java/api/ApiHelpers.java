@@ -64,4 +64,9 @@ public class ApiHelpers {
 
         return sb.toString();
     }
+
+    public static String getCurrentPressure(JSONObject obj) {
+
+        return String.valueOf(obj.getJSONObject("current").getInt("pressure"));
+    }
 }

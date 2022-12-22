@@ -178,6 +178,9 @@ public class MainPage extends FooterMenuPage {
     @FindBy(xpath = "//div[@class = 'current-temp']//span[@class = 'heading']")
     private WebElement currentTemp;
 
+    @FindBy(xpath = "//ul//li[contains(text(), 'hPa')]")
+    private WebElement currentPressure;
+
     public static final String RANDOM_TEXT = TestUtils.getRandomName();
 
     public MainPage(WebDriver driver) {
@@ -351,6 +354,12 @@ public class MainPage extends FooterMenuPage {
     public String getCurrentTemp() {
 
         return getText(currentTemp).substring(0, 2).replaceAll("°", "");
+    }
+
+    public String getCurrentPressure() {
+        String pressure =  getText(currentPressure);
+
+        return pressure.substring(0, pressure.length() - 3);
     }
 
     public MainPage clickSearchCityField() {
