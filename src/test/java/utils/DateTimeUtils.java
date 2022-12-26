@@ -19,13 +19,6 @@ public class DateTimeUtils {
         return "" + minutes + " min " + seconds + " sec";
     }
 
-    public static String getSystemDate() {
-        Date date = new Date();
-        SimpleDateFormat sdf = new SimpleDateFormat("MMM d, hh:mma");
-
-        return sdf.format(date).substring(0, 10);
-    }
-
     public static int daysInMonth(int month, int year) {
         int numDays;
 
