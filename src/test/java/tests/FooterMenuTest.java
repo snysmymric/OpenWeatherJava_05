@@ -35,7 +35,8 @@ public class FooterMenuTest extends BaseTest {
                 "twitter.com",
                 "www.linkedin.com",
                 "openweathermap.medium.com",
-                "t.me", "github.com"
+                "t.me",
+                "github.com"
         );
 
         Assert.assertEquals(links.size(), expectedDomains.size());
@@ -80,23 +81,23 @@ public class FooterMenuTest extends BaseTest {
         Assert.assertEquals(mainPage.getSocialPanelSize(), expectedIconsQuantity);
     }
 
-//    @Test
-//    public void testSubscriptionTextList() {
-//        List<String> expectedSubscriptionTexts = List.of(
-//                "How to start",
-//                "Pricing",
-//                "Subscribe for free",
-//                "FAQ"
-//        );
-//
-//        List<String> actualSubscriptionTexts =
-//                openBaseURL()
-//                        .scrollToSubscriptionFooterMenu()
-//                        .getSubscriptionMenusTexts();
-//
-//        Assert.assertTrue(actualSubscriptionTexts.size() > 0);
-//        Assert.assertEquals(actualSubscriptionTexts, expectedSubscriptionTexts);
-//    }
+    @Test
+    public void testSubscriptionText() {
+        List<String> expectedSubscriptionTexts = List.of(
+                "How to start",
+                "Pricing",
+                "Subscribe for free",
+                "FAQ"
+        );
+
+        List<String> actualSubscriptionTexts =
+                openBaseURL()
+                        .scrollToSubscriptionFooterMenu()
+                        .getSubscriptionMenusTexts();
+
+        Assert.assertTrue(actualSubscriptionTexts.size() > 0);
+        Assert.assertEquals(actualSubscriptionTexts, expectedSubscriptionTexts);
+    }
 
     @Test
     public void testOurTechnologyFooterLinkNavigatesToTechnologyPage() {
@@ -217,7 +218,7 @@ public class FooterMenuTest extends BaseTest {
     }
 
     @Test
-    public void testGitHubIconNavigatesToGithubWeb() {
+    public void testGitHubIconNavigatesToGitHubWeb() {
         final String expectedURL = "https://github.com/search?q=openweathermap&ref=cmdform";
         final String expectedTitle = "Search · openweathermap · GitHub";
 
@@ -359,5 +360,16 @@ public class FooterMenuTest extends BaseTest {
         Assert.assertNotEquals(getExternalPageURL(), urlOfMainPage);
         Assert.assertEquals(getExternalPageTitle(), expectedTitle);
         Assert.assertEquals(getExternalPageURL(), expectedURL);
+    }
+
+    @Test(priority = -5)
+    public void testFooterMenuLinksAmount() {
+        final int expectedLinks = 27;
+
+        int actualLinks = openBaseURL()
+                .scrollToFooterMenu()
+                .getFooterMenuLinksCount();
+
+        Assert.assertEquals(actualLinks, expectedLinks);
     }
 }

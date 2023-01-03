@@ -144,7 +144,7 @@ public class TopMenuTest extends BaseTest {
     }
 
     @Test
-    public void testSupportMenuHasLinks() {
+    public void testSupportMenuLinksTexts() {
         final List<String> expectedList = List.of(
                 "FAQ",
                 "How to start",
@@ -281,7 +281,6 @@ public class TopMenuTest extends BaseTest {
         Assert.assertEquals(actualTitle, expectedTitle);
     }
 
-    @Ignore
     @Test
     public void testEachTopMenuNavigatesToCorrespondingPage() {
         final List<String> expectedURLs = List.of(

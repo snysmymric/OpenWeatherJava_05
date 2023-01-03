@@ -11,7 +11,7 @@ import java.util.List;
 public class HomeHistoryBulksNewTest extends BaseTest {
 
     @Test
-    public void testAllWeatherParametersSelectedByDefault() {
+    public void testWeatherParametersAreSelectedByDefault() {
         HomeHistoryBulksNewPage homeHistoryBulksNewPage = new HomeHistoryBulksNewPage(getDriver());
 
         List<WebElement> checkBoxes = openBaseURL()
@@ -26,8 +26,8 @@ public class HomeHistoryBulksNewTest extends BaseTest {
         Assert.assertEquals(selectedCount, checkBoxes.size());
     }
 
-    @Test(dependsOnMethods = "testAllWeatherParametersSelectedByDefault")
-    public void testWeatherParametersNOTSelected_AfterUncheckAll() {
+    @Test(dependsOnMethods = "testWeatherParametersAreSelectedByDefault")
+    public void testWeatherParametersAreNOTSelected_AfterUncheckAll() {
         HomeHistoryBulksNewPage homeHistoryBulksNewPage = new HomeHistoryBulksNewPage(getDriver());
 
         List<WebElement> checkBoxes = openBaseURL()

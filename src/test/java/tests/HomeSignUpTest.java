@@ -7,7 +7,7 @@ import org.testng.annotations.Test;
 public class HomeSignUpTest extends BaseTest {
 
     @Test
-    public void testCreateNewAccountWithoutCaptcha() {
+    public void testErrorMessageWhenCreatingNewAccountWithoutCaptcha() {
         final String expectedReCaptchaErrorMessage = "reCAPTCHA verification failed, please try again.";
 
         String actualReCaptchaErrorMessage = openBaseURL()

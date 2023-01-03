@@ -43,7 +43,7 @@ public class HomeTopMenuTest extends BaseTest {
     }
 
     @Test
-    public void testUserNameDropdownMenuTexts() {
+    public void testDropdownMenuTexts() {
         final List<String> expectedDropdownMenuTexts = List.of(
                 "My services",
                 "My API keys",

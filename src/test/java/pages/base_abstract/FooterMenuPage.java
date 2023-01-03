@@ -40,9 +40,6 @@ public abstract class FooterMenuPage extends TopMenuPage {
             + "[@target='_blank']")
     private WebElement downloadOnTheAppStoreLinkFooterMenu;
 
-    @FindBy(className = "social")
-    private WebElement socialPanelFooterMenu;
-
     @FindBy(xpath = FOOTER_MENU_ID + "//div[@class='social']/a")
     private List<WebElement> socialPanelIconsFooterMenu;
 
@@ -87,6 +84,9 @@ public abstract class FooterMenuPage extends TopMenuPage {
 
     @FindBy(xpath = FOOTER_MENU_ID + "//div[@class='my-5']//a")
     private List<WebElement> storePanelIconsFooterMenu;
+
+    @FindBy(className = "social")
+    private WebElement socialPanelFooterMenu;
 
     public FooterMenuPage(WebDriver driver) {
         super(driver);

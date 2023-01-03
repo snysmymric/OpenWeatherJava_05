@@ -12,7 +12,7 @@ import java.util.List;
 public class HomeMarketplaceTest extends BaseTest {
 
     @Test
-    public void testAllButtonsAreVisibleAndClickable() {
+    public void testButtonsAreVisibleAndClickable() {
         int count = 0;
 
         HomeMarketplacePage homeMarketplacePage = new HomeMarketplacePage(getDriver());

@@ -11,7 +11,7 @@ import pages.RoadRiskAPIPage;
 public class GuideTest extends BaseTest {
 
     @Test
-    public void testHomeGuideNavigatesToBaseURL() {
+    public void testHomeLinkNavigatesToBaseURL() {
         final String expectedBaseURL = "https://openweathermap.org/";
         final String expectedGuideURL = "https://openweathermap.org/guide";
 

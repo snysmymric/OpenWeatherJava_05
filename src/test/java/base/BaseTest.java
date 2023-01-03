@@ -9,14 +9,11 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 import pages.MainPage;
-import pages.footer_menu.WidgetsPage;
 import utils.ReportUtils;
 import utils.TestUtils;
 
 import java.lang.reflect.Method;
 import java.time.Duration;
-
-import static java.lang.Thread.sleep;
 
 public abstract class BaseTest {
 

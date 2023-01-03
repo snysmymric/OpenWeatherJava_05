@@ -11,7 +11,7 @@ import java.util.List;
 public class HomeTest extends BaseTest {
 
     @Test
-    public void testSignInFunctionality() {
+    public void testSuccessfulSignIn() {
         String actualSignInMessage = openBaseURL()
                 .signIn()
                 .getNotification();
@@ -20,7 +20,7 @@ public class HomeTest extends BaseTest {
     }
 
     @Test
-    public void testExpectedH2HeadersList() {
+    public void testH2Headers() {
         final List<String> expectedH2Headers = List.of(
                 "Historical weather for any location",
                 "Weather Dashboard",
@@ -35,7 +35,7 @@ public class HomeTest extends BaseTest {
     }
 
     @Test
-    public void testAllOrangeButtonsAreClickableAndVisible() {
+    public void testOrangeButtonsAreClickableAndVisible() {
         int count = 0;
 
         HomePage homePage = new HomePage(getDriver());

@@ -104,7 +104,7 @@ public class PriceTest extends BaseTest {
     }
 
     @Test
-    public void testH2HeadersPricingPage() {
+    public void testH2Headers() {
         final int expectedAmountH2Headers = 7;
         final List<String> expectedH2Headers = List.of(
                 "\"One Call by Call\" subscription plan",

@@ -13,7 +13,7 @@ import java.util.List;
 public class FindTest extends BaseTest {
 
     @Test
-    public void testNavigationBarSearchField_NavigatesToFindPage_WithTheSameCityName() {
+    public void testNavigationToFindPage_WithTheSameCityName() {
         final String cityName = "Rome";
         final String attributeName = "value";
 
@@ -32,7 +32,7 @@ public class FindTest extends BaseTest {
     }
 
     @Test
-    public void testInputValidCityInSearchFieldTopMenu_ResultContainsCity() {
+    public void testCityInSearchFieldContainsCity() {
         final String expectedCityName = "Rome";
 
         List<WebElement> actualResultList = openBaseURL()

@@ -10,7 +10,7 @@ import java.util.List;
 public class AboutUsTest extends BaseTest {
 
     @Test
-    public void testWhereToField_HasActiveOptions() {
+    public void testActiveOptionsForWhereToField() {
         final List<String> expectedOptions = Arrays.asList(
                 "Buy by Subscription",
                 "Buy in the Marketplace",

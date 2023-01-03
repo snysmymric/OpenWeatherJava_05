@@ -8,7 +8,7 @@ import utils.ProjectConstants;
 public class HomeAskQuestionTest extends BaseTest {
 
     @Test
-    public void testCaptchaErrorMessage() {
+    public void testErrorMessageWhenCaptchaNotVerified() {
         final String expectedMessage = "reCAPTCHA verification failed, please try again.";
 
         String actualMessage = openBaseURL()
@@ -24,7 +24,7 @@ public class HomeAskQuestionTest extends BaseTest {
     }
 
     @Test
-    public void testAskQuestionYesRadioButtonMessage() {
+    public void testRadioButtonMessage() {
         String expectedMessage =
                 "Please enter your account email in our system - it will help us process your request faster";
 

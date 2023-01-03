@@ -6,7 +6,6 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import pages.CurrentWeatherPage;
 import pages.MainPage;
-import utils.DateTimeUtils;
 import utils.TestUtils;
 
 import java.util.List;
@@ -14,7 +13,7 @@ import java.util.List;
 public class MainTest extends BaseTest {
 
     @Test
-    public void testH2TagText_WhenSearchingCityCountry() {
+    public void testH2Header_WhenSearchingCityCountry() {
         final String cityName = "Paris";
         final String expectedCityCountryNames = "Paris, FR";
 
@@ -34,7 +33,7 @@ public class MainTest extends BaseTest {
     }
 
     @Test
-    public void testH2TagText_WhenSearchingCityCountryChain() {
+    public void testH2Header_WhenSearchingCityCountryChain() {
         final String cityName = "Paris";
         final String expectedCityCountryNames = "Paris, FR";
 
@@ -82,7 +81,7 @@ public class MainTest extends BaseTest {
     }
 
     @Test
-    public void testIconsHighlightedAfterClickDifferentWeatherPopUp_() {
+    public void testIconsHighlighted_OnDifferentWeatherPopUp() {
         final String expectedValueOfAttribute = "activeIcon";
 
         MainPage mainPage = openBaseURL();
@@ -132,17 +131,8 @@ public class MainTest extends BaseTest {
         Assert.assertEquals(actualCityCountryName, expectedCityCountryName);
     }
 
-//    @Test
-//    public void testAllIconsAreShownAndClickable() {
-//        MainPage mainPage =
-//                openBaseURL()
-//                        .clickDifferentWeatherButton();
-//
-//        Assert.assertTrue(mainPage.checkAllIconsAreVisibleAndClickable());
-//    }
-
     @Test
-    public void testXButtonIsDisplayed() {
+    public void testXButtonIsDisplayed_OnDifferentWeatherPopUp() {
         MainPage mainPage =
                 openBaseURL()
                         .clickDifferentWeatherButton();
@@ -175,7 +165,7 @@ public class MainTest extends BaseTest {
     }
 
     @Test
-    public void testSendButtonIsDisplayed() {
+    public void testSendButtonIsDisplayed_OnDifferentWeatherPopUp() {
         MainPage mainPage =
                 openBaseURL()
                         .clickDifferentWeatherButton();
@@ -214,7 +204,7 @@ public class MainTest extends BaseTest {
     }
 
     @Test
-    public void testOneIconHighlightedByDefault_WhenDifferentWeatherContainerAppears() {
+    public void testOneIconHighlightedByDefault_OnDifferentWeatherPopUp() {
         final String expectedIconColor = "#ececed";
         MainPage mainPage = openBaseURL();
 
@@ -231,7 +221,7 @@ public class MainTest extends BaseTest {
     }
 
     @Test
-    public void testCheckTempInC_inDayList_whenSwitchingToMetric() {
+    public void testDayListTempInC_WhenSwitchingToMetric() {
         final List<String> expectedResult = List.of("°C", "°C", "°C", "°C", "°C", "°C", "°C", "°C");
 
         MainPage mainPage =
@@ -243,7 +233,7 @@ public class MainTest extends BaseTest {
     }
 
     @Test
-    public void testCheckTempInF_inDayList_whenSwitchingToImperial() {
+    public void testDayListTempInF_WhenSwitchingToImperial() {
         final List<String> expectedResult = List.of("°F", "°F", "°F", "°F", "°F", "°F", "°F", "°F");
 
         MainPage mainPage =
@@ -267,7 +257,7 @@ public class MainTest extends BaseTest {
     }
 
     @Test
-    public void testCheckTextInTheBottomOfThePage() {
+    public void testTextInCookiesAgreement() {
         final String expectedTextPanel =
                 "We use cookies which are essential for the site to work. We also use non-essential "
                         + "cookies to help us improve our services. Any data collected is anonymised. "
@@ -315,7 +305,7 @@ public class MainTest extends BaseTest {
     }
 
     @Test
-    public void testAPIIconsAreDisplayed_SectionOrangeBackground() {
+    public void testAPIIconsAreDisplayed() {
         final int expectedAPIIconsQuantity = 5;
         final List<String> expectedAPIIconsNames = List.of(
                 "current\nweather\n(current)",
@@ -335,7 +325,7 @@ public class MainTest extends BaseTest {
     }
 
     @Test
-    public void testHeadersMainPage() {
+    public void testMainPageHeaders() {
         final String expectedH1Header = "OpenWeather";
         final String expectedH2Header = "Weather forecasts, nowcasts and history in a fast and elegant way";
 
@@ -346,7 +336,7 @@ public class MainTest extends BaseTest {
     }
 
     @Test
-    public void testDataSourceOptionsNames() {
+    public void testDataSourceOptions() {
         final List<String> expectedDataSourceOptionsTexts = List.of(
                 "Personal feelings",
                 "Own weather station or devices",
@@ -355,7 +345,7 @@ public class MainTest extends BaseTest {
                 "Other"
         );
 
-        List<String> actualdataSourceOptionsTexts =
+        List<String> actualDataSourceOptionsTexts =
                 openBaseURL()
                         .clickDifferentWeatherButton()
                         .waitUntilDifferentWeatherPopUpIsVisible()
@@ -364,11 +354,11 @@ public class MainTest extends BaseTest {
                         .clickAllDataSourceOptions()
                         .getDataSourceOptionsTexts();
 
-        Assert.assertEquals(actualdataSourceOptionsTexts, expectedDataSourceOptionsTexts);
+        Assert.assertEquals(actualDataSourceOptionsTexts, expectedDataSourceOptionsTexts);
     }
 
     @Test
-    public void testChosenDataSourceOptionIsSavedAfterClickingLessOptionsDropDown() {
+    public void testChosenDataSourceOptionIsSavedAfterClickingLessOptions() {
         MainPage mainPage = openBaseURL();
 
         String dataSourceDropDownTextBefore =
@@ -388,32 +378,6 @@ public class MainTest extends BaseTest {
 
         Assert.assertEquals(dataSourceDropDownTextAfter, dataSourceDropDownTextBefore);
     }
-
-    @Test
-    public void testFooterMenuLinks() {
-        final int expectedLinks = 27;
-
-        int actualLinks = openBaseURL()
-                .scrollToFooterMenu()
-                .getFooterMenuLinksCount();
-
-        Assert.assertEquals(actualLinks, expectedLinks);
-    }
-
-//    @Test
-//    public void testSignInFooterMenuLinks() {
-//        final int expectedLinks = 27;
-//
-//        openBaseURL().signIn();
-//
-//        MainPage mainPage = new MainPage(getDriver()).scrollToFooterMenu();
-//        int actualLinks = mainPage.getFooterMenuLinksCount();
-//
-//        Assert.assertEquals(actualLinks, expectedLinks);
-//
-//        new HomeUsersSignInPage(getDriver()).signOut();
-//    }
-
 
     @Test
     public void testEmailAndAdditionalInfoIsNotSavedAfterClickingOutOfContainer() {

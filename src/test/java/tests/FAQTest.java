@@ -19,7 +19,7 @@ public class FAQTest extends BaseTest {
     }
 
     @Test
-    public void test_CheckH3HeadersAmount() {
+    public void testH3HeadersAmount() {
         final int expectedH3HeadersAmount = 10;
 
         int actualH3HeadersAmount = openBaseURL().
@@ -31,7 +31,7 @@ public class FAQTest extends BaseTest {
     }
 
     @Test
-    public void testAllFAQInnerDescriptionsAmount() {
+    public void testFAQInnerDescriptionsAmount() {
         final int expectedOpenedFAQAmount = 59;
 
         int actualOpenedFAQAmount = openBaseURL()

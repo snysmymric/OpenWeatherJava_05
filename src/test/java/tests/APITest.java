@@ -7,7 +7,7 @@ import org.testng.annotations.Test;
 public class APITest extends BaseTest {
 
     @Test
-    public void testCheckAllOrangeButtons() {
+    public void testOrangeButtonsArePresentOnThePage() {
         final int expectedAmountOfButtons = 30;
 
         int actualAmountOfButtons = openBaseURL()

@@ -97,11 +97,10 @@ public class HomeZipCodeDataNewTest extends BaseTest {
         Assert.assertTrue(homeZipCodeDataNewPage.isOrderPopUpDisplayed());
         Assert.assertEquals(actualPopUpHeader, expectedPopUpHeader);
         Assert.assertEquals(homeZipCodeDataNewPage.getAttributeTopPopUpWindowOne(), expectedValue);
-//        Assert.assertTrue(homeZipCodeDataNewPage.isNextButtonVisible());
     }
 
     @Test
-    public void testOrderDetailsPopUpWindow_ParametersAreCorrect() {
+    public void testOrderDetailsParametersAreCorrect() {
         final String expectedState = "Florida";
         final String expectedYear = "2019";
         final String expectedPrice = "1300 $";
@@ -131,7 +130,7 @@ public class HomeZipCodeDataNewTest extends BaseTest {
     }
 
     @Test
-    public void testBillingDetailsPopUpWindow_FillingIndividualForms() {
+    public void testBillingDetailsWhenFillingIndividualForms() {
         final String expectedBillingAddressHeader = "Billing address";
         final String expectedBillingDetailsHeader = "Billing details";
         final String expectedValue = "current";

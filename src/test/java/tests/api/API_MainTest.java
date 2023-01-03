@@ -9,7 +9,6 @@ import io.restassured.response.Response;
 import org.json.JSONObject;
 import org.testng.Assert;
 import org.testng.Reporter;
-import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import pages.MainPage;
 import utils.DateTimeUtils;
@@ -93,7 +92,7 @@ public class API_MainTest extends BaseTest {
         Assert.assertTrue(requestsSearchButton.get(requestsSearchButton.size() - 1)
                 .contains("openweathermap.org/data/2.5/onecall?lat=48.8534&lon=2.3488"));
     }
-    @Ignore
+
     @Test
     public void test_API_HttpRequestResponse_WhenSearchingCityCountry() {
         try {
@@ -127,7 +126,7 @@ public class API_MainTest extends BaseTest {
             Assert.assertEquals(alertTextFromUI.trim(), alertText.trim());
         }
     }
-    @Ignore
+
     @Test
     public void test_API_RAResponse_WhenSearchingCityCountry() {
         final List<Alert> alerts = given()

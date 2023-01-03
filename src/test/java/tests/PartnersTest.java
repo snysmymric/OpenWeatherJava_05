@@ -11,7 +11,7 @@ import java.util.List;
 public class PartnersTest extends BaseTest {
 
     @Test
-    public void testPartnersPageHeader() {
+    public void testH1Header() {
         final String expectedHeader = "Partners and solutions";
 
         String actualHeader = openBaseURL()
@@ -41,7 +41,7 @@ public class PartnersTest extends BaseTest {
     }
 
     @Test
-    public void testAllLinksAsExpected() {
+    public void testLinksTextsAreAsExpected() {
         final List<String> expectedRightSideLinks = List.of(
                 "Google Weather-Based Campaign Management with OpenWeatherMap API"
                 ,"Google Maps JavaScript API based on OpenWeatherMap API"

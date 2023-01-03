@@ -5,7 +5,6 @@ import org.apache.commons.lang3.RandomStringUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Reporter;
@@ -23,6 +22,10 @@ public class TestUtils {
         driver.get(BaseTest.getBaseUrl());
         waitForPageLoaded(driver);
         wait.until(ExpectedConditions.invisibilityOfElementLocated(ON_LOAD_CONTAINER));
+    }
+
+    public static void waitForPageLoaded(WebDriver driver) {
+        driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(10));
     }
 
     public static void reLoadBaseUrlPage(WebDriver driver, WebDriverWait wait) {
@@ -69,10 +72,6 @@ public class TestUtils {
         int index = text.indexOf(separator);
 
         return text.substring(0, index);
-    }
-
-    public static void waitForPageLoaded(WebDriver driver) {
-        driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(10));
     }
 
     public static List<String> getSortedList(List<String> elements) {

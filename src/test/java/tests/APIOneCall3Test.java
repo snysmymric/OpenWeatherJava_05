@@ -8,7 +8,7 @@ import pages.APIOneCall3Page;
 public class APIOneCall3Test extends BaseTest {
 
     @Test
-    public void testALICallsParameters() {
+    public void testAPICallsParameters() {
         final String expectedParameters ="Parameters";
         final String expectedFirstParameter = "lat, lon required Geographical coordinates (latitude, longitude). "
                 + "If you need the geocoder to automatic convert city names and zip-codes "

@@ -7,7 +7,7 @@ import org.testng.annotations.Test;
 public class HomeUsersSignInTest extends BaseTest {
 
     @Test
-    public void testSignOutFunctionality() {
+    public void testSignOut() {
         String actualSignOutMessage = openBaseURL()
                 .signIn()
                 .signOut()
