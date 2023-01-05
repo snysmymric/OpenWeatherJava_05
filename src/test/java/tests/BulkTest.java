@@ -33,7 +33,7 @@ public class BulkTest extends BaseTest {
         String actualCurrentAndForecastBulkRequest = bulkPage.getBulkFilesRequests().get(0);
         String actualSevenDaysArchiveBulkRequest = bulkPage.getBulkFilesRequests().get(1);
 
-        Assert.assertEquals(actualCurrentAndForecastBulkRequest,expectedCurrentAndForecastBulkRequest);
-        Assert.assertEquals(actualSevenDaysArchiveBulkRequest,expectedSevenDaysArchiveBulkRequest);
+        Assert.assertEquals(actualCurrentAndForecastBulkRequest, expectedCurrentAndForecastBulkRequest);
+        Assert.assertEquals(actualSevenDaysArchiveBulkRequest, expectedSevenDaysArchiveBulkRequest);
     }
 }

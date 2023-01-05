@@ -22,7 +22,7 @@ public class PartnersPage extends BreadCrumbPage {
         super(driver);
     }
 
-    public List<String> getRightSideLinksText(){
+    public List<String> getRightSideLinksText() {
 
         return getTexts(rightSideLinks);
     }

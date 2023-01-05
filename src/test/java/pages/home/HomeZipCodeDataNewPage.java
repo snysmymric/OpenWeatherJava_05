@@ -4,6 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+
 import java.util.List;
 
 public class HomeZipCodeDataNewPage extends HomeMarketplacePage {
@@ -248,21 +249,11 @@ public class HomeZipCodeDataNewPage extends HomeMarketplacePage {
         return isElementDisplayed(placeOrderContainer);
     }
 
-    public boolean isNextButtonVisible() {
-
-        return isElementDisplayed(nextButton);
-    }
-
-    public boolean isNextButtonSubmiting() {
-        boolean isNextButtonEnabled = false;
+    public boolean isNextButtonSubmitting() {
 
         nextButton.click();
 
-        if (getText(billingHeader).contains("Billing address")) {
-            return !isNextButtonEnabled;
-        }
-
-            return isNextButtonEnabled;
+        return getText(billingHeader).contains("Billing address");
     }
 
     public HomeZipCodeDataNewPage waitUntilPlaceOrderPopUpIsVisible() {

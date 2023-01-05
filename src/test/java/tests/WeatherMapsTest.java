@@ -51,7 +51,7 @@ public class WeatherMapsTest extends BaseTest {
     public void testButtonLoop_MapPage() {
         final String locationROME = "Rome, Italy";
 
-         WeatherMapsPage weatherMapsPage = openBaseURL()
+        WeatherMapsPage weatherMapsPage = openBaseURL()
                 .clickMapsMenu()
                 .clickSearchButton();
 

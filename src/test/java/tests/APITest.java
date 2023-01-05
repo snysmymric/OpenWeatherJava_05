@@ -25,6 +25,6 @@ public class APITest extends BaseTest {
                 .clickAPIMenu()
                 .getH1Header();
 
-        Assert.assertEquals(actualHeader,expectedHeader);
+        Assert.assertEquals(actualHeader, expectedHeader);
     }
 }

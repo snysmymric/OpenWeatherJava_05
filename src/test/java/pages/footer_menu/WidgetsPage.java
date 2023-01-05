@@ -6,11 +6,8 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import pages.base_abstract.FooterMenuPage;
 
-
 import java.util.ArrayList;
 import java.util.List;
-
-import static java.lang.Thread.sleep;
 
 public class WidgetsPage extends FooterMenuPage {
 
@@ -55,8 +52,8 @@ public class WidgetsPage extends FooterMenuPage {
 
     public List<String> getSelectedCityTexts() {
         getWait20().until(ExpectedConditions.visibilityOfAllElements(selectYourCity));
-        for (int i = 0; i < selectYourCity.size(); i++) {
-            waitForTextNotToBeEmpty(selectYourCity.get(i));
+        for (WebElement element : selectYourCity) {
+            waitForTextNotToBeEmpty(element);
         }
 
         return getTexts(selectYourCity);
@@ -68,9 +65,8 @@ public class WidgetsPage extends FooterMenuPage {
     }
 
     public List<String> getAllWidgetsCityName() {
-        List<String> allWidgetsCityName = getTexts(getWidgets());
 
-        return allWidgetsCityName;
+        return getTexts(getWidgets());
     }
 
     public List<WebElement> getWidgets() {

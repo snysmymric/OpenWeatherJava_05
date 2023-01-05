@@ -1,4 +1,4 @@
-package api;
+package api.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -13,7 +13,8 @@ public class Alert {
     private String description;
     private ArrayList<String> tags;
 
-    public Alert(){};
+    public Alert() {
+    }
 
     public Alert(String sender_name, String event, Integer start, Integer end,
                  String description, ArrayList<String> tags) {

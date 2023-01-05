@@ -11,6 +11,7 @@ import pages.footer_menu.WidgetsPage;
 import pages.home.HomeAskQuestionPage;
 import pages.top_menu.PricePage;
 import pages.top_menu.WeatherDashboardPage;
+import tests.retrytest.Retry;
 import utils.TestUtils;
 
 import java.net.MalformedURLException;
@@ -131,6 +132,7 @@ public class FooterMenuTest extends BaseTest {
                 .clickPrivacyPolicyFooterMenu();
 
         mainPage.switchToExternalPage();
+
         TestUtils.waitForPageLoaded(getDriver());
 
         Assert.assertNotEquals(getExternalPageURL(), oldURL);
@@ -196,7 +198,7 @@ public class FooterMenuTest extends BaseTest {
         Assert.assertEquals(actualTitle, expectedTitle);
     }
 
-    @Test
+    @Test(retryAnalyzer = Retry.class)
     public void testAppStoreIconNavigatesToAppStoreWeb() {
         final String expectedAppStoreURL = "https://apps.apple.com/gb/app/openweather/id1535923697";
         final String expectedTitle = "OpenWeather";
@@ -214,7 +216,7 @@ public class FooterMenuTest extends BaseTest {
         Assert.assertNotEquals(getExternalPageURL(), oldURL);
         Assert.assertEquals(getExternalPageURL(), expectedAppStoreURL);
         Assert.assertTrue(getExternalPageTitle().contains(expectedTitle),
-                " ExternalPageTitle does not contain'OpenWeather' ");
+                " ExternalPageTitle does not contain 'OpenWeather' ");
     }
 
     @Test

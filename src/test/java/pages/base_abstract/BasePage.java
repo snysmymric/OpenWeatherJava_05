@@ -107,25 +107,6 @@ public abstract class BasePage {
         return texts;
     }
 
-    protected List<WebElement> getListOfVisibleElements(List<WebElement> list, int listSize) {
-        List<WebElement> visibleElements = new ArrayList<>();
-
-        if (!(list.size() > 0)) {
-            getWait20().until(ExpectedConditions.visibilityOfAllElements(list));
-            for (WebElement element : list) {
-                if (!element.isDisplayed() && !element.isEnabled()) {
-                    getWait20().until(ExpectedConditions.visibilityOf(element));
-                    visibleElements.add(element);
-                }
-            }
-        } else if (list.size() == listSize) {
-
-            return list;
-        }
-
-        return visibleElements;
-    }
-
     public String getAttribute(WebElement element, String attribute) {
         if (!element.getText().isEmpty()) {
             wait10ElementToBeVisible(element);
@@ -202,11 +183,6 @@ public abstract class BasePage {
     protected void input(String text, WebElement element) {
 
         element.sendKeys(text);
-    }
-
-    protected void inputAndEnter(WebElement element, String text) {
-        getWait10().until(ExpectedConditions.visibilityOf(element));
-        element.sendKeys(text, Keys.ENTER);
     }
 
     protected void inputAfterClear(WebElement element, String text) {

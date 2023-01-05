@@ -33,7 +33,7 @@ public class HomeAskQuestionTest extends BaseTest {
                 .clickAskQuestionSupportSubmenu()
                 .clickYesRadioButton()
                 .getRadioButtonText();
-        
+
         Assert.assertEquals(actualMessage, expectedMessage);
     }
 }

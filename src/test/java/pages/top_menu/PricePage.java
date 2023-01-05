@@ -22,7 +22,7 @@ public class PricePage extends BreadCrumbPage {
     private List<WebElement> alertsPriceByRequest;
 
     @FindBy(id = "solar_radiation")
-    private  WebElement alertPriceSolarRadiationAPIText;
+    private WebElement alertPriceSolarRadiationAPIText;
 
     @FindBy(xpath = "//section[@id='current']//table/thead//h3/b")
     private List<WebElement> weatherAndForecastsCollections;

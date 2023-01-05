@@ -4,7 +4,6 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import pages.MainPage;
 import pages.RoadRiskAPIPage;
 import pages.SolarRadiationAPIPage;
 import pages.base_abstract.BreadCrumbPage;
@@ -40,7 +39,7 @@ public class GuidePage extends BreadCrumbPage {
         return new SolarRadiationAPIPage(getDriver());
     }
 
-    public RoadRiskAPIPage clickRoadRiskAPILink(){
+    public RoadRiskAPIPage clickRoadRiskAPILink() {
         click(roadRiskAPILink);
 
         return new RoadRiskAPIPage(getDriver());

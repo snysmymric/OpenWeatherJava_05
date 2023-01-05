@@ -34,7 +34,7 @@ public class WidgetsTest extends BaseTest {
         Assert.assertNotEquals(newCity, oldCity);
 
         List<String> actualCitiesTexts = widgetPage.getSelectedCityTexts();
-        Reporter.log("Actual list of cities is -------" + String.valueOf(actualCitiesTexts), true);
+        Reporter.log("Actual list of cities is -------" + actualCitiesTexts, true);
 
         for (String actualCity : actualCitiesTexts) {
             Assert.assertTrue(actualCity.contains(city));
@@ -52,7 +52,7 @@ public class WidgetsTest extends BaseTest {
                 .scrollToFooterMenu()
                 .clickWidgetsPageFooterMenu();
 
-        final  String oldCity = widgetPage.getCityName();
+        final String oldCity = widgetPage.getCityName();
         Reporter.log("Old city was --------" + oldCity, true);
 
         final String newCity = widgetPage
@@ -65,7 +65,7 @@ public class WidgetsTest extends BaseTest {
 
         String actualErrorMessage = widgetPage.getErrorMessage();
 
-        Assert.assertEquals(actualErrorMessage,expectedErrorMessage);
+        Assert.assertEquals(actualErrorMessage, expectedErrorMessage);
     }
 
     @Test

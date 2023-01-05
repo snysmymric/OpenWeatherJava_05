@@ -13,9 +13,6 @@ public abstract class BreadCrumbPage extends FooterMenuPage {
     @FindBy(xpath = "//ol/li/a[@href = '/']")
     private WebElement homeLink;
 
-    @FindBy(xpath = "//ol/li[@class='breadcrumb__leaf']")
-    private WebElement currentPageName;
-
     public BreadCrumbPage(WebDriver driver) {
         super(driver);
     }
@@ -23,11 +20,6 @@ public abstract class BreadCrumbPage extends FooterMenuPage {
     public String getH1Header() {
 
         return getText(h1Header);
-    }
-
-    public String getCurrentPageName() {
-
-        return getText(currentPageName);
     }
 
     public WebElement getHomeLink() {

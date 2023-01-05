@@ -157,7 +157,7 @@ public class HomeZipCodeDataNewTest extends BaseTest {
         Assert.assertEquals(homeZipCodeDataNewPage.getAttributeTopPopUpWindowTwo(), expectedValue);
         Assert.assertEquals(homeZipCodeDataNewPage.getBillingDetailsHeader(), expectedBillingDetailsHeader);
 
-                homeZipCodeDataNewPage.inputFirstName(firstName)
+        homeZipCodeDataNewPage.inputFirstName(firstName)
                 .inputLastName(lastName)
                 .inputPhone(phoneNumber)
                 .inputEmail(email)
@@ -198,7 +198,7 @@ public class HomeZipCodeDataNewTest extends BaseTest {
 
         Assert.assertEquals(homeZipCodeDataNewPage.getFirstNameFieldText(), expectedFirstName);
         Assert.assertEquals(actualErrorMessageText, expectedErrorMessageText);
-        Assert.assertFalse(homeZipCodeDataNewPage.isNextButtonSubmiting());
+        Assert.assertFalse(homeZipCodeDataNewPage.isNextButtonSubmitting());
     }
 
     @Test
@@ -232,7 +232,7 @@ public class HomeZipCodeDataNewTest extends BaseTest {
 
         Assert.assertEquals(homeZipCodeDataNewPage.getLastNameFieldText(), expectedLastName);
         Assert.assertEquals(actualErrorMessageText, expectedErrorMessageText);
-        Assert.assertFalse(homeZipCodeDataNewPage.isNextButtonSubmiting());
+        Assert.assertFalse(homeZipCodeDataNewPage.isNextButtonSubmitting());
     }
 
     @Test
@@ -266,7 +266,7 @@ public class HomeZipCodeDataNewTest extends BaseTest {
 
         Assert.assertEquals(homeZipCodeDataNewPage.getPhoneNumberFieldText(), expectedPhoneNumber);
         Assert.assertEquals(actualErrorMessageText, expectedErrorMessageText);
-        Assert.assertFalse(homeZipCodeDataNewPage.isNextButtonSubmiting());
+        Assert.assertFalse(homeZipCodeDataNewPage.isNextButtonSubmitting());
     }
 
     @Test
@@ -300,6 +300,6 @@ public class HomeZipCodeDataNewTest extends BaseTest {
 
         Assert.assertEquals(homeZipCodeDataNewPage.getEmailFieldText(), expectedEmail);
         Assert.assertEquals(actualErrorMessageText, expectedErrorMessageText);
-        Assert.assertFalse(homeZipCodeDataNewPage.isNextButtonSubmiting());
+        Assert.assertFalse(homeZipCodeDataNewPage.isNextButtonSubmitting());
     }
 }

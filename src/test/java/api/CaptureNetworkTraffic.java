@@ -21,77 +21,17 @@ public class CaptureNetworkTraffic {
         return this;
     }
 
-    public List<String> captureHttpRequests() {
-        List<String> request = new ArrayList<>();
-
-        devTools.addListener(Network.requestWillBeSent(),
-                entry -> {
-                    if (!entry.getRequest().getUrl().contains("google")
-                            && !entry.getRequest().getUrl().contains("/themes/")
-                            && !entry.getRequest().getUrl().contains("assets")
-                            && !entry.getRequest().getUrl().contains(".png")
-                    ) {
-                        request.add(entry.getRequest().getMethod());
-                        request.add(entry.getRequest().getUrl());
-                        request.add(entry.getRequest().getPostData().toString());
-                    }
-                });
-
-        return request;
-    }
-
-    public List<String> captureHttpResponses() {
-        List<String> response = new ArrayList<>();
-
-        devTools.addListener(Network.responseReceived(),
-                entry -> {
-                    if (!entry.getResponse().getUrl().contains("google")
-                            && !entry.getResponse().getUrl().contains("/themes/")
-                            && !entry.getResponse().getUrl().contains("assets")
-                            && !entry.getResponse().getUrl().contains(".png")
-                    ) {
-                        response.add(entry.getResponse().getStatus().toString());
-                        response.add(entry.getResponse().getStatusText());
-                        response.add(entry.getResponse().getUrl());
-                        response.add(entry.getResponse().getResponseTime().toString());
-                    }
-                });
-
-        return response;
-    }
-
-    public List<String> captureHttpRequests(String endPoint, String method) {
-        List<String> request = new ArrayList<>();
-
-        devTools.addListener(Network.requestWillBeSent(),
-                entry -> {
-                    if (entry.getRequest().getUrl().contains(endPoint)
-                            && entry.getRequest().getMethod().equalsIgnoreCase(method)
-                            && !entry.getRequest().getUrl().contains("google")
-                            && !entry.getRequest().getUrl().contains("/themes/")
-                            && !entry.getRequest().getUrl().contains("assets")
-                            && !entry.getRequest().getUrl().contains(".png")
-                    ) {
-                        request.add(entry.getRequest().getMethod());
-                        request.add(entry.getRequest().getUrl());
-                        request.add(entry.getRequest().getPostData().toString());
-                    }
-                });
-
-        return request;
-    }
-
     public List<String> captureHttpRequestsContain(String text) {
         List<String> request = new ArrayList<>();
 
         devTools.addListener(Network.requestWillBeSent(),
                 entry -> {
                     if (entry.getRequest().getUrl().contains(text)
-                                &&!entry.getRequest().getUrl().contains("google")
-                                && !entry.getRequest().getUrl().contains("/themes/")
-                                && !entry.getRequest().getUrl().contains("assets")
-                                && !entry.getRequest().getUrl().contains(".png")
-                                && !entry.getRequest().getUrl().contains(".js")
+                            && !entry.getRequest().getUrl().contains("google")
+                            && !entry.getRequest().getUrl().contains("/themes/")
+                            && !entry.getRequest().getUrl().contains("assets")
+                            && !entry.getRequest().getUrl().contains(".png")
+                            && !entry.getRequest().getUrl().contains(".js")
                     ) {
                         request.add(entry.getRequest().getMethod());
                         request.add(entry.getRequest().getUrl());
@@ -101,27 +41,7 @@ public class CaptureNetworkTraffic {
         return request;
     }
 
-    public List<String> captureHttpRequestsExcluding(String excludingMethod) {
-        List<String> request = new ArrayList<>();
-
-        devTools.addListener(Network.requestWillBeSent(),
-                entry -> {
-                    if (!entry.getRequest().getMethod().equalsIgnoreCase(excludingMethod)
-                            && !entry.getRequest().getUrl().contains("google")
-                            && !entry.getRequest().getUrl().contains("/themes/")
-                            && !entry.getRequest().getUrl().contains("assets")
-                            && !entry.getRequest().getUrl().contains(".png")
-                    ){
-                        request.add(entry.getRequest().getMethod());
-                        request.add(entry.getRequest().getUrl());
-                        request.add(entry.getRequest().getPostData().toString());
-                    }
-                });
-
-        return request;
-    }
-
-    public List<String> captureHttpResponsesContain(String text){
+    public List<String> captureHttpResponsesContain(String text) {
         List<String> response = new ArrayList<>();
 
         devTools.addListener(Network.responseReceived(),

@@ -25,7 +25,7 @@ public class PartnersTest extends BaseTest {
     public void testSeeOnTheWebsiteButtonNavigatesToApacheWebsite() {
         final String expectedURL = "https://camel.apache.org/components/next/weather-component.html";
 
-        PartnersPage partnersPage=openBaseURL()
+        PartnersPage partnersPage = openBaseURL()
                 .clickPartnersMenu();
 
         String oldURL = partnersPage.getCurrentURL();
@@ -44,22 +44,22 @@ public class PartnersTest extends BaseTest {
     public void testLinksTextsAreAsExpected() {
         final List<String> expectedRightSideLinks = List.of(
                 "Google Weather-Based Campaign Management with OpenWeatherMap API"
-                ,"Google Maps JavaScript API based on OpenWeatherMap API"
-                ,"OpenWeather current weather data in Mozilla's IoT project"
-                ,"Ubuntu"
-                ,"Android"
-                ,"Leaflet"
-                ,"Java"
-                ,"Go (golang)"
-                ,"JavaScript"
-                ,"CMS"
-                ,"Raspberry Pi"
-                ,"Python"
-                ,"PHP"
-                ,"Apache Camel"
-                ,"Desktop"
-                ,"Mobile applications"
-                ,"Big library on GitHub"
+                , "Google Maps JavaScript API based on OpenWeatherMap API"
+                , "OpenWeather current weather data in Mozilla's IoT project"
+                , "Ubuntu"
+                , "Android"
+                , "Leaflet"
+                , "Java"
+                , "Go (golang)"
+                , "JavaScript"
+                , "CMS"
+                , "Raspberry Pi"
+                , "Python"
+                , "PHP"
+                , "Apache Camel"
+                , "Desktop"
+                , "Mobile applications"
+                , "Big library on GitHub"
         );
 
         List<String> actualRightSideLinks = openBaseURL()

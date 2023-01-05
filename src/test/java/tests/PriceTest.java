@@ -131,12 +131,12 @@ public class PriceTest extends BaseTest {
 
     @Test
     public void testDetailedPricingButtons() {
-        final int expectedDetailedPricingButtons  = 2;
+        final int expectedDetailedPricingButtons = 2;
         final List<String> expectedLabels = Arrays.asList("Detailed pricing", "Detailed pricing");
 
         PricePage pricePage = openBaseURL().clickPricingMenu();
 
-        Assert.assertEquals(pricePage.getDetailedPricingButtonsAmount(), expectedDetailedPricingButtons );
-        Assert.assertEquals(pricePage.getDetailedPricingButtonsLabels(),expectedLabels);
+        Assert.assertEquals(pricePage.getDetailedPricingButtonsAmount(), expectedDetailedPricingButtons);
+        Assert.assertEquals(pricePage.getDetailedPricingButtonsLabels(), expectedLabels);
     }
 }

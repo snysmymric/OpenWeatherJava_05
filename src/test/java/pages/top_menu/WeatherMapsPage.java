@@ -11,22 +11,22 @@ import java.util.List;
 
 public class WeatherMapsPage extends TopMenuPage {
 
-    @FindBy (xpath = "//a[@class='leaflet-control-zoom-in']")
+    @FindBy(xpath = "//a[@class='leaflet-control-zoom-in']")
     private WebElement zoomInLoupe;
 
-    @FindBy (xpath = "//a[@class='leaflet-control-zoom-out']")
+    @FindBy(xpath = "//a[@class='leaflet-control-zoom-out']")
     private WebElement zoomOutLoupe;
 
     @FindBy(xpath = "//div[@id='desktop-menu']//a[@href='/weathermap']")
     private WebElement searchMapMenu;
 
-    @FindBy (xpath ="//div[@id='map']//label/span")
+    @FindBy(xpath = "//div[@id='map']//label/span")
     private List<WebElement> weatherControlMenus;
 
-    @FindBy(xpath ="//div[@class='leaflet-control-container']//form")
+    @FindBy(xpath = "//div[@class='leaflet-control-container']//form")
     private WebElement loopDisplayBlock;
 
-    @FindBy (xpath = "//div[@class='leaflet-control-container']//form/input")
+    @FindBy(xpath = "//div[@class='leaflet-control-container']//form/input")
     private WebElement searchLoopField;
 
     @FindBy(xpath = "//a[@title='Nominatim Search']")
@@ -64,13 +64,13 @@ public class WeatherMapsPage extends TopMenuPage {
     }
 
     public WeatherMapsPage clickLoopDisplayBlock() {
-        click (loopDisplayBlock);
+        click(loopDisplayBlock);
 
         return this;
     }
 
     public WeatherMapsPage clickSearchButton() {
-        click (nominatimSearchButton);
+        click(nominatimSearchButton);
 
         return this;
     }

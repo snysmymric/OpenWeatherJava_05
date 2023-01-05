@@ -2,9 +2,10 @@ package tests;
 
 import base.BaseTest;
 import org.testng.Assert;
-import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
-import pages.*;
+import pages.MainPage;
+import pages.OurInitiativesPage;
+import pages.TestData;
 import pages.home.HomeMarketplacePage;
 import pages.home.HomeUsersSignInPage;
 import pages.top_menu.*;
@@ -281,24 +282,32 @@ public class TopMenuTest extends BaseTest {
         Assert.assertEquals(actualTitle, expectedTitle);
     }
 
-    @Test
-    public void testEachTopMenuNavigatesToCorrespondingPage() {
-        final List<String> expectedURLs = List.of(
-                "https://openweathermap.org/guide",
-                "https://openweathermap.org/api",
-                "https://openweathermap.org/weather-dashboard",
-                "https://home.openweathermap.org/marketplace",
-                "https://openweathermap.org/price",
-                "https://openweathermap.org/weathermap?basemap=map&cities=true&layer=temperature&lat=30&lon=-20&zoom=5",
-                "https://openweathermap.org/our-initiatives",
-                "https://openweathermap.org/examples",
-                "https://openweather.co.uk/blog/category/weather",
-                "https://openweather.co.uk/",
-                "https://home.openweathermap.org/users/sign_in");
+    @Test(dataProvider = "TopMenuTestData", dataProviderClass = TestData.class)
+    public void testEachTopMenuNavigatesToCorrespondingPage(
+            int index, String menuName, String href, String expectedURL, String expectedTitle) {
 
-        List<String> actualURLs = openBaseURL().getAllMenusLinks();
+        MainPage mainPage = openBaseURL();
 
-        Assert.assertEquals(actualURLs, expectedURLs);
+        String oldURL = mainPage.getCurrentURL();
+        String oldTitle = mainPage.getTitle();
+
+        mainPage.clickTopMenu(index);
+
+        String actualURL = getDriver().getCurrentUrl();
+        String actualTitle = getDriver().getTitle();
+
+        if (index != 0) {
+            Assert.assertNotEquals(actualURL, oldURL);
+            Assert.assertNotEquals(actualTitle, oldTitle);
+        }
+
+        if (index != 6) {
+            Assert.assertEquals(actualURL, expectedURL);
+        } else {
+            Assert.assertTrue(actualURL.contains(expectedURL));
+        }
+
+        Assert.assertEquals(actualTitle, expectedTitle);
     }
 
     @Test

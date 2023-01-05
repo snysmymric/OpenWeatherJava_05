@@ -8,13 +8,13 @@ import pages.base_abstract.FooterMenuPage;
 public class HomeAskQuestionPage extends FooterMenuPage {
 
     @FindBy(id = "question_form_email")
-    private WebElement emailTextbox;
+    private WebElement emailTextBox;
 
     @FindBy(id = "question_form_subject")
-    private WebElement subjectTextbox;
+    private WebElement subjectTextBox;
 
     @FindBy(id = "question_form_message")
-    private WebElement messageTextbox;
+    private WebElement messageTextBox;
 
     @FindBy(xpath = "//div[@class='col-sm-8']//input[@type='submit']")
     private WebElement submitButton;
@@ -71,7 +71,7 @@ public class HomeAskQuestionPage extends FooterMenuPage {
         super(driver);
     }
 
-    public String getErrorMessageText(){
+    public String getErrorMessageText() {
 
         return getText(errorMessage);
     }
@@ -81,7 +81,7 @@ public class HomeAskQuestionPage extends FooterMenuPage {
         return getText(enterYourAccountMessage);
     }
 
-    public HomeAskQuestionPage clickOnSubmitButton(){
+    public HomeAskQuestionPage clickOnSubmitButton() {
         click(submitButton);
 
         return this;
@@ -94,32 +94,32 @@ public class HomeAskQuestionPage extends FooterMenuPage {
     }
 
     public HomeAskQuestionPage selectSubject() {
-        click(subjectTextbox);
+        click(subjectTextBox);
 
         return this;
     }
 
     public HomeAskQuestionPage selectTechQuestionsInSubjectSubmenu() {
-        click(subjectTextbox);
+        click(subjectTextBox);
         click(techIssueSubjectSelect);
 
         return this;
     }
 
     public HomeAskQuestionPage inputTextInEmailTextbox(String text) {
-        input(text, emailTextbox);
+        input(text, emailTextBox);
 
         return this;
     }
 
     public HomeAskQuestionPage inputTextInMessageTextbox(String text) {
-        input(text, messageTextbox);
+        input(text, messageTextBox);
 
         return this;
     }
 
     public HomeAskQuestionPage selectSubject(String text) {
-        selectOption(subjectTextbox, text);
+        selectOption(subjectTextBox, text);
 
         return this;
     }

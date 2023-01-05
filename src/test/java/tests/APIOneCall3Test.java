@@ -9,7 +9,7 @@ public class APIOneCall3Test extends BaseTest {
 
     @Test
     public void testAPICallsParameters() {
-        final String expectedParameters ="Parameters";
+        final String expectedParameters = "Parameters";
         final String expectedFirstParameter = "lat, lon required Geographical coordinates (latitude, longitude). "
                 + "If you need the geocoder to automatic convert city names and zip-codes "
                 + "to geo coordinates and the other way around, please use our Geocoding API.";
@@ -28,18 +28,18 @@ public class APIOneCall3Test extends BaseTest {
                 .clickAPIMenu()
                 .clickAPIDocButton();
 
-        String actualParameters = apiOneCall3Page.getAPIOneCall3Parametrs().get(0);
-        String actualFirstParameter = apiOneCall3Page.getAPIOneCall3Parametrs().get(1);
-        String actualSecondParameter = apiOneCall3Page.getAPIOneCall3Parametrs().get(2);
-        String actualThirdParameter = apiOneCall3Page.getAPIOneCall3Parametrs().get(3);
-        String actualFourthParameter = apiOneCall3Page.getAPIOneCall3Parametrs().get(4);
-        String actualFifthParameter = apiOneCall3Page.getAPIOneCall3Parametrs().get(5);
+        String actualParameters = apiOneCall3Page.getADIOneCall3Parameters().get(0);
+        String actualFirstParameter = apiOneCall3Page.getADIOneCall3Parameters().get(1);
+        String actualSecondParameter = apiOneCall3Page.getADIOneCall3Parameters().get(2);
+        String actualThirdParameter = apiOneCall3Page.getADIOneCall3Parameters().get(3);
+        String actualFourthParameter = apiOneCall3Page.getADIOneCall3Parameters().get(4);
+        String actualFifthParameter = apiOneCall3Page.getADIOneCall3Parameters().get(5);
 
-        Assert.assertEquals(actualParameters,expectedParameters);
-        Assert.assertEquals(actualFirstParameter,expectedFirstParameter);
-        Assert.assertEquals(actualSecondParameter,expectedSecondParameter);
-        Assert.assertEquals(actualThirdParameter,expectedThirdParameter);
-        Assert.assertEquals(actualFourthParameter,expectedFourthParameter);
-        Assert.assertEquals(actualFifthParameter,expectedFifthParameter);
+        Assert.assertEquals(actualParameters, expectedParameters);
+        Assert.assertEquals(actualFirstParameter, expectedFirstParameter);
+        Assert.assertEquals(actualSecondParameter, expectedSecondParameter);
+        Assert.assertEquals(actualThirdParameter, expectedThirdParameter);
+        Assert.assertEquals(actualFourthParameter, expectedFourthParameter);
+        Assert.assertEquals(actualFifthParameter, expectedFifthParameter);
     }
 }

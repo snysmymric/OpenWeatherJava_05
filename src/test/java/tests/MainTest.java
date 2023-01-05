@@ -6,6 +6,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import pages.CurrentWeatherPage;
 import pages.MainPage;
+import pages.TestData;
 import utils.TestUtils;
 
 import java.util.List;
@@ -351,7 +352,6 @@ public class MainTest extends BaseTest {
                         .waitUntilDifferentWeatherPopUpIsVisible()
                         .clickMoreOptionsDropDown()
                         .clickDataSourceDropDown()
-                        .clickAllDataSourceOptions()
                         .getDataSourceOptionsTexts();
 
         Assert.assertEquals(actualDataSourceOptionsTexts, expectedDataSourceOptionsTexts);
@@ -388,12 +388,12 @@ public class MainTest extends BaseTest {
                         .clickDifferentWeatherButton()
                         .waitUntilDifferentWeatherPopUpIsVisible()
                         .clickMoreOptionsDropDown()
-                        .inputTextInEmailTextbox()
-                        .getEmailTextboxText();
+                        .inputTextInEmailTextBox()
+                        .getEmailTextBoxText();
 
         String additionalInfoTextBefore =
                 mainPage
-                        .inputTextInAdditionalInfoTextarea()
+                        .inputTextInAdditionalInfoTextArea()
                         .getAdditionalInfoText();
 
         String emailTextAfter =
@@ -402,7 +402,7 @@ public class MainTest extends BaseTest {
                         .clickDifferentWeatherButton()
                         .waitUntilDifferentWeatherPopUpIsVisible()
                         .clickMoreOptionsDropDown()
-                        .getEmailTextboxText();
+                        .getEmailTextBoxText();
 
         String additionalInfoTextAfter =
                 mainPage
@@ -438,5 +438,27 @@ public class MainTest extends BaseTest {
         Assert.assertNotEquals(currentWeatherPage.getTitle(), basePageTitle);
         Assert.assertEquals(currentWeatherPage.getCurrentURL(), expectedUrl);
         Assert.assertEquals(currentWeatherPage.getTitle(), expectedTitle);
+    }
+
+    @Test(dataProvider = "ApiIconsMainPage", dataProviderClass = TestData.class)
+    public void testAPIIconsNavigateToCorrespondingPages(
+            int index, String iconName, String iconDescription, String href, String expectedURL, String expectedTitle) {
+
+        MainPage mainPage = openBaseURL();
+
+        final String oldURL = mainPage.getCurrentURL();
+        final String oldTitle = mainPage.getTitle();
+
+        mainPage
+                .scrollByOrangeBackground()
+                .clickApiIcon(index);
+
+        String actualURL = getDriver().getCurrentUrl();
+        String actualTitle = getDriver().getTitle();
+
+        Assert.assertNotEquals(oldURL, actualURL);
+        Assert.assertNotEquals(oldTitle, actualTitle);
+        Assert.assertEquals(actualURL, expectedURL);
+        Assert.assertEquals(actualTitle, expectedTitle);
     }
 }

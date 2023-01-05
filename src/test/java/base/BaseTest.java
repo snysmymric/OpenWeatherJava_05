@@ -22,6 +22,11 @@ public abstract class BaseTest {
     private WebDriver driver;
     private WebDriverWait webDriverWait;
 
+    public static String getBaseUrl() {
+
+        return BASE_URL;
+    }
+
     @BeforeSuite
     protected void beforeSuite(ITestContext context) {
 
@@ -62,11 +67,6 @@ public abstract class BaseTest {
         Thread.sleep(millis);
     }
 
-    public static String getBaseUrl() {
-
-        return BASE_URL;
-    }
-
     public MainPage openBaseURL() {
         TestUtils.loadBaseUrlPage(getDriver(), getWait());
 
@@ -80,6 +80,9 @@ public abstract class BaseTest {
     }
 
     public String getExternalPageTitle() {
+        if(getDriver().getTitle().isEmpty()) {
+            TestUtils.waitForPageLoaded(getDriver());
+        }
 
         return getDriver().getTitle();
     }

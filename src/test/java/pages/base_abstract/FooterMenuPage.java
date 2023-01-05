@@ -3,7 +3,8 @@ package pages.base_abstract;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import pages.*;
+import pages.MainPage;
+import pages.WeatherStationsPage;
 import pages.footer_menu.AboutUsPage;
 import pages.footer_menu.TechnologyPage;
 import pages.footer_menu.WidgetsPage;
@@ -11,7 +12,6 @@ import pages.home.HomeAskQuestionPage;
 import pages.top_menu.PricePage;
 import pages.top_menu.WeatherDashboardPage;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public abstract class FooterMenuPage extends TopMenuPage {
@@ -97,17 +97,7 @@ public abstract class FooterMenuPage extends TopMenuPage {
         return getListSize(socialPanelIconsFooterMenu);
     }
 
-    public String getDownloadOpenWeatherAppText() {
-
-        return getText(downloadOpenWeatherAppText);
-    }
-
-    public int getStoreIconsCount() {
-
-        return getListSize(storeIcons);
-    }
-
-    public String getCopyright(){
+    public String getCopyright() {
 
         return getText(copyright);
     }
@@ -205,25 +195,6 @@ public abstract class FooterMenuPage extends TopMenuPage {
         return new MainPage(getDriver());
     }
 
-    public List<String> clickEachIconAndGetURL() {
-        String mainWindow = getDriver().getWindowHandle();
-        List<String> currentURLs = new ArrayList<>();
-
-        for (WebElement icon : socialPanelIconsFooterMenu) {
-            click(icon);
-            if (getDriver().getWindowHandles().size() > 1) {
-                switchToAnotherWindow();
-                currentURLs.add(getCurrentURL());
-                getDriver().close();
-                getDriver().switchTo().window(mainWindow);
-            } else {
-                currentURLs.add(getCurrentURL());
-            }
-        }
-
-        return currentURLs;
-    }
-
     public HomeAskQuestionPage switchToHomeAskQuestionPage() {
         switchToAnotherWindow();
 
@@ -238,15 +209,5 @@ public abstract class FooterMenuPage extends TopMenuPage {
     public boolean isSocialPanelDisplayed() {
 
         return isElementDisplayed(socialPanelFooterMenu);
-    }
-
-    public boolean isGithubIconDisplayed() {
-
-        return isElementDisplayed(githubIconFooterMenu);
-    }
-
-    public boolean isDownloadOpenWeatherAppDisplayed() {
-
-        return isElementDisplayed(downloadOpenWeatherAppText);
     }
 }

@@ -38,8 +38,8 @@ public class FAQPage extends BreadCrumbPage {
         for (WebElement currentElement : getQuestions()) {
             scrollByVisibleElement(currentElement);
             clickByJavaScript(currentElement);
-            if(questionsInnerDescription.isDisplayed()) {
-                openedContainersAmount ++;
+            if (questionsInnerDescription.isDisplayed()) {
+                openedContainersAmount++;
             }
         }
 

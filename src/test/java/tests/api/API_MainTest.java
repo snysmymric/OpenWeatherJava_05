@@ -1,35 +1,47 @@
 package tests.api;
 
-import api.Alert;
 import api.ApiHelpers;
 import api.CaptureNetworkTraffic;
+import api.model.Current;
 import base.BaseTest;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.testng.Assert;
 import org.testng.Reporter;
 import org.testng.annotations.Test;
 import pages.MainPage;
+import tests.retrytest.Retry;
 import utils.DateTimeUtils;
 
 import java.io.IOException;
-import java.net.*;
+import java.net.HttpURLConnection;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.Year;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static io.restassured.RestAssured.given;
 
 public class API_MainTest extends BaseTest {
-    static HttpResponse<String> response;
-    static String alertText;
-    static List<String> weatherDescriptionList = new ArrayList<>();
-    final static String PARIS_URL = "https://openweathermap.org/data/2.5/"
+    final static String DATA_URL = "https://openweathermap.org/data/2.5/";
+    final static String PARIS_URL_ONECALL = DATA_URL
             + "onecall?lat=48.8534&lon=2.3488&units=metric&appid=439d4b804bc8187953eb36d2a8c26a02";
+    final static String PARIS_URL_WEATHER = DATA_URL + "weather?id=2988507&appid=439d4b804bc8187953eb36d2a8c26a02";
+    static HttpResponse<String> response;
+    static String city;
+    static String country;
+    static long weatherTemp;
+    static long weatherFeelsLike;
+    static String weatherDescription;
+    static List<String> weatherDescriptionList = new ArrayList<>();
 
     @Test
     public void test_API_CNTRequest_OpenBaseURL() {
@@ -66,6 +78,7 @@ public class API_MainTest extends BaseTest {
         for (int i = 2; i < responses.size(); i += 4) {
             Assert.assertTrue(responses.get(i).contains("openweathermap.org/"));
         }
+
         Assert.assertTrue(Double.parseDouble(responses.get(3).substring(10, 14)) <= 3);
     }
 
@@ -93,11 +106,11 @@ public class API_MainTest extends BaseTest {
                 .contains("openweathermap.org/data/2.5/onecall?lat=48.8534&lon=2.3488"));
     }
 
-    @Test
+    @Test(retryAnalyzer = Retry.class)
     public void test_API_HttpRequestResponse_WhenSearchingCityCountry() {
         try {
             final HttpRequest request = HttpRequest.newBuilder()
-                    .uri(new URI(PARIS_URL))
+                    .uri(new URI(PARIS_URL_WEATHER))
                     .GET()
                     .build();
 
@@ -112,44 +125,71 @@ public class API_MainTest extends BaseTest {
         Assert.assertNotNull(response.body());
         Assert.assertEquals(response.statusCode(), 200);
 
+        Reporter.log("Response: " + response.body(), true);
+
         final JSONObject obj = new JSONObject(response.body());
-        String alertText = obj.getJSONArray("alerts").getJSONObject(0).getString("event");
-
-        String alertTextFromUI = openBaseURL()
-                .clickSearchCityField()
-                .inputSearchCriteria("Paris")
-                .clickSearchButton()
-                .clickParisInDropDownList()
-                .getWeatherAlertText();
-
-        if (alertText != null && !alertText.isEmpty() && !alertText.isBlank()) {
-            Assert.assertEquals(alertTextFromUI.trim(), alertText.trim());
+        final JSONArray weather = obj.getJSONArray("weather");
+        for (int i = 0; i < weather.length(); i++) {
+            JSONObject item = weather.getJSONObject(i);
+            if (item.keySet().contains("description")) {
+                weatherDescription = (String) item.get("description");
+                break;
+            }
         }
+
+        city = obj.getString("name");
+        country = obj.getJSONObject("sys").getString("country");
+        weatherTemp = Math.round(obj.getJSONObject("main").getDouble("temp"));
+        weatherFeelsLike = Math.round(obj.getJSONObject("main").getDouble("feels_like"));
+        weatherDescription = weatherDescription.substring(0, 1).toUpperCase()
+                .concat(weatherDescription.substring(1));
+
+        String expectedCityCountry = city.concat(", ").concat(country);
+        String expectedCurrentTemp = String.valueOf(weatherTemp).concat("°C");
+        String expectedFeelsLike = "Feels like ".concat(String.valueOf(weatherFeelsLike)
+                .concat("°C. ").concat(weatherDescription.concat(". ")));
+
+        List<String> actualUIWeatherCondition = Arrays.asList(
+                openBaseURL()
+                        .clickSearchCityField()
+                        .inputSearchCriteria("Paris")
+                        .clickSearchButton()
+                        .clickParisInDropDownList()
+                        .waitForCityCountryNameChanged("London, GB")
+                        .getCurrentWeatherText()
+                        .toString()
+                        .split("\n")
+        );
+
+        Assert.assertEquals(actualUIWeatherCondition.get(1), expectedCityCountry);
+        Assert.assertEquals(actualUIWeatherCondition.get(2), expectedCurrentTemp);
+        Assert.assertEquals(actualUIWeatherCondition.get(3).substring(0, expectedFeelsLike.length()), expectedFeelsLike);
     }
 
     @Test
     public void test_API_RAResponse_WhenSearchingCityCountry() {
-        final List<Alert> alerts = given()
+        Current obj = given()
                 .when()
                 .contentType(ContentType.JSON)
-                .get(PARIS_URL)
+                .get(PARIS_URL_ONECALL)
                 .then().log().ifError()
-                .extract().body().jsonPath().getList("alerts", Alert.class);
+                .extract().body().jsonPath().getObject("current", Current.class);
 
-        for (Alert alert : alerts) {
-            alertText = alert.getEvent();
-        }
+        weatherTemp = Math.round(obj.getTemp());
+        weatherFeelsLike = Math.round(obj.getFeels_like());
 
-        String alertTextFromUI = openBaseURL()
+        MainPage mainPage = openBaseURL()
                 .clickSearchCityField()
                 .inputSearchCriteria("Paris")
                 .clickSearchButton()
                 .clickParisInDropDownList()
-                .getWeatherAlertText();
+                .waitForCityCountryNameChanged("London, GB");
 
-        if (alertText != null && !alertText.isEmpty() && !alertText.isBlank()) {
-            Assert.assertEquals(alertTextFromUI.trim(), alertText.trim());
-        }
+        String actualCurrentTemp = mainPage.getCurrentTempAndUnit();
+        String actualFeelsLike = mainPage.getFeelsLike();
+
+        Assert.assertEquals(actualCurrentTemp, String.valueOf(weatherTemp).concat("°C"));
+        Assert.assertEquals(actualFeelsLike, "Feels like " + weatherFeelsLike + "°C.");
     }
 
     @Test
@@ -159,7 +199,7 @@ public class API_MainTest extends BaseTest {
         final Response response = given()
                 .when()
                 .contentType(ContentType.JSON)
-                .get(PARIS_URL)
+                .get(PARIS_URL_ONECALL)
                 .then()
                 .log().ifError()
                 .extract().response();
@@ -192,7 +232,7 @@ public class API_MainTest extends BaseTest {
     public void test_API_HttpResponse_AndUIView_OfEightDaysForecastCalendar() {
         try {
             final HttpRequest request = HttpRequest.newBuilder()
-                    .uri(new URI(PARIS_URL))
+                    .uri(new URI(PARIS_URL_ONECALL))
                     .GET()
                     .build();
 
@@ -232,7 +272,7 @@ public class API_MainTest extends BaseTest {
     public void test_UIEightDaysForecastCalendarOnCurrentDateFrom_API_HttpResponse() {
         try {
             final HttpRequest request = HttpRequest.newBuilder()
-                    .uri(new URI(PARIS_URL))
+                    .uri(new URI(PARIS_URL_ONECALL))
                     .GET()
                     .build();
 
@@ -311,7 +351,7 @@ public class API_MainTest extends BaseTest {
     public void test_API_HttpRequestResponse__WeatherTempParis() {
         try {
             HttpRequest request = HttpRequest.newBuilder()
-                    .uri(new URI(PARIS_URL))
+                    .uri(new URI(PARIS_URL_ONECALL))
                     .GET()
                     .build();
 
@@ -348,7 +388,7 @@ public class API_MainTest extends BaseTest {
     public void test_API_HttpResponse_CurrentPressureInParis() {
         try {
             final HttpRequest request = HttpRequest.newBuilder()
-                    .uri(new URI(PARIS_URL))
+                    .uri(new URI(PARIS_URL_ONECALL))
                     .GET()
                     .build();
 

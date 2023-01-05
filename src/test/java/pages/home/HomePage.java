@@ -49,27 +49,11 @@ public class HomePage extends HomeTopMenuPage {
         return new HomeAPIKeysPage(getDriver());
     }
 
-    public int getH2Headers() {
-
-        return getListSize(h2Headers);
-    }
-
     public List<String> getListH2Headers() {
 
         return getTexts(h2Headers);
     }
 
-    public int navTabs() {
-        areAllElementsVisibleAndClickable(navTabs);
-
-        return getListSize(navTabs);
-    }
-
-    public List<String> listNavTabElements() {
-
-        return getTexts(navTabs);
-    }
-    
     public HomePage clickUserNameMenu() {
         click(userTopMenu);
 

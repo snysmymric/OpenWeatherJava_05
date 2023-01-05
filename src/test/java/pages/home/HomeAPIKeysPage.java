@@ -38,8 +38,18 @@ public class HomeAPIKeysPage extends FooterMenuPage {
     }
 
     public String getLastAPIKeyStatus() {
+        List<String> keys = getTexts(apiKeys);
+        List<String> keysStatuses = getTexts(apiKeysStatuses);
+        String lastKeyName = getLastGeneratedAPIKeyName();
+        String lastKeyStatus = "";
 
-        return getText(apiKeysStatuses.get(apiKeysStatuses.size() - 1));
+        for(int i = 0; i < keys.size(); i ++) {
+            if (keys.get(i).contains(lastKeyName)) {
+                lastKeyStatus = keysStatuses.get(i);
+            }
+        }
+
+        return lastKeyStatus;
     }
 
     public String confirmMessageAppears() {
@@ -52,9 +62,18 @@ public class HomeAPIKeysPage extends FooterMenuPage {
         return getText(apiKeysDeletedConfirmationMessage);
     }
 
-    public String getLastAPIKeyName() {
+    public String getLastGeneratedAPIKeyName() {
+        List<String> keysNames = getTexts(apiKeysNames);
+        String newKeyName = "";
 
-        return getText(apiKeysNames.get(apiKeysNames.size() - 1));
+        for (String name : keysNames) {
+            if (!name.equals("Default") && !name.equals("WidgetsKey")) {
+                newKeyName = name;
+            }
+
+        }
+
+        return  newKeyName;
     }
 
     public HomeAPIKeysPage clickAPIKeyNameField() {
@@ -63,10 +82,9 @@ public class HomeAPIKeysPage extends FooterMenuPage {
         return this;
     }
 
-    public HomeAPIKeysPage clickGenerateKeysButton() {
+    public void clickGenerateKeysButton() {
         click(generateButton);
 
-        return this;
     }
 
     public HomeAPIKeysPage inputNewName(String text) {
@@ -86,9 +104,7 @@ public class HomeAPIKeysPage extends FooterMenuPage {
         return this;
     }
 
-    public HomeAPIKeysPage confirmAPIKeyDeletion() {
+    public void confirmAPIKeyDeletion() {
         getDriver().switchTo().alert().accept();
-
-        return this;
     }
 }

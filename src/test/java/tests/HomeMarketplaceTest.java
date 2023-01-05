@@ -18,9 +18,9 @@ public class HomeMarketplaceTest extends BaseTest {
         HomeMarketplacePage homeMarketplacePage = new HomeMarketplacePage(getDriver());
 
         List<WebElement> allButtons = openBaseURL()
-                        .clickMarketplaceMenu()
-                        .switchToMarketplaceWindow()
-                        .getAllHomeMarketplaceButtons();
+                .clickMarketplaceMenu()
+                .switchToMarketplaceWindow()
+                .getAllHomeMarketplaceButtons();
 
         for (WebElement button : allButtons) {
             if (button.isEnabled() && button.isDisplayed()) {
@@ -46,7 +46,7 @@ public class HomeMarketplaceTest extends BaseTest {
 
         homeZipCodeDataNewPage.clickWeatherDataByStateMenu();
 
-        String actualURL= homeZipCodeDataNewPage.getCurrentURL();
+        String actualURL = homeZipCodeDataNewPage.getCurrentURL();
         String actualTitle = homeZipCodeDataNewPage.getTitle();
 
         Assert.assertNotEquals(oldURL, actualURL);

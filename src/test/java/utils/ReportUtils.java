@@ -8,10 +8,10 @@ import java.lang.reflect.Method;
 
 public class ReportUtils {
 
-    private final static String H_LINE =
-            " ==========================================================================================\n";
     public final static String END_LINE =
             "\n______________________________________________________________________________________________________________________________";
+    private final static String H_LINE =
+            " ==========================================================================================\n";
 
     private static String getTestStatus(ITestResult result) {
         int status = result.getStatus();
@@ -32,7 +32,7 @@ public class ReportUtils {
         return DateTimeUtils.getTimeInMinSecFormat(time);
     }
 
-    public static String getReportHeader(ITestContext context){
+    public static String getReportHeader(ITestContext context) {
 
         String header = "\tTest Report\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t" + "\n";
         String currentDate = "\tDate: "

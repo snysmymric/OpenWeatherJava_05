@@ -4,6 +4,7 @@ import base.BaseTest;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import pages.home.HomePage;
+import utils.TestUtils;
 
 import java.util.List;
 
@@ -38,6 +39,8 @@ public class HomeTopMenuTest extends BaseTest {
         List<String> actualURLs = openBaseURL()
                 .signIn()
                 .clickHomeTopMenus();
+
+        TestUtils.waitForPageLoaded(getDriver());
 
         Assert.assertEquals(actualURLs, expectedURLs);
     }

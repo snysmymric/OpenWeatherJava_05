@@ -1,13 +1,11 @@
 package pages;
 
 import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.Point;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.testng.reporters.jq.Main;
 import pages.base_abstract.FooterMenuPage;
 import utils.DateTimeUtils;
 import utils.TestUtils;
@@ -15,8 +13,6 @@ import utils.TestUtils;
 import java.time.Year;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import static utils.TestUtils.convertStringToInt;
 
@@ -57,6 +53,9 @@ public class MainPage extends FooterMenuPage {
 
     @FindBy(xpath = "//div[@class='current-temp']/span")
     private WebElement currentTempAndUnit;
+
+    @FindBy(css = "div.current-container.mobile-padding")
+    private List<WebElement> currentWeatherContainer;
 
     @FindBy(className = "pop-up-container")
     private WebElement differentWeatherPopUpContainer;
@@ -155,7 +154,7 @@ public class MainPage extends FooterMenuPage {
     private List<WebElement> dataSourceOptions;
 
     @FindBy(xpath = "//input[@type='email']")
-    private WebElement emailTextbox;
+    private WebElement emailTextBox;
 
     @FindBy(xpath = "//textarea[@class='owm_textarea']")
     private WebElement anyAdditionalInfoTextarea;
@@ -181,7 +180,8 @@ public class MainPage extends FooterMenuPage {
     @FindBy(xpath = "//ul//li[contains(text(), 'hPa')]")
     private WebElement currentPressure;
 
-    public static final String RANDOM_TEXT = TestUtils.getRandomName();
+    @FindBy(xpath = "//div[contains(text(), 'Feels like')]")
+    private WebElement feelsLikeText;
 
     public MainPage(WebDriver driver) {
         super(driver);
@@ -237,11 +237,6 @@ public class MainPage extends FooterMenuPage {
         return getText(h3DialogTitle);
     }
 
-    public String getActualTime() {
-
-        return getText(currentTime).substring(0, 10);
-    }
-
     public String getBottomPanelText() {
 
         return getText(textPanel);
@@ -249,14 +244,20 @@ public class MainPage extends FooterMenuPage {
 
     public int getTemperatureValueInDifferentWeatherContainer() {
 
-        return convertStringToInt(getAttribute(temperatureInputInDifferentWeatherContainer,
-                "_value"));
-
+        return convertStringToInt(getAttribute(temperatureInputInDifferentWeatherContainer, "_value"));
     }
 
-    public WebElement getBulkLink() {
+    public String getFeelsLike() {
+        String description = getText(feelsLikeText);
+        char[] letters = description.toCharArray();
+        for (int i = 0; i < letters.length; i++) {
+            if (letters[i] == '.') {
 
-        return bulkLink;
+                return description.substring(0, i + 1);
+            }
+        }
+
+        return "Wrong description";
     }
 
     public String getNotificationMessage() {
@@ -279,9 +280,9 @@ public class MainPage extends FooterMenuPage {
         return displayedIcons;
     }
 
-    public String getWeatherAlertText() {
+    public List<String> getCurrentWeatherText() {
 
-        return getText(weatherAlert);
+        return getTexts(currentWeatherContainer);
     }
 
     public List<String> getListWeatherDescriptionText() {
@@ -321,6 +322,11 @@ public class MainPage extends FooterMenuPage {
         return getTexts(listOfEightDaysData);
     }
 
+    public String getCurrentTempAndUnit() {
+
+        return getText(currentTempAndUnit);
+    }
+
     public String getEightDaysForecastCalendarSequenceText() {
 
         final String[] dowMonDate = currentDateFromEightDaysForecast.getText().split(" ");
@@ -346,9 +352,9 @@ public class MainPage extends FooterMenuPage {
         return getText(dataSourceDropDown);
     }
 
-    public String getEmailTextboxText() {
+    public String getEmailTextBoxText() {
 
-        return getAttribute(emailTextbox, "_value");
+        return getAttribute(emailTextBox, "_value");
     }
 
     public String getCurrentTemp() {
@@ -357,7 +363,7 @@ public class MainPage extends FooterMenuPage {
     }
 
     public String getCurrentPressure() {
-        String pressure =  getText(currentPressure);
+        String pressure = getText(currentPressure);
 
         return pressure.substring(0, pressure.length() - 3);
     }
@@ -377,17 +383,6 @@ public class MainPage extends FooterMenuPage {
     public MainPage clickParisInDropDownList() {
         wait20ElementToBeVisible(searchDropdownMenu);
         click(parisFRChoiceInDropdownMenu);
-
-        return this;
-    }
-
-    public MainPage clickChoiceInDropDownList(String cityCountry) {
-        wait20ElementToBeVisible(searchDropdownMenu);
-        for (WebElement choice : allChoicesInDropDownMenu) {
-            if (choice.getText().equalsIgnoreCase(cityCountry)) {
-                click(choice);
-            }
-        }
 
         return this;
     }
@@ -441,23 +436,15 @@ public class MainPage extends FooterMenuPage {
 
         return this;
     }
-    public MainPage clickUpKeyInTemperatureInput() {
+
+    public void clickUpKeyInTemperatureInput() {
         clickArrowUp(temperatureInputInDifferentWeatherContainer);
 
-        return this;
     }
 
     public MainPage clickDataSourceDropDown() {
-        click(dataSourceDropDown);
-
-        return this;
-    }
-
-    public MainPage clickAllDataSourceOptions() {
-        for (int i = 0; i < dataSourceOptions.size(); i++) {
-            click(dataSourceOptions.get(i));
-            click(dataSourceDropDown);
-        }
+        scrollByVisibleElement(dataSourceDropDown);
+        click20(dataSourceDropDown);
 
         return this;
     }
@@ -474,6 +461,10 @@ public class MainPage extends FooterMenuPage {
         getWait10().until(ExpectedConditions.invisibilityOf(differentWeatherPopUpContainer));
 
         return this;
+    }
+
+    public void clickApiIcon(int index) {
+        click(getApiIcons().get(index));
     }
 
     public void switchToExternalPage() {
@@ -505,11 +496,6 @@ public class MainPage extends FooterMenuPage {
         return this;
     }
 
-    public boolean checkAllIconsAreVisibleAndClickable() {
-
-        return areAllElementsVisibleAndClickable(differentWeatherIcons);
-    }
-
     public boolean isSendButtonDisplayed() {
 
         return isElementDisplayed(sendButtonInDifferentWeatherContainer);
@@ -532,9 +518,9 @@ public class MainPage extends FooterMenuPage {
         return this;
     }
 
-    public List <String> getTempsAndUnitsList() {
+    public List<String> getTempsAndUnitsList() {
 
-        List <String> list = new ArrayList<>();
+        List<String> list = new ArrayList<>();
 
         for (String element : getTexts(dayListValues)) {
             list.add(element.substring(element.length() - 2));
@@ -543,24 +529,9 @@ public class MainPage extends FooterMenuPage {
         return list;
     }
 
-    public String isTextContainF() {
-
-        return getText(currentTempAndUnit);
-    }
-
     public int countActiveIconsInDifferentWeatherContainer() {
 
         return getListSize(activeIconsInDifferentWeatherContainer);
-    }
-
-    public List<String> isDayListValuesContainsC() {
-
-        return getTexts(dayListValues);
-    }
-
-    public List<String> isDayListValuesContainsF() {
-
-        return getTexts(dayListValues);
     }
 
     public MainPage scrollToPageBottom() {
@@ -586,24 +557,6 @@ public class MainPage extends FooterMenuPage {
     public MainPage waitForElementToBeVisible() {
         wait20ElementToBeVisible(allowAllButton);
         wait20ElementToBeVisible(manageButton);
-
-        return this;
-    }
-
-    public MainPage scrollByCoordinatesToWeatherDashboardFooterMenu() {
-        JavascriptExecutor js = (JavascriptExecutor) getDriver();
-        Point point = weatherDashboardFooterMenu.getLocation();
-        int xCoord = point.getX();
-        int yCoord = point.getY();
-        getWait20();
-        js.executeScript("window.scrollTo(" + xCoord + "," + (yCoord - 200) + ")");
-
-        return this;
-    }
-
-    public MainPage logger_Info(String str) {
-        final Logger logger = Logger.getLogger(Main.class.getName());
-        logger.log(Level.INFO, String.valueOf(str));
 
         return this;
     }
@@ -635,14 +588,14 @@ public class MainPage extends FooterMenuPage {
         return this;
     }
 
-    public MainPage inputTextInEmailTextbox() {
+    public MainPage inputTextInEmailTextBox() {
         String randomEmail = TestUtils.getRandomName(7) + "@gmail.com";
-        input(randomEmail, emailTextbox);
+        input(randomEmail, emailTextBox);
 
         return this;
     }
 
-    public MainPage inputTextInAdditionalInfoTextarea() {
+    public MainPage inputTextInAdditionalInfoTextArea() {
         input(TestUtils.getRandomName(9), anyAdditionalInfoTextarea);
 
         return this;
@@ -657,7 +610,7 @@ public class MainPage extends FooterMenuPage {
     public List<String> getAllLinks() {
         List<String> linksList = new ArrayList<>();
 
-        for(WebElement link : allLinks) {
+        for (WebElement link : allLinks) {
             linksList.add(getAttribute(link, "href"));
         }
 
@@ -672,6 +625,6 @@ public class MainPage extends FooterMenuPage {
 
     public String getClassAttribute(WebElement element) {
 
-        return getAttribute(element ,"class");
+        return getAttribute(element, "class");
     }
 }

@@ -12,13 +12,15 @@ import java.util.List;
 
 public abstract class HomeTopMenuPage extends FooterMenuPage {
 
-    @FindBy(xpath = "//li[@class='user-li']/a" )
+    @FindBy(xpath = "//li[@class='user-li']/a")
     private WebElement signInTopMenu;
 
     @FindBy(xpath = "//ul[@id='myTab']/li")
     private List<WebElement> navTabLinks;
 
-    public HomeTopMenuPage(WebDriver driver) {super(driver);}
+    public HomeTopMenuPage(WebDriver driver) {
+        super(driver);
+    }
 
     public int getHomeTopMenusAmount() {
 
@@ -39,7 +41,7 @@ public abstract class HomeTopMenuPage extends FooterMenuPage {
             click(navTabLinks.get(i));
             urlList.add(getCurrentURL());
 
-            if(i == 6) {
+            if (i == 6) {
                 goBack();
             }
         }

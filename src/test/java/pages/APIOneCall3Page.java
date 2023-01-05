@@ -17,7 +17,7 @@ public class APIOneCall3Page extends FooterMenuPage {
         super(driver);
     }
 
-    public List<String> getAPIOneCall3Parametrs() {
+    public List<String> getADIOneCall3Parameters() {
         List<String> APIOneCall3ParametersText = new ArrayList<>();
 
         for (int i = 0; i < getListSize(APIOneCall3Parameters); i++) {

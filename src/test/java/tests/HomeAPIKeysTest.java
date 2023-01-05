@@ -28,7 +28,7 @@ public class HomeAPIKeysTest extends BaseTest {
                 .clickGenerateKeysButton();
 
         int actualAmountOfKeys = homeAPIKeysPage.getAmountOfExistingAPIKeys();
-        String actualNameOfNewKey = homeAPIKeysPage.getLastAPIKeyName();
+        String actualNameOfNewKey = homeAPIKeysPage.getLastGeneratedAPIKeyName();
         String actualStatus = homeAPIKeysPage.getLastAPIKeyStatus();
         String successMessage = homeAPIKeysPage.confirmMessageAppears();
 
@@ -46,14 +46,14 @@ public class HomeAPIKeysTest extends BaseTest {
                 .signIn()
                 .clickAPIKeysTab();
 
-        String lastKeyName = homeAPIKeysPage.getLastAPIKeyName();
+        String lastKeyName = homeAPIKeysPage.getLastGeneratedAPIKeyName();
 
         Assert.assertEquals(lastKeyName, API_KEYS_NAME);
 
         homeAPIKeysPage.deleteLastAPIKey()
                 .confirmAPIKeyDeletion();
 
-        String actualLastKeyName = homeAPIKeysPage.getLastAPIKeyName();
+        String actualLastKeyName = homeAPIKeysPage.getLastGeneratedAPIKeyName();
         String actualNotificationMessage = homeAPIKeysPage.confirmationMessageDeleted();
 
         Assert.assertNotEquals(actualLastKeyName, lastKeyName);
