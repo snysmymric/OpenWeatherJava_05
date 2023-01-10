@@ -1,5 +1,5 @@
 <h1>Java 11 | Selenium | TestNG | Maven | POM | Rest Assured Project</h1>
-<p>This is a sample Java 11 AdoptOpenJDK | Selenium WebDriver | Maven | TestNG | Rest Assured project created in IntelliJ IDE, using Page Object Model and Generic Type.</p>
+<p>This is a sample Java 11 Adopt Open JDK | Selenium WebDriver | Maven | TestNG | Rest Assured project created in IntelliJ IDE, using Page Object Model and Generic Type.</p>
 <p>Website <a href="https://openweathermap.org/">https://openweathermap.org/</a>&nbsp;was used to create functional, API, and UI tests.</p>
 <p><a href="https://github.com/RedRoverSchool/OpenWeatherJava_05/blob/main/.github/workflows/ci.yml">ci.yml</a> file was used for the GitHub workflow<br /><br /><a href="https://github.com/dorny/test-reporter">dorny/test-reporter@v1</a> was used to generate reports after each CI run<br /><br /></p>
 <p><strong>pom.xml dependencies used:</strong></p>
